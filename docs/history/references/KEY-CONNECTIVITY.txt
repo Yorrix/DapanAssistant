@@ -1,0 +1,24 @@
+密钥连接测试 · 2026-10-23
+
+主设置与快速入门复用 SecretKeyField。只测试当前输入，不保存密钥；结果只保留在当前组件内存。
+修改输入/模型取消旧测试并清空旧结果；离开页面、退后台、主动取消均取消底层 Call/WebSocket。
+固定官方地址、禁止跟随重定向、不降级 TLS，不记录或展示密钥与原始错误正文。
+
+DeepSeek
+- GET https://api.deepseek.com/models，Authorization Bearer。
+- 只有 HTTP 200 + 合法且非空的模型列表通过鉴权；检查所选模型是否出现在列表。
+- 未出现所选模型显示“鉴权通过，模型待核对”，不把连通视作生成成功。
+- 不调用 chat/completions，不提交对话、附件或生成 token；不验证余额与实际推理。
+- 官方文档：https://api-docs.deepseek.com/api/list-models/
+
+阿里云百炼
+- wss://dashscope.aliyuncs.com/api-ws/v1/inference，与现有语音功能完全相同的北京兼容域名。
+- 官方文档明确 Authorization 在 WebSocket 握手校验，错误密钥返回 HTTP 401/403。
+- 仅 onOpen（完成有效 WebSocket 握手）判定鉴权通过，随即关闭连接；不发送 run-task、音频或任何用户内容。
+- 不开麦克风，不启动 ASR 任务；结果明确“模型权限与余额尚未验证”。
+- 不把 TCP 可达、405、重定向等误判为成功。
+- 官方文档：https://help.aliyun.com/en/model-studio/fun-asr-realtime-websocket-api
+- 共享域名兼容状态：https://help.aliyun.com/zh/model-studio/beijing-access-information
+
+分类错误：密钥无效、权限/地域、余额/额度、限流、超时、DNS、TLS、网络失败、接口错误和异常响应。
+本轮未使用用户真实密钥发请求；单测用构造响应和异常验证边界。

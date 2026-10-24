@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.HomeWidgetRulesTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:33:34.456Z" hostname="YORRIX-LEGION" time="0.002">
+  <properties/>
+  <testcase name="summaryPreviewKeepsWordsWithoutMarkdownChrome" classname="cn.dapan.assistant.HomeWidgetRulesTest" time="0.001"/>
+  <testcase name="partialAiOrderRetainsUnmentionedOrder" classname="cn.dapan.assistant.HomeWidgetRulesTest" time="0.001"/>
+  <testcase name="additionsNeverChangeExistingEnabledDefaults" classname="cn.dapan.assistant.HomeWidgetRulesTest" time="0.0"/>
+  <testcase name="legacyOrderIsPreservedAndNewWidgetsAreAppended" classname="cn.dapan.assistant.HomeWidgetRulesTest" time="0.0"/>
+  <testcase name="savedUnknownAndDuplicateKeysDoNotHideNewWidgets" classname="cn.dapan.assistant.HomeWidgetRulesTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

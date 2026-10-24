@@ -1,0 +1,38 @@
+公用按住说话（2026-10-24）
+
+覆盖：AI 栏及悬浮小助手的按住说话。与公用文字共用已经验证的大工邮箱登录。
+不覆盖：录音摘要的长时录音、录音补转写、实时翻译和课堂生词的实时收听；这些仍使用个人阿里云配置。
+在自备 API 模式下，原有个人语音直连行为不变，不自动切换费用来源。
+
+服务：WebSocket /ai/speech；仅接收 16 kHz / 单声道 / 16-bit PCM。
+固定使用阿里云百炼北京区 fun-asr-realtime；客户端不能更改供应商、模型、音频格式或传入私钥。
+用户可编辑的语音热词以最多 400 字符上下文传递。服务器不落盘音频或转写正文。
+
+限额：与文字统一使用 shared-ai.db，每人每天 1 元、每周 3 元、全站每月 30 元。
+语音每次预留 61 秒 × 330 微元 = 20130 微元；最多接收 60 秒音频。
+结算取上游累计 usage.duration 与已发送音频字节数向上取整秒数的较大值，防止取消时漏计尚未成句的尾音。
+用户取消/断线后，上游连接关闭，已提交音频仍计费；未提交音频不计费。
+崩溃中断由公共 Budget 的过期预留机制保守结算。异常供应商超额账单不会被截断隐藏。
+每人同时最多 1 个语音请求，和文字各占一个并发位，全站合计最多 4 个请求。
+
+限制：单帧最多 16 KiB，累计最多 1920000 字节；15 秒无客户端音频即断开；会话绝对上限 85 秒。
+语音完成先结算并释放预留，再发 task-finished，避免松手后的 AI 请求撞上旧预留。
+到 60 秒 App 停止录音并保留文本，继续等待松手发送或上滑取消，绝不自动替用户执行。
+任务失败、提前关闭或没有最终完成帧时不会向 AI 发送半句文字。
+
+部署：/etc/dapan.env 中设置 ALIYUN_API_KEY、SHARED_SPEECH_ENABLED=1（缺少则返回明确未开通）。
+仅经 SSH stdin 运行 /opt/dapan/venv/bin/python /opt/dapan/backend/deploy/configure_shared_speech_key.py。
+脚本先创建真实北京 ASR 任务验证权限，不上传音频；原子保留其他环境变量，权限 0600。
+重启 dapan-api.service 后检查 /health，失败则恢复原配置。标准输出仅为安全状态码。
+Nginx 必须为 /ai/speech 配置 WebSocket Upgrade/Connection，读取超时至少 90 秒。
+Python 依赖 websockets==15.0.1；Android 端只携带校园服务会话令牌，不接触服务器的模型密钥。
+
+官方依据：
+https://help.aliyun.com/zh/model-studio/fun-asr-realtime （北京区 0.00033 元/秒）
+https://help.aliyun.com/zh/model-studio/fun-asr-client-events （run-task / PCM / finish-task）
+https://help.aliyun.com/zh/model-studio/fun-asr-server-events （usage.duration 为任务累计计费秒数）
+定价可能调整，维护时需同步修改 MICRO_CNY_PER_SECOND、预留额度及说明。
+
+本机离线回归：backend/.venv/Scripts/python.exe -m pytest backend/test_shared_speech.py backend/test_shared_ai.py -q
+语音 15 项、文字 10 项通过：认证、热词/固定模型、结果清洗、结算先后、断线、上游失败、帧与总时长上限、共享额度与并发、超时、重复请求、限频不清登录、配置文件保留。
+离线测试使用模拟上游；真实语音可用性需在服务器安全配置密钥后单独验证。

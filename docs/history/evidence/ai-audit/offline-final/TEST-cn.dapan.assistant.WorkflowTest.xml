@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.WorkflowTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:33:34.598Z" hostname="YORRIX-LEGION" time="0.022">
+  <properties/>
+  <testcase name="uniformAndFullFrameImagesHaveNoConfidentProposal" classname="cn.dapan.assistant.WorkflowTest" time="0.001"/>
+  <testcase name="allDayNormalizesToOneDate" classname="cn.dapan.assistant.WorkflowTest" time="0.001"/>
+  <testcase name="travelAppearsOnPreviousDayWithoutEventBody" classname="cn.dapan.assistant.WorkflowTest" time="0.0"/>
+  <testcase name="deadlineHasNoOccupiedInterval" classname="cn.dapan.assistant.WorkflowTest" time="0.0"/>
+  <testcase name="wavRejectsWrongChannelCount" classname="cn.dapan.assistant.WorkflowTest" time="0.002"/>
+  <testcase name="wavRejectsTruncation" classname="cn.dapan.assistant.WorkflowTest" time="0.007"/>
+  <testcase name="eventEndingAtMidnightDoesNotSpill" classname="cn.dapan.assistant.WorkflowTest" time="0.0"/>
+  <testcase name="crossedOrNonFiniteCornersAreRejected" classname="cn.dapan.assistant.WorkflowTest" time="0.001"/>
+  <testcase name="wavRejectsEmptyAudio" classname="cn.dapan.assistant.WorkflowTest" time="0.003"/>
+  <testcase name="chunkingHandlesVeryLongLinesAndTinyLimit" classname="cn.dapan.assistant.WorkflowTest" time="0.001"/>
+  <testcase name="wavSkipsPaddedUnknownChunks" classname="cn.dapan.assistant.WorkflowTest" time="0.001"/>
+  <testcase name="brightPageProposalIsNearTrueCorners" classname="cn.dapan.assistant.WorkflowTest" time="0.003"/>
+  <testcase name="chunkingPreservesLongMultilingualText" classname="cn.dapan.assistant.WorkflowTest" time="0.0"/>
+  <testcase name="multiDayEventIsClippedAtBothEnds" classname="cn.dapan.assistant.WorkflowTest" time="0.0"/>
+  <testcase name="wavRejectsOddSampleBytes" classname="cn.dapan.assistant.WorkflowTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

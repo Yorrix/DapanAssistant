@@ -1,0 +1,159 @@
+{"id": "bill-food-0", "text": "午饭花了18元，记一下", "expect": {"action": "note", "module": "账单", "detail": "18", "group": "吃饭"}}
+{"id": "bill-food-1", "text": "刚才吃饭十八块钱，帮我记上", "expect": {"action": "note", "module": "账单", "detail": "18", "group": "吃饭"}}
+{"id": "bill-food-2", "text": "嗯，那个，午餐，18块，记个账", "expect": {"action": "note", "module": "账单", "detail": "18", "group": "吃饭"}}
+{"id": "bill-food-3", "text": "记一下吃饭，哦不是28，是18块", "expect": {"action": "note", "module": "账单", "detail": "18", "group": "吃饭"}}
+{"id": "bill-food-4", "text": "不是收入，是午饭花了十八块", "expect": {"action": "note", "module": "账单", "detail": "18", "group": "吃饭"}}
+{"id": "bill-food-5", "text": "把午饭18元记到账单，不是建日程", "expect": {"action": "note", "module": "账单", "detail": "18", "group": "吃饭"}}
+{"id": "bill-food-6", "text": "吃了份18元的饭，记到吃饭分类", "expect": {"action": "note", "module": "账单", "detail": "18", "group": "吃饭"}}
+{"id": "bill-food-7", "text": "十八元午饭，不用给我建待办，记账就好", "expect": {"action": "note", "module": "账单", "detail": "18", "group": "吃饭"}}
+{"id": "bill-income", "text": "记一下，收到助学补贴100元，这是收入", "expect": {"action": "note", "module": "账单", "detail": "-100", "group": "收入"}}
+{"id": "bill-other", "text": "昨天买书花了29.90，记一下", "expect": {"action": "note", "module": "账单", "detail": "29.90", "group": "其他", "date": "2026-10-22"}}
+{"id": "bill-missing", "text": "帮我记个午饭钱", "expect": {"action": "chat"}}
+{"id": "bill-negative-correction", "text": "把18元的午饭改成20元", "expect": {"action": "update", "targetId": "lunch", "patch": {"detail": "20"}}}
+{"id": "bill-zero", "text": "记一笔吃饭零元", "expect": {"action": "chat"}}
+{"id": "bill-overprecision", "text": "记饭钱18.256元，别四舍五入", "expect": {"action": "chat"}}
+{"id": "one-event-0", "text": "明天8点到9点去B01体测，带玉兰卡，不提醒", "contains": ["玉兰卡"], "expect": {"action": "event", "entry": {"kind": "TIMED", "start": "2026-10-24T08:00", "end": "2026-10-24T09:00", "location": "B01", "reminder": "OFF"}}, "emptyEvents": true}
+{"id": "one-event-1", "text": "明早八点体测，9点结束，地点B01。然后带玉兰卡，不要提醒。", "contains": ["玉兰卡"], "expect": {"action": "event", "entry": {"kind": "TIMED", "start": "2026-10-24T08:00", "end": "2026-10-24T09:00", "location": "B01", "reminder": "OFF"}}, "emptyEvents": true}
+{"id": "one-event-2", "text": "明天8到9点去体测。呃，带上玉兰卡。地点B01。不提醒。", "contains": ["玉兰卡"], "expect": {"action": "event", "entry": {"kind": "TIMED", "start": "2026-10-24T08:00", "end": "2026-10-24T09:00", "location": "B01", "reminder": "OFF"}}, "emptyEvents": true}
+{"id": "one-event-3", "text": "给我记一个事，明天8点到9点B01体测，记得带玉兰卡，别单独建待办也不要提醒", "contains": ["玉兰卡"], "expect": {"action": "event", "entry": {"kind": "TIMED", "start": "2026-10-24T08:00", "end": "2026-10-24T09:00", "location": "B01", "reminder": "OFF"}}, "emptyEvents": true}
+{"id": "one-event-4", "text": "明天8点去B01体测，带玉兰卡，一小时，不要通知", "contains": ["玉兰卡"], "expect": {"action": "event", "entry": {"kind": "TIMED", "start": "2026-10-24T08:00", "end": "2026-10-24T09:00", "location": "B01", "reminder": "OFF"}}, "emptyEvents": true}
+{"id": "event-travel", "text": "明天16点到17点去B01体测，路程15分钟，出发提醒，带玉兰卡", "contains": ["玉兰卡"], "expect": {"action": "event", "entry": {"kind": "TIMED", "start": "2026-10-24T16:00", "end": "2026-10-24T17:00", "travel": 15, "reminder": "DEPARTURE", "location": "B01"}}, "emptyEvents": true}
+{"id": "event-travel-off", "text": "明天16到17点B01开会，路上走20分钟，但是不要提醒", "expect": {"action": "event", "entry": {"kind": "TIMED", "travel": 20, "reminder": "OFF"}}, "emptyEvents": true}
+{"id": "course-default", "text": "明天10点到11点，在A01N上数学课，分类课程", "expect": {"action": "event", "entry": {"kind": "TIMED", "travel": 20, "reminder": "DEPARTURE", "category": "课程", "location": "A01N"}}}
+{"id": "course-off", "text": "明天10点到11点英语课，分类课程，但是不提醒", "expect": {"action": "event", "entry": {"kind": "TIMED", "travel": 20, "reminder": "OFF"}}}
+{"id": "event-absolute", "text": "明天10到11点开会，在明天8:45提醒", "expect": {"action": "event", "entry": {"kind": "TIMED", "reminder": "ABSOLUTE", "absolute": "2026-10-24T08:45"}}}
+{"id": "event-missing-time", "text": "明天给我加个小组会", "expect": {"action": "chat"}}
+{"id": "event-midnight", "text": "今晚23点半加个日程，不知道何时结束", "expect": {"action": "chat"}}
+{"id": "event-cross-day", "text": "今晚23点到明天凌晨1点加个夜跑日程", "expect": {"action": "chat"}}
+{"id": "event-last-correction", "text": "后天，啊不，明天14到15点自习", "expect": {"action": "event", "entry": {"start": "2026-10-24T14:00", "end": "2026-10-24T15:00"}}}
+{"id": "event-location-update", "text": "把明天体测的地点改成F02，其它别动", "expect": {"action": "update", "targetId": "test-physics", "patch": {"location": "F02"}}}
+{"id": "event-note-update", "text": "明天那场体测备注再加上穿运动鞋，玉兰卡别漏了", "contains": ["运动鞋", "玉兰卡"], "expect": {"action": "update", "targetId": "test-physics"}}
+{"id": "event-ambiguous-delete", "text": "删掉成设那节课", "expect": {"action": "chat"}}
+{"id": "rename-semester", "text": "所有成设都改成程设，就是程序设计的程，不是成功的成", "expect": {"action": "rename_events", "names": [{"from": "成设", "to": "程设"}]}}
+{"id": "rename-multiturn", "text": "", "turns": [{"text": "把所有成设都改成程序设计", "expect": {"action": "rename_events", "names": [{"from": "成设", "to": "程序设计"}]}}, {"text": "还是用简称吧，全改成程设", "expect": {"action": "rename_events", "names": [{"from": "程序设计", "to": "程设"}]}}]}
+{"id": "batch-week", "text": "下周每天18到19点自习，包括周末，总共七条，不提醒", "count": 7, "contains": ["2026-10-26T18:00", "2026-11-01T18:00"], "expect": {"action": "batch"}}
+{"id": "batch-weekday", "text": "下周一到周五，每天18到19点自习，五条，不提醒", "count": 5, "expect": {"action": "batch"}}
+{"id": "batch-independent", "text": "记午饭18元，再加个紧急待办去G01交材料", "count": 2, "contains": ["G01", "18", "TODO"], "expect": {"action": "batch"}}
+{"id": "batch-carry-explicit", "text": "明天14到15点B01体测。另外单独新建一个带玉兰卡的待办", "count": 2, "contains": ["TIMED", "TODO"], "expect": {"action": "batch"}, "emptyEvents": true}
+{"id": "todo-0", "text": "新建一个紧急待办：去G01交材料", "expect": {"action": "event", "entry": {"kind": "TODO", "location": "G01", "urgent": true, "reminder": "OFF"}}, "emptyEvents": true}
+{"id": "todo-1", "text": "到G01交材料，作为待办记下，紧急", "expect": {"action": "event", "entry": {"kind": "TODO", "location": "G01", "urgent": true, "reminder": "OFF"}}, "emptyEvents": true}
+{"id": "todo-2", "text": "记个TDL，G01交材料，很急", "expect": {"action": "event", "entry": {"kind": "TODO", "location": "G01", "urgent": true, "reminder": "OFF"}}, "emptyEvents": true}
+{"id": "todo-3", "text": "帮我把去G01交材料列入待办，优先做", "expect": {"action": "event", "entry": {"kind": "TODO", "location": "G01", "urgent": true, "reminder": "OFF"}}, "emptyEvents": true}
+{"id": "todo-no-date", "text": "加个普通待办，买一本笔记本", "expect": {"action": "event", "entry": {"kind": "TODO", "urgent": false}}, "emptyEvents": true}
+{"id": "todo-location", "text": "把交材料那个待办地点改H03", "expect": {"action": "update", "targetId": "test-tdl", "patch": {"location": "H03"}}}
+{"id": "todo-clear-location", "text": "把交材料待办的地点清空，任务本身保留", "expect": {"action": "update", "targetId": "test-tdl", "patch": {"location": ""}}}
+{"id": "todo-complete", "text": "交材料已经做完了，标完成", "expect": {"action": "complete", "targetId": "test-tdl"}}
+{"id": "ddl-new", "text": "下周五18点截止交作业，记DDL，提前30分钟提醒", "expect": {"action": "event", "entry": {"kind": "DEADLINE", "start": "2026-10-30T18:00", "reminder": "BEFORE", "before": 30}}}
+{"id": "ddl-complete", "text": "实验报告交完了，把那个DDL标成已完成", "expect": {"action": "complete", "targetId": "test-ddl"}}
+{"id": "all-day", "text": "明天全天运动会，记个全天事项，不提醒", "expect": {"action": "event", "entry": {"kind": "ALL_DAY", "start": "2026-10-24T00:00", "end": "2026-10-25T00:00", "reminder": "OFF"}}}
+{"id": "morning-pass", "text": "今天晨签合格了", "expect": {"action": "morning", "date": "2026-10-23", "passed": true}}
+{"id": "morning-leave", "text": "昨天晨签请假了，按合格记", "expect": {"action": "morning", "date": "2026-10-22", "passed": true}}
+{"id": "morning-future", "text": "把明天的晨签记成合格", "expect": {"action": "chat"}}
+{"id": "morning-exact", "text": "开启晨签最后一分钟的精确提醒", "expect": {"action": "tool", "module": "晨签", "op": "configure", "args": {"lastCall": true}}}
+{"id": "morning-time", "text": "晨签统计时间改到7点40", "expect": {"action": "tool", "module": "晨签", "op": "configure", "args": {"time": "07:40"}}}
+{"id": "route-current-0", "text": "从我的位置导航到F02", "screen": "日历", "expect": {"action": "route", "from": "我的位置", "to": "F02"}}
+{"id": "route-current-1", "text": "从我现在的位置导航到F02", "screen": "日历", "expect": {"action": "route", "from": "我的位置", "to": "F02"}}
+{"id": "route-current-2", "text": "从这里导航到F02", "screen": "日历", "expect": {"action": "route", "from": "我的位置", "to": "F02"}}
+{"id": "route-current-3", "text": "从我这儿导航到F02", "screen": "日历", "expect": {"action": "route", "from": "我的位置", "to": "F02"}}
+{"id": "route-current-4", "text": "从当前位置导航到F02", "screen": "日历", "expect": {"action": "route", "from": "我的位置", "to": "F02"}}
+{"id": "route-named", "text": "从A01N去B03，给我看路线", "expect": {"action": "route", "from": "A01N", "to": "B03"}}
+{"id": "route-no-start", "text": "导航去F02", "expect": {"action": "route", "from": "我的位置", "to": "F02"}}
+{"id": "route-clear", "text": "清空导航起点和终点", "screen": "导航", "pageState": {"from": "我的位置", "to": "F02"}, "expect": {"action": "tool", "module": "地图", "op": "route", "args": {"from": "", "to": ""}}}
+{"id": "heat-view", "text": "看一下我最近七天的校园热力图", "expect": {"action": "tool", "module": "地图", "op": "heat_view", "args": {"mode": "热力图", "range": "近7天"}}}
+{"id": "heat-start", "text": "开始记录我的校园热力图", "expect": {"action": "tool", "module": "地图", "op": "heat_record", "args": {"enabled": true}}}
+{"id": "heat-stop", "text": "暂停记录热力图，数据别删", "expect": {"action": "tool", "module": "地图", "op": "heat_record", "args": {"enabled": false}}}
+{"id": "heat-range", "text": "热力图只看10月1日到10月20日", "expect": {"action": "tool", "module": "地图", "op": "heat_view", "args": {"range": "自定义", "start": "2026-10-01", "end": "2026-10-20"}}}
+{"id": "parcel", "text": "记个取件码3-2-6789", "expect": {"action": "note", "module": "快递", "title": "3-2-6789", "detail": ""}}
+{"id": "parcel-sf", "text": "顺丰取件码SF-12345记下来", "expect": {"action": "note", "module": "快递", "title": "SF-12345"}}
+{"id": "parcel-delete", "text": "3-2-1234那个快递取了，删除", "expect": {"action": "delete", "module": "快递", "targetId": "parcel"}}
+{"id": "info-dorm", "text": "帮我存一下寝室号B12-401", "expect": {"action": "note", "module": "信息查询", "title": "寝室", "detail": "B12-401", "group": "个人信息"}}
+{"id": "info-teacher", "text": "记录测试老师的办公室A01N302，职务是辅导员", "contains": ["A01N302", "辅导员"], "expect": {"action": "note", "module": "信息查询", "group": "老师信息"}}
+{"id": "focus-start", "text": "帮我专注25分钟", "expect": {"action": "focus", "minutes": 25}}
+{"id": "focus-config", "text": "专注设40分钟，允许来电但不要其它通知", "expect": {"action": "tool", "module": "专注", "op": "configure", "args": {"minutes": 40, "calls": true, "notifications": false}}}
+{"id": "focus-stop", "text": "结束这次专注", "expect": {"action": "tool", "module": "专注", "op": "stop", "args": {}}}
+{"id": "focus-too-long", "text": "连续专注900分钟", "expect": {"action": "chat"}}
+{"id": "wheel-save", "text": "做一个打扫抽签，测试甲、测试乙、测试丙，权重1比1比2，先别转", "expect": {"action": "tool", "module": "抽签", "op": "save", "args": {"options": [{"name": "测试甲", "weight": 1}, {"name": "测试乙", "weight": 1}, {"name": "测试丙", "weight": 2}]}}}
+{"id": "wheel-missing", "text": "给我们三个人抽谁扫地，概率一比一比二", "expect": {"action": "chat"}}
+{"id": "wheel-settings", "text": "转盘改成指针转，每次半秒", "oneOf": [{"action": "tool", "module": "抽签", "op": "configure", "args": {"pointer": true, "duration": "短"}}, {"action": "tool", "module": "抽签", "op": "configure", "args": {"pointer": true, "duration": "自定义", "customMs": 500}}]}
+{"id": "wheel-spin", "text": "当前轮盘转一次，别猜结果", "screen": "抽签", "pageState": {"selectedId": "wheel-1"}, "expect": {"action": "tool", "module": "抽签", "op": "spin", "args": {}}}
+{"id": "banner-text", "text": "弹幕改成大工加油，横屏、滚动、白字黑底", "expect": {"action": "tool", "module": "手持弹幕", "op": "configure", "args": {"text": "大工加油", "landscape": true, "moving": true, "foreground": "#FFFFFF", "background": "#000000"}}}
+{"id": "banner-show", "text": "显示现在的手持弹幕", "expect": {"action": "tool", "module": "手持弹幕", "op": "show", "args": {}}}
+{"id": "banner-empty", "text": "显示我之前的手持弹幕", "oneOf": [{"action": "chat"}, {"action": "navigate", "module": "手持弹幕"}], "emptyBanner": true}
+{"id": "weather-morning", "text": "每天早上6点40提醒今天的天气", "expect": {"action": "tool", "module": "天气", "op": "notification", "args": {"period": "晨间", "enabled": true, "time": "06:40"}}}
+{"id": "weather-evening", "text": "每天晚上10点告诉我明天的天气", "expect": {"action": "tool", "module": "天气", "op": "notification", "args": {"period": "晚间", "enabled": true, "time": "22:00"}}}
+{"id": "weather-off", "text": "关掉晚间天气提醒，晨间不要改", "expect": {"action": "tool", "module": "天气", "op": "notification", "args": {"period": "晚间", "enabled": false}}}
+{"id": "radar", "text": "开启tibo雷达的新公告通知", "expect": {"action": "tool", "module": "tibo雷达", "op": "notification", "args": {"enabled": true}}}
+{"id": "notices-collapse", "text": "把官网通知的来源折叠起来", "expect": {"action": "tool", "module": "官网通知", "op": "filter", "args": {"expanded": false}}}
+{"id": "notices-summary", "text": "官网通知只显示标题，不要摘要", "expect": {"action": "tool", "module": "官网通知", "op": "filter", "args": {"summary": false}}}
+{"id": "notices-follow", "text": "关注盘锦校区官网panjin.dlut.edu.cn的新通知", "expect": {"action": "tool", "module": "官网通知", "op": "follow", "args": {"source": "panjin.dlut.edu.cn", "enabled": true}}}
+{"id": "home-notice-widget", "text": "首页的官网通知只显示我关注的来源", "expect": {"action": "tool", "module": "今天", "op": "widgets", "args": {"noticeScope": "FOLLOWED"}}}
+{"id": "favorite", "text": "把抽签加到工具收藏里", "expect": {"action": "tool", "module": "工具", "op": "favorite", "args": {"name": "抽签", "enabled": true}}}
+{"id": "favorite-remove", "text": "取消天气工具收藏", "expect": {"action": "tool", "module": "工具", "op": "favorite", "args": {"name": "天气", "enabled": false}}}
+{"id": "theme-dark", "text": "切成黑夜模式，配色和形状别动", "expect": {"action": "tool", "module": "设置", "op": "theme", "args": {"mode": "dark"}}}
+{"id": "pet-hide", "text": "小助手闲置时自动缩回屏幕边缘", "expect": {"action": "tool", "module": "设置", "op": "pet", "args": {"autoHide": true}}}
+{"id": "pet-disable", "text": "关掉小助手", "expect": {"action": "tool", "module": "设置", "op": "pet", "args": {"enabled": false}}}
+{"id": "import-courses", "text": "帮我导入学校课表", "expect": {"action": "tool", "module": "日历", "op": "import_courses", "args": {}}}
+{"id": "category-new", "text": "新建日程分类叫社团", "expect": {"action": "tool", "module": "日历", "op": "category_add", "args": {"name": "社团"}}}
+{"id": "translation-config", "text": "实时翻译设成英语到中文，并隐藏原文", "expect": {"action": "tool", "module": "实时翻译", "op": "configure", "args": {"from": "英语", "to": "中文", "original": false}}}
+{"id": "translation-stop", "text": "停一下实时翻译的收听", "expect": {"action": "tool", "module": "实时翻译", "op": "stop", "args": {}}}
+{"id": "translation-text", "text": "把 Please hand in the report tomorrow 加入实时翻译", "expect": {"action": "tool", "module": "实时翻译", "op": "translate", "args": {"text": "Please hand in the report tomorrow"}}}
+{"id": "vocab-level", "text": "课堂生词里，我已经掌握四级词汇了", "expect": {"action": "tool", "module": "课堂生词", "op": "configure", "args": {"level": "四级"}}}
+{"id": "vocab-stop", "text": "先暂停课堂生词收听", "expect": {"action": "tool", "module": "课堂生词", "op": "stop", "args": {}}}
+{"id": "vocab-known", "text": "课堂生词里的 derivative 我学会了", "expect": {"action": "tool", "module": "课堂生词", "op": "known", "args": {"word": "derivative", "known": true}}}
+{"id": "record-new", "text": "新建一条录音记录叫线代第二课，类型课程，别开始录音", "expect": {"action": "tool", "module": "会议纪要", "op": "create", "args": {"title": "线代第二课", "kind": "课程"}}}
+{"id": "record-start", "text": "开始录音，创建标题高数第二课，分类课程", "expect": {"action": "tool", "module": "会议纪要", "op": "record_start", "args": {"title": "高数第二课", "kind": "课程"}}}
+{"id": "record-stop", "text": "停止这次录音", "screen": "录音摘要", "pageState": {"recording": true, "folderId": "folder-1"}, "expect": {"action": "tool", "module": "会议纪要", "op": "record_stop", "args": {}}}
+{"id": "record-summary", "text": "给高数第一课生成录音摘要", "expect": {"action": "tool", "module": "会议纪要", "op": "summarize", "args": {"folderId": "folder-1"}}}
+{"id": "record-search", "text": "在高数第一课的全部录音里找极限", "oneOf": [{"action": "tool", "module": "会议纪要", "op": "view", "args": {"folderId": "folder-1", "all": true, "query": "极限"}}, {"action": "chat"}], "contains": ["极限"]}
+{"id": "record-play", "text": "从高数第一课第1次录音的30秒开始回听", "expect": {"action": "tool", "module": "会议纪要", "op": "play", "args": {"clipId": "clip-1", "atMs": 30000}}}
+{"id": "market-search", "text": "打开二手列表并筛选出售台灯的信息", "expect": {"action": "tool", "module": "二手信息", "op": "search", "args": {"query": "台灯", "kind": "sell"}}}
+{"id": "market-draft", "text": "起草一个出台灯的信息，联系方式微信 test_example，先不要发布", "oneOf": [{"action": "tool", "module": "二手信息", "op": "compose", "args": {"kind": "sell", "contacts": {"微信": "test_example"}}}, {"action": "tool", "module": "二手信息", "op": "draft", "args": {"kind": "sell", "contacts": {"微信": "test_example"}}}], "excludes": ["\"publish\":true"]}
+{"id": "market-missing", "text": "帮我卖台灯，我还没决定联系方式，先别发布", "oneOf": [{"action": "chat"}, {"action": "tool", "module": "二手信息", "op": "editor", "args": {}}, {"action": "tool", "module": "二手信息", "op": "compose", "args": {"kind": "sell"}}, {"action": "tool", "module": "二手信息", "op": "draft", "args": {"kind": "sell"}}], "excludes": ["\"publish\":true"], "emptyIfPresent": ["contacts"]}
+{"id": "library-save", "text": "把这个文件存进资料库", "expect": {"action": "tool", "module": "资料库", "op": "save_attachments", "args": {"ids": ["attachment-temp-id"]}}}
+{"id": "library-find", "text": "刚才那份物理实验说明，报告文件要怎么命名？请找出原文", "contains": ["学号_姓名_实验名称.pdf", "大学物理实验"], "excludes": ["要我继续", "请重新上传"], "expect": {"action": "chat"}}
+{"id": "library-followup", "text": "", "turns": [{"text": "物理实验报告怎么命名？请找原文", "expect": {"action": "chat"}, "contains": ["学号_姓名_实验名称.pdf"]}, {"text": "那截止是几点？", "expect": {"action": "chat"}, "contains": ["18:00"], "excludes": ["重新上传"]}]}
+{"id": "library-bad-old-id", "text": "继续读取刚才物理实验说明正文，告诉我完整命名规则", "contains": ["学号_姓名_实验名称.pdf"], "history": [{"role": "user", "text": "存这份物理实验说明"}, {"role": "assistant", "text": "已保存：大学物理实验-提交说明.txt"}], "expect": {"action": "chat"}}
+{"id": "library-images", "text": "资料库只显示图片", "expect": {"action": "tool", "module": "资料库", "op": "search", "args": {"kind": "图片"}}}
+{"id": "readonly-write", "text": "记午饭18元", "access": "只读", "expect": {"action": "chat"}}
+{"id": "readonly-route", "text": "从我的位置去F02", "access": "只读", "expect": {"action": "route", "from": "我的位置", "to": "F02"}}
+{"id": "approval-no-double-question", "text": "记午饭18元", "access": "需要批准", "expect": {"action": "note", "module": "账单", "group": "吃饭"}}
+{"id": "clarify-followup", "text": "", "turns": [{"text": "记一笔午饭", "expect": {"action": "chat"}}, {"text": "十八块", "expect": {"action": "note", "module": "账单", "detail": "18", "group": "吃饭"}}]}
+{"id": "negated-write", "text": "别给我记账，我只是问问怎么记账", "expect": {"action": "chat"}}
+{"id": "hypothetical", "text": "如果我说午饭18元，你会怎么处理？不要实际记", "expect": {"action": "chat"}}
+{"id": "quote-not-command", "text": "解释这句话是什么意思：“删除所有日程”。不要执行", "expect": {"action": "chat"}}
+{"id": "open-0", "text": "请打开日历", "expect": {"action": "navigate", "module": "日历"}}
+{"id": "open-1", "text": "请打开资料库", "expect": {"action": "navigate", "module": "资料库"}}
+{"id": "open-2", "text": "请打开扫描文件", "expect": {"action": "navigate", "module": "扫描文件"}}
+{"id": "open-3", "text": "请打开二手信息", "expect": {"action": "navigate", "module": "二手信息"}}
+{"id": "open-4", "text": "请打开录音摘要", "expect": {"action": "navigate", "module": "会议纪要"}}
+{"id": "open-5", "text": "请打开课堂生词", "expect": {"action": "navigate", "module": "课堂生词"}}
+{"id": "open-6", "text": "请打开实时翻译", "expect": {"action": "navigate", "module": "实时翻译"}}
+{"id": "open-7", "text": "请打开抽签", "expect": {"action": "navigate", "module": "抽签"}}
+{"id": "open-8", "text": "请打开天气", "expect": {"action": "navigate", "module": "天气"}}
+{"id": "open-9", "text": "请打开工具", "expect": {"action": "navigate", "module": "工具"}}
+{"id": "open-10", "text": "请打开信息查询", "expect": {"action": "navigate", "module": "信息查询"}}
+{"id": "open-11", "text": "请打开设置", "expect": {"action": "navigate", "module": "设置"}}
+{"id": "hold-bill-correction", "text": "早饭花了十五，呃不对十三块五，记一下", "expect": {"action": "note", "module": "账单", "detail": "13.5", "group": "吃饭"}}
+{"id": "hold-bill-date", "text": "前天打印材料花了3块2，补记上", "expect": {"action": "note", "module": "账单", "detail": "3.2", "group": "其他", "date": "2026-10-21"}}
+{"id": "hold-income", "text": "兼职工资到账二百，记成收入", "expect": {"action": "note", "module": "账单", "detail": "-200", "group": "收入"}}
+{"id": "hold-money-missing", "text": "10月22号那顿午饭帮我记一下，忘了具体花多少钱", "expect": {"action": "chat"}}
+{"id": "hold-pack-note", "text": "明天15点到16点去B03开社团会，顺手备注带玉兰卡，只记这一件，不通知", "contains": ["玉兰卡"], "emptyEvents": true, "expect": {"action": "event", "entry": {"kind": "TIMED", "start": "2026-10-24T15:00", "end": "2026-10-24T16:00", "location": "B03", "reminder": "OFF"}}}
+{"id": "hold-todo-change", "text": "把交材料标完成，地点顺便改到H03", "expect": {"action": "update", "targetId": "test-tdl", "patch": {"completed": true, "location": "H03"}}}
+{"id": "hold-todo-location", "text": "记个不着急的待办，去H03问网络的事", "emptyEvents": true, "expect": {"action": "event", "entry": {"kind": "TODO", "urgent": false, "location": "H03"}}}
+{"id": "hold-remark", "text": "体测那条的备注改成穿运动鞋，别改时间地点", "expect": {"action": "update", "targetId": "test-physics", "patch": {"notes": "穿运动鞋"}}}
+{"id": "hold-course", "text": "明天下午两点到三点在A01S上课，名称测试课，归到课程", "expect": {"action": "event", "entry": {"kind": "TIMED", "start": "2026-10-24T14:00", "end": "2026-10-24T15:00", "travel": 20, "reminder": "DEPARTURE", "category": "课程", "location": "A01S"}}}
+{"id": "hold-location", "text": "带我去G01", "expect": {"action": "route", "from": "我的位置", "to": "G01"}}
+{"id": "hold-future", "text": "后天晨签先给我点个合格，省得忘了", "expect": {"action": "chat"}}
+{"id": "hold-weather", "text": "晚间的天气通知设到21:45并开启，早晨那个不动", "expect": {"action": "tool", "module": "天气", "op": "notification", "args": {"period": "晚间", "time": "21:45", "enabled": true}}}
+{"id": "hold-notices", "text": "以后这个页面只看标题，摘要收起来", "screen": "官网通知", "expect": {"action": "tool", "module": "官网通知", "op": "filter", "args": {"summary": false}}}
+{"id": "hold-home", "text": "今天页官网通知组件改回显示所有来源", "expect": {"action": "tool", "module": "今天", "op": "widgets", "args": {"noticeScope": "ALL"}}}
+{"id": "hold-wheel", "text": "今晚值日，甲和乙的概率1比3，建个轮盘", "expect": {"action": "tool", "module": "抽签", "op": "save", "args": {"options": [{"name": "甲", "weight": 1}, {"name": "乙", "weight": 3}]}}}
+{"id": "hold-wheel-rename", "text": "把今晚吃什么那个轮盘改名午饭选择，选项别动", "expect": {"action": "tool", "module": "抽签", "op": "save", "args": {"id": "wheel-1", "name": "午饭选择"}}}
+{"id": "hold-pet", "text": "小助手继续开着，只是不让它自动缩回去", "expect": {"action": "tool", "module": "设置", "op": "pet", "args": {"autoHide": false}}}
+{"id": "hold-translate", "text": "实时翻译换成中文译英语，原文显示出来", "expect": {"action": "tool", "module": "实时翻译", "op": "configure", "args": {"from": "中文", "to": "英语", "original": true}}}
+{"id": "hold-record", "text": "建一个会议类别的录音，标题周会，并马上开始录音", "expect": {"action": "tool", "module": "会议纪要", "op": "record_start", "args": {"title": "周会", "kind": "会议"}}}
+{"id": "hold-library", "text": "那份物理实验提交说明的截止时间和文件命名要求一起告诉我，引用原文", "contains": ["18:00", "学号_姓名_实验名称.pdf"], "expect": {"action": "chat"}}
+{"id": "hold-unknown-library", "text": "文件名称叫物理实验说明，别让我重新传，查一下完整的命名要求", "contains": ["学号_姓名_实验名称.pdf"], "excludes": ["重新上传"], "expect": {"action": "chat"}}
+{"id": "hold-readonly", "text": "帮我删了交材料待办", "access": "只读", "expect": {"action": "chat"}}
+{"id": "hold-no-actual", "text": "教我怎么说才能把课程改名，但这次不要改", "expect": {"action": "chat"}}
+{"id": "hold-light", "text": "换白天模式，保留现在的形状配色", "expect": {"action": "tool", "module": "设置", "op": "theme", "args": {"mode": "light"}}}

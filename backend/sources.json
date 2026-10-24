@@ -1,0 +1,234 @@
+[
+  {
+    "id": "panjin",
+    "name": "盘锦校区",
+    "channel": "通知公告",
+    "url": "https://panjin.dlut.edu.cn/tzgg.htm",
+    "category": "校区"
+  },
+  {
+    "id": "pjteach",
+    "name": "教学与科研工作部",
+    "channel": "重要通告",
+    "url": "https://pjteach.dlut.edu.cn/index/zytg.htm",
+    "category": "教务"
+  },
+  {
+    "id": "pjteach-exam",
+    "name": "教学与科研工作部",
+    "channel": "考试安排",
+    "url": "https://pjteach.dlut.edu.cn/index/ksap.htm",
+    "category": "教务"
+  },
+  {
+    "id": "pjteach-innovation",
+    "name": "教学与科研工作部",
+    "channel": "创新创业",
+    "url": "https://pjteach.dlut.edu.cn/cxcyjy/cxcyjy.htm",
+    "category": "活动"
+  },
+  {
+    "id": "xsgzb",
+    "name": "学生发展与事务工作部",
+    "channel": "通知公告",
+    "url": "https://xsgzb.dlut.edu.cn/index/tzgg.htm",
+    "category": "学工"
+  },
+  {
+    "id": "xsgzb-events",
+    "name": "学生发展与事务工作部",
+    "channel": "活动预告",
+    "url": "https://xsgzb.dlut.edu.cn/index/hdyg.htm",
+    "category": "活动"
+  },
+  {
+    "id": "pjxqtw",
+    "name": "盘锦校区团工委",
+    "channel": "通知公告",
+    "url": "https://pjxqtw.dlut.edu.cn/tzgg.htm",
+    "category": "活动"
+  },
+  {
+    "id": "pjcareer",
+    "name": "盘锦校区就业中心",
+    "channel": "通知公告",
+    "url": "https://pjcareer.dlut.edu.cn/index/tzgg.htm",
+    "category": "就业"
+  },
+  {
+    "id": "pjcareer-jobs",
+    "name": "盘锦校区就业中心",
+    "channel": "企业招聘",
+    "url": "https://pjcareer.dlut.edu.cn/xsfw/qyzp.htm",
+    "category": "就业"
+  },
+  {
+    "id": "pjlib",
+    "name": "图书馆盘锦校区分馆",
+    "channel": "新闻通知",
+    "url": "https://pjlib.dlut.edu.cn/xw/xwtz.htm",
+    "category": "生活"
+  },
+  {
+    "id": "pjxqzwb",
+    "name": "盘锦校区总务部",
+    "channel": "工作通知",
+    "url": "https://pjxqzwb.dlut.edu.cn/index/gztz.htm",
+    "category": "生活"
+  },
+  {
+    "id": "hyxy",
+    "name": "化工海洋与生命学院",
+    "channel": "院务通知",
+    "url": "https://hyxy.dlut.edu.cn/tzgg/ywtz.htm",
+    "category": "学院"
+  },
+  {
+    "id": "hyxy-student",
+    "name": "化工海洋与生命学院",
+    "channel": "学工通知",
+    "url": "https://hyxy.dlut.edu.cn/tzgg/xgtz.htm",
+    "category": "学工"
+  },
+  {
+    "id": "business",
+    "name": "商学院",
+    "channel": "通知公告",
+    "url": "https://business.dlut.edu.cn/tzgg.htm",
+    "category": "学院"
+  },
+  {
+    "id": "business-student",
+    "name": "商学院",
+    "channel": "学工通知",
+    "url": "https://business.dlut.edu.cn/xsgz/xgtz.htm",
+    "category": "学工"
+  },
+  {
+    "id": "fldpj",
+    "name": "公共基础学院",
+    "channel": "重要通知",
+    "url": "https://fldpj.dlut.edu.cn/index/zytz.htm",
+    "category": "学院"
+  },
+  {
+    "id": "fldpj-teach",
+    "name": "公共基础学院",
+    "channel": "教学信息",
+    "url": "https://fldpj.dlut.edu.cn/jxgl/jxxx.htm",
+    "category": "教务"
+  },
+  {
+    "id": "dqise",
+    "name": "昆士兰科技国际工学院",
+    "channel": "通知公示",
+    "url": "https://dqise.dlut.edu.cn/xsgz/tzgs.htm",
+    "category": "学工"
+  },
+  {
+    "id": "dqise-teach",
+    "name": "昆士兰科技国际工学院",
+    "channel": "教学通知",
+    "url": "https://dqise.dlut.edu.cn/jyjx/tzgs.htm",
+    "category": "教务"
+  },
+  {
+    "id": "dqise-international",
+    "name": "昆士兰科技国际工学院",
+    "channel": "国际交流",
+    "url": "https://dqise.dlut.edu.cn/gjjl/tzgs.htm",
+    "category": "国际"
+  },
+  {
+    "id": "dli",
+    "name": "莱斯特国际学院",
+    "channel": "通知公告",
+    "url": "https://dli.dlut.edu.cn/tzgg/tzgg.htm",
+    "category": "学院"
+  },
+  {
+    "id": "dli-teach",
+    "name": "莱斯特国际学院",
+    "channel": "教育教学",
+    "url": "https://dli.dlut.edu.cn/jyjx/tzgs.htm",
+    "category": "教务"
+  },
+  {
+    "id": "dli-student",
+    "name": "莱斯特国际学院",
+    "channel": "学生工作",
+    "url": "https://dli.dlut.edu.cn/xsgz/tzgs.htm",
+    "category": "学工"
+  },
+  {
+    "id": "dli-international",
+    "name": "莱斯特国际学院",
+    "channel": "国际交流",
+    "url": "https://dli.dlut.edu.cn/gjjl/tzgs.htm",
+    "category": "国际"
+  },
+  {
+    "id": "teach-exams",
+    "name": "教务处",
+    "channel": "考试安排",
+    "url": "https://teach.dlut.edu.cn/ksap/ksap.htm",
+    "category": "全校"
+  },
+  {
+    "id": "international",
+    "name": "国际合作与交流处",
+    "channel": "学生通知",
+    "url": "https://dutdice.dlut.edu.cn/tzgg/xstong_zhi.htm",
+    "category": "全校"
+  },
+  {
+    "id": "ssc-jobs",
+    "name": "学生服务中心",
+    "channel": "招聘通知",
+    "url": "https://ssc.dlut.edu.cn/xsjy/zptz.htm",
+    "category": "全校"
+  },
+  {
+    "id": "graduate",
+    "name": "研究生院",
+    "channel": "培养通知",
+    "url": "https://gs.dlut.edu.cn/yjspy/pygcguan_li/zytz.htm",
+    "category": "全校"
+  },
+  {
+    "id": "graduate-degree",
+    "name": "研究生院",
+    "channel": "学位公告",
+    "url": "https://gs.dlut.edu.cn/yjspy/xwgl12/zxgong_goa.htm",
+    "category": "全校"
+  },
+  {
+    "id": "library",
+    "name": "图书馆",
+    "channel": "通知公告",
+    "url": "https://lib.dlut.edu.cn/xw/tzgg.htm",
+    "category": "全校"
+  },
+  {
+    "id": "innovation",
+    "name": "创新创业学院",
+    "channel": "重要通知",
+    "url": "https://chuangxin.dlut.edu.cn/zytz/zytz.htm",
+    "category": "全校"
+  },
+  {
+    "id": "xsc",
+    "name": "学生工作处",
+    "channel": "通知公告",
+    "url": "https://xsc.dlut.edu.cn/",
+    "category": "全校",
+    "articlePath": "/info/1042/"
+  },
+  {
+    "id": "gjzgb",
+    "name": "高等教育综合改革办公室",
+    "channel": "通知公告",
+    "url": "https://gjzgb.dlut.edu.cn/dttz/tzgg.htm",
+    "category": "全校"
+  }
+]

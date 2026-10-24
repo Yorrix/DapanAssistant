@@ -1,0 +1,23 @@
+[Unit]
+Description=Dapan campus community API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=dapan
+Group=dapan
+WorkingDirectory=/opt/dapan/backend
+EnvironmentFile=/etc/dapan.env
+ExecStart=/opt/dapan/venv/bin/uvicorn app:app --host 127.0.0.1 --port 8765 --workers 1 --no-access-log --proxy-headers --forwarded-allow-ips=127.0.0.1
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/dapan/data
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

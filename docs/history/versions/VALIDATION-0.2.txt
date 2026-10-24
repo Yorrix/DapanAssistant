@@ -1,0 +1,40 @@
+大盘助手 0.2.0 开发与验证记录（2026-10-14）
+
+本轮约束
+用户暂时无法使用手机。本轮继续原生 Android 实现，没有连接手机，也没有运行新版的模拟器界面验证。
+0.1.0 的模拟器结果见 VALIDATION.txt，不应据此认为 0.2.0 的新增页面已经实测。
+
+新增实现
+1. 统一助手：支持日程/笔记草稿、记账、晨签、专注、地图起终点及已有记录的修改、删除、完成；同名时选择具体记录。修改需用户确认，一次处理一个动作。请求可以停止。
+2. 日历：选择日期；跨午夜路程和日程分段展示；已保存地点跳转地图。路程与提醒继续保持独立。
+3. 会议纪要：本地 WAV 后续转写、后台进度和取消；每 10 分钟分段请求并换算原始时间戳。成功后才替换文字，失败保留原内容，保留一份旧转写。支持逐段文字修正、旧文字恢复、录音重命名、排序、音频和文本导出。
+4. 长会议总结：分段处理再合并，可以取消；保存源文本标记，在转写改变后提示旧总结可能过期。
+5. 扫描：对亮纸暗背景提供四角建议；始终允许用户校正，复杂背景不保证识别。处理照片方向、手动旋转、透视校正、灰度、预览、页面排序持久化、逐页 JPG 与 A4 多页 PDF 导出。
+6. 记录备份：读取大小限制、格式和内容校验、导入前预览、与现有数据合并。同标识以本机为准，不恢复 API 密钥。附件仍是原文件授权引用，换手机需要重新选；音频需单独导出。
+7. 保存失败时回滚记录列表；取消/失败的转写不改原文字；广播恢复入口校验允许的系统 action；明确禁用系统云备份与设备迁移，避免不完整复制加密密钥。
+
+已验证
+- assembleDebug 成功；APK 静态信息：cn.dapan.assistant，versionCode=2，versionName=0.2.0，minSdk=26，targetSdk=37。
+- 37 项 JVM 测试全部通过：RulesTest 11，WorkflowTest 15，AssistantBackupTest 11，0 失败、0 错误。
+- 包括跨午夜时间轴、提醒边界、备份冲突与非法内容、模型操作范围、身份与附件保留、损坏/空/错误格式 WAV、文本切分不丢字符、纸张边缘提案等。
+- Android Lint 复查结果见本文件末尾。
+
+安装包
+release/DapanAssistant-0.2.0-debug.apk
+16937644 字节；仅调试签名，不是正式发布版。
+SHA-256: E8F42553C6CF47EA86F2A1D23174F840094F78B243F94083AAB6B0AFFD126907
+
+仍需验证
+- 本轮没有真实 DeepSeek/阿里云账号请求，不代表模型遵循程度、识别效果、长音频切段边界或费用已确认。
+- 新版界面视觉与交互、手机相机/EXIF 样本、多页 PDF 实际渲染效果、录音回听和省电后台行为尚未实测。
+- 扫描检测目前为传统图像算法，仅用合成图做逻辑测试；没有声称能稳定处理所有书页、阴影或杂乱背景。
+- 自动连续拍摄、书页去弯曲、课程重复规则、自动静音、晨间天气通知、通知服务和二手平台仍未完成。完整边界见 PRODUCT_SCOPE.json。
+
+本轮接口参考
+https://help.aliyun.com/en/model-studio/fun-asr-client-events
+https://help.aliyun.com/en/model-studio/fun-asr-server-events
+https://developer.android.com/develop/background-work/services/fgs/service-types#data-sync
+https://developer.android.com/jetpack/androidx/releases/exifinterface
+
+
+Android Lint 最终复查通过：0 个错误，27 个警告。剩余提示：GradleDependency=3, NewerVersionAvailable=3, UseKtx=18, UseTomlInstead=3（库版本更新、Kotlin 写法与依赖目录建议）。

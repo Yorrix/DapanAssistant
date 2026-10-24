@@ -1,0 +1,18 @@
+{
+  "dictionary": {
+    "id": "dictionary-v1",
+    "fileName": "ecdict-v1.db.gz",
+    "bytes": 10494199,
+    "sha256": "1ab3a2c8d0116e955acec7ff6cd27bfeb4e943916792afa23cbf895eb37c6b39",
+    "unpackedBytes": 24707072,
+    "unpackedSha256": "1efab9a6255964a1e466ce0aaa358efd32f2ba858618373cf6f951cca32ab776"
+  },
+  "scanner-model": {
+    "id": "scanner-model-v1",
+    "fileName": "docquadnet256-f0f2f52d7d79ff02.ort",
+    "bytes": 13404960,
+    "sha256": "f0f2f52d7d79ff02d346c8f9d0c9e903407366aeea1747cdcff160c401e3e72a",
+    "unpackedBytes": 13404960,
+    "unpackedSha256": "f0f2f52d7d79ff02d346c8f9d0c9e903407366aeea1747cdcff160c401e3e72a"
+  }
+}

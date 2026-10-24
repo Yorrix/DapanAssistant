@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.AssistantReasoningTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:55:10.063Z" hostname="YORRIX-LEGION" time="0.04">
+  <properties/>
+  <testcase name="networkFailureIsNotRetried" classname="cn.dapan.assistant.AssistantReasoningTest" time="0.004"/>
+  <testcase name="repeatedLookupDoesNotReadOrLoopForever" classname="cn.dapan.assistant.AssistantReasoningTest" time="0.004"/>
+  <testcase name="recentScheduleAndTodosAreNotBuriedByFutureSemester" classname="cn.dapan.assistant.AssistantReasoningTest" time="0.015"/>
+  <testcase name="catalogueRejectsUnknownToolsAndParameters" classname="cn.dapan.assistant.AssistantReasoningTest" time="0.002"/>
+  <testcase name="ambiguousTargetProducesQuestionWithoutExecuting" classname="cn.dapan.assistant.AssistantReasoningTest" time="0.003"/>
+  <testcase name="invalidOperationIsRepairedBeforeReturningAnyAction" classname="cn.dapan.assistant.AssistantReasoningTest" time="0.004"/>
+  <testcase name="consecutiveLibraryPagesAreNotRejectedAsRepeatedLookup" classname="cn.dapan.assistant.AssistantReasoningTest" time="0.003"/>
+  <testcase name="invalidAttemptsStopAfterTwoRepairs" classname="cn.dapan.assistant.AssistantReasoningTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

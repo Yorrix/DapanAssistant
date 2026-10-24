@@ -1,0 +1,18 @@
+--- before/CompanionPet.kt
++++ 0.61.4/CompanionPet.kt
+@@ -373,6 +373,15 @@
+    Switch(AppAppearance.petEnabled,{change(it)},Modifier.semantics{contentDescription="悬浮小助手"})
+   }
+   if(AppAppearance.petEnabled){
++   Row(Modifier.fillMaxWidth().padding(horizontal=10.dp,vertical=4.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(12.dp)){
++    Box(Modifier.size(68.dp).semantics{contentDescription="小助手外观预览"}){
++     PetSprite(dragging=false,expanded=false,clinging=false,edge=PetEdge.RIGHT,tilt=0f,visible=1f,hangOut=0f)
++    }
++    Column(verticalArrangement=Arrangement.spacedBy(3.dp)){
++     Text("小助手预览",fontSize=12.sp,color=Ink)
++     Text("外观随当前配色变化。",fontSize=11.sp,color=Muted)
++    }
++   }
+    Row(Modifier.fillMaxWidth().heightIn(min=42.dp).padding(horizontal=10.dp),verticalAlignment=Alignment.CenterVertically){
+     Column(Modifier.weight(1f)){
+      Text("闲置自动收起",fontSize=13.sp,color=Ink)

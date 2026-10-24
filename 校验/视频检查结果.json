@@ -1,0 +1,57 @@
+{
+  "fullDecodePassed": true,
+  "sceneBoundaryAndMidpointMatches": 105,
+  "totalFrames": 15908,
+  "totalSeconds": 265.1333333333333,
+  "audioVideoDurationDifferenceSeconds": 0.0,
+  "audioLagChecks": [
+    {
+      "scene": "today",
+      "lagMs": 0,
+      "correlation": 1.0
+    },
+    {
+      "scene": "import_entry",
+      "lagMs": 0,
+      "correlation": 1.0
+    },
+    {
+      "scene": "schedule_review",
+      "lagMs": 0,
+      "correlation": 1.0
+    },
+    {
+      "scene": "batch_shift",
+      "lagMs": 0,
+      "correlation": 1.0
+    },
+    {
+      "scene": "morning_remind",
+      "lagMs": 0,
+      "correlation": 1.0
+    },
+    {
+      "scene": "weather_notify",
+      "lagMs": 0,
+      "correlation": 1.0
+    },
+    {
+      "scene": "notices_follow",
+      "lagMs": 0,
+      "correlation": 1.0
+    },
+    {
+      "scene": "info",
+      "lagMs": 0,
+      "correlation": 0.999999
+    },
+    {
+      "scene": "record",
+      "lagMs": 0,
+      "correlation": 1.0
+    }
+  ],
+  "sha256": "91be4d4fe4f3b5d4b14933ca2463b570c5e473a9fc404728c44170a8146fedbd",
+  "fileBytes": 19293557,
+  "visualReview": "All 35 scene contact sheets reviewed; fixed crops; real recordings, fixtures labelled"
+}

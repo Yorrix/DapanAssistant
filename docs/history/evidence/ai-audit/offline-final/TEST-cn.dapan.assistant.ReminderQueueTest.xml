@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.ReminderQueueTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:33:34.533Z" hostname="YORRIX-LEGION" time="0.006">
+  <properties/>
+  <testcase name="freshEnableAfterDailyTimeStartsTomorrow" classname="cn.dapan.assistant.ReminderQueueTest" time="0.001"/>
+  <testcase name="changedCompletedAndExpiredDoNotReappear" classname="cn.dapan.assistant.ReminderQueueTest" time="0.001"/>
+  <testcase name="oneWakeProcessesCoincidentAndRecentlyDueItems" classname="cn.dapan.assistant.ReminderQueueTest" time="0.001"/>
+  <testcase name="futureStartAndInclusiveEndAreHonoured" classname="cn.dapan.assistant.ReminderQueueTest" time="0.0"/>
+  <testcase name="wholeSemesterNeedsOnlyNearestSystemWake" classname="cn.dapan.assistant.ReminderQueueTest" time="0.002"/>
+  <testcase name="backgroundRecoveryKeepsMissedDailyDueUntilMidnight" classname="cn.dapan.assistant.ReminderQueueTest" time="0.0"/>
+  <testcase name="historicalFutureMarkStillDoesNotCountBeforeItsDate" classname="cn.dapan.assistant.ReminderQueueTest" time="0.0"/>
+  <testcase name="calendarMorningLocksAllFutureDaysButKeepsPastAndTodayEditable" classname="cn.dapan.assistant.ReminderQueueTest" time="0.0"/>
+  <testcase name="successfulBatchMovesToNextReminderWithoutRepeating" classname="cn.dapan.assistant.ReminderQueueTest" time="0.0"/>
+  <testcase name="sentDailySchedulesTomorrowEvenWithoutOpeningApp" classname="cn.dapan.assistant.ReminderQueueTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

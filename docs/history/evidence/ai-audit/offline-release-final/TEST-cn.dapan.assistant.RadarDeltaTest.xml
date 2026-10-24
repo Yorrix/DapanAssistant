@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.RadarDeltaTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:55:11.733Z" hostname="YORRIX-LEGION" time="0.005">
+  <properties/>
+  <testcase name="staleExpiredMissingOrUnavailableForecastDoesNotNotify" classname="cn.dapan.assistant.RadarDeltaTest" time="0.001"/>
+  <testcase name="predictionsAndFutureSchedulesNeverNotify" classname="cn.dapan.assistant.RadarDeltaTest" time="0.0"/>
+  <testcase name="mergedAliasDoesNotNotifyAgain" classname="cn.dapan.assistant.RadarDeltaTest" time="0.0"/>
+  <testcase name="expiredWindowUsesTheStillValidReferenceDeadline" classname="cn.dapan.assistant.RadarDeltaTest" time="0.002"/>
+  <testcase name="firstForecastIsBaselinedWithoutHistoricalNotification" classname="cn.dapan.assistant.RadarDeltaTest" time="0.0"/>
+  <testcase name="cachedDataKeepsStableIdsWithoutRemovedContent" classname="cn.dapan.assistant.RadarDeltaTest" time="0.0"/>
+  <testcase name="changedPredictionWindowOrNewRecordNotifiesOnce" classname="cn.dapan.assistant.RadarDeltaTest" time="0.001"/>
+  <testcase name="newForecastAfterEnablingCanNotifyOnFirstSync" classname="cn.dapan.assistant.RadarDeltaTest" time="0.0"/>
+  <testcase name="newAnnouncementIsDeliveredOnce" classname="cn.dapan.assistant.RadarDeltaTest" time="0.0"/>
+  <testcase name="longOfflineDoesNotFloodOldEvents" classname="cn.dapan.assistant.RadarDeltaTest" time="0.0"/>
+  <testcase name="smallClockSkewIsAllowedButOlderSnapshotsCannotReplay" classname="cn.dapan.assistant.RadarDeltaTest" time="0.0"/>
+  <testcase name="noHistoricalFloodOnEnable" classname="cn.dapan.assistant.RadarDeltaTest" time="0.0"/>
+  <testcase name="repeatedFetchMetadataNeverCreatesANewPrediction" classname="cn.dapan.assistant.RadarDeltaTest" time="0.0"/>
+  <testcase name="presentationUpgradePreservesExistingPredictionFingerprint" classname="cn.dapan.assistant.RadarDeltaTest" time="0.001"/>
+  <testcase name="overviewKeepsOnlyLatestConfirmedReset" classname="cn.dapan.assistant.RadarDeltaTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

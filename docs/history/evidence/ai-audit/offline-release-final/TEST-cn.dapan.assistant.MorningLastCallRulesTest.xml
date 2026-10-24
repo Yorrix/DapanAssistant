@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.MorningLastCallRulesTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:55:11.723Z" hostname="YORRIX-LEGION" time="0.003">
+  <properties/>
+  <testcase name="rebootRestoresOnlyWithinExistingFinalMinute" classname="cn.dapan.assistant.MorningLastCallRulesTest" time="0.001"/>
+  <testcase name="oneDeliveryPerDateEvenWhenClockSettingChanges" classname="cn.dapan.assistant.MorningLastCallRulesTest" time="0.0"/>
+  <testcase name="midnightWarningBelongsToFollowingDay" classname="cn.dapan.assistant.MorningLastCallRulesTest" time="0.0"/>
+  <testcase name="deletedOrShortenedRangeRejectsPendingDelivery" classname="cn.dapan.assistant.MorningLastCallRulesTest" time="0.0"/>
+  <testcase name="warningIsExactlyOneMinuteBeforeSelectedStatisticsTime" classname="cn.dapan.assistant.MorningLastCallRulesTest" time="0.001"/>
+  <testcase name="weekendAndHolidaySkippedButNationalMakeupDayIncluded" classname="cn.dapan.assistant.MorningLastCallRulesTest" time="0.0"/>
+  <testcase name="receiverRejectsDisabledChangedAnsweredDuplicateAndExpiredCallbacks" classname="cn.dapan.assistant.MorningLastCallRulesTest" time="0.0"/>
+  <testcase name="endDateIsInclusiveAndFutureStartHonoured" classname="cn.dapan.assistant.MorningLastCallRulesTest" time="0.001"/>
+  <testcase name="freshEnableAfterWarningDoesNotCreateLateCatchup" classname="cn.dapan.assistant.MorningLastCallRulesTest" time="0.0"/>
+  <testcase name="AnyExplicitAnswerOrExclusionSuppressesReminder" classname="cn.dapan.assistant.MorningLastCallRulesTest" time="0.0"/>
+  <testcase name="disabledAndNoStatisticsRangeNeverSchedule" classname="cn.dapan.assistant.MorningLastCallRulesTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

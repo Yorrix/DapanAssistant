@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.AssistantAuditRegressionTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:55:09.930Z" hostname="YORRIX-LEGION" time="0.011">
+  <properties/>
+  <testcase name="approvalModeDoesNotInterruptQueriesOrNavigation" classname="cn.dapan.assistant.AssistantAuditRegressionTest" time="0.001"/>
+  <testcase name="stringNullCannotBecomeRealRecordTitle" classname="cn.dapan.assistant.AssistantAuditRegressionTest" time="0.001"/>
+  <testcase name="changingOnlyLocationNeverReschedulesEvent" classname="cn.dapan.assistant.AssistantAuditRegressionTest" time="0.0"/>
+  <testcase name="incomeAmountAndDateSurviveCorrection" classname="cn.dapan.assistant.AssistantAuditRegressionTest" time="0.001"/>
+  <testcase name="explicitIdEditSurvivesSwitchingTabsButImplicitSelectionDoesNot" classname="cn.dapan.assistant.AssistantAuditRegressionTest" time="0.0"/>
+  <testcase name="futureMorningMustFailDuringPlanningBeforePreview" classname="cn.dapan.assistant.AssistantAuditRegressionTest" time="0.001"/>
+  <testcase name="filenameHeadingSearchMustCarryFollowingRuleAsExactContext" classname="cn.dapan.assistant.AssistantAuditRegressionTest" time="0.006"/>
+  <testcase name="conflictingDuplicateJsonKeysMustNotChooseOneSilently" classname="cn.dapan.assistant.AssistantAuditRegressionTest" time="0.001"/>
+  <testcase name="explicitNewExpenseSurvivesSwitchingTabsWhileThinking" classname="cn.dapan.assistant.AssistantAuditRegressionTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.AssistantToolArgumentsAuditTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:55:10.855Z" hostname="YORRIX-LEGION" time="0.032">
+  <properties/>
+  <testcase name="partialLibraryReceiptPreservesRealIdsAndFailureScope" classname="cn.dapan.assistant.AssistantToolArgumentsAuditTest" time="0.005"/>
+  <testcase name="explicitClearsAndOptionalDefaultsRemainValid" classname="cn.dapan.assistant.AssistantToolArgumentsAuditTest" time="0.001"/>
+  <testcase name="everyGeneratedPageOperationHasAUsableArgumentShape" classname="cn.dapan.assistant.AssistantToolArgumentsAuditTest" time="0.007"/>
+  <testcase name="selectedRecordingDefaultsAreNotMadeMandatory" classname="cn.dapan.assistant.AssistantToolArgumentsAuditTest" time="0.001"/>
+  <testcase name="allFailedLibrarySaveCannotReturnSuccessReceipt" classname="cn.dapan.assistant.AssistantToolArgumentsAuditTest" time="0.001"/>
+  <testcase name="renameExportAndSelectionCannotLoseTheirTarget" classname="cn.dapan.assistant.AssistantToolArgumentsAuditTest" time="0.001"/>
+  <testcase name="wheelPartialUpdatesAndDefaultNameStayUsable" classname="cn.dapan.assistant.AssistantToolArgumentsAuditTest" time="0.0"/>
+  <testcase name="typesAreNotSilentlyCoercedIntoUnchangedDefaults" classname="cn.dapan.assistant.AssistantToolArgumentsAuditTest" time="0.002"/>
+  <testcase name="attachmentIdentityIsStableAndSeparateFromContentIdentity" classname="cn.dapan.assistant.AssistantToolArgumentsAuditTest" time="0.008"/>
+  <testcase name="marketDraftDoesNotRequireInventedContactAndPublicationDoes" classname="cn.dapan.assistant.AssistantToolArgumentsAuditTest" time="0.0"/>
+  <testcase name="datesEnumsAndRangesAreCheckedBeforePageNavigation" classname="cn.dapan.assistant.AssistantToolArgumentsAuditTest" time="0.003"/>
+  <testcase name="arrayElementsAndEmptyContainersCannotMasqueradeAsRequiredFields" classname="cn.dapan.assistant.AssistantToolArgumentsAuditTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

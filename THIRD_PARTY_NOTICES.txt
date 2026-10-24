@@ -1,0 +1,28 @@
+校园地图数据 © OpenStreetMap contributors，ODbL 1.0。
+来源：https://www.openstreetmap.org/copyright
+原始数据保留在 app/src/main/assets/panjin.osm，下载日期 2026-10-14。
+下载范围 bbox=122.110,40.675,122.128,40.692。
+本 App 自行绘制矢量数据，没有下载或缓存 OSM 公共地图瓦片。
+公共数据仅提供参考，建筑编号与入口开放状态可能不完整。
+
+天气来源 Open-Meteo，CC BY 4.0。
+https://open-meteo.com/en/docs
+https://creativecommons.org/licenses/by/4.0/
+
+2026 放假/补班日期来源：国务院办公厅国办发明电〔2025〕7号。
+官方转载：https://www.beijing.gov.cn/cs/gncs/zcwj/202603/t20260327_4568275.html
+晨签评奖与资助阈值是用户提供的产品规则，本次没有验证学校政策。
+
+Markdown rendering:
+Markwon 4.6.2 (core, tables, strikethrough, task list), Apache License 2.0.
+https://github.com/noties/Markwon
+CommonMark Java 0.13.0 (core and GFM extensions), BSD 2-Clause License.
+https://github.com/commonmark/commonmark-java
+Full licenses are bundled in app/src/main/assets/markdown-license/.
+
+Classroom vocabulary:
+ECDICT, MIT License. https://github.com/skywind3000/ECDICT
+Source snapshot 2026-10-23; derived dictionary and inflections are bundled offline.
+Full license: app/src/main/assets/vocabulary/LICENSE.txt.
+Source checksum, vocabulary counts and derivation details: vendor/ecdict/.
+High-school/CET word lists follow community source tags, not an official syllabus.

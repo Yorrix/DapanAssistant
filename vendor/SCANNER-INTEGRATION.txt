@@ -1,0 +1,8 @@
+Open Android Doc Scanner 0.7.0
+Upstream: https://github.com/phillip9933/open-android-doc-scanner
+Release: https://github.com/phillip9933/open-android-doc-scanner/releases/tag/v0.7.0
+
+Current integration (0.61.4): scanner-ui-compose and scanner-processing-opencv are built from local source through dapan.gradle.kts. Other SDK modules resolve from vendor/sdk-0.7.0/maven. Upstream licenses and notices are retained.
+The document detector model is downloaded as verified data within the app; scanner code and native runtimes are bundled in the app. There is no separately installed scanner component APK in this release.
+Original source model and dictionary source are retained for reproducibility. Upstream machine-specific build evidence, cached builds and duplicate SDK ZIPs are excluded from this delivery.
+The earlier integration description is preserved in docs/history/references/SCANNER-INTEGRATION-original.txt.

@@ -1,0 +1,26 @@
+课表导入 WebView 恢复说明
+
+实现边界
+- 使用系统 WebView，不捆绑内核、不设置猜测的最低版本、不依赖 Google Play。
+- getCurrentWebViewPackage 只作诊断；返回空或查询异常时仍尝试构造，兼容厂商组件。
+- 构造、配置失败显示紧凑重试界面；渲染崩溃/内存回收后销毁失效实例，重试创建新实例。
+- 组件设置优先打开实际 provider 的应用详情，否则回退系统应用列表/系统设置。
+- 销毁前先从父容器移除；Compose onRelease、渲染退出和 Activity onDestroy 共用一次性释放。
+- 旧实例、旧导航及旧读取批次的 JS 回调不会修改新页面；读取未响应有超时退出。
+- 不读取/保存登录凭据，不加入 JS bridge，不代理学校请求，不绕过 SSL。
+- 恢复仅使用学校固定登录入口或固定课表路径，保留课表现有 HTTP/HTTPS 协议，不重放 ticket、查询参数或 POST。
+
+官方依据（2026-10-23 核对）
+https://developer.android.com/reference/android/webkit/WebView
+  getCurrentWebViewPackage 可以返回 null；destroy 前应先移出视图，destroy 后不能继续调用实例方法。
+https://developer.android.com/reference/android/webkit/WebViewClient
+  onRenderProcessGone 的实例不可复用，必须清理传入的特定实例，返回 true 表示已处理；SSL 错误应 cancel。
+https://developer.android.com/reference/kotlin/androidx/compose/ui/viewinterop/package-summary
+  onRelease 用于清理永久离开 Composition 的 View。
+https://developer.android.com/reference/android/provider/Settings
+  ACTION_APPLICATION_DETAILS_SETTINGS 使用 package URI，部分系统可能无匹配入口，必须处理失败。
+
+验证
+- TimetableWebRecoveryTest：重复销毁只释放一次、旧页面释放不影响新实例、重试不重放敏感参数且保留协议。
+- 本分支未运行 Gradle 或设备；由主任务统一执行。
+- 真机待核对：无 provider/组件禁用、构造失败、渲染进程崩溃/回收、从预览返回再关闭、学校登录后读取。

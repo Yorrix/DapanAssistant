@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-24",
+  "scope": "real supplier connection and settlement only; silence does not verify recognition accuracy",
+  "audio": {
+    "seconds": 2,
+    "pcmBytes": 64000,
+    "sampleRate": 16000,
+    "channels": 1,
+    "bits": 16,
+    "kind": "generated silence"
+  },
+  "events": [
+    "task-started",
+    "result-generated",
+    "result-generated",
+    "result-generated",
+    "result-generated",
+    "result-generated",
+    "result-generated",
+    "result-generated",
+    "result-generated",
+    "result-generated",
+    "task-finished"
+  ],
+  "ledger": {
+    "id": "dc28911f-4c34-466e-97c8-687eb5517306",
+    "owner": "deployment-probe",
+    "kind": "asr",
+    "reserved": 20130,
+    "charged": 660,
+    "state": "charged"
+  },
+  "productionBudgetCharged": true,
+  "accountsUnchanged": true,
+  "speechAvailable": true,
+  "publicChecks": {
+    "health": 200,
+    "notices": 200,
+    "ai/status": 200
+  },
+  "configurationModified": false,
+  "serviceRestarted": false,
+  "audioOrCredentialsSaved": false
+}

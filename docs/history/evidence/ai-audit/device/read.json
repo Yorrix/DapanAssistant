@@ -1,0 +1,66 @@
+{
+  "phase": "read",
+  "package": "cn.dapan.assistant.audit",
+  "model": "sdk_gphone64_x86_64",
+  "sdk": 37,
+  "networkRequests": 0,
+  "checks": [
+    {
+      "name": "Storage namespaces are isolated",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "SQLite document count survives process restart",
+      "passed": true,
+      "milliseconds": 75
+    },
+    {
+      "name": "File contents and evidence survive process restart",
+      "passed": true,
+      "milliseconds": 121
+    },
+    {
+      "name": "Chat evidence survives process restart",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "Executed operation status survives process restart",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "Chat clear removes evidence and visible conversation together",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "Wheel state survives process restart",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "Recording folders, clip order and summary survive process restart",
+      "passed": true,
+      "milliseconds": 9
+    },
+    {
+      "name": "Vocabulary known status and occurrence counts survive process restart",
+      "passed": true,
+      "milliseconds": 12
+    },
+    {
+      "name": "Vocabulary and banner preferences survive process restart",
+      "passed": true,
+      "milliseconds": 3
+    },
+    {
+      "name": "ASR hotwords survive process restart",
+      "passed": true,
+      "milliseconds": 1
+    }
+  ],
+  "passed": 11,
+  "failed": 0
+}

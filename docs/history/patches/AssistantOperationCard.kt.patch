@@ -1,0 +1,11 @@
+--- before/AssistantOperationCard.kt
++++ 0.61.4/AssistantOperationCard.kt
+@@ -17,7 +17,7 @@
+  Surface(shape=AppShape(11.dp),color=SoftSurface,border=BorderStroke(.5.dp,Hairline)){
+   Column(Modifier.fillMaxWidth().padding(horizontal=11.dp,vertical=8.dp),verticalArrangement=Arrangement.spacedBy(6.dp)){
+    Row(verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(7.dp)){
+-    LineIcon(if(operation.status==OperationStatus.DONE)AppGlyph.Check else AppGlyph.File,Modifier.size(17.dp),tint)
++    LineIcon(if(operation.status==OperationStatus.DONE)AppGlyph.Done else AppGlyph.File,Modifier.size(17.dp),tint)
+     Text(operation.status.label,fontWeight=FontWeight.SemiBold,fontSize=12.sp,color=tint)
+     Text(operation.summary,Modifier.weight(1f),fontSize=11.sp,lineHeight=16.sp,color=Muted)
+    }

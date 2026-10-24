@@ -1,0 +1,18 @@
+[Unit]
+Description=Read official DLUT Panjin notices
+After=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/etc/dapan-notices.env
+TimeoutStartSec=45min
+User=dapan
+Group=dapan
+WorkingDirectory=/opt/dapan/backend
+ExecStart=/opt/dapan/venv/bin/python crawl_notices.py --output /opt/dapan/data/notices.json --limit 8
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/dapan/data
+UMask=0077

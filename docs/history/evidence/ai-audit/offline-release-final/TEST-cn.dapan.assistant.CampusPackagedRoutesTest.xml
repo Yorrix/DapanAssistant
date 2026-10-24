@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.CampusPackagedRoutesTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:55:10.969Z" hostname="YORRIX-LEGION" time="0.265">
+  <properties/>
+  <testcase name="a01HasOneUnsplitFootprintAndFourAnchorsOnTheBuilding" classname="cn.dapan.assistant.CampusPackagedRoutesTest" time="0.105"/>
+  <testcase name="campusRoutesUseRealRoadSegmentsAndDistancesIncludeApproaches" classname="cn.dapan.assistant.CampusPackagedRoutesTest" time="0.16"/>
+  <system-out><![CDATA[H03 -> B01: [909, 909] m; 37 ms
+B03 -> A01-W: [274, 279] m; 8 ms
+B19 -> A01-N: [568, 569] m; 11 ms
+C01 -> E01: [998, 999] m; 24 ms
+F02 -> A01-E: [388, 392] m; 7 ms
+D08 -> A01-S: [949, 951] m; 9 ms
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.AssistantRoutesTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:55:10.203Z" hostname="YORRIX-LEGION" time="0.01">
+  <properties/>
+  <testcase name="missingSourceIsRepairedWithinSameRequestBeforeAnyExecution" classname="cn.dapan.assistant.AssistantRoutesTest" time="0.006"/>
+  <testcase name="namedBuildingSourceIsNotReplacedByMyLocation" classname="cn.dapan.assistant.AssistantRoutesTest" time="0.0"/>
+  <testcase name="pageToolAndGenericRouteShareTheSameDispatch" classname="cn.dapan.assistant.AssistantRoutesTest" time="0.001"/>
+  <testcase name="navigationDoesNotDependOnSendingPagesTransientSelection" classname="cn.dapan.assistant.AssistantRoutesTest" time="0.0"/>
+  <testcase name="currentLocationHasOneValueInMapCommandAndReceipt" classname="cn.dapan.assistant.AssistantRoutesTest" time="0.001"/>
+  <testcase name="partialRouteFreezesRequestEndpointsNotFutureSelection" classname="cn.dapan.assistant.AssistantRoutesTest" time="0.0"/>
+  <testcase name="remountAndLocationRefreshDoNotInvalidateSameSelection" classname="cn.dapan.assistant.AssistantRoutesTest" time="0.0"/>
+  <testcase name="explicitClearRemainsAClearCommand" classname="cn.dapan.assistant.AssistantRoutesTest" time="0.0"/>
+  <testcase name="missingSourceCannotProduceExecutedPlan" classname="cn.dapan.assistant.AssistantRoutesTest" time="0.001"/>
+  <testcase name="missingSourceOutsideMapDoesNotInventMyLocation" classname="cn.dapan.assistant.AssistantRoutesTest" time="0.0"/>
+  <testcase name="unsupportedFieldsAndUnknownBuildingsCannotBeDiscarded" classname="cn.dapan.assistant.AssistantRoutesTest" time="0.001"/>
+  <testcase name="changedSelectionStillBlocksContextDependentTools" classname="cn.dapan.assistant.AssistantRoutesTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

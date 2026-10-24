@@ -1,0 +1,22 @@
+0.59.0 / versionCode 73
+
+Changes: optional persistent frame-based map turn smoothing; shortest angular path
+across north; campus road supplement and connected-component route anchoring;
+A01 N/S/E/W selectors; conversation collapse keeps one latest message;
+tibo overview shows only latest confirmed event and ordinary/banked type;
+subscription processing and source links retained, notification title includes type.
+
+Validation:
+- 219 JVM tests passed, including heading wrap/frame-rate behavior, isolated road
+  component selection and latest confirmed radar event selection.
+- Later label/copy-only adjustments compiled and APK assembled successfully.
+- scripts/assistant-catalogue.py --check: 63 operations, 17 modules.
+- scripts/check-campus-map.py: no unreachable named campus buildings when selecting
+  connected anchors; B03 -> A01-W uses corridor; four distinct A01 wing coordinates.
+- Physical PYC110: install -r Success; package versionCode 73 / versionName 0.59.0;
+  lastUpdateTime 2026-10-23 13:30:16. User data retained by in-place installation.
+- Physical map UI inspected. No real walking survey or physical rotation accuracy
+  measurement performed. Map limitations and evidence: MAP-SOURCES-0.59.txt.
+
+APK: release/DapanAssistant-0.59.0-debug.apk
+SHA256: BCB90291B916CE75A992EFAD37E702B28C15FAB060A55E66ED2348B39A12B8E5

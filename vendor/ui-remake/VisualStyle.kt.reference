@@ -1,0 +1,123 @@
+package cn.dapan.assistant
+
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.*
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.*
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.*
+
+enum class UiStyle(val label:String,val description:String,val radius:Float){
+ GEEK("极客","简洁线条 · 紧凑信息",1f),
+ VIVID("灵动","蓝紫渐变 · 柔和层次",1.55f),
+ AURORA("极光","夜幕流光 · 梦境渐变",1.35f),
+ JOURNAL("手账","暖色纸张 · 书写感",.35f),
+ COAST("海盐","雾蓝与青绿 · 清爽平面",.65f),
+ BLOCK("棱角","几何直角 · 清晰描边",0f);
+ companion object{fun from(value:String?)=entries.firstOrNull{it.name==value}?:GEEK}
+}
+
+data class VisualPalette(val accent:Color,val onAccent:Color,val paper:Color,val card:Color,val soft:Color,val accentSurface:Color,val ink:Color,val muted:Color,val line:Color,val companion:Color)
+private fun palette(vararg values:Long)=VisualPalette(Color(values[0]),Color(values[1]),Color(values[2]),Color(values[3]),Color(values[4]),Color(values[5]),Color(values[6]),Color(values[7]),Color(values[8]),Color(values[9]))
+private val geekDay=palette(0xFF0041B7,0xFFFFFFFF,0xFFFAFAFC,0xFFFFFFFF,0xFFF0F2F6,0xFFECF1FC,0xFF1D2129,0xFF626B79,0xFFE6E8ED,0xFF0041B7)
+private val geekNight=palette(0xFF95B8FF,0xFF102345,0xFF111318,0xFF1B1E25,0xFF282C35,0xFF253956,0xFFE8EAF0,0xFFADB3C0,0xFF343944,0xFF95B8FF)
+private val vividDay=palette(0xFF1249C7,0xFFFFFFFF,0xFFF1F3FF,0xFFFFFFFF,0xFFE6E9FC,0xFFDCE5FF,0xFF192342,0xFF5B6687,0xFFCFD7F2,0xFF8251DB)
+private val vividNight=palette(0xFFA6C3FF,0xFF10244F,0xFF10142B,0xFF1C2344,0xFF2B3459,0xFF2C4372,0xFFF0F2FF,0xFFB4BFDE,0xFF414D73,0xFFD0B0FF)
+private val journalDay=palette(0xFF234F91,0xFFFFFBF2,0xFFF5EBD8,0xFFFFF9ED,0xFFEBDEC5,0xFFDCE5E8,0xFF393126,0xFF746650,0xFFD8C7A8,0xFFA54F3D)
+private val journalNight=palette(0xFFA9C9F4,0xFF192B41,0xFF211E1A,0xFF2D2923,0xFF3C352C,0xFF314052,0xFFF0E4CF,0xFFC0AF93,0xFF574B3C,0xFFF1AD8E)
+private val auroraDay=palette(0xFF6C4CE6,0xFFFFFFFF,0xFFF5F3FC,0xFFFFFFFF,0xFFEBE6F9,0xFFE9E1FB,0xFF221D3A,0xFF6E6788,0xFFDDD6EF,0xFF2EA8A0)
+private val auroraNight=palette(0xFFB9A5FF,0xFF241445,0xFF0E0B1E,0xFF1B1734,0xFF272148,0xFF352A58,0xFFEEEAFF,0xFFA79FC6,0xFF3B3559,0xFF6FE3C1)
+private val coastDay=palette(0xFF165894,0xFFFFFFFF,0xFFEDF4F5,0xFFFFFFFF,0xFFE0EBEE,0xFFD8EAF4,0xFF183442,0xFF526C78,0xFFC3D6DD,0xFF237568)
+private val coastNight=palette(0xFF9ACBFA,0xFF102F46,0xFF101D25,0xFF192C36,0xFF253D49,0xFF264858,0xFFE3F0F6,0xFFA9C4D1,0xFF3B5866,0xFF8ED6BD)
+private val blockDay=palette(0xFF0041B7,0xFFFFFFFF,0xFFF1F2F4,0xFFFFFFFF,0xFFE1E5EC,0xFFDCE6FF,0xFF131D30,0xFF535D6F,0xFF53617B,0xFFA84716)
+private val blockNight=palette(0xFFADC9FF,0xFF101F3B,0xFF10151E,0xFF1C2432,0xFF2B3546,0xFF2A4166,0xFFF3F5FA,0xFFB6C2D4,0xFF8295B2,0xFFFFB58B)
+fun visualPalette(style:UiStyle,dark:Boolean)=when(style){UiStyle.GEEK->if(dark)geekNight else geekDay;UiStyle.VIVID->if(dark)vividNight else vividDay;UiStyle.AURORA->if(dark)auroraNight else auroraDay;UiStyle.JOURNAL->if(dark)journalNight else journalDay;UiStyle.COAST->if(dark)coastNight else coastDay;UiStyle.BLOCK->if(dark)blockNight else blockDay}
+val UiPalette get()=visualPalette(AppAppearance.style,AppAppearance.dark)
+fun AppShape(radius:Dp)=RoundedCornerShape(radius*AppAppearance.style.radius)
+val ToolShape get()=when(AppAppearance.style){UiStyle.GEEK->RoundedCornerShape(50);UiStyle.VIVID->RoundedCornerShape(14.dp);UiStyle.AURORA->RoundedCornerShape(16.dp);UiStyle.JOURNAL->RoundedCornerShape(4.dp);UiStyle.COAST->RoundedCornerShape(8.dp);UiStyle.BLOCK->RoundedCornerShape(0.dp)}
+val StyleElevation get()=when(AppAppearance.style){UiStyle.VIVID->2.dp;UiStyle.AURORA->3.dp;else->0.dp}
+val StyleBorder get()=when(AppAppearance.style){UiStyle.BLOCK->BorderStroke(1.25.dp,Hairline);UiStyle.AURORA->BorderStroke(1.dp,Brush.linearGradient(listOf(UiPalette.accent.copy(alpha=.35f),UiPalette.companion.copy(alpha=.3f),UiPalette.accent.copy(alpha=.12f))));else->null}
+
+@Composable fun StyleBackdrop(){
+ val style=AppAppearance.style;val colors=UiPalette;val dark=AppAppearance.dark
+ // Slow-drifting phases give VIVID a gentle breath and AURORA its flowing light.
+ val flow=if(style==UiStyle.VIVID||style==UiStyle.AURORA)rememberInfiniteTransition(label="backdropFlow")else null
+ val phaseA by flow?.animateFloat(0f,1f,androidx.compose.animation.core.infiniteRepeatable(androidx.compose.animation.core.tween(13000,easing=androidx.compose.animation.core.FastOutSlowInEasing),androidx.compose.animation.core.RepeatMode.Reverse),label="phaseA")?:remember{mutableFloatStateOf(.5f)}
+ val phaseB by flow?.animateFloat(0f,1f,androidx.compose.animation.core.infiniteRepeatable(androidx.compose.animation.core.tween(17000,easing=androidx.compose.animation.core.FastOutSlowInEasing),androidx.compose.animation.core.RepeatMode.Reverse),label="phaseB")?:remember{mutableFloatStateOf(.5f)}
+ val breathe by flow?.animateFloat(.72f,1f,androidx.compose.animation.core.infiniteRepeatable(androidx.compose.animation.core.tween(5200,easing=androidx.compose.animation.core.FastOutSlowInEasing),androidx.compose.animation.core.RepeatMode.Reverse),label="breathe")?:remember{mutableFloatStateOf(1f)}
+ Canvas(Modifier.fillMaxSize()){
+  when(style){
+   UiStyle.GEEK->Unit
+   UiStyle.VIVID->{
+    drawRect(Brush.radialGradient(listOf(colors.accent.copy(alpha=.1f*breathe),Color.Transparent),center=Offset(size.width*.1f*phaseA,size.height*.06f*phaseB),radius=size.width*1.15f))
+    drawRect(Brush.radialGradient(listOf(colors.companion.copy(alpha=.08f*breathe),Color.Transparent),center=Offset(size.width*(1f-.08f*phaseB),size.height*(1f-.1f*phaseA)),radius=size.width))
+   }
+   UiStyle.AURORA->{
+    val veil=if(dark)Color(0xFFFF8FD0)else Color(0xFFF0A8DE)
+    val baseAlpha=if(dark).34f else .2f
+    drawRect(Brush.radialGradient(listOf(colors.accent.copy(alpha=baseAlpha*breathe),Color.Transparent),center=Offset(size.width*(.12f+.3f*phaseA),size.height*(.08f+.16f*phaseB)),radius=size.width*1.05f))
+    drawRect(Brush.radialGradient(listOf(colors.companion.copy(alpha=baseAlpha*.8f*(1.4f-breathe*.4f)/1.4f),Color.Transparent),center=Offset(size.width*(.92f-.24f*phaseB),size.height*(.4f+.22f*phaseA)),radius=size.width*.85f))
+    drawRect(Brush.radialGradient(listOf(veil.copy(alpha=baseAlpha*.62f*breathe),Color.Transparent),center=Offset(size.width*(.25f+.5f*phaseB),size.height*(.98f-.3f*phaseA)),radius=size.width*.75f))
+   }
+   UiStyle.JOURNAL->{
+    val gap=28.dp.toPx();var y=gap
+    while(y<size.height){drawLine(colors.line.copy(alpha=.38f),Offset(0f,y),Offset(size.width,y),.5.dp.toPx());y+=gap}
+    drawLine(colors.companion.copy(alpha=.2f),Offset(22.dp.toPx(),0f),Offset(22.dp.toPx(),size.height),1.dp.toPx())
+   }
+   UiStyle.COAST->{drawRect(colors.companion.copy(alpha=.07f),size=androidx.compose.ui.geometry.Size(size.width,4.dp.toPx()))}
+   UiStyle.BLOCK->{
+    val step=32.dp.toPx();var x=step
+    while(x<size.width){var y=step;while(y<size.height){drawCircle(colors.line.copy(alpha=.14f),.7.dp.toPx(),Offset(x,y));y+=step};x+=step}
+   }
+  }
+ }
+}
+
+@Composable fun StyleChooser(){
+ val context=LocalContext.current
+ Column(verticalArrangement=Arrangement.spacedBy(8.dp)){
+  Text("界面风格",fontSize=14.sp,lineHeight=18.sp,fontWeight=FontWeight.SemiBold)
+  UiStyle.entries.chunked(2).forEach{pair->Row(horizontalArrangement=Arrangement.spacedBy(8.dp)){
+   pair.forEach{style->
+    val chosen=AppAppearance.style==style
+    Surface(Modifier.weight(1f).clip(AppShape(10.dp)).clickable{
+     runCatching{AppAppearance.setStyle(context,style)}.onFailure{android.widget.Toast.makeText(context,"风格未保存，请重试",android.widget.Toast.LENGTH_SHORT).show()}
+    }.semantics{selected=chosen;role=Role.RadioButton;contentDescription="${style.label}，${style.description}"},color=CardSurface,shape=AppShape(10.dp),border=BorderStroke(if(chosen)1.5.dp else .5.dp,if(chosen)DutBlue else Hairline)){
+     Column(Modifier.padding(9.dp),verticalArrangement=Arrangement.spacedBy(5.dp)){
+      Row(verticalAlignment=Alignment.CenterVertically){Text(style.label,Modifier.weight(1f),fontSize=14.sp,lineHeight=18.sp,fontWeight=FontWeight.SemiBold);if(chosen)LineIcon(AppGlyph.Check,Modifier.size(16.dp),DutBlue)}
+      Text(style.description,fontSize=10.sp,lineHeight=14.sp,color=Muted,maxLines=1,overflow=androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+      Row(horizontalArrangement=Arrangement.spacedBy(4.dp)){StylePreview(style,false,Modifier.weight(1f));StylePreview(style,true,Modifier.weight(1f))}
+     }
+    }
+   }
+   if(pair.size==1)Spacer(Modifier.weight(1f))
+  }}
+ }
+}
+
+@Composable private fun StylePreview(style:UiStyle,dark:Boolean,modifier:Modifier){
+ val p=visualPalette(style,dark)
+ Box(modifier.height(36.dp).clip(RoundedCornerShape(5.dp)).background(p.paper)){
+  Canvas(Modifier.fillMaxSize()){
+   if(style==UiStyle.VIVID)drawRect(Brush.linearGradient(listOf(p.accent.copy(alpha=.25f),p.companion.copy(alpha=.18f))))
+   if(style==UiStyle.AURORA)drawRect(Brush.linearGradient(listOf(p.accent.copy(alpha=.32f),p.companion.copy(alpha=.22f),Color(0xFFFF8FD0).copy(alpha=.2f))))
+   if(style==UiStyle.JOURNAL)for(i in 1..4)drawLine(p.line,Offset(0f,i*11.dp.toPx()),Offset(size.width,i*11.dp.toPx()),.5.dp.toPx())
+   val left=28.dp.toPx();val top=6.dp.toPx();val width=(size.width-left-7.dp.toPx()).coerceAtLeast(1f)
+   drawRoundRect(p.card,Offset(left,top),androidx.compose.ui.geometry.Size(width,24.dp.toPx()),CornerRadius(6.dp.toPx()*style.radius))
+   if(style==UiStyle.BLOCK)drawRoundRect(p.line,Offset(left,top),androidx.compose.ui.geometry.Size(width,24.dp.toPx()),CornerRadius.Zero,style=Stroke(1.dp.toPx()))
+   drawLine(p.accent,Offset(left+7.dp.toPx(),top+8.dp.toPx()),Offset(left+width*.75f,top+8.dp.toPx()),3.dp.toPx(),StrokeCap.Round)
+   drawLine(p.muted.copy(alpha=.55f),Offset(left+7.dp.toPx(),top+17.dp.toPx()),Offset(left+width*.6f,top+17.dp.toPx()),2.dp.toPx(),StrokeCap.Round)
+  }
+  Text(if(dark)"黑夜"else"白天",Modifier.align(Alignment.CenterStart).padding(start=4.dp),fontSize=9.sp,lineHeight=12.sp,color=p.ink,fontFamily=if(style==UiStyle.JOURNAL)FontFamily.Serif else FontFamily.SansSerif)
+ }
+}

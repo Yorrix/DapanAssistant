@@ -1,0 +1,15 @@
+{
+  "archive": ".git.zip",
+  "sha256": "92e8741d4d59dda54985bc3382eebdefec11a391b6895b93e2e7b36ecd84a667",
+  "recovery": "Git index and blob objects; archive has no commits or branch refs",
+  "recoveredFiles": 345,
+  "imported": "AURORA palette and visual components; CompanionPet Canvas sprite",
+  "adaptations": [
+    "Opt-in theme, existing themes unchanged",
+    "Independent opt-in pet, existing AI composer stays available",
+    "Safe draggable dock and 48dp visible touch target",
+    "Dark-mode pupil contrast and light secondary text contrast",
+    "No old app functional logic copied",
+    "Static aurora backdrop avoids app-wide per-frame redraw"
+  ]
+}

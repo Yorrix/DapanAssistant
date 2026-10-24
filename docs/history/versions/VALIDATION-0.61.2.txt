@@ -1,0 +1,36 @@
+大盘助手 0.61.2 / 87 · 移除 tibo 雷达
+日期：2026-10-24
+
+变更
+已移除应用入口、工具分类、AI 能力与调用适配、小组件、图标、通知订阅与后台服务，以及后端抓取器和 /reset-radar 接口。旧雷达专用数据源说明同步删除。
+升级时取消雷达任务 7420/7421，清理雷达通知通道、专用缓存及偏好，从工具收藏、首页排序和启用列表中移除雷达；旧导航栈或 AI 操作不能重新打开它。
+清理操作可重复执行，只针对退役功能。官网通知任务 7410/7411 与其他提醒、账号、日程等数据保持独立。历史验证报告保留为历史记录。
+
+实际验证
+1. 离线单元测试：72 个测试类、1060 个用例，其中 1059 项执行通过，0 失败/错误；1 项付费模型测试按设计跳过。本次未再次调用付费模型。
+2. 后端隔离回归：23 项通过，包括旧缓存存在时接口仍为 404、账号与二手信息、官网通知，以及生产退役脚本只删目标路由并拒绝共享路由的检查。测试使用临时数据库并阻断外网和真实邮件。
+3. AI 能力清单：68 个操作、17 个模块，与实际适配器一致。
+4. Release 构建、vital lint、APK 签名及 ZIP 16KB 对齐检查均通过。Manifest 中没有雷达后台服务或 debug 审计/演示接收器。
+5. 构建子任务未操作手机或模拟器，因此不把编译/单测描述为真机升级迁移验收。生产退役由并行部署代理完成，实际核验结果见末段。
+
+安装包
+releases/DapanAssistant-0.61.2.apk
+版本：0.61.2 / 87，Android 8.0 及以上，arm64-v8a
+大小：26,902,123 字节
+SHA-256：aba6aba137ddc6ac980a312c4e620cd6432446e3710e244c3f277b683b779da2
+签名证书 SHA-256：e3e25bb5c862ccde09573772268b5e65cdfdc20490ae95829c1e8f1aa5b01048，与 0.61.1 相同。
+
+日志
+validation/radar-removal-build-final.log
+validation/radar-removal-backend.log
+validation/radar-removal-apk.txt
+validation/radar-removal-manifest.txt
+单测 XML：<BUILD_WORKSPACE>/build-cache-radar/app/test-results/testDebugUnitTest/
+
+构建记录
+初次含中文 build-cache 路径导致 Gradle 测试进程 ClassNotFoundException，未执行断言；换成全英文专属缓存后完整运行通过。后台 TestClient 在受限环境停滞，使用隔离临时目录并在本机环境执行后通过，未禁用网络/邮件阻断夹具。
+
+生产退役
+使用 backend/deploy/retire_radar.py，默认仅展示计划，--apply 才执行。脚本先备份 /opt/dapan/deploy-backups/radar-retired-<时间戳>/，再停用 dapan-radar.timer/service，删除目标 unit、reset_radar.py、install_radar_route.py 与缓存；以 AST 精确移除 app.py 的 /reset-radar 路由，最后 daemon-reload 并重启 dapan-api.service。
+并行部署代理已按 dry-run、--apply 顺序完成生产退役并回报实测：/health、/notices 为 200，/reset-radar 为 404，dapan-radar.timer/service 均 not-found，7 个指定旧文件已移除，其他 21 个 API 路由和官网通知/备份定时任务保留。未改发信或模型密钥、账户和通知数据。
+生产恢复备份：/opt/dapan/deploy-backups/radar-retired-1792800761270067566。

@@ -1,0 +1,41 @@
+# Local environments and outputs
+.gradle/
+.kotlin/
+.idea/
+.build/
+**/build/
+**/.cxx/
+local.properties
+*.iml
+.venv/
+**/.venv/
+**/__pycache__/
+**/.pytest_cache/
+*.pyc
+backend/data/
+backend/demo-data/
+backend/test-runs/
+validation/
+release/
+releases/
+artifacts/
+# Credentials and runtime databases
+.env
+.env.*
+!**/.env.example
+!**/.env.*.example
+*.jks
+*.keystore
+*.pem
+*.key
+*.db
+*.db-wal
+*.db-shm
+# Build/release artifacts are distributed separately
+*.apk
+*.aab
+*.idsig
+# Downloaded data and vendor SDKs are intentionally versioned
+!components/payloads/*.gz
+!components/payloads/*.ort
+.local-data/

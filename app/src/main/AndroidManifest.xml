@@ -1,0 +1,43 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+ <uses-permission android:name="android.permission.INTERNET" />
+ <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+ <uses-permission android:name="android.permission.CAMERA" />
+ <uses-feature android:name="android.hardware.camera.any" android:required="false" />
+ <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+ <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+ <uses-permission android:name="android.permission.RECORD_AUDIO" />
+ <uses-permission android:name="android.permission.WAKE_LOCK" />
+ <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+ <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+ <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+ <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+ <!-- Calendar reminders are a core feature. Android 13+ grants this calendar
+      permission at install; Android 12 still uses the special-access flow. -->
+ <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" android:maxSdkVersion="32" />
+ <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+ <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+ <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+ <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+ <queries><intent><action android:name="android.intent.action.TTS_SERVICE" /></intent></queries>
+ <application android:label="大盘助手" android:icon="@drawable/ic_dapan" android:theme="@android:style/Theme.Material.Light.NoActionBar" android:networkSecurityConfig="@xml/network_security" android:allowBackup="false" android:fullBackupContent="false" android:dataExtractionRules="@xml/data_extraction_rules" android:supportsRtl="true">
+  <activity android:name=".MainActivity" android:configChanges="uiMode" android:exported="true" android:windowSoftInputMode="adjustResize">
+   <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
+  </activity>
+  <activity android:name=".MarqueeDisplayActivity" android:exported="false" android:configChanges="orientation|screenSize|uiMode" />
+  <activity android:name=".DocumentScanActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden|uiMode" />
+  <activity android:name=".TimetableImportActivity" android:exported="false" android:configChanges="orientation|screenSize|keyboardHidden|uiMode" />
+  <service android:name=".FocusConditionProvider" android:label="大盘助手专注" android:permission="android.permission.BIND_CONDITION_PROVIDER_SERVICE" android:exported="true">
+   <intent-filter><action android:name="android.service.notification.ConditionProviderService" /></intent-filter>
+  </service>
+  <receiver android:name=".WeatherMorningReceiver" android:exported="false" />
+  <receiver android:name=".ReminderReceiver" android:exported="false" />
+  <receiver android:name=".RestoreReceiver" android:exported="true"><intent-filter><action android:name="android.intent.action.BOOT_COMPLETED"/><action android:name="android.intent.action.TIME_SET"/><action android:name="android.intent.action.TIMEZONE_CHANGED"/><action android:name="android.intent.action.MY_PACKAGE_REPLACED"/><action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED"/></intent-filter></receiver>
+  <service android:name=".VocabularyService" android:exported="false" android:foregroundServiceType="microphone" />
+  <service android:name=".RecordingService" android:exported="false" android:foregroundServiceType="microphone" />
+  <service android:name=".NoticeSyncService" android:exported="true" android:permission="android.permission.BIND_JOB_SERVICE" />
+  <service android:name=".HeatService" android:exported="false" android:foregroundServiceType="location" />
+  <service android:name=".MeetingSummaryService" android:exported="false" android:foregroundServiceType="dataSync" />
+  <service android:name=".TranscriptionService" android:exported="false" android:foregroundServiceType="dataSync" />
+  <provider android:name="androidx.core.content.FileProvider" android:authorities="cn.dapan.assistant.files" android:exported="false" android:grantUriPermissions="true"><meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" /></provider>
+ </application>
+</manifest>

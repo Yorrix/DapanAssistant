@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.CalendarTimeAxisTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:33:33.917Z" hostname="YORRIX-LEGION" time="0.004">
+  <properties/>
+  <testcase name="eventsAndTravelCrossingSixAreClippedWithoutChangingStoredDataOrLeavingEmptyLanes" classname="cn.dapan.assistant.CalendarTimeAxisTest" time="0.0"/>
+  <testcase name="deadlineLineKeepsItsTrueTimeAfterHidingEarlyHours" classname="cn.dapan.assistant.CalendarTimeAxisTest" time="0.0"/>
+  <testcase name="pinchKeepsTheAbsoluteMinuteUnderTheFingers" classname="cn.dapan.assistant.CalendarTimeAxisTest" time="0.0"/>
+  <testcase name="oldMidnightBasedNineOClockPositionStaysNineAndSwitchesDoNotJump" classname="cn.dapan.assistant.CalendarTimeAxisTest" time="0.0"/>
+  <testcase name="labelsAndTapTargetsUseTheSameOriginAtEveryZoom" classname="cn.dapan.assistant.CalendarTimeAxisTest" time="0.001"/>
+  <testcase name="defaultStartsAtSixAndCheckboxRestoresMidnight" classname="cn.dapan.assistant.CalendarTimeAxisTest" time="0.0"/>
+  <testcase name="renderWindowKeepsEveryVisibleMinuteWithTheShiftedAxis" classname="cn.dapan.assistant.CalendarTimeAxisTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

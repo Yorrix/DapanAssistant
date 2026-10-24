@@ -1,0 +1,92 @@
+# Open Android Doc Scanner
+
+Independent Apache-2.0 Android document and printed-photo scanner. Kotlin, CameraX, OpenCV and Compose. Core processing works offline without Google Play services, cloud, API keys or model downloads. No network permission or analytics.
+
+**Status: public SDK prerelease (0.7.0; includes a standalone testing APK); physical-camera acceptance is pending.** See [quality evidence](docs/QUALITY-REPORT.md) and [backlog](docs/BACKLOG.md). Synthetic results are not parity claims or a substitute for real-camera evaluation.
+
+[Download the latest testing APK (0.7.0)](https://github.com/phillip9933/open-android-doc-scanner/releases/tag/v0.7.0) · [Documentation](docs/INDEX.md) · [CI](https://github.com/phillip9933/open-android-doc-scanner/actions)
+
+## About this project
+
+I build projects to solve problems I run into in my own life. I share them because I believe in open source and hope others can learn from them, adapt them or find them useful.
+
+Making it public does not mean it is a polished production product or suitable for every setup. Please read the documented limitations and decide whether it fits your needs. I'm happy to help where I can, but I can't promise a support schedule.
+
+## Build
+
+Requirements: JDK 17 or 21, Android SDK platform 36, AGP-selected build tools, NDK 28.2.13676358, public Google/Maven Central dependencies. Create an untracked `local.properties` with `sdk.dir=...` or set `ANDROID_HOME`. Run:
+
+```sh
+./gradlew :scanner-core:test :scanner-camera:testDebugUnitTest :scanner-sample:assembleDebug lint
+./gradlew :scanner-processing-opencv:connectedDebugAndroidTest :scanner-export:connectedDebugAndroidTest
+```
+
+The second command requires a connected supported emulator/device. Windows uses `gradlew.bat`. Min Android 26; native arm64-v8a and x86_64. No 32-bit support. The sample reopens its last completed export; it has no full scan library. Host owns naming, persistent storage, sharing and cleanup after completion.
+
+## Ready-made flow
+
+```kotlin
+MaterialTheme {
+    ScannerFlow(
+        config = ScanConfig(mode = ScanMode.DOCUMENT, detectionMode = DetectionMode.AI),
+        outputDirectory = File(context.filesDir, "scanner-output"),
+        onResult = { result ->
+            when (result) {
+                is ScanResult.Completed -> consume(result.output)
+                ScanResult.Cancelled -> closeScanner()
+                is ScanResult.Failed -> showFailure(result.error)
+            }
+        }
+    )
+}
+```
+
+Consume the callback by removing the composable. Outputs stay available after session cleanup. Do not put outputs under the session/cache originals directory. Convert private files to your own FileProvider URIs for sharing; the SDK adds no storage provider or host navigation. Pass app's light/dark MaterialTheme. UI strings can be overridden/localized by hosts.
+
+## Processing-only use
+
+`scanner-core` exposes no Android or OpenCV types. Add `scanner-processing-opencv` for the implementation, `scanner-export` for PDF. Call processing/export on a worker thread, with cooperative cancellation. Preserve cancellation exceptions.
+
+```kotlin
+val processor: ImageProcessor = OpenCvProcessor()
+ScanSession(config, privateCacheRoot, processor).use { session ->
+    val page = session.`import`(hostSourceFile) // independent owned copy
+    val detection = processor.detect(page.original, config, token)
+    detection.corners?.let { session.update(page.id, page.edits.copy(corners = it)) }
+    // Let users confirm/correct the suggested crop before saving.
+    val output = AndroidExporter(processor).export(
+        session.pages, hostOutputDirectory, ExportFormat.PDF, config, token,
+        Progress { completed, total -> reportProgress(completed, total) }
+    )
+    retain(output) // host owns these committed output files
+}
+```
+
+Config bounds quality/dimensions/pages/input pixels. Renders may be smaller due to decode/pixel limits; use returned actual dimensions. PDF embeds one processed JPEG page at a time, with page resolution independent of page count. Photograph mode preserves color/detail by default. Document Auto retains continuous colour or grayscale; Black and white is an explicit manual filter. Card front/back mode limits the session to two pages and supplies images only.
+
+Read [integration examples](docs/INTEGRATION.md), [architecture and ownership](docs/ARCHITECTURE.md), [reuse assessment](docs/REUSE-DECISION.md), [third-party notices](THIRD-PARTY-NOTICES.md).
+
+
+Latest SDK and sample prerelease: [0.7.0](docs/RELEASE-0.7.0.md), with native-detail rendering, neutral paper cleanup, clearer previews and accessible sample exports. The optional `ScannerFlow.saveDestination` host UI slot remains available. Automatic capture waits for focus, compares two untouched JPEG originals, and keeps the sharper acceptable document; rejected captures retry without adding a page. Sharpness and brightness come from the document interior. Settings offers AI (default in the sample and ready-made flow, using bundled DocQuadNet-256 CPU inference) and Standard (OpenCV edges/contours). Generated printed-document results are promising, including a torn corner; sparse synthetic scenes are substantially weaker than Standard. See [learned-model evidence and licensing limits](docs/LEARNED-DETECTOR-RC8.md) and [quality checks](docs/QUALITY-METRICS-RC8.md). Physical handheld and sustained arm64 acceptance remain pending.
+
+The fullscreen camera keeps its layout as pages are added. Review and save use swipe navigation, adjacent-page peeks and cached previews. Back preserves pages; retake, delete and close confirm discards. Save supports real output names and PDF/JPEG. Advanced adjustments and detection mode stay in secondary panels. Simultaneous multi-document scanning remains deferred.
+
+RC10 adds per-page Auto enhancement for documents, receipts and cards, stronger bounded paper-lighting cleanup, manual filter overrides, and pinch zoom/pan in review and filter previews. Photograph mode retains Photo. See [enhancement evidence and limits](docs/ENHANCEMENT-RC10.md).
+
+## Contribute
+
+Start with [Contributing](CONTRIBUTING.md) for setup and checks, and [Security](SECURITY.md) for private vulnerability reporting. The [documentation index](docs/README.md) covers integration, architecture and release evidence.
+
+## AI usage
+
+I use AI tools to help with development, including analysis, code, tests and documentation. I care about security, privacy and protecting people's data, and I try to reflect that in how I build these projects.
+
+I document validation and known limitations so you can assess the evidence for yourself. Contributions should disclose material AI assistance and distinguish checks actually run from checks still needed.
+
+See [quality evidence](docs/QUALITY-REPORT.md), [remaining device acceptance](docs/DEVICE-ACCEPTANCE.md) and [contribution guidance](CONTRIBUTING.md#ai-usage).
+
+## License
+
+Original scanner code is licensed under [Apache-2.0](LICENSE). Retain [NOTICE](NOTICE) and [third-party notices](THIRD-PARTY-NOTICES.md); dependencies and model assets retain their own terms.
+
+0.7.0 incorporates the accepted quality5 processing. See [release notes and validation](docs/RELEASE-0.7.0.md). Earlier quality1–quality5 documents preserve the tuning history.

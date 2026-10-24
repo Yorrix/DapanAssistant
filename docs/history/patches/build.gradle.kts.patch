@@ -1,0 +1,11 @@
+--- before/build.gradle.kts
++++ 0.61.4/build.gradle.kts
+@@ -5,7 +5,7 @@
+ android {
+  namespace = "cn.dapan.assistant"
+  compileSdk { version = release(37) }
+- defaultConfig { applicationId = "cn.dapan.assistant"; minSdk = 26; targetSdk = 37; versionCode = 88; versionName = "0.61.3"; ndk { abiFilters += dapanAbi } }
++ defaultConfig { applicationId = "cn.dapan.assistant"; minSdk = 26; targetSdk = 37; versionCode = 89; versionName = "0.61.4"; ndk { abiFilters += dapanAbi } }
+  compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
+  buildFeatures { compose = true; buildConfig = true }
+  packaging { jniLibs { useLegacyPackaging = true } }

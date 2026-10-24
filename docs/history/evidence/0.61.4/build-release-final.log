@@ -1,0 +1,292 @@
+
+> Configure project :app
+WARNING: The option setting 'android.overridePathCheck=true' is experimental.
+The current default is 'false'.
+Add android.sync.suppressAgpWarnings=UNSUPPORTED_PROJECT_OPTION_USE to the gradle.properties file to suppress this warning.
+Configuration 'releaseReverseMetadataValues' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'releaseRuntimeClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'androidJdkImage' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'releaseAnnotationProcessorClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'releaseCompileClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'androidJdkImage' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'releaseAnnotationProcessorClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'releaseCompileClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerPluginClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'androidApis' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlin-extension' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerPluginClasspathRelease' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerPluginClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'androidApis' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'androidJdkImage' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'releaseAnnotationProcessorClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'releaseCompileClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlin-extension' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerPluginClasspathRelease' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerPluginClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'androidApis' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'androidLintTool' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'releaseLintChecksClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'lintChecks' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'releaseRuntimeClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'lintPublish' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'releaseRuntimeClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'lintPublish' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'androidLintTool' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'androidLintTool' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'releaseLintChecksClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'lintChecks' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'releaseLintChecksClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'lintChecks' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :scanner-processing-opencv:preBuild UP-TO-DATE
+> Task :scanner-processing-opencv:preReleaseBuild UP-TO-DATE
+> Task :scanner-processing-opencv:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :scanner-processing-opencv:mergeReleaseNativeLibs UP-TO-DATE
+> Task :scanner-processing-opencv:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :scanner-ui-compose:preBuild UP-TO-DATE
+> Task :scanner-ui-compose:preReleaseBuild UP-TO-DATE
+> Task :scanner-ui-compose:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :scanner-ui-compose:mergeReleaseNativeLibs NO-SOURCE
+> Task :scanner-ui-compose:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :app:mergeReleaseNativeLibs UP-TO-DATE
+> Task :app:stripReleaseDebugSymbols UP-TO-DATE
+> Task :app:extractReleaseNativeSymbolTables UP-TO-DATE
+> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :scanner-processing-opencv:generateReleaseResources UP-TO-DATE
+> Task :scanner-processing-opencv:packageReleaseResources UP-TO-DATE
+> Task :scanner-processing-opencv:processReleaseNavigationResources UP-TO-DATE
+> Task :scanner-processing-opencv:parseReleaseLocalResources UP-TO-DATE
+> Task :scanner-processing-opencv:generateReleaseRFile UP-TO-DATE
+> Task :scanner-processing-opencv:compileReleaseKotlin UP-TO-DATE
+> Task :scanner-processing-opencv:javaPreCompileRelease UP-TO-DATE
+> Task :scanner-processing-opencv:compileReleaseJavaWithJavac NO-SOURCE
+> Task :scanner-processing-opencv:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :scanner-ui-compose:generateReleaseResources UP-TO-DATE
+> Task :scanner-ui-compose:packageReleaseResources UP-TO-DATE
+> Task :scanner-ui-compose:processReleaseNavigationResources UP-TO-DATE
+> Task :scanner-ui-compose:parseReleaseLocalResources UP-TO-DATE
+> Task :scanner-ui-compose:generateReleaseRFile UP-TO-DATE
+> Task :scanner-ui-compose:compileReleaseKotlin UP-TO-DATE
+> Task :scanner-ui-compose:javaPreCompileRelease UP-TO-DATE
+> Task :scanner-ui-compose:compileReleaseJavaWithJavac NO-SOURCE
+> Task :scanner-ui-compose:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :scanner-processing-opencv:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :app:checkReleaseDuplicateClasses UP-TO-DATE
+> Task :app:generateReleaseBuildConfig UP-TO-DATE
+> Task :app:generateReleaseResources UP-TO-DATE
+> Task :app:packageReleaseResources UP-TO-DATE
+> Task :app:processReleaseNavigationResources UP-TO-DATE
+> Task :app:parseReleaseLocalResources UP-TO-DATE
+> Task :app:generateReleaseRFile UP-TO-DATE
+> Task :scanner-ui-compose:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :app:javaPreCompileRelease UP-TO-DATE
+> Task :scanner-processing-opencv:writeReleaseAarMetadata UP-TO-DATE
+> Task :scanner-ui-compose:writeReleaseAarMetadata UP-TO-DATE
+> Task :app:checkReleaseAarMetadata UP-TO-DATE
+> Task :app:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :app:compileReleaseNavigationResources UP-TO-DATE
+> Task :app:mergeReleaseResources UP-TO-DATE
+> Task :app:createReleaseCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksRelease UP-TO-DATE
+> Task :scanner-processing-opencv:extractDeepLinksRelease UP-TO-DATE
+> Task :scanner-processing-opencv:processReleaseManifest UP-TO-DATE
+> Task :scanner-ui-compose:extractDeepLinksRelease UP-TO-DATE
+> Task :scanner-ui-compose:processReleaseManifest UP-TO-DATE
+> Task :app:processReleaseMainManifest UP-TO-DATE
+> Task :app:processReleaseManifest UP-TO-DATE
+> Task :app:processReleaseManifestForPackage UP-TO-DATE
+> Task :scanner-processing-opencv:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :scanner-processing-opencv:compileReleaseLibraryResources UP-TO-DATE
+> Task :scanner-ui-compose:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :scanner-ui-compose:compileReleaseLibraryResources UP-TO-DATE
+> Task :app:processReleaseResources UP-TO-DATE
+> Task :app:desugarReleaseFileDependencies UP-TO-DATE
+> Task :app:mergeReleaseStartupProfile UP-TO-DATE
+> Task :app:mergeExtDexRelease UP-TO-DATE
+> Task :scanner-processing-opencv:prepareReleaseArtProfile UP-TO-DATE
+> Task :scanner-ui-compose:prepareReleaseArtProfile UP-TO-DATE
+> Task :app:mergeReleaseArtProfile UP-TO-DATE
+> Task :scanner-ui-compose:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :scanner-processing-opencv:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :scanner-processing-opencv:generateReleaseAssets UP-TO-DATE
+> Task :scanner-processing-opencv:mergeReleaseAssets UP-TO-DATE
+> Task :scanner-ui-compose:generateReleaseAssets UP-TO-DATE
+> Task :scanner-ui-compose:mergeReleaseAssets UP-TO-DATE
+> Task :app:mergeReleaseAssets UP-TO-DATE
+> Task :app:compressReleaseAssets UP-TO-DATE
+> Task :app:extractReleaseVersionControlInfo UP-TO-DATE
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :scanner-processing-opencv:processReleaseJavaRes UP-TO-DATE
+> Task :scanner-processing-opencv:createFullJarRelease UP-TO-DATE
+> Task :scanner-processing-opencv:extractProguardFiles UP-TO-DATE
+> Task :scanner-processing-opencv:generateReleaseLintModel UP-TO-DATE
+> Task :scanner-processing-opencv:prepareLintJarForPublish UP-TO-DATE
+> Task :scanner-ui-compose:processReleaseJavaRes UP-TO-DATE
+> Task :scanner-ui-compose:createFullJarRelease UP-TO-DATE
+> Task :scanner-ui-compose:extractProguardFiles UP-TO-DATE
+> Task :scanner-ui-compose:generateReleaseLintModel UP-TO-DATE
+> Task :scanner-ui-compose:prepareLintJarForPublish UP-TO-DATE
+> Task :scanner-ui-compose:checkReleaseAarMetadata UP-TO-DATE
+> Task :scanner-ui-compose:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :scanner-ui-compose:extractReleaseAnnotations UP-TO-DATE
+> Task :scanner-ui-compose:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :scanner-ui-compose:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :scanner-ui-compose:mergeReleaseJavaResource UP-TO-DATE
+> Task :scanner-ui-compose:syncReleaseLibJars UP-TO-DATE
+> Task :scanner-ui-compose:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :scanner-processing-opencv:checkReleaseAarMetadata UP-TO-DATE
+> Task :scanner-processing-opencv:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :scanner-processing-opencv:extractReleaseAnnotations UP-TO-DATE
+> Task :scanner-processing-opencv:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :scanner-processing-opencv:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :scanner-processing-opencv:mergeReleaseJavaResource UP-TO-DATE
+> Task :scanner-processing-opencv:syncReleaseLibJars UP-TO-DATE
+> Task :scanner-processing-opencv:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :scanner-processing-opencv:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :scanner-processing-opencv:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :scanner-ui-compose:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :scanner-ui-compose:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :scanner-processing-opencv:generateReleaseLintVitalModel UP-TO-DATE
+> Task :scanner-ui-compose:generateReleaseLintVitalModel UP-TO-DATE
+> Task :app:optimizeReleaseResources UP-TO-DATE
+> Task :app:collectReleaseDependencies UP-TO-DATE
+> Task :app:sdkReleaseDependencyData UP-TO-DATE
+> Task :app:writeReleaseAppMetadata UP-TO-DATE
+> Task :app:writeReleaseSigningConfigVersions UP-TO-DATE
+> Task :app:compileReleaseKotlin
+> Task :app:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :app:dexBuilderRelease
+> Task :app:mergeReleaseGlobalSynthetics UP-TO-DATE
+> Task :app:generateReleaseLintVitalReportModel
+> Task :app:processReleaseJavaRes UP-TO-DATE
+> Task :app:mergeReleaseJavaResource UP-TO-DATE
+> Task :app:mergeDexRelease
+> Task :app:compileReleaseArtProfile
+> Task :app:lintVitalAnalyzeRelease
+> Task :app:lintVitalReportRelease UP-TO-DATE
+> Task :app:lintVitalRelease
+> Task :app:packageRelease
+> Task :app:createReleaseApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleRelease
+
+BUILD SUCCESSFUL in 22s
+120 actionable tasks: 8 executed, 112 up-to-date
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.0/userguide/configuration_cache_enabling.html

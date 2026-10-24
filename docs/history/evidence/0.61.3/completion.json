@@ -1,0 +1,51 @@
+{
+  "releaseArm64": {
+    "path": "<PROJECT>\\release\\DapanAssistant-0.61.3.apk",
+    "sha256": "98b3082519be847a532b35a2053b467e305bde6d790ad51bed481e78ddf35bf9",
+    "bytes": 26955371,
+    "abis": [
+      "arm64-v8a"
+    ],
+    "latestStatusAndLoginTextInDex": true
+  },
+  "debugX86": {
+    "path": "<PROJECT>\\validation\\0.61.3\\app-debug-x86.apk",
+    "sha256": "f2a5b35a65690b9a986b2b1950b821be01240cfe786e8836053f5996178acf66",
+    "bytes": 40891088,
+    "abis": [
+      "x86_64"
+    ],
+    "latestStatusAndLoginTextInDex": true
+  },
+  "version": "0.61.3",
+  "versionCode": 88,
+  "debugBuild": "BUILD SUCCESSFUL in 21s",
+  "releaseBuild": "BUILD SUCCESSFUL in 24s",
+  "signing": "existing <USER_HOME>/.android/debug.keystore; both verified",
+  "tests": "not rerun per request; compilation and package checks only",
+  "sharedAiSettingsSha256": "daf5e63825e430dee9edbbeda8a090912b5283580d9266ea06ae3b1614d015b9",
+  "sharedSpeechEnabled": true,
+  "productionSpeechVerification": "2 seconds generated silence; official start/finish and budget settlement; no speech accuracy claim",
+  "androidGestureVerification": {
+    "upstream": "simulated",
+    "release_sends_once": true,
+    "slide_out_cancels": true,
+    "held_budget_after_cancel": 0
+  },
+  "emulatorRestored": {
+    "restored": true,
+    "target": "emulator-5554",
+    "filesVerified": 43,
+    "originalVersion": "0.61.0",
+    "androidKeystorePreserved": true,
+    "localApiReverseRemoved": true,
+    "personalDataPrinted": false
+  },
+  "physicalPhone": {
+    "earlier_0_61_3_installed": true,
+    "last_wording_rebuild_installed": false,
+    "reason": "physical phone disconnected"
+  },
+  "documentation": "../提交材料/大盘助手作品说明-定稿修订.docx",
+  "video": "held by user request, not changed"
+}

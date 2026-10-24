@@ -1,0 +1,110 @@
+[
+  {
+    "id": "teach",
+    "count": 0,
+    "title": null,
+    "bodyLength": 0,
+    "example": "",
+    "ok": false
+  },
+  {
+    "id": "teach-files",
+    "count": 0,
+    "title": null,
+    "bodyLength": 0,
+    "example": "",
+    "ok": false
+  },
+  {
+    "id": "teach-exams",
+    "count": 1,
+    "title": "教学运行保障中心校内考试通知",
+    "bodyLength": 69,
+    "example": "https://teach.dlut.edu.cn/info/1086/12587.htm",
+    "ok": true
+  },
+  {
+    "id": "international",
+    "count": 20,
+    "title": "瑞典皇家理工学院（KTH）“3+2” 联合培养项目宣讲会",
+    "bodyLength": 1462,
+    "example": "https://dutdice.dlut.edu.cn/info/1007/21720.htm",
+    "ok": true
+  },
+  {
+    "id": "international-hk",
+    "count": 20,
+    "title": "系统提示",
+    "bodyLength": 0,
+    "example": "https://dutdice.dlut.edu.cn/sjnry.jsp?urltype=news.NewsContentUrl&wbtreeid=1263&wbnewsid=10873",
+    "ok": false
+  },
+  {
+    "id": "ssc-scholarship",
+    "count": 3,
+    "title": "系统提示",
+    "bodyLength": 0,
+    "example": "https://ssc.dlut.edu.cn/context.jsp?urltype=news.NewsContentUrl&wbtreeid=1015&wbnewsid=2194",
+    "ok": false
+  },
+  {
+    "id": "ssc-aid",
+    "count": 0,
+    "title": null,
+    "bodyLength": 0,
+    "example": "",
+    "ok": false
+  },
+  {
+    "id": "ssc-jobs",
+    "count": 4,
+    "title": "东北五校2024届毕业生秋季双选会通知",
+    "bodyLength": 2064,
+    "example": "https://ssc.dlut.edu.cn/info/1029/1061.htm",
+    "ok": true
+  },
+  {
+    "id": "graduate",
+    "count": 20,
+    "title": "关于2027届研究生毕业生图像采集报名的通知",
+    "bodyLength": 1063,
+    "example": "https://gs.dlut.edu.cn/info/1089/51902.htm",
+    "ok": true
+  },
+  {
+    "id": "graduate-degree",
+    "count": 20,
+    "title": "关于2026年硕士研究生学位论文答辩及相关工作安排",
+    "bodyLength": 512,
+    "example": "https://gs.dlut.edu.cn/info/1206/48652.htm",
+    "ok": true
+  },
+  {
+    "id": "its",
+    "error": "HTTPError"
+  },
+  {
+    "id": "library",
+    "count": 12,
+    "title": "关于图书馆2026年中秋节、国庆节开放安排的通知",
+    "bodyLength": 189,
+    "example": "https://lib.dlut.edu.cn/info/1049/11319.htm",
+    "ok": true
+  },
+  {
+    "id": "innovation",
+    "count": 32,
+    "title": "大连理工大学竞赛目录（2026年）",
+    "bodyLength": 116,
+    "example": "https://chuangxin.dlut.edu.cn/info/1018/16217.htm",
+    "ok": true
+  },
+  {
+    "id": "innovation-events",
+    "count": 31,
+    "title": "系统提示",
+    "bodyLength": 0,
+    "example": "https://chuangxin.dlut.edu.cn/tynr.jsp?urltype=news.NewsContentUrl&wbtreeid=1022&wbnewsid=16347",
+    "ok": false
+  }
+]

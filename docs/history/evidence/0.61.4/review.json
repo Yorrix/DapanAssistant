@@ -1,0 +1,27 @@
+{
+  "documentChangedParagraphs": [
+    8,
+    11
+  ],
+  "charsWithoutWhitespace": 920,
+  "featureOverviewUnchanged": true,
+  "guideVoice60SecondBlockRemoved": true,
+  "visualReview": [
+    "guide-personal",
+    "guide-permission",
+    "guide-pet-preview"
+  ],
+  "physicalPhoneTouched": false,
+  "videoChanged": false,
+  "finalBuildSaveFeedbackVerified": true,
+  "version": "0.61.4",
+  "versionCode": 89,
+  "abi": "arm64-v8a",
+  "debugBuildPassed": true,
+  "releaseBuildPassed": true,
+  "apkSignatureVerified": true,
+  "apkSha256": "d00cf9bf06800b78c5d8c4cc3023c0cda9c6e29a983cdba036d40a82e61da3fc",
+  "apkBytes": 26951275,
+  "docPageCount": 1,
+  "documentVisuallyReviewed": true
+}

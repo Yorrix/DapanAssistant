@@ -1,0 +1,18 @@
+大盘助手 0.23.0 / versionCode 27
+2026-10-15
+
+接入用户指定Open Android Doc Scanner v0.7.0官方SDK Maven发布包。
+发布ZIP的SHA256与GitHub release digest一致：
+00fd250fba32a5f0d4e1f7353644e99d8b8e2b648665ea06a4bef542c7c472ba
+本地Maven仅限定dev.offlinescan组，其他依赖使用既有Google/Maven Central源。
+
+进入扫描文件自动启动非导出的DocumentScanActivity，复用ScannerFlow完整拍摄/裁剪/增强/检查/保存流程；默认AI识别、自动拍摄，可在库自带设置切标准。相机授权由SDK请求，禁止时仍可导入。中文资源覆盖、DapanTheme深浅主题、顶部状态栏适配；独立相机全屏不挤占预览。
+
+每次会话输出至files/documents/scanner/UUID，结果文件不会随SDK会话清理删除。扫描列表从磁盘恢复PDF/JPG/PNG，可打开、另存与确认删除；原documents根目录JPG和scan-pages顺序继续保留。SDK取消/失败返回列表；未保存的活动会话不承诺进程死亡恢复。图片采集算法及库二进制未修改。
+
+构建：assembleDebug在线解析依赖后成功，最终中文/许可/文件管理版本离线重建成功。没有运行单元或设备测试。
+打包检查：APK约117.0MiB，含arm64-v8a和x86_64的OpenCV/ONNX/CameraX原生库、docquadnet256.ort模型和声明素材；合并Manifest含CAMERA、可选相机硬件、non-exported扫描Activity。zipalign -c -P 16 4退出0；这是ZIP打包对齐检查，不是全部ELF或真机16KB兼容验证。
+安装：adb install -r Success。手机确认versionCode=27、versionName=0.23.0、lastUpdateTime=2026-10-15 17:37:34。
+未启动应用、未使用摄像头、未修改用户扫描资料。自动捕获手感、清晰度、复杂背景识别、真机运行表现待用户试用。仅编译/打包/安装成功不能表述为相机验收通过。
+
+版本限制：SDK仍为预发布。默认AI检测和模型许可来源限制见vendor所保留上游说明；无需用户填写AI密钥，识别模型本地随包提供。当前只支持64位设备。

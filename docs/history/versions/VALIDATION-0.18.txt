@@ -1,0 +1,20 @@
+大盘助手 0.18.0 / versionCode 21
+2026-10-15
+
+专注模式：小时/分钟滚轮，1分钟至8小时；25/45/60/90分钟快捷选择。紧凑设置页，独立全屏倒计时，DUT蓝呼吸光环与倒计时进度环，适配深浅主题。启动后遮住应用内其他入口、AI栏和底栏；返回及结束按钮先确认。
+
+限制方式：普通应用使用Android屏幕固定，系统会提示确认，用户仍能通过系统手势解除。没有配置设备所有者、辅助功能拦截或不可绕过的整机锁。固定状态实际读取系统；取消系统确认后提示屏幕未固定，允许重试。仅退出本次请求的PINNED状态，不解除设备所有者LOCKED状态。
+
+通知/来电：Android 10起使用本应用独立AutomaticZenRule与ZenPolicy；不修改全局原有免打扰配置。关闭通知后，可允许所有来电或静音来电响铃，重复来电不绕过；闹钟仍允许。允许通知时来电使用系统设置，不支持保留所有通知但单独拦截来电。不会拒接电话；允许响铃不覆盖其他更严格系统规则，固定模式下接听界面受厂商实现影响。
+
+需用户手动允许免打扰及系统屏幕固定；不自动授予权限。Android 15及以上读取规则真实激活状态；较旧系统仅能读取规则是否启用。ConditionProviderService虽已弃用，仍用于系统订阅截止条件，直接状态更新采用API29接口。独立截止时间持久保存；前台到时循环、结束闹钟、系统条件订阅及重启/恢复处理撤销本次规则。未获准时闹钟授权时后台结束可能延迟，界面已说明。未验证厂商省电、强制停止和权限撤销后的实际行为，不承诺后台绝对准时。
+
+异常处理：开始失败回滚计时与规则；结束时存储故障不阻止离开专注界面；规则清理失败保留规则ID并提示到系统设置检查，不假称恢复成功。
+
+验证：assembleDebug成功；adb覆盖安装返回Success；手机包信息确认versionCode=21、versionName=0.18.0，安装时间2026-10-15 16:36:13。保留用户数据。未运行自动化测试，未点击手机界面、启动专注、固定屏幕或启用免打扰。动画、滚轮、来电及系统确认效果待用户自行查看。
+
+官方依据：
+https://developer.android.com/work/dpc/dedicated-devices/lock-task-mode
+https://developer.android.com/about/versions/15/behavior-changes-15
+https://developer.android.com/reference/android/app/NotificationManager
+https://developer.android.com/reference/android/service/notification/ZenPolicy.Builder

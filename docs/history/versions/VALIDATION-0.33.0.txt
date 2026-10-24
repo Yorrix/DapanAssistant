@@ -1,0 +1,22 @@
+大盘助手 0.33.0 / versionCode 37
+
+完成：全局工具调度、页面语境与真实检索、权限与目标变化保护、任意文件资料库。
+覆盖：58个页面操作、10个全局操作及原有日历/账单/快递/信息/晨签/专注核心动作。
+详细覆盖与剩余边界见 ASSISTANT-INTEGRATION-AUDIT-0.33.0.txt。
+
+验证证据：
+- :app:assembleDebug :app:testDebugUnitTest 离线成功。
+- 59 tests，0 failures，0 errors，0 skipped。
+- 新增9项联动回归：全局清单、地图合并注册、非法操作/字段拦截、对象变更与离页保护、计时更新不误拦截、权限再核查、中文确认、吃饭记账与1:1:2权重、查询及批量边界。
+- 新增4项资料索引检查：中文关键词、任意二进制格式不假装可读、超长文本截断、伪文本拒绝。
+- 原晨签未来标记测试同步当前月历可手动标记规则；旧翻译测试由4种修正为实际8种并核查全部代码映射。
+- scripts/assistant-catalogue.py --check 通过，生成能力清单与真实58个页面处理函数一致。
+- APK output metadata：cn.dapan.assistant / 0.33.0 / 37 / minSdk26。
+- 当前 ADB 列表无设备，未安装到手机。
+- 未运行手机自动交互、麦克风、云端DeepSeek/阿里云调用；未修改服务器。文件SQLite/导入导出权限、真实模型理解与视觉手感仍需实机验收。
+- 保留编译器既有弃用警告；未扩大到无关功能重构。
+
+APK: release/DapanAssistant-0.33.0-debug.apk
+SHA256: f59805ff45c7702897faabf94629c9a8ca8472fc2948fc302edeaa78e17ddf97
+
+后续安装核验：2026-10-15 21:36，用户重新连接手机后，adb install -r 返回 Success；只读核对 PYC110 上 cn.dapan.assistant 为 versionName=0.33.0、versionCode=37。未自动启动或操作应用。

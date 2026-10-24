@@ -1,0 +1,87 @@
+<resources>
+ <string name="capture_auto">自动</string><string name="capture_manual">手动</string>
+ <string name="capture_pause">暂停自动拍摄</string><string name="capture_resume">继续自动拍摄</string>
+ <string name="capture_paused">自动拍摄已暂停</string>
+ <string name="capture_hold">保持稳定</string><string name="capture_find">对准文件</string>
+ <string name="capture_saving">正在添加…</string><string name="capture_added">已添加，可继续扫描下一页</string>
+ <string name="capture_limit">已达页数上限</string><string name="capture_next">下一步</string>
+ <string name="capture_edit_page">查看第 %1$d 页</string>
+ <string name="capture_allow">允许使用相机以开始扫描</string>
+ <string name="capture_precision">精细调整</string><string name="capture_crop_hint">拖动四角调整裁剪范围</string>
+ <string name="capture_adjustments">调整</string><string name="capture_done">完成</string>
+ <string name="capture_manual_hint">点击拍摄按钮添加一页</string>
+ <string name="capture_quality_hint">这页可能不够清晰，请检查或重拍</string>
+ <string name="position_document">对准文件</string><string name="position_photo">对准照片</string>
+ <string name="position_receipt">对准票据</string><string name="position_card">对准卡片</string>
+ <string name="scanner_settings">扫描设置</string><string name="detection_mode">识别模式</string>
+ <string name="detection_standard">标准</string><string name="detection_ai">AI</string>
+ <string name="detection_ai_description">两种模式均在本机离线运行。AI 识别不理想时，可切换标准边缘识别。</string>
+ <string name="editor_crop_rotate">裁剪与旋转</string><string name="editor_auto_crop">自动裁剪</string><string name="editor_no_crop">不裁剪</string>
+ <string name="editor_rotate">旋转</string><string name="editor_apply">应用</string><string name="editor_apply_all">应用到全部</string>
+ <string name="editor_no_boundary">未找到清晰边缘，请手动调整四角</string>
+ <string name="editor_filters">滤镜</string><string name="editor_adjustments">滤镜设置</string>
+ <string name="discard_title">放弃本次扫描？</string><string name="discard_message">尚未保存的页面将被丢弃</string>
+ <string name="discard_confirm">放弃</string><string name="discard_keep">继续编辑</string>
+ <string name="save_title">保存扫描</string><string name="save_action">保存</string><string name="save_format">格式</string>
+ <string name="save_pages">共 %1$d 页</string>
+ <string name="review_back">返回拍摄</string><string name="review_screen_title">检查扫描</string><string name="review_no_pages">尚无页面</string>
+ <string name="review_page_position">第 %1$d 页，共 %2$d 页</string>
+ <string name="review_diagnostic_preview">详细预览 · 双指缩放</string>
+ <string name="review_original_dimensions">原图：%1$d × %2$d 像素</string>
+ <string name="review_exporting">正在导出…</string><string name="review_next">下一步</string>
+ <string name="review_empty_title">添加扫描页</string><string name="review_empty_hint">拍摄或导入图片以继续</string>
+ <string name="review_add_page">添加一页</string><string name="review_thumbnail_description">选择第 %1$d 页</string>
+ <string name="review_preview_loading">正在生成预览…</string>
+ <string name="review_crop">裁剪</string><string name="review_filters">滤镜</string><string name="review_more">更多页面操作</string>
+ <string name="review_rotate">旋转</string><string name="review_more_short">更多</string>
+ <string name="review_enhance">自动增强</string><string name="review_crop_rotate">裁剪与旋转</string>
+ <string name="review_retake">重新拍摄</string><string name="review_delete_page">删除本页</string>
+ <string name="review_move_up">前移一页</string><string name="review_move_down">后移一页</string>
+ <string name="review_discard">放弃扫描</string><string name="review_previous_page">上一页</string><string name="review_next_page">下一页</string>
+ <string name="save_back">返回检查页面</string><string name="save_close_scan">关闭扫描</string>
+ <string name="save_previous_page">上一页</string><string name="save_next_page">下一页</string>
+ <string name="save_page_preview">第 %1$d 页预览</string><string name="save_empty_preview">暂无预览</string>
+ <string name="save_filename_label">文件名</string><string name="save_filename_accessibility">文件名，不含扩展名</string>
+ <string name="save_clear_filename">清空文件名</string><string name="save_format_accessibility">选择 PDF 或 JPEG 格式</string>
+ <string name="save_location_label">保存位置</string><string name="save_on_device">本机</string>
+ <string name="save_invalid_filename">请输入有效文件名</string>
+ <plurals name="save_page_position"><item quantity="other">第 %1$d 页，共 %2$d 页</item></plurals>
+ <string name="scanner_title">扫描文件</string><string name="step_capture">拍摄或导入</string>
+ <string name="step_crop">调整四角</string><string name="step_appearance">图像效果</string><string name="step_review">检查页面</string>
+ <string name="page_count">共 %1$d 页</string><string name="page_number">第 %1$d 页</string>
+ <string name="image_dimensions">%1$d × %2$d 像素</string>
+ <string name="action_cancel">取消</string><string name="action_ok">确定</string><string name="action_return_error">返回</string>
+ <string name="action_close">关闭</string><string name="action_import">导入图片</string><string name="action_enable_camera">开启相机</string>
+ <string name="action_shutter">拍摄</string><string name="action_torch_on">打开补光</string><string name="action_torch_off">关闭补光</string>
+ <string name="action_review_pages">检查页面</string><string name="camera_starting">正在启动相机…</string>
+ <string name="guidance_find_page">将文件放在取景框内</string><string name="guidance_find_edges">调整位置，让文件四边完整可见</string>
+ <string name="guidance_more_light">光线不足，请增加照明</string><string name="guidance_reduce_glare">请调整角度，避开反光</string>
+ <string name="guidance_hold_steady">请保持手机稳定</string><string name="guidance_move_closer">请靠近一些</string>
+ <string name="guidance_ready_hold">已找到文件，保持稳定自动拍摄，也可手动拍摄</string>
+ <string name="camera_ready_message">拍摄文件，或导入已有图片</string>
+ <string name="camera_unavailable_title">相机暂不可用</string><string name="camera_permission_message">扫描需要相机权限，也可直接导入图片</string>
+ <string name="crop_title">裁剪页面</string><string name="crop_instructions">请检查识别出的边缘。可拖动四角，或选中角点后使用滑块微调。</string>
+ <string name="selected_corner">当前角点：%1$s</string><string name="corner_horizontal">水平位置</string><string name="corner_vertical">垂直位置</string>
+ <string name="nudge_left">角点左移</string><string name="nudge_right">角点右移</string><string name="nudge_up">角点上移</string><string name="nudge_down">角点下移</string>
+ <string name="corner_top_left">左上</string><string name="corner_top_right">右上</string><string name="corner_bottom_right">右下</string><string name="corner_bottom_left">左下</string>
+ <string name="magnifier_label">角点细节</string><string name="action_reset_crop">重置裁剪</string><string name="action_back">返回</string><string name="action_next">下一步</string>
+ <string name="appearance_title">图像效果</string><string name="action_appearance_preset">选择效果</string>
+ <string name="action_compare_original">对比原图</string><string name="action_show_adjusted">显示调整结果</string>
+ <string name="preset_original">原图</string><string name="preset_auto">自动增强</string><string name="preset_color">彩色文件</string>
+ <string name="preset_grayscale">灰度</string><string name="preset_black_white">黑白</string><string name="preset_photo">照片</string>
+ <string name="brightness_value">亮度：%1$.2f</string><string name="contrast_value">对比度：%1$.2f</string><string name="illumination_value">光照均衡：%1$.2f</string>
+ <string name="action_reset_appearance">重置效果</string><string name="action_rotate_page">顺时针旋转 90°</string>
+ <string name="review_title">检查并排列页面</string><string name="action_select">选择</string><string name="action_move_up">上移</string><string name="action_move_down">下移</string>
+ <string name="action_remove">移除</string><string name="action_adjust_crop">裁剪</string><string name="action_adjust_appearance">效果</string>
+ <string name="action_add_page">添加一页</string><string name="action_retake">重拍本页</string><string name="export_format">导出格式</string>
+ <string name="export_progress">正在导出… %1$d%%</string><string name="action_cancel_export">取消导出</string><string name="action_exporting">正在导出…</string>
+ <string name="action_finish_export">完成并导出</string><string name="page_image_description">扫描页预览</string><string name="image_unavailable">暂无预览</string>
+ <string name="scan_error_title">扫描未完成</string><string name="error_permission">尚未授予权限</string><string name="error_invalid_image">不支持此图片格式</string>
+ <string name="error_geometry">四角无法组成有效的裁剪区域</string><string name="error_resource_limit">图片过大，超出处理限制</string>
+ <string name="error_processing">无法处理此页</string><string name="error_camera">相机未能拍摄图片</string><string name="error_export">导出失败</string><string name="error_storage">保存失败</string>
+ <string name="retake_title">重新拍摄本页？</string><string name="retake_message">本页将被丢弃并返回相机，其他页面保留。</string><string name="retake_confirm">重拍</string>
+ <string name="delete_page_title">删除本页？</string><string name="delete_page_message">本页尚未保存，删除后无法恢复。其他页面保留。</string><string name="delete_page_confirm">删除</string><string name="page_action_keep">保留本页</string>
+ <string name="capture_search_active">自动扫描已开启</string><string name="capture_mode_document">文件</string><string name="capture_mode_photo">照片</string>
+ <string name="capture_mode_receipt">票据</string><string name="capture_mode_card">卡片</string><string name="capture_photo_hint">点击拍摄按钮拍照</string>
+ <string name="zoom_fit">适应页面</string><string name="zoom_in">放大</string>
+<string name="editor_auto_settings">自动增强设置</string></resources>

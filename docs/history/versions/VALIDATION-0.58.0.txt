@@ -1,0 +1,38 @@
+大盘助手 0.58.0 / versionCode 72 · 2026-10-22
+
+本次实现
+- 天气：首页、当前天气、逐小时、七日列表、详情、晨晚通知增加/强化体感温度。气温主层级保留。
+- 新增基于所选时段真实预报的简短穿衣/出行建议；缺数据不编造数值，0% 降水不展示。
+- 页面切换：淡入在选项中排第一；过渡由 200ms 改为 120ms，首帧从 60% 可见开始，移除额外等待帧。
+- 天气缓存解析、翻译历史加载、设置密钥读取移出首屏同步流程；地图基础数据缓存复用。
+- 非输入状态切页不再反复调用隐藏键盘。保留原有返回栈和页面滚动恢复。
+- 信息查询分类新增 tibo重置雷达；普通后台通知默认关闭。AI 可以查询/刷新、按既有权限模式开启或关闭提醒。
+- 服务端三来源采集、按原公告标识及交付关联去重、失败保留缓存、过期状态显示。预测独立展示且不推送。
+
+验证
+- Android :app:testDebugUnitTest、:app:assembleDebug 成功。213 tests, 0 failures/errors。
+- 后端 25 tests passed（含新增雷达解析、去重、失败保留、未来事件排除、API 过期处理共 7 项）。
+- 两条旧通知抓取测试仍在断言后续 AI 摘要字段，已对齐现有正文提取阶段的 body 返回契约；不改变通知抓取生产代码。
+- assistant-catalogue.py：63 operations / 17 modules，雷达操作可达性由回归测试覆盖。
+- 三个真实公开 API 本机及服务器读取成功；首次汇总 76 条，WhenReset 上游较慢，其他两站同步正常。
+- https://39.105.161.86/reset-radar 返回 200/version1；/health 返回 200/ok。
+- 服务器 dapan-api、dapan-radar.timer active；雷达任务已实际成功运行，后续 10 分钟调度。
+- Android 模拟器：天气真实预报视觉检查；雷达真实服务器数据、默认关闭；开启后 job 7420/7421 注册成功，强制初始作业后记录 77 个消息别名，未补发历史通知；关闭后恢复默认状态。
+- 手机未连接。未在用户手机安装本版，也未实测该手机的页面耗时或后台准时性。
+- 模拟器冷启动曾在 Play 服务后台高负载时超时，随后页面正常呈现；不能据此宣称真机卡顿已全部消除。
+
+调度边界
+- 服务端 10 分钟同步；Android JobScheduler 约 15 分钟检查，系统省电/后台限制可延后。
+- 不使用闹钟通道、不修改用户闹钟、不显示下次闹钟标识。
+- 追踪公开重置消息，并不读取/保证个人账户的实际额度；多个站点可能共用原始公告。
+
+部署
+- /opt/dapan/backend/reset_radar.py
+- /etc/systemd/system/dapan-radar.service、dapan-radar.timer
+- /opt/dapan/data/reset-radar.json
+- 仅向生产 app.py 插入 GET /reset-radar，未替换其他服务代码；原文件备份于 /opt/dapan/deploy-backups/radar-1792633031/app.py。
+- 未改动生产账号、数据库、上传图片、发信配置、AI 密钥或原通知采集任务。
+
+交付
+release/DapanAssistant-0.58.0-debug.apk
+SHA256: 38EE181B0EB8922C95A335E85CDE7D83B775D7BF78C6CB0BBD5E8A7503E26197

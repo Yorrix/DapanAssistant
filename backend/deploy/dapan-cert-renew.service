@@ -1,0 +1,7 @@
+[Unit]
+Description=Renew Dapan short-lived IP HTTPS certificate
+After=network-online.target
+[Service]
+Type=oneshot
+ExecStart=/opt/dapan/certbot/bin/certbot renew --quiet --deploy-hook "systemctl reload nginx"
+UMask=0077

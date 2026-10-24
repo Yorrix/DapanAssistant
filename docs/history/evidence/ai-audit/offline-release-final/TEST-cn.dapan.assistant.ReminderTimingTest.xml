@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.ReminderTimingTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:55:11.795Z" hostname="YORRIX-LEGION" time="0.0">
+  <properties/>
+  <testcase name="changingTimeDoesNotRecoverPreviousSchedule" classname="cn.dapan.assistant.ReminderTimingTest" time="0.0"/>
+  <testcase name="deliveredEarlierTimeDoesNotBlockNewLaterTime" classname="cn.dapan.assistant.ReminderTimingTest" time="0.0"/>
+  <testcase name="postedReminderIsNotRepeatedOnResume" classname="cn.dapan.assistant.ReminderTimingTest" time="0.0"/>
+  <testcase name="enablingAfterTimeDoesNotInventMissedNotification" classname="cn.dapan.assistant.ReminderTimingTest" time="0.0"/>
+  <testcase name="resumeAfterDuePreservesUnsentReminder" classname="cn.dapan.assistant.ReminderTimingTest" time="0.0"/>
+  <testcase name="futureReminderKeepsItsExactDueTime" classname="cn.dapan.assistant.ReminderTimingTest" time="0.0"/>
+  <testcase name="oldReminderIsNotRecoveredAfterExpiry" classname="cn.dapan.assistant.ReminderTimingTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

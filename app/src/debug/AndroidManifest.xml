@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+ <application android:networkSecurityConfig="@xml/debug_network_security" tools:replace="android:networkSecurityConfig">
+  <!-- Shell-only probe; absent from release builds and never modifies real events. -->
+  <receiver android:name=".ReminderProbeReceiver" android:exported="true" android:permission="android.permission.DUMP" />
+  <activity android:name=".VisualReviewActivity" android:exported="true" android:permission="android.permission.DUMP" />
+  <activity android:name=".LibraryIndexProbeActivity" android:exported="true" android:permission="android.permission.DUMP" />
+  <activity android:name=".AssistantAuditProbeActivity" android:exported="true" android:permission="android.permission.DUMP" />
+  <activity android:name=".ScannerModelProbeActivity" android:exported="true" android:permission="android.permission.DUMP" />
+ </application>
+</manifest>

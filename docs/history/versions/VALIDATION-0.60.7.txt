@@ -1,0 +1,50 @@
+大盘助手 0.60.7 / versionCode 82
+2026-10-23
+
+交付范围
+见 UPDATES-0.60.2-0.60.7.txt。并行开发的 AI/热词、晨签精确提醒、附件 UI/小助手已合并，课堂生词与 TIBO 同步接入现有应用。
+
+构建与检查
+- Gradle :app:assembleDebug :app:testDebugUnitTest 成功（Android Studio JBR 25，Java 17 编译目标，离线依赖）。
+- Android 48 个测试套件、289 项测试：0 失败、0 错误、0 跳过。
+- 后端 backend/test_reset_radar.py：13 passed；保留一条既有 Starlette/httpx deprecation warning。
+- 后端测试需在允许本地 TestClient 的运行环境执行。沙盒中一次因临时目录权限失败，一次 TestClient 挂起；停止该测试进程后，使用项目 venv 和工作区临时目录复验通过。
+- assistant-catalogue.py --check：70 项操作 / 18 个模块一致。
+- ASR 热词内容限制、字符边界、默认词、AI 携带备注与独立待办区分、晨签提醒时间/跨午夜/节假日/幂等、主题/宠物几何、课堂词形/过滤/临时失败分类均包含相应本地回归。
+
+课堂生词
+- ECDICT 字典已在模拟器首次打开，实际解压出的只读 SQLite 大小 24707072 字节；APK 中的 .gz 资源由 AAPT 展开，运行时按展开路径读取。
+- 核对单词、音标、释义与词库设置界面；有基础/高中/四级/六级累计过滤、个人掌握、搜索、新课入口。
+- 新增词组使用递增顺序键，避免同段多个新词因为相同时间戳变成字母排序。
+- 发送音频使用连接代次与 WebSocket 的不可变快照，旧连接错误只能关闭旧代次；暂时性 task-failed 与鉴权/额度失败分开处理。
+- 未进行真实课堂长期录音或付费语音端到端检查；不承诺过滤覆盖所有简单词或识别永不出错。
+
+晨签最后一分钟提醒
+- 仅新 opt-in 开关使用 AlarmManager.setAlarmClock，默认关闭，普通提醒通道不变。
+- 模拟器临时测试：Asia/Shanghai 2026-10-23 16:12 为统计点，16:11 为提醒点；启动应用安排后返回桌面并熄屏。
+- ReminderTrace 记录延后 0 秒；NotificationManager numEnqueuedByApp=1、numPostedByApp=1；finishedDate=2026-10-23。
+- 证据 validation/morning-0607/delivery.xml、post-count.txt、timing.json。模拟器系统日志以 UTC 显示 08:11，提醒规则按上海时区计算为 16:11。
+- 强制进入深度 Doze 的命令停在 INACTIVE，未成功；不把本次熄屏验证写成深度 Doze 或真实厂商后台验证。
+- 临时统计设置已恢复；没有修改真实手机晨签记录，也未开启真实手机精确提醒开关。
+
+TIBO 服务器
+- 已部署 /opt/dapan/backend/reset_radar.py，服务端 SHA256 F0655E21A1B7DE032DFF3833E3617B92939DBF7AEC16CE82C650BD664E79D29F。
+- 回滚备份 /opt/dapan/deploy-backups/radar-0607-20261023-162447。
+- 未修改现有注册、邮件、二手、官网通知接口，不需要新凭据或依赖。
+- 实际 HTTPS /health ok，/reset-radar 返回 tiboForecast.source=https://tibo.cc/、stale=false、79 条内部去重历史；界面只取最近一次 confirmed/reported。
+- API 服务与 radar timer 均 active，采集服务 ExecMainStatus=0。
+- 旧 forecast=null，防止旧 APK 把缺失概率错误显示为 0%。
+- 已移除 X 直读、推文正文、入口、配置；服务端及客户端缓存迁移清除已删除字段。旧公告 ID/aliases 仅用于防止通知重复。
+- 部署证据 validation/radar-0607/deployed.json。
+
+APK 与手机安装
+- release/DapanAssistant-0.60.7-debug.apk
+- SHA256 C04494B4344E1A2FE684AA96AEC9CA8B1FF0FEFAF9BA5CA04E3D02B17435B965
+- adb install -r Success，保留数据；安装前未发现应用录音服务。
+- 手机 <DEVICE_SERIAL> / PYC110 回读 versionCode=82、versionName=0.60.7、lastUpdateTime=2026-10-23 16:29:03。
+- 未代替用户开启新功能、没有读取或发送真实课堂录音。
+
+界面复核
+- validation/ui-remake-0607：玉兰卡热词、极光日夜、小助手贴边拖动检查通过；边缘拖动未触发系统返回。
+- TIBO 页面只保留网站数据，无推文/直读入口；旧数据标识按 freshUntil 如实触发。
+- 0.60.7 当时服务器为十分钟同步，来源有效期约五分钟，可能周期性显示旧数据；0.60.8 随新预测提醒要求缩短采集间隔。

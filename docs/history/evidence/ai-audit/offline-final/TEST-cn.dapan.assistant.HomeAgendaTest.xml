@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.HomeAgendaTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:33:34.451Z" hostname="YORRIX-LEGION" time="0.002">
+  <properties/>
+  <testcase name="horizonAndTotalLimitDoNotLeakExtraItems" classname="cn.dapan.assistant.HomeAgendaTest" time="0.001"/>
+  <testcase name="ongoingAndTomorrowAreOptIn" classname="cn.dapan.assistant.HomeAgendaTest" time="0.0"/>
+  <testcase name="allDayEndIsExclusiveAndCompletedItemsStayHidden" classname="cn.dapan.assistant.HomeAgendaTest" time="0.0"/>
+  <testcase name="typeCountsAndUrgentFilterAreApplied" classname="cn.dapan.assistant.HomeAgendaTest" time="0.0"/>
+  <testcase name="defaultsKeepNextAppointmentAndPrioritizedItems" classname="cn.dapan.assistant.HomeAgendaTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

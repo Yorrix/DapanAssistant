@@ -1,0 +1,256 @@
+{"dictionary": {"bytes": 10494199, "sha256": "1ab3a2c8d0116e955acec7ff6cd27bfeb4e943916792afa23cbf895eb37c6b39"}, "scanner-model": {"bytes": 13404960, "sha256": "f0f2f52d7d79ff02d346c8f9d0c9e903407366aeea1747cdcff160c401e3e72a"}}
+
+> Configure project :app
+WARNING: The option setting 'android.overridePathCheck=true' is experimental.
+The current default is 'false'.
+Add android.sync.suppressAgpWarnings=UNSUPPORTED_PROJECT_OPTION_USE to the gradle.properties file to suppress this warning.
+Configuration 'androidJdkImage' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'debugAnnotationProcessorClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'debugCompileClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlin-extension' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerPluginClasspathDebug' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerPluginClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'androidApis' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'debugRuntimeClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'androidJdkImage' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'debugAnnotationProcessorClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'debugCompileClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerPluginClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'androidApis' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'androidJdkImage' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'debugAnnotationProcessorClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'debugCompileClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlin-extension' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerPluginClasspathDebug' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerPluginClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'androidApis' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'debugReverseMetadataValues' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'debugUnitTestRuntimeClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'debugUnitTestAnnotationProcessorClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'debugUnitTestCompileClasspath' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+Configuration 'kotlinCompilerPluginClasspathDebugUnitTest' was resolved during configuration time.
+This is a build performance and scalability issue.
+See https://github.com/gradle/gradle/issues/2298
+Run with --info for a stacktrace.
+
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:generateDebugBuildConfig
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :scanner-processing-opencv:preBuild UP-TO-DATE
+> Task :scanner-processing-opencv:preDebugBuild UP-TO-DATE
+> Task :scanner-processing-opencv:processDebugNavigationResources
+> Task :scanner-ui-compose:preBuild UP-TO-DATE
+> Task :scanner-ui-compose:preDebugBuild UP-TO-DATE
+> Task :scanner-ui-compose:processDebugNavigationResources
+> Task :app:processDebugNavigationResources
+> Task :scanner-processing-opencv:generateDebugResources
+> Task :scanner-processing-opencv:packageDebugResources
+> Task :scanner-processing-opencv:javaPreCompileDebug
+> Task :app:parseDebugLocalResources
+> Task :scanner-processing-opencv:parseDebugLocalResources
+> Task :scanner-ui-compose:generateDebugResources
+> Task :scanner-processing-opencv:generateDebugRFile
+> Task :app:generateDebugRFile
+> Task :scanner-ui-compose:packageDebugResources
+> Task :scanner-ui-compose:javaPreCompileDebug
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :scanner-processing-opencv:generateDebugAssets UP-TO-DATE
+> Task :app:javaPreCompileDebug
+> Task :scanner-ui-compose:parseDebugLocalResources
+> Task :scanner-processing-opencv:mergeDebugAssets
+> Task :scanner-ui-compose:generateDebugAssets UP-TO-DATE
+> Task :scanner-ui-compose:mergeDebugAssets
+> Task :scanner-ui-compose:generateDebugRFile
+> Task :app:mergeDebugAssets
+> Task :app:compressDebugAssets
+> Task :app:generateDebugGlobalSynthetics
+> Task :scanner-processing-opencv:writeDebugAarMetadata
+> Task :scanner-ui-compose:writeDebugAarMetadata
+> Task :app:mapDebugSourceSetPaths
+> Task :app:compileDebugNavigationResources
+> Task :app:checkDebugDuplicateClasses
+> Task :app:checkDebugAarMetadata
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :scanner-processing-opencv:extractDeepLinksDebug
+> Task :scanner-ui-compose:extractDeepLinksDebug
+> Task :scanner-processing-opencv:processDebugManifest
+> Task :scanner-ui-compose:processDebugManifest
+> Task :scanner-processing-opencv:mapDebugSourceSetPaths
+> Task :app:mergeDebugResources
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :scanner-processing-opencv:compileDebugLibraryResources
+> Task :scanner-ui-compose:mapDebugSourceSetPaths
+> Task :scanner-ui-compose:compileDebugLibraryResources
+> Task :app:mergeDebugJniLibFolders
+> Task :scanner-processing-opencv:compileDebugKotlin
+> Task :scanner-processing-opencv:mergeDebugJniLibFolders
+> Task :scanner-processing-opencv:compileDebugJavaWithJavac NO-SOURCE
+> Task :scanner-processing-opencv:bundleLibCompileToJarDebug
+> Task :scanner-processing-opencv:processDebugJavaRes
+> Task :scanner-ui-compose:mergeDebugJniLibFolders
+> Task :scanner-ui-compose:mergeDebugNativeLibs NO-SOURCE
+> Task :scanner-ui-compose:copyDebugJniLibsProjectOnly
+> Task :app:validateSigningDebug
+> Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebugUnitTest
+> Task :app:processDebugManifestForPackage
+> Task :scanner-processing-opencv:bundleLibRuntimeToJarDebug
+> Task :scanner-processing-opencv:bundleLibRuntimeToDirDebug
+> Task :scanner-processing-opencv:mergeDebugNativeLibs
+> Task :scanner-processing-opencv:copyDebugJniLibsProjectOnly
+> Task :app:mergeDebugNativeLibs
+> Task :app:processDebugResources
+
+> Task :app:stripDebugDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libc++_shared.so, libimage_processing_util_jni.so, libonnxruntime.so, libonnxruntime4j_jni.so, libopencv_java4.so, libsurface_util_jni.so. Run with --info option to learn more.
+
+> Task :app:desugarDebugFileDependencies
+> Task :scanner-ui-compose:compileDebugKotlin
+> Task :scanner-ui-compose:compileDebugJavaWithJavac NO-SOURCE
+> Task :scanner-ui-compose:processDebugJavaRes
+> Task :scanner-ui-compose:bundleLibCompileToJarDebug
+> Task :scanner-ui-compose:bundleLibRuntimeToJarDebug
+> Task :scanner-ui-compose:bundleLibRuntimeToDirDebug
+> Task :app:mergeExtDexDebug
+> Task :app:mergeLibDexDebug
+> Task :app:compileDebugKotlin
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/AssistantToolArguments.kt:31:86 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'Any?'.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/FocusControl.kt:57:13 'constructor(p0: String!, p1: ComponentName!, p2: Uri!, p3: Int, p4: Boolean): AutomaticZenRule' is deprecated. Deprecated in Java.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/FocusControl.kt:98:30 'constructor(): ConditionProviderService' is deprecated. Deprecated in Java.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/FocusControl.kt:98:30 'class ConditionProviderService : Service' is deprecated. Deprecated in Java.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/FocusControl.kt:101:15 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/FocusControl.kt:102:15 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/FocusControl.kt:108:3 'fun notifyCondition(p0: Condition!): Unit' is deprecated. Deprecated in Java.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/FocusControl.kt:115:15 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/Recording.kt:91:24 The corresponding parameter in the supertype 'WebSocketListener' is named 'webSocket'. This may cause problems when calling this function with named arguments.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/Recording.kt:97:27 The corresponding parameter in the supertype 'WebSocketListener' is named 'webSocket'. This may cause problems when calling this function with named arguments.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/Recording.kt:104:27 The corresponding parameter in the supertype 'WebSocketListener' is named 'webSocket'. This may cause problems when calling this function with named arguments.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/Recording.kt:105:26 The corresponding parameter in the supertype 'WebSocketListener' is named 'webSocket'. This may cause problems when calling this function with named arguments.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/Recording.kt:106:27 The corresponding parameter in the supertype 'WebSocketListener' is named 'webSocket'. This may cause problems when calling this function with named arguments.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/VocabularyService.kt:112:24 The corresponding parameter in the supertype 'WebSocketListener' is named 'webSocket'. This may cause problems when calling this function with named arguments.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/VocabularyService.kt:117:27 The corresponding parameter in the supertype 'WebSocketListener' is named 'webSocket'. This may cause problems when calling this function with named arguments.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/VocabularyService.kt:139:27 The corresponding parameter in the supertype 'WebSocketListener' is named 'webSocket'. This may cause problems when calling this function with named arguments.
+w: file:///<PROJECT>/app/src/main/java/cn/dapan/assistant/VocabularyService.kt:140:26 The corresponding parameter in the supertype 'WebSocketListener' is named 'webSocket'. This may cause problems when calling this function with named arguments.
+
+> Task :app:compileDebugJavaWithJavac
+> Task :app:processDebugJavaRes
+> Task :app:mergeDebugJavaResource
+> Task :app:dexBuilderDebug
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:mergeProjectDexDebug
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+
+> Task :app:compileDebugUnitTestKotlin
+w: file:///<PROJECT>/app/src/test/java/cn/dapan/assistant/AssistantLiveEvaluationTest.kt:82:18 Java type mismatch: inferred type is 'String?', but 'String' was expected.
+w: file:///<PROJECT>/app/src/test/java/cn/dapan/assistant/AssistantLiveEvaluationTest.kt:83:19 Java type mismatch: inferred type is 'String?', but 'String' was expected.
+w: file:///<PROJECT>/app/src/test/java/cn/dapan/assistant/AssistantLiveEvaluationTest.kt:83:56 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'File?'.
+w: file:///<PROJECT>/app/src/test/java/cn/dapan/assistant/AssistantLiveEvaluationTest.kt:93:45 Java type mismatch: inferred type is 'String?', but 'String' was expected.
+w: file:///<PROJECT>/app/src/test/java/cn/dapan/assistant/AssistantLiveEvaluationTest.kt:109:75 Java type mismatch: inferred type is 'String?', but 'String' was expected.
+
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes
+> Task :app:testDebugUnitTest
+
+BUILD SUCCESSFUL in 1m 26s
+83 actionable tasks: 83 executed
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.6.0/userguide/configuration_cache_enabling.html
+APK: <PROJECT>\release\DapanAssistant-0.61.4-arm64-v8a-debug.apk
+
+Algorithm       Hash                                                                   Path
+---------       ----                                                                   ----
+SHA256          775D28D679ED26A890BF11997760095E18ECC8512E52FD34BC06ED74032E81A7       E:\Users\Lenovo\Desktop\连小理\…
+

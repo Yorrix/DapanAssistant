@@ -1,0 +1,32 @@
+本机共享 API 验收夹具（仅 0.61.3 验收，不可部署到生产）
+
+目的：用真实的 create_app、登录凭据、共享预算、SSE 与 WebSocket 路由，
+检查 Android 按住说话、松手发送、上滑取消、界面与计量链路。
+模型和识别结果为模拟，不代表真实云端识别准确率、网络表现或 AI 理解验收。
+
+启动方式（由主代理执行，此次仅准备和 --check）：
+  backend\.venv\Scripts\python.exe validation\0.61.3\shared_api_fixture.py --serve
+固定监听 127.0.0.1:8765；使用 DEBUG APK 的 http://127.0.0.1:8765 校园服务地址。
+主代理可设置 adb reverse tcp:8765 tcp:8765。正式域名和真实账号均不要用于此夹具。
+
+虚构账号（只存在于本机临时数据库，没有发送验证码邮件）：
+  邮箱：qa@mail.dlut.edu.cn
+  密码：QaVoice-0613-Only!n7J4
+  后缀选择默认的 @mail.dlut.edu.cn，前缀填 qa。
+
+仅需两个界面场景：
+1. 原处松手发送：按住后出现模拟中间文字“午饭花了”，松手后完成为
+   “午饭花了十八元”；聊天收到明确标注“模拟回执”的回复，不执行记账。
+   GET http://127.0.0.1:8765/__qa/state 查看 chat_calls 增加 1，speech_finished 增加 1，held=0。
+2. 上滑取消：按住出现中间文字后移出再松手；本次文字应从 App 草稿撤回，
+   不应有新聊天请求。chat_calls 不变，speech_closed_without_finish 增加 1，held=0。
+   已转发的模拟音频仍按真实预算逻辑计量，这是取消识别后的正常结算行为。
+
+模拟 ASR 仅计 PCM 字节数、不保存音频；模拟 LLM 只记录请求次数，不记录提示词。
+所有外网连接和 DNS 查询都被阻止；邮件函数禁止调用。此脚本不加载任何 .env，
+仅在自己的进程覆盖测试配置，数据放在 validation/0.61.3/fixture-runs 的新目录。
+停止服务后，主代理应把 App 服务地址和账号恢复；此脚本不操作设备。
+
+脚本自检：
+  backend\.venv\Scripts\python.exe validation\0.61.3\shared_api_fixture.py --check
+仅运行两项进程内 TestClient 协议检查，不启动端口；结果写 fixture-selfcheck.json。

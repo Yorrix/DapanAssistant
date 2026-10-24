@@ -1,0 +1,53 @@
+--- before/SettingsScreen.kt
++++ 0.61.4/SettingsScreen.kt
+@@ -23,14 +23,7 @@
+ @Composable fun SettingsScreen(secret:Secrets,store:AppStore,policy:AssistantPolicy,permission:()->Unit,clearEnabled:Boolean,onGuide:()->Unit,onBack:()->Unit,onClear:(Set<ClearDataKind>)->Unit){
+  val context=LocalContext.current
+  var page by rememberSaveable{mutableStateOf("")}
+- var ali by remember{mutableStateOf("")}
+  var accountOpen by rememberSaveable{mutableStateOf(false)}
+- var keysReady by remember{mutableStateOf(false)}
+- LaunchedEffect(page,secret.revision){if(page=="模型与语音"){
+-  keysReady=false
+-  ali=withContext(Dispatchers.IO){secret.get("aliyun")};keysReady=true
+- }}
+- var saved by remember{mutableStateOf(false)}
+  var hotwordsOpen by remember{mutableStateOf(false)}
+  var privacy by remember{mutableStateOf(false)}
+  var error by remember{mutableStateOf<String?>(null)}
+@@ -71,16 +64,7 @@
+     }
+     "模型与语音"->{
+      SharedAiSettings(secret,onLogin={accountOpen=true})
+-     SettingsSection("阿里云 · 长时录音与自备语音"){
+-      Column(Modifier.padding(12.dp),verticalArrangement=Arrangement.spacedBy(6.dp)){
+-       SecretKeyField(ali,{ali=it;saved=false},KeyProvider.ALIYUN,"百炼 API Key",enabled=keysReady,hint="北京地域百炼密钥，非 AccessKey。用于长时录音、收听翻译和自备语音；公用按住说话无需填写。")
+-      }
+-     }
+-     Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically){
+-      TextButton(onClick={privacy=true}){Text("数据如何使用",fontSize=12.sp)}
+-      Spacer(Modifier.weight(1f))
+-      Button(enabled=keysReady,onClick={runCatching{secret.set("aliyun",ali.trim());saved=true}.onFailure{error=it.message}}){Text(if(saved)"已保存"else"保存语音配置")}
+-     }
++     TextButton(onClick={privacy=true}){Text("数据如何使用",fontSize=12.sp)}
+     }
+     "助手权限"->{Panel{AssistantAccessChooser(policy)}}
+     "外观"->{ThemeChooser();StyleChooser();SettingsSection("小助手"){PetPreference()};MotionChooser()}
+@@ -100,7 +84,7 @@
+     }
+     "备份与清理"->{
+      Panel{Text("备份记录",fontSize=14.sp,fontWeight=FontWeight.SemiBold);Text("包含日历、账单、信息查询、晨签；不含密钥、录音与资料库文件。",fontSize=12.sp,lineHeight=17.sp,color=Muted);BackupControls(store)}
+-     DataClearControls(store,clearEnabled){selected->onClear(selected);if(ClearDataKind.KEYS in selected){ali="";saved=false}}
++     DataClearControls(store,clearEnabled,onClear)
+      DemoDataControls(store)
+     }
+     "服务连接"->CommunitySettings()
+@@ -110,7 +94,7 @@
+  }
+  if(hotwordsOpen)HotwordSettingsDialog{hotwordsOpen=false}
+  if(accountOpen)SharedAiLoginDialog(onDismiss={accountOpen=false})
+- if(privacy)AlertDialog(onDismissRequest={privacy=false},title={Text("数据如何使用")},text={Text("公用 AI：使用校园账号登录，由大盘服务器转发请求并统计用量。达到个人或全站额度后暂停，不会自动使用你的个人密钥。\n\n自备 API：密钥加密保存在本机，直接调用服务商，费用由你的账户承担。\n\n调用 AI 时会发送相关对话、附件、当前页面和事项索引；查询时还可能发送匹配的资料、通知或录音转写。公用按住说话由服务器转发给阿里云，并与文字共享额度。长时录音、收听翻译和课堂生词仍使用你配置的阿里云账户；图片识别使用个人 API。\n\n密钥测试只验证连通性，不生成、不录音；通过不代表余额和实际模型调用均已验证。",fontSize=13.sp,lineHeight=20.sp)},confirmButton={TextButton(onClick={privacy=false}){Text("关闭")}})
++ if(privacy)AlertDialog(onDismissRequest={privacy=false},title={Text("数据如何使用")},text={Text("公用 AI：供基础试用。使用校园账号登录，对话、语音及本次任务需要的资料会经过开发者部署的服务器，再转发给 AI 服务商。延迟通常比自备 API 高；达到个人或全站额度后暂停，不会自动使用个人密钥。\n\n自备 API：DeepSeek 和阿里云密钥加密保存在本机，直接调用服务商，费用由你的账户承担。长时录音、收听翻译和课堂生词使用个人阿里云账户，公用额度不覆盖这些服务。\n\n调用 AI 时会发送相关对话、当前页面和事项索引；查询时还可能发送匹配的资料、通知或录音转写。图片识别使用个人 API。\n\n密钥测试只验证连通性，不生成、不录音。",fontSize=13.sp,lineHeight=20.sp)},confirmButton={TextButton(onClick={privacy=false}){Text("关闭")}})
+  error?.let{AlertDialog(onDismissRequest={error=null},text={Text(it)},confirmButton={TextButton(onClick={error=null}){Text("关闭")}})}
+ }
+ 

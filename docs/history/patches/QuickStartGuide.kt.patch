@@ -1,0 +1,66 @@
+--- before/QuickStartGuide.kt
++++ 0.61.4/QuickStartGuide.kt
+@@ -15,8 +15,6 @@
+ import androidx.compose.ui.unit.*
+ import androidx.compose.ui.window.Dialog
+ import androidx.compose.ui.window.DialogProperties
+-import kotlinx.coroutines.Dispatchers
+-import kotlinx.coroutines.withContext
+ 
+ @Composable fun QuickStartGuide(secret:Secrets,policy:AssistantPolicy,onFinish:(String,String?)->Unit){
+  var step by rememberSaveable{mutableIntStateOf(0)}
+@@ -45,7 +43,6 @@
+        0->{
+         GuideText("统筹课程、日程和生活琐事。大多数时候，把需求告诉大盘就行。")
+         SharedAiSettings(secret,onLogin={accountOpen=true})
+-        GuideVoiceSettings(secret)
+        }
+        1->{
+         GuideText("在任何页面，都能让 AI 调用工具。直接说需求，不必找按钮，也不用背口令。")
+@@ -66,7 +63,6 @@
+         HorizontalDivider(color=Hairline,thickness=.5.dp)
+         GuideInstruction(AppGlyph.Chat,"接着聊","AI 问你几点，直接回“晚上八点”。要更正就说“地点改成 A01”。")
+         GuideInstruction(AppGlyph.Add,"交给它资料","点 ＋ 添加图片或文件，再说“存到资料库”或“找一下这份文件里的某句话”。")
+-        GuideInstruction(AppGlyph.Mic,"按住说话","按住说，原处松手发送；移出再松手取消。公用语音每次最多 60 秒，到时不自动发送。")
+        }
+        2->{
+         GuideText("权限决定 AI 能否改动你的记录，不影响手动操作。")
+@@ -86,7 +82,7 @@
+           }
+          }
+         }
+-        GuideInstruction(AppGlyph.Check,"看执行结果","“已执行”才表示完成。支持撤销的操作会提供撤销按钮；有误也可以接着说。")
++        GuideInstruction(AppGlyph.Done,"看执行结果","“已执行”才表示完成。支持撤销的操作会提供撤销按钮；有误也可以接着说。")
+         Text("点选即生效，随时可到 今天 → 设置 更改。",fontSize=11.sp,color=Muted)
+        }
+        3->{
+@@ -115,29 +111,6 @@
+   }
+  }
+  if(accountOpen)SharedAiLoginDialog(onDismiss={accountOpen=false})
+-}
+-
+-@Composable private fun GuideVoiceSettings(secret:Secrets){
+- var open by rememberSaveable{mutableStateOf(false)}
+- // Optional personal voice setup never starts recognition. Credentials are not saveable UI state.
+- var value by remember{mutableStateOf("")}
+- var ready by remember{mutableStateOf(false)}
+- var saved by remember{mutableStateOf(false)}
+- var error by remember{mutableStateOf<String?>(null)}
+- LaunchedEffect(open){if(open&&!ready){value=withContext(Dispatchers.IO){secret.get("aliyun")};ready=true}}
+- Column(verticalArrangement=Arrangement.spacedBy(4.dp)){
+-  Row(Modifier.fillMaxWidth().clickable{open=!open}.padding(vertical=5.dp),verticalAlignment=Alignment.CenterVertically){
+-   LineIcon(AppGlyph.Mic,Modifier.size(16.dp),Muted)
+-   Text("长时录音与自备语音 · 可选",Modifier.weight(1f).padding(start=7.dp),fontSize=13.sp,fontWeight=FontWeight.Medium)
+-   Text(if(open)"收起"else"配置",fontSize=12.sp,color=DutBlue)
+-  }
+-  if(open){
+-   Text("公用 AI 已含 AI 栏和小助手的短语音；录音摘要长时录音、实时翻译收听、课堂生词及自备语音需填个人阿里云密钥。",fontSize=11.sp,lineHeight=16.sp,color=Muted)
+-   SecretKeyField(value,{value=it;saved=false;error=null},KeyProvider.ALIYUN,"阿里云百炼 API Key",enabled=ready,hint="北京地域的百炼密钥，不是 AccessKey。")
+-   Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.End){TextButton(enabled=ready,onClick={runCatching{secret.set("aliyun",value.trim());saved=true;error=null}.onFailure{error=it.message}}){Text(if(saved)"已保存"else"保存语音配置",fontSize=12.sp)}}
+-   error?.let{Text(it,fontSize=11.sp,color=MaterialTheme.colorScheme.error)}
+-  }
+- }
+ }
+ 
+ @Composable private fun GuideText(text:String){Text(text,fontSize=13.sp,lineHeight=19.sp,color=Ink)}

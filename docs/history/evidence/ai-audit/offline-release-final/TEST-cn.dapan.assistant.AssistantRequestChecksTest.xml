@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.AssistantRequestChecksTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:55:10.165Z" hostname="YORRIX-LEGION" time="0.035">
+  <properties/>
+  <testcase name="changingMorningTimeDoesNotRequireUnchangedDateRange" classname="cn.dapan.assistant.AssistantRequestChecksTest" time="0.009"/>
+  <testcase name="futureMorningIsRelativeToRequestClock" classname="cn.dapan.assistant.AssistantRequestChecksTest" time="0.001"/>
+  <testcase name="shortClarificationKeepsAmountAndMealContext" classname="cn.dapan.assistant.AssistantRequestChecksTest" time="0.004"/>
+  <testcase name="independentReadOnlyNavigationIsAllowedButWritesAreNot" classname="cn.dapan.assistant.AssistantRequestChecksTest" time="0.002"/>
+  <testcase name="focusDurationCannotBeSilentlyClamped" classname="cn.dapan.assistant.AssistantRequestChecksTest" time="0.004"/>
+  <testcase name="oldQuestionCannotLeakIntoANewRequest" classname="cn.dapan.assistant.AssistantRequestChecksTest" time="0.002"/>
+  <testcase name="omittedYesterdayMustBeRepaired" classname="cn.dapan.assistant.AssistantRequestChecksTest" time="0.002"/>
+  <testcase name="dateIsNotAMoneyAmount" classname="cn.dapan.assistant.AssistantRequestChecksTest" time="0.001"/>
+  <testcase name="sourceCollapseCannotBeReplacedWithHidingSummaries" classname="cn.dapan.assistant.AssistantRequestChecksTest" time="0.003"/>
+  <testcase name="startingARecordingCannotBecomeOnlyAnEmptyFolder" classname="cn.dapan.assistant.AssistantRequestChecksTest" time="0.001"/>
+  <testcase name="spokenCorrectionMustNotDeleteAnOlderBill" classname="cn.dapan.assistant.AssistantRequestChecksTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

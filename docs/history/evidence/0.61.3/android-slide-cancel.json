@@ -1,0 +1,55 @@
+{
+  "simulated": true,
+  "purpose": "local gesture/auth/budget/UI plumbing; not cloud ASR acceptance",
+  "counters": {
+    "chat_calls": 1,
+    "speech_started": 2,
+    "speech_finished": 1,
+    "speech_closed_without_finish": 1,
+    "audio_bytes": 83200,
+    "chat_with_fixture_text": 1
+  },
+  "budget": {
+    "day": {
+      "used": 1510,
+      "held": 0,
+      "limit": 1000000,
+      "remaining": 998490,
+      "resetsAt": "2026-10-25T00:00:00+08:00"
+    },
+    "week": {
+      "used": 1510,
+      "held": 0,
+      "limit": 3000000,
+      "remaining": 2998490,
+      "resetsAt": "2026-10-26T00:00:00+08:00"
+    },
+    "siteMonth": {
+      "used": 1510,
+      "held": 0,
+      "limit": 30000000,
+      "remaining": 29998490,
+      "resetsAt": "2026-11-01T00:00:00+08:00"
+    }
+  },
+  "requests": [
+    {
+      "kind": "asr",
+      "state": "charged",
+      "reserved": 20130,
+      "charged": 660
+    },
+    {
+      "kind": "text",
+      "state": "charged",
+      "reserved": 144036,
+      "charged": 520
+    },
+    {
+      "kind": "asr",
+      "state": "charged",
+      "reserved": 20130,
+      "charged": 330
+    }
+  ]
+}

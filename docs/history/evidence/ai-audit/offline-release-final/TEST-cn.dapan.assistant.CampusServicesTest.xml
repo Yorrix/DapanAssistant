@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.CampusServicesTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:55:11.239Z" hostname="YORRIX-LEGION" time="0.008">
+  <properties/>
+  <testcase name="repeatedStartupDoesNotDuplicate" classname="cn.dapan.assistant.CampusServicesTest" time="0.005"/>
+  <testcase name="deletedOrClearedDefaultsStayDeleted" classname="cn.dapan.assistant.CampusServicesTest" time="0.001"/>
+  <testcase name="personalRecordWithSameTitleDoesNotHideCampusService" classname="cn.dapan.assistant.CampusServicesTest" time="0.0"/>
+  <testcase name="editedDefaultsAreNeverOverwritten" classname="cn.dapan.assistant.CampusServicesTest" time="0.0"/>
+  <testcase name="upgradePreservesExistingSameNameService" classname="cn.dapan.assistant.CampusServicesTest" time="0.001"/>
+  <testcase name="upgradeRemovesSourceFieldWithoutRestoringDeletedOrReplacingEdits" classname="cn.dapan.assistant.CampusServicesTest" time="0.001"/>
+  <testcase name="partialPhonePatternAndAdmissionCutoffRemainExplicit" classname="cn.dapan.assistant.CampusServicesTest" time="0.0"/>
+  <testcase name="freshInstallIncludesAllSourcesAndOnlyKnownLocations" classname="cn.dapan.assistant.CampusServicesTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

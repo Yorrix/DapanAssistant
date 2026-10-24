@@ -1,0 +1,23 @@
+DapanAssistant 0.60.5 (versionCode 80) - 2026-10-23
+
+Changes
+- Scanner review has Filters and Crop/Rotate only. The current preset is shown under Filters.
+- Automatic enhancement is a filter; top-right settings opens brightness, contrast and illumination controls. Reset retains the selected filter. Existing apply-to-all remains available.
+- Customized scanner UI is compiled from bundled source through dapan.gradle.kts; core/camera/OpenCV/export stay on the bundled 0.7.0 binaries. Upstream notice retained and modifications noted.
+- Library supports compact thumbnail rows, image grid, file-type filtering combined with text search, image/PDF thumbnails, and an internal image viewer with pinch/double-tap/paging.
+- File-type filtering happens in SQLite before LIMIT, with generic MIME/extension fallback. AI search adapter includes kind; unknown categories are rejected rather than silently selecting everything.
+- Bounded background bitmap decoding, EXIF orientation and a 12 MiB small-thumbnail cache. Unsupported/corrupt previews retain external-open/export options.
+
+Validation
+- Offline debug build successful.
+- 18 unit tests passed: LibraryKindsTest 5, LibraryIndexTest 4, AssistantIntegrationTest 9.
+- assistant-catalogue.py --check: 64 operations / 17 modules, consistent.
+- Emulator: generated JPG/PDF preview rows rendered; image filter switched to a 3-image grid and excluded PDF; JPG opened directly in viewer; double-tap exposed Fit-to-screen; next-image advanced 1/3 to 2/3.
+- Emulator scanner: imported generated test image; review showed two editing controls and Automatic enhancement subtitle; top-right opened Automatic enhancement settings with all three adjustments.
+- UI inspection found light-mode dialog status-bar contrast; fixed in final APK. Final status-bar screenshot not captured because the expected file entry was no longer visible.
+- No live camera-quality or real-paper enhancement claims; emulator checks used generated pages only. No phone photos used for validation.
+- Connected phone <DEVICE_SERIAL>: adb install -r Success, confirmed 0.60.5 / 80, lastUpdateTime 2026-10-23 15:06:31. Existing app data retained; phone was dozing so no phone UI interaction.
+
+Artifact
+release/DapanAssistant-0.60.5-debug.apk
+SHA256 C0502398352E36CDF8462403022B03E7EDFD4CF54F5291CA16B20E397D8B8D50

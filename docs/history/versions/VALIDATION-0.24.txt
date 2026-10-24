@@ -1,0 +1,11 @@
+大盘助手 0.24.0 / versionCode 28
+2026-10-15
+
+独立账单界面：月切换、收支/结余、按日流水、搜索和收支筛选、精确分类筛选、分类统计占比、CSV导出。专用记账编辑器包含收支类型、数字键盘、自定义分类、日期、名称、备注、确认删除。金额在狭窄空间减小字并允许横向查看，避免关键金额省略。
+沿用原有NoteItem与AppStore原子保存及备份，不迁移原账单。金额BigDecimal精确至分；旧异常金额显示待核对并从统计排除，保留原记录；支出正收入负内部约定继续兼容AI。AI新增/修改支持date并明确显示日期、收支、金额、分类和备注，三档权限不变。
+参考范围及来源见BILLING-DESIGN-REFERENCE.txt。独立实现，未复制Ivy Wallet源码或图片。
+
+最终assembleDebug离线构建成功。未运行单元/设备测试、未生成真实账单、未操作手机UI。
+APK：release/DapanAssistant-0.24.0-debug.apk
+安装尝试：adb -s <DEVICE_SERIAL> install -r 失败，device not found。
+随后adb devices -l为空；没有可安装设备。本版未装到手机，等待重连。不得将本版描述为手机已更新或真机界面已验证。

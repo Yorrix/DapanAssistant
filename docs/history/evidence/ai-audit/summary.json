@@ -1,0 +1,37 @@
+{
+  "version": "0.61.1",
+  "versionCode": 86,
+  "offline": {
+    "tests": 1081,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1,
+    "suites": 74,
+    "executed": 1080
+  },
+  "live": {
+    "scenarios": 159,
+    "turns": 162,
+    "passed": 162,
+    "failed": 0,
+    "fullRunPassed": 160,
+    "fullRunTurns": 162,
+    "recheckPassed": 28,
+    "recheckTurns": 28
+  },
+  "device": {
+    "passed": 67,
+    "failed": 0
+  },
+  "backend": {
+    "passed": 36,
+    "failed": 0
+  },
+  "totalApiCalls": 1090,
+  "costUpperCny": 2.389048,
+  "apk": {
+    "path": "<PROJECT>\\releases\\DapanAssistant-0.61.1.apk",
+    "bytes": 26955427,
+    "sha256": "71698a352434289ed085d475324ce9cb3b5be8195bf40136b1981a635e7519fd"
+  }
+}

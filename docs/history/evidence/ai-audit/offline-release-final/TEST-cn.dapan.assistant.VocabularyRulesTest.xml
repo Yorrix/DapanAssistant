@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.VocabularyRulesTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:55:11.849Z" hostname="YORRIX-LEGION" time="0.007">
+  <properties/>
+  <testcase name="finalSegmentIsNotCountedTwiceButReconnectIdsAreIndependent" classname="cn.dapan.assistant.VocabularyRulesTest" time="0.002"/>
+  <testcase name="mixedLectureShowsOnlyUnknownWordsNotWholeSentences" classname="cn.dapan.assistant.VocabularyRulesTest" time="0.003"/>
+  <testcase name="unknownVocabularySelectionIsRejected" classname="cn.dapan.assistant.VocabularyRulesTest" time="0.0"/>
+  <testcase name="levelsAreCumulativeAndBasicWordsAlwaysFiltered" classname="cn.dapan.assistant.VocabularyRulesTest" time="0.0"/>
+  <testcase name="missingDictionaryEntryDoesNotInventMeaning" classname="cn.dapan.assistant.VocabularyRulesTest" time="0.001"/>
+  <testcase name="transientProviderFailuresCanReconnectWithoutHidingAccountErrors" classname="cn.dapan.assistant.VocabularyRulesTest" time="0.0"/>
+  <testcase name="personalKnownAlsoHidesInflections" classname="cn.dapan.assistant.VocabularyRulesTest" time="0.0"/>
+  <testcase name="classroomToolIsAvailableToAiAcrossPages" classname="cn.dapan.assistant.VocabularyRulesTest" time="0.0"/>
+  <testcase name="contractionsAndPossessivesDoNotBecomeNoise" classname="cn.dapan.assistant.VocabularyRulesTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

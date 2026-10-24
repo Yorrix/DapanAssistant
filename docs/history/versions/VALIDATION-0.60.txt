@@ -1,0 +1,41 @@
+0.60.0 / versionCode 75 (2026-10-23)
+
+Map changes:
+- A01 labels are one N/S/W/E group at all zooms; minimum spacing and screen-edge
+  clamping prevent individual labels from disappearing. Shifted labels keep leader
+  lines and can be tapped. Draw above route endpoint circles.
+- Map turns always use frame-based smoothing. Removed preference, toggle and AI
+  smoothTurn argument; orientation still offers fixed/follow.
+- Endpoints now project onto road segments, including splitting the same segment
+  twice when needed. Compare connected networks by full path plus approach distance.
+- Dijkstra shortest path first; replacement paths use existing edges only and are
+  loop-free. Filter near-parallel source-map duplicates; provide at most one distinct
+  alternative. Local corridor exclusion searches are used when duplicates obscure
+  an alternative. No roads are invented. No switch if no distinct candidate found.
+- Compact route switch shows shortest/alternative and full approximate distance;
+  AI route_select can switch too. Selected index survives moving-start recalculation.
+
+Validation:
+- Full JVM suite passed after routing/label changes, including 7 CampusRoutingTest
+  and 2 CampusLabelsTest cases (wrap/rotation tests also retained).
+- Additional CampusPackagedRoutesTest passed against bundled OSM: 6 campus pairs,
+  all returned segments lie on actual graph edges, no repeated path vertices,
+  distance includes both dashed approach legs. Desktop checks took 6-43 ms per pair.
+  H03 -> B01: 909 / 909 m; B03 -> A01-W: 277 / 282 m;
+  B19 -> A01-N: 561 / 561 m; C01 -> E01: 998 / 999 m;
+  F02 -> A01-E: 461 / 464 m; D08 -> A01-S: 951 / 954 m.
+  Rounded equal distances can still represent different walking corridors.
+- Catalogue regenerated and verified: 64 operations / 17 modules.
+- Final draw-order-only adjustment compiled and packaged successfully.
+- Physical PYC110 install -r Success; versionCode 75 / versionName 0.60.0.
+  Whole-campus map screenshot shows all four letters and no smoothing toggle.
+  No physical walking survey or sensor-motion performance measurement performed.
+
+Limitations:
+Shortest means on the available graph between projected access points. Dashed
+approach legs, real entrances, temporary closures and incomplete map geometry remain
+unverified. Alternative filtering is bounded and does not enumerate every possible
+walk. Previous scripts/check-campus-map.py remains a topology/geometry audit using
+the older vertex anchoring; current runtime routing is covered by the Kotlin tests.
+
+APK: release/DapanAssistant-0.60.0-debug.apk

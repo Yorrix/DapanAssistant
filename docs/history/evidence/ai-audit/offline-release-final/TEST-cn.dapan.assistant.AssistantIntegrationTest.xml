@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.AssistantIntegrationTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:55:09.986Z" hostname="YORRIX-LEGION" time="0.028">
+  <properties/>
+  <testcase name="catalogueExposesToolsWithoutCurrentPageBindings" classname="cn.dapan.assistant.AssistantIntegrationTest" time="0.003"/>
+  <testcase name="timerTickDoesNotInvalidateButLeavingPageDoes" classname="cn.dapan.assistant.AssistantIntegrationTest" time="0.004"/>
+  <testcase name="lookupKeepsRealIdAndCannotBecomeUnvalidatedBatchWrite" classname="cn.dapan.assistant.AssistantIntegrationTest" time="0.001"/>
+  <testcase name="mapHubAndNavigationRetainBothSetsOfActions" classname="cn.dapan.assistant.AssistantIntegrationTest" time="0.001"/>
+  <testcase name="receiptPreviewPreservesWeightsAndPublicContactMeaning" classname="cn.dapan.assistant.AssistantIntegrationTest" time="0.001"/>
+  <testcase name="foodExpenseAndWeightedDutyExamplesUseRealDataModels" classname="cn.dapan.assistant.AssistantIntegrationTest" time="0.003"/>
+  <testcase name="selectedObjectChangeInvalidatesPendingConfirmation" classname="cn.dapan.assistant.AssistantIntegrationTest" time="0.01"/>
+  <testcase name="permissionsAreCheckedAgainAtExecution" classname="cn.dapan.assistant.AssistantIntegrationTest" time="0.002"/>
+  <testcase name="unknownOperationsAndFieldsNeverReachHandler" classname="cn.dapan.assistant.AssistantIntegrationTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

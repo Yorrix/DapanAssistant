@@ -1,0 +1,44 @@
+{
+  "version": "0.61.4",
+  "versionCode": 89,
+  "createdAt": "2026-10-24T10:45:50.968573+08:00",
+  "android": {
+    "cleanBuild": "passed",
+    "unitTests": {
+      "suites": 74,
+      "tests": 1079,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "executed": 1078
+    },
+    "newPaidModelCalls": 0
+  },
+  "backend": {
+    "passed": 52,
+    "failed": 0,
+    "realMailSent": false,
+    "productionDataUsed": false
+  },
+  "apk": {
+    "sha256": "d00cf9bf06800b78c5d8c4cc3023c0cda9c6e29a983cdba036d40a82e61da3fc",
+    "bytes": 26951275,
+    "abi": "arm64-v8a",
+    "originalInstalledArtifactUnchanged": true
+  },
+  "source": {
+    "appAndCoreBackendUnchanged": true,
+    "historyReports": 56,
+    "privateCredentialsDetected": 0,
+    "pythonSyntaxErrors": 0,
+    "brokenReadmeLinks": 0,
+    "filesOver100MiB": 0
+  },
+  "existingNote": "One generated translation capability description still uses older two-key wording; operations and parameter definitions agree. The original 0.61.4 app sources are retained without feature changes.",
+  "github": {
+    "created": false,
+    "uploaded": false,
+    "oldRepositoryTouched": false
+  },
+  "videoIncluded": false
+}

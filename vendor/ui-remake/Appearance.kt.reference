@@ -1,0 +1,73 @@
+package cn.dapan.assistant
+
+import android.content.Context
+import androidx.activity.ComponentActivity
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.*
+
+object AppAppearance {
+ var mode by mutableStateOf("system");private set
+ var style by mutableStateOf(UiStyle.GEEK);private set
+ var systemDark by mutableStateOf(false)
+ val dark get()=mode=="dark"||(mode=="system"&&systemDark)
+ fun load(context:Context){mode=context.getSharedPreferences("appearance",Context.MODE_PRIVATE).getString("theme","system").takeIf{it in listOf("system","light","dark")}?:"system";style=UiStyle.from(context.getSharedPreferences("appearance",Context.MODE_PRIVATE).getString("style",null))}
+ fun set(context:Context,value:String){mode=value;context.getSharedPreferences("appearance",Context.MODE_PRIVATE).edit().putString("theme",value).apply()}
+ fun setStyle(context:Context,value:UiStyle){check(context.getSharedPreferences("appearance",Context.MODE_PRIVATE).edit().putString("style",value.name).commit());style=value}
+}
+@Composable fun DapanTheme(content:@Composable ()->Unit){
+ val system=isSystemInDarkTheme();val context=LocalContext.current
+ val dark=AppAppearance.mode=="dark"||(AppAppearance.mode=="system"&&system)
+ SideEffect{
+  AppAppearance.systemDark=system
+  (context as? ComponentActivity)?.let{val bars=androidx.core.view.WindowCompat.getInsetsController(it.window,it.window.decorView);bars.isAppearanceLightStatusBars=!dark;bars.isAppearanceLightNavigationBars=!dark}
+ }
+ val target=visualPalette(AppAppearance.style,dark)
+ // Cross-fade every palette color, so style and dark-mode changes melt instead of snapping.
+ val transition=tween<Color>(420,easing=androidx.compose.animation.core.FastOutSlowInEasing)
+ val p=VisualPalette(
+  animateColorAsState(target.accent,transition,label="pAccent").value,
+  animateColorAsState(target.onAccent,transition,label="pOnAccent").value,
+  animateColorAsState(target.paper,transition,label="pPaper").value,
+  animateColorAsState(target.card,transition,label="pCard").value,
+  animateColorAsState(target.soft,transition,label="pSoft").value,
+  animateColorAsState(target.accentSurface,transition,label="pAccentSurface").value,
+  animateColorAsState(target.ink,transition,label="pInk").value,
+  animateColorAsState(target.muted,transition,label="pMuted").value,
+  animateColorAsState(target.line,transition,label="pLine").value,
+  animateColorAsState(target.companion,transition,label="pCompanion").value
+ )
+ val base=if(dark)darkColorScheme()else lightColorScheme()
+ val colors=base.copy(primary=p.accent,onPrimary=p.onAccent,primaryContainer=p.accentSurface,onPrimaryContainer=p.ink,
+  secondary=p.companion,onSecondary=p.onAccent,secondaryContainer=p.accentSurface,onSecondaryContainer=p.ink,
+  background=p.paper,onBackground=p.ink,surface=p.card,onSurface=p.ink,surfaceVariant=p.soft,onSurfaceVariant=p.muted,
+  surfaceContainer=p.card,surfaceContainerLowest=p.paper,surfaceContainerLow=p.paper,surfaceContainerHigh=p.soft,surfaceContainerHighest=p.soft,
+  surfaceBright=p.card,surfaceDim=p.paper,surfaceTint=p.accent,inverseSurface=p.ink,inverseOnSurface=p.paper,inversePrimary=p.onAccent,outline=p.muted,outlineVariant=p.line)
+ val typography=remember(AppAppearance.style){
+  val defaults=Typography();val t=defaults.copy(bodyLarge=defaults.bodyLarge.copy(fontSize=14.sp,lineHeight=20.sp),bodyMedium=defaults.bodyMedium.copy(fontSize=13.sp,lineHeight=18.sp),bodySmall=defaults.bodySmall.copy(fontSize=11.sp,lineHeight=15.sp))
+  val family=when(AppAppearance.style){UiStyle.JOURNAL->androidx.compose.ui.text.font.FontFamily.Serif;UiStyle.BLOCK->androidx.compose.ui.text.font.FontFamily.Monospace;else->androidx.compose.ui.text.font.FontFamily.SansSerif}
+  t.copy(displayLarge=t.displayLarge.copy(fontFamily=family),displayMedium=t.displayMedium.copy(fontFamily=family),displaySmall=t.displaySmall.copy(fontFamily=family),headlineLarge=t.headlineLarge.copy(fontFamily=family),headlineMedium=t.headlineMedium.copy(fontFamily=family),headlineSmall=t.headlineSmall.copy(fontFamily=family),titleLarge=t.titleLarge.copy(fontFamily=family),titleMedium=t.titleMedium.copy(fontFamily=family),titleSmall=t.titleSmall.copy(fontFamily=family),bodyLarge=t.bodyLarge.copy(fontFamily=family),bodyMedium=t.bodyMedium.copy(fontFamily=family),bodySmall=t.bodySmall.copy(fontFamily=family),labelLarge=t.labelLarge.copy(fontFamily=family),labelMedium=t.labelMedium.copy(fontFamily=family),labelSmall=t.labelSmall.copy(fontFamily=family))
+ }
+ CompositionLocalProvider(androidx.compose.foundation.text.selection.LocalTextSelectionColors provides androidx.compose.foundation.text.selection.TextSelectionColors(p.accent,p.accent.copy(alpha=.18f))){
+  MaterialTheme(colorScheme=colors,typography=typography,shapes=Shapes(extraSmall=AppShape(4.dp),small=AppShape(10.dp),medium=AppShape(14.dp),large=AppShape(18.dp),extraLarge=AppShape(24.dp)),content=content)
+ }
+}
+@Composable fun ThemeChooser(){
+ val c=LocalContext.current
+ Column{
+  Text("明暗模式",style=MaterialTheme.typography.titleSmall)
+  Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(6.dp)){
+   listOf("system" to "跟随系统","light" to "白天","dark" to "黑夜").forEach{(mode,label)->FilterChip(AppAppearance.mode==mode,{AppAppearance.set(c,mode)},label={Text(label,fontSize=12.sp)})}
+  }
+ }
+}
+
+val platformDialogTheme get()=if(AppAppearance.dark)android.R.style.Theme_Material_Dialog_Alert else android.R.style.Theme_Material_Light_Dialog_Alert

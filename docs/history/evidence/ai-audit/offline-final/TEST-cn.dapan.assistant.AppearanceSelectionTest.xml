@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.AppearanceSelectionTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:33:33.170Z" hostname="YORRIX-LEGION" time="0.019">
+  <properties/>
+  <testcase name="assistantCanUseLabelsOrStableNamesButCannotInventAnOption" classname="cn.dapan.assistant.AppearanceSelectionTest" time="0.004"/>
+  <testcase name="independentlySavedCombinationTakesPrecedenceOverLegacyStyle" classname="cn.dapan.assistant.AppearanceSelectionTest" time="0.001"/>
+  <testcase name="switchingShapesNeverChangesTheChosenPalette" classname="cn.dapan.assistant.AppearanceSelectionTest" time="0.012"/>
+  <testcase name="everyLegacyStyleKeepsItsOriginalShapeAndDayNightPalette" classname="cn.dapan.assistant.AppearanceSelectionTest" time="0.001"/>
+  <testcase name="missingOrRetiredSettingsHaveStableDefaults" classname="cn.dapan.assistant.AppearanceSelectionTest" time="0.0"/>
+  <testcase name="savedCombinationSurvivesReloadWithoutReapplyingLegacyDefaults" classname="cn.dapan.assistant.AppearanceSelectionTest" time="0.0"/>
+  <testcase name="partialMigrationOnlyFillsTheMissingAxis" classname="cn.dapan.assistant.AppearanceSelectionTest" time="0.0"/>
+  <testcase name="switchingPalettesNeverChangesShapeTypographyOrGeometry" classname="cn.dapan.assistant.AppearanceSelectionTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

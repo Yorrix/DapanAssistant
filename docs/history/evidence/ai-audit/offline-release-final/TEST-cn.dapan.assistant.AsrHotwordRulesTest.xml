@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.AsrHotwordRulesTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:55:09.798Z" hostname="YORRIX-LEGION" time="0.014">
+  <properties/>
+  <testcase name="emptyOrDisabledWordsLeaveOnlyFeatureContext" classname="cn.dapan.assistant.AsrHotwordRulesTest" time="0.004"/>
+  <testcase name="oversizedWordsAreRejectedBeforeSaving" classname="cn.dapan.assistant.AsrHotwordRulesTest" time="0.005"/>
+  <testcase name="characterLimitDoesNotSplitSurrogatePairs" classname="cn.dapan.assistant.AsrHotwordRulesTest" time="0.002"/>
+  <testcase name="requestContainsVocabularyAndFeatureContextInTheOfficialField" classname="cn.dapan.assistant.AsrHotwordRulesTest" time="0.001"/>
+  <testcase name="defaultsIncludeConfirmedCampusCard" classname="cn.dapan.assistant.AsrHotwordRulesTest" time="0.001"/>
+  <testcase name="totalContextNeverExceeds400CharactersAndKeepsHotwords" classname="cn.dapan.assistant.AsrHotwordRulesTest" time="0.0"/>
+  <testcase name="editorAcceptsNewlinesAndChineseSeparatorsWithoutDuplicatingWords" classname="cn.dapan.assistant.AsrHotwordRulesTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,207 @@
+[
+  {
+    "id": "panjin",
+    "url": "https://panjin.dlut.edu.cn/tzgg.htm",
+    "articleCount": 12,
+    "samples": [
+      "https://panjin.dlut.edu.cn/info/1141/54144.htm",
+      "https://pjxqzwb.dlut.edu.cn/info/1081/9602.htm"
+    ]
+  },
+  {
+    "id": "pjteach",
+    "url": "https://pjteach.dlut.edu.cn/index/zytg.htm",
+    "articleCount": 5,
+    "samples": [
+      "https://pjteach.dlut.edu.cn/info/1021/2802.htm",
+      "https://pjteach.dlut.edu.cn/info/1021/3392.htm"
+    ]
+  },
+  {
+    "id": "pjteach-exam",
+    "url": "https://pjteach.dlut.edu.cn/index/ksap.htm",
+    "articleCount": 5,
+    "samples": [
+      "https://pjteach.dlut.edu.cn/info/1031/2832.htm",
+      "https://pjteach.dlut.edu.cn/info/1031/2181.htm"
+    ]
+  },
+  {
+    "id": "pjteach-innovation",
+    "url": "https://pjteach.dlut.edu.cn/cxcyjy/cxcyjy.htm",
+    "articleCount": 5,
+    "samples": [
+      "https://pjteach.dlut.edu.cn/info/1311/3242.htm",
+      "https://pjteach.dlut.edu.cn/info/1311/1311.htm"
+    ]
+  },
+  {
+    "id": "xsgzb",
+    "url": "https://xsgzb.dlut.edu.cn/index/tzgg.htm",
+    "articleCount": 10,
+    "samples": [
+      "https://xsgzb.dlut.edu.cn/info/1441/19232.htm",
+      "https://xsgzb.dlut.edu.cn/info/1791/19212.htm"
+    ]
+  },
+  {
+    "id": "xsgzb-events",
+    "url": "https://xsgzb.dlut.edu.cn/index/hdyg.htm",
+    "articleCount": 2,
+    "samples": [
+      "https://xsgzb.dlut.edu.cn/info/1811/19222.htm",
+      "https://xsgzb.dlut.edu.cn/info/1811/19182.htm"
+    ]
+  },
+  {
+    "id": "pjxqtw",
+    "url": "https://pjxqtw.dlut.edu.cn/tzgg.htm",
+    "articleCount": 10,
+    "samples": [
+      "https://pjxqtw.dlut.edu.cn/info/1058/16028.htm",
+      "https://pjxqtw.dlut.edu.cn/info/1058/16018.htm"
+    ]
+  },
+  {
+    "id": "pjcareer",
+    "url": "https://pjcareer.dlut.edu.cn/index/tzgg.htm",
+    "articleCount": 4,
+    "samples": [
+      "https://pjcareer.dlut.edu.cn/info/1021/47782.htm",
+      "https://pjcareer.dlut.edu.cn/info/1021/47262.htm"
+    ]
+  },
+  {
+    "id": "pjcareer-jobs",
+    "url": "https://pjcareer.dlut.edu.cn/xsfw/qyzp.htm",
+    "articleCount": 9,
+    "samples": [
+      "https://pjcareer.dlut.edu.cn/info/1051/48482.htm",
+      "https://pjcareer.dlut.edu.cn/info/1051/48472.htm"
+    ]
+  },
+  {
+    "id": "pjlib",
+    "url": "https://pjlib.dlut.edu.cn/xw/xwtz.htm",
+    "articleCount": 12,
+    "samples": [
+      "https://pjlib.dlut.edu.cn/info/1049/2564.htm",
+      "https://pjlib.dlut.edu.cn/info/1049/2554.htm"
+    ]
+  },
+  {
+    "id": "pjxqzwb",
+    "url": "https://pjxqzwb.dlut.edu.cn/index/gztz.htm",
+    "articleCount": 10,
+    "samples": [
+      "https://pjxqzwb.dlut.edu.cn/info/1081/9602.htm",
+      "https://pjxqzwb.dlut.edu.cn/info/1081/9592.htm"
+    ]
+  },
+  {
+    "id": "hyxy",
+    "url": "https://hyxy.dlut.edu.cn/tzgg/ywtz.htm",
+    "articleCount": 6,
+    "samples": [
+      "https://hyxy.dlut.edu.cn/info/1711/33402.htm",
+      "https://hyxy.dlut.edu.cn/info/1711/30902.htm"
+    ]
+  },
+  {
+    "id": "hyxy-student",
+    "url": "https://hyxy.dlut.edu.cn/tzgg/xgtz.htm",
+    "articleCount": 8,
+    "samples": [
+      "https://hyxy.dlut.edu.cn/info/1991/33612.htm",
+      "https://hyxy.dlut.edu.cn/info/1991/33602.htm"
+    ]
+  },
+  {
+    "id": "business",
+    "url": "https://business.dlut.edu.cn/tzgg.htm",
+    "articleCount": 10,
+    "samples": [
+      "https://business.dlut.edu.cn/info/1491/22162.htm",
+      "https://business.dlut.edu.cn/info/1491/22092.htm"
+    ]
+  },
+  {
+    "id": "business-student",
+    "url": "https://business.dlut.edu.cn/xsgz/xgtz.htm",
+    "articleCount": 10,
+    "samples": [
+      "https://business.dlut.edu.cn/info/1321/22332.htm",
+      "https://business.dlut.edu.cn/info/1321/22322.htm"
+    ]
+  },
+  {
+    "id": "fldpj",
+    "url": "https://fldpj.dlut.edu.cn/index/zytz.htm",
+    "articleCount": 15,
+    "samples": [
+      "https://fldpj.dlut.edu.cn/info/1147/7956.htm",
+      "https://fldpj.dlut.edu.cn/info/1147/7946.htm"
+    ]
+  },
+  {
+    "id": "fldpj-teach",
+    "url": "https://fldpj.dlut.edu.cn/jxgl/jxxx.htm",
+    "articleCount": 0,
+    "samples": []
+  },
+  {
+    "id": "dqise",
+    "url": "https://dqise.dlut.edu.cn/xsgz/tzgs.htm",
+    "articleCount": 1,
+    "samples": [
+      "https://dqise.dlut.edu.cn/info/1311/1551.htm"
+    ]
+  },
+  {
+    "id": "dqise-teach",
+    "url": "https://dqise.dlut.edu.cn/jyjx/tzgs.htm",
+    "articleCount": 0,
+    "samples": []
+  },
+  {
+    "id": "dqise-international",
+    "url": "https://dqise.dlut.edu.cn/gjjl/tzgs.htm",
+    "articleCount": 0,
+    "samples": []
+  },
+  {
+    "id": "dli",
+    "url": "https://dli.dlut.edu.cn/tzgg/tzgg.htm",
+    "articleCount": 4,
+    "samples": [
+      "https://dli.dlut.edu.cn/info/1531/28803.htm",
+      "https://dli.dlut.edu.cn/info/1531/28683.htm"
+    ]
+  },
+  {
+    "id": "dli-teach",
+    "url": "https://dli.dlut.edu.cn/jyjx/tzgs.htm",
+    "articleCount": 3,
+    "samples": [
+      "https://dli.dlut.edu.cn/info/1271/1071.htm",
+      "https://dli.dlut.edu.cn/info/1271/1061.htm"
+    ]
+  },
+  {
+    "id": "dli-student",
+    "url": "https://dli.dlut.edu.cn/xsgz/tzgs.htm",
+    "articleCount": 6,
+    "samples": [
+      "https://dli.dlut.edu.cn/info/1321/28823.htm",
+      "https://dli.dlut.edu.cn/info/1321/28793.htm"
+    ]
+  },
+  {
+    "id": "dli-international",
+    "url": "https://dli.dlut.edu.cn/gjjl/tzgs.htm",
+    "articleCount": 1,
+    "samples": [
+      "https://dli.dlut.edu.cn/info/1391/6741.htm"
+    ]
+  }
+]

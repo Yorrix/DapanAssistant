@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.AssistantAdversarialAuditTest" tests="40" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:33:33.208Z" hostname="YORRIX-LEGION" time="0.113">
+  <properties/>
+  <testcase name="undoCreationRefusesSubsequentModification" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.018"/>
+  <testcase name="stringBooleansCannotSilentlyBecomeFlags" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.008"/>
+  <testcase name="explicitNamedToolsSurviveTabSwitchWithoutChangingTheirArguments" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.003"/>
+  <testcase name="noSelectedRecordingDoesNotInventAFolder" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.002"/>
+  <testcase name="restartedPendingOrRunningCardsNeverResumeAutomatically" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.002"/>
+  <testcase name="undoDeletionRefusesAnIdReusedByLaterRecord" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.0"/>
+  <testcase name="recordingWithBothNewTitleAndExistingIdRequiresRepair" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.002"/>
+  <testcase name="malformedTravelMustNotSilentlyClearExistingDepartureTravel" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.0"/>
+  <testcase name="invalidUrgencyMustNotSilentlyMakeUrgentTodoOrdinary" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <testcase name="deleteCannotSilentlyDiscardEditPatch" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.0"/>
+  <testcase name="eventCannotSilentlyDiscardMisspelledReminderField" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <testcase name="wholeDecimalMinutesRemainValid" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.009"/>
+  <testcase name="selectionDependentToolsStillRejectTabOrSelectionChange" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <testcase name="fractionalTravelMustNotBeTruncated" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.0"/>
+  <testcase name="recordingWithoutTargetCanStillUseCurrentFolder" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <testcase name="batchAmbiguityRejectsEarlierWritesWithoutMutatingInput" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.002"/>
+  <testcase name="preparedPageCallbackCannotFollowChangedSelection" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.003"/>
+  <testcase name="independentExplicitBatchSurvivesTabSwitch" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.0"/>
+  <testcase name="preparedPageCallbackCannotRunAfterOwnerDisposed" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.027"/>
+  <testcase name="oversizedMinuteValuesCannotWrapAroundToValidDurations" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <testcase name="combinedCompletionAndEditUsesOneUpdate" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <testcase name="sseLengthTerminationCannotCommitCompletePrefix" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <testcase name="completeCannotSilentlyDiscardLocationPatch" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <testcase name="malformedPatchMustNotBecomeAnEmptyNoOp" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.0"/>
+  <testcase name="fractionalFocusMinutesMustNotBeTruncated" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <testcase name="implicitMemberMakesWholeBatchSelectionDependent" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.0"/>
+  <testcase name="cancellationDuringLookupPropagatesWithoutAskingModelAgain" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.007"/>
+  <testcase name="explicitNewRecordingDoesNotInheritSelectedFolder" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <testcase name="nonTodoNoteCannotSilentlyDiscardStructuredLocation" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.0"/>
+  <testcase name="noteEditDateMustNotLeakIntoAnotherModule" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <testcase name="undoRoundTripKeepsAttachmentsAndNullableMorningOverride" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.002"/>
+  <testcase name="sseDoneWithoutStopCannotCommitEvenWithCompleteJson" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.0"/>
+  <testcase name="requestFingerprintIgnoresRecompositionOwnerButPreparedGuardDoesNot" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.002"/>
+  <testcase name="cancellationNeverBecomesAnAutomaticRetry" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.003"/>
+  <testcase name="missingRecordingIdNeverFallsBackToSelectedFolder" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <testcase name="batchCannotSilentlyDiscardAnExtraOperationField" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <testcase name="failedLookupCanBeRecoveredWithoutLeakingFailureAsEvidence" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.007"/>
+  <testcase name="explicitExistingRecordingDoesNotFollowSelection" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.0"/>
+  <testcase name="inheritedRouteEndpointRemainsBoundToTheSendingPage" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <testcase name="newRecordingNeedsBothTitleAndKindBeforeExecution" classname="cn.dapan.assistant.AssistantAdversarialAuditTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,281 @@
+package cn.dapan.assistant
+
+import android.content.Context
+import androidx.compose.animation.animateFloatAsState
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.weight
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.graphics.drawscope.translate
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.delay
+import kotlin.math.roundToInt
+import kotlin.random.Random
+
+/** Where the companion parks itself when released. */
+enum class PetEdge(val label:String){LEFT("左侧"),RIGHT("右侧"),TOP("顶部"),BOTTOM("底部");
+ companion object{fun from(value:String?)=entries.firstOrNull{it.name==value}?:RIGHT}}
+
+/** Persisted dock: enabled flag, parked edge and position along that edge. */
+class PetDock(context:Context){
+ private val prefs=context.applicationContext.getSharedPreferences("companion-pet",Context.MODE_PRIVATE)
+ var enabled by mutableStateOf(prefs.getBoolean("enabled",false));private set
+ var expanded by mutableStateOf(false);private set
+ var edge by mutableStateOf(PetEdge.from(prefs.getString("edge",null)));private set
+ var ratio by mutableStateOf(prefs.getFloat("ratio",.58f));private set
+ var settleTick by mutableStateOf(0);private set
+ fun setEnabled(value:Boolean){check(prefs.edit().putBoolean("enabled",value).commit()){"设置未保存"};enabled=value;if(!value)expanded=false}
+ fun dock(nextEdge:PetEdge,nextRatio:Float){val r=nextRatio.coerceIn(0f,1f);check(prefs.edit().putString("edge",nextEdge.name).putFloat("ratio",r).commit()){"设置未保存"};edge=nextEdge;ratio=r;settleTick++}
+ fun toggle(){expanded=!expanded}
+ fun expand(){expanded=true}
+ fun collapse(){expanded=false}
+}
+
+val PetSize:Dp=56.dp
+/** Fraction of the companion left on screen when parked: a third shows, two thirds hide. */
+private const val PetVisible=.33f
+private const val PetHidden=.67f
+/** Extra reveal while it hangs out with its face showing, so both eyes clear the border. */
+private const val PetHangExtra=.37f
+
+/** Hosts the floating companion plus the AI bar it carries around; the bottom tabs stay put. */
+@Composable fun BoxScope.PetHost(pet:PetDock,showComposer:Boolean,composer:@Composable ()->Unit){
+ BoxWithConstraints(Modifier.fillMaxSize()){
+  val density=LocalDensity.current
+  val width=with(density){maxWidth.toPx()}
+  val height=with(density){maxHeight.toPx()}
+  if(pet.expanded){
+   val dismiss=remember{MutableInteractionSource()}
+   Box(Modifier.fillMaxSize().clickable(interactionSource=dismiss,indication=null,onClick={pet.collapse()}).semantics{contentDescription="收起小助手";role=Role.Button})
+   if(showComposer)Column(Modifier.align(Alignment.BottomCenter).fillMaxWidth()){composer()}
+  }
+  PetBuddy(pet,width,height,Modifier.align(Alignment.TopStart))
+ }
+}
+
+@Composable private fun PetBuddy(pet:PetDock,boxW:Float,boxH:Float,modifier:Modifier=Modifier){
+ val density=LocalDensity.current
+ val size=with(density){PetSize.toPx()}
+ var dragging by remember{mutableStateOf(false)}
+ var dimmed by remember{mutableStateOf(false)}
+ var tiltTarget by remember{mutableStateOf(0f)}
+ val tilt by animateFloatAsState(tiltTarget,spring(dampingRatio=Spring.DampingRatioMediumBouncy,stiffness=Spring.StiffnessMedium),label="petTilt")
+ val dim by animateFloatAsState(if(dimmed&&!dragging&&!pet.expanded).55f else 1f,tween(520),label="petDim")
+ val posX=remember{androidx.compose.animation.core.Animatable(0f)}
+ val posY=remember{androidx.compose.animation.core.Animatable(0f)}
+ var placed by remember{mutableStateOf(false)}
+ val parked=placed&&!dragging&&!pet.expanded
+ // Gripping it swings out face-first for a few seconds, then tucks back behind the border.
+ val hangOut by animateFloatAsState(if(parked)1f else 0f,tween(520,easing=FastOutSlowInEasing),label="petHangOut")
+ val visible=PetVisible+PetHangExtra*hangOut
+ val inwardX=when(pet.edge){PetEdge.LEFT->1f;PetEdge.RIGHT->-1f;else->0f}
+ val inwardY=when(pet.edge){PetEdge.TOP->1f;PetEdge.BOTTOM->-1f;else->0f}
+ fun span(total:Float)=(total-size).coerceAtLeast(1f)
+ // Parked at an edge it only shows a third of itself; the rest slides off screen.
+ fun dockX(e:PetEdge)=when(e){PetEdge.LEFT-> -size*PetHidden;PetEdge.RIGHT-> boxW-size*PetVisible;else-> pet.ratio*span(boxW)}
+ fun dockY(e:PetEdge)=when(e){PetEdge.TOP-> -size*PetHidden;PetEdge.BOTTOM-> boxH-size*PetVisible;else-> pet.ratio*span(boxH)}
+ fun settle(){
+  val cx=posX.value+size/2f;val cy=posY.value+size/2f
+  val next=listOf(cx to PetEdge.LEFT,(boxW-cx) to PetEdge.RIGHT,cy to PetEdge.TOP,(boxH-cy) to PetEdge.BOTTOM).minByOrNull{it.first}?.second?:pet.edge
+  val ratio=when(next){PetEdge.LEFT,PetEdge.RIGHT->(posY.value/span(boxH)).coerceIn(0f,1f);else->(posX.value/span(boxW)).coerceIn(0f,1f)}
+  pet.dock(next,ratio)
+ }
+ LaunchedEffect(boxW,boxH,pet.edge,pet.ratio,pet.settleTick,pet.enabled){
+  if(boxW<=0f||boxH<=0f)return@LaunchedEffect
+  val targetX=dockX(pet.edge);val targetY=dockY(pet.edge)
+  if(!placed){posX.snapTo(targetX);posY.snapTo(targetY);placed=true}
+  else if(!dragging){
+   launch{posX.animateTo(targetX,spring(dampingRatio=.68f,stiffness=Spring.StiffnessMediumLow))}
+   launch{posY.animateTo(targetY,spring(dampingRatio=.68f,stiffness=Spring.StiffnessMediumLow))}
+  }
+ }
+ // Idle for a while, then fade back so the screen stays calm.
+ LaunchedEffect(pet.settleTick,pet.expanded,dragging){
+  dimmed=false
+  if(!pet.expanded&&!dragging){delay(3200);dimmed=true}
+ }
+ Box(modifier
+  .offset{androidx.compose.ui.unit.IntOffset(
+   (posX.value+size*inwardX*PetHangExtra*hangOut).roundToInt(),
+   (posY.value+size*inwardY*PetHangExtra*hangOut).roundToInt())}
+  .size(PetSize)
+  .graphicsLayer{alpha=dim}
+  .pointerInput(Unit){detectDragGestures(
+   onDragStart={dragging=true;dimmed=false;pet.collapse()},
+   onDragCancel={dragging=false;tiltTarget=0f;settle()},
+   onDragEnd={dragging=false;tiltTarget=0f;settle()},
+   onDrag={_,amount->
+    posX.snapTo((posX.value+amount.x).coerceIn(-size*(PetHidden+.02f),(boxW-size*(PetVisible-.02f)).coerceAtLeast(-size*(PetHidden+.02f))))
+    posY.snapTo((posY.value+amount.y).coerceIn(-size*(PetHidden+.02f),(boxH-size*(PetVisible-.02f)).coerceAtLeast(-size*(PetHidden+.02f))))
+    tiltTarget=(amount.x/28f).coerceIn(-1f,1f)
+   })}
+  .pointerInput(Unit){detectTapGestures(onTap={dimmed=false;pet.toggle()})}
+  .semantics{contentDescription="小助手，拖动到四周可贴边隐藏，点按展开 AI 栏";role=Role.Button;this.selected=pet.expanded}
+ ){
+  PetSprite(dragging=dragging,expanded=pet.expanded,clinging=parked,edge=pet.edge,tilt=tilt,visible=visible,hangOut=hangOut)
+ }
+}
+
+/** One hand-drawn companion: breathes, blinks, grips the border with both hands and leans while dragged. */
+@Composable private fun PetSprite(dragging:Boolean,expanded:Boolean,clinging:Boolean,edge:PetEdge,tilt:Float,visible:Float,hangOut:Float){
+ val palette=UiPalette
+ val life=rememberInfiniteTransition(label="petLife")
+ val float by life.animateFloat(-1f,1f,infiniteRepeatable(tween(2400,easing=FastOutSlowInEasing),RepeatMode.Reverse),label="petFloat")
+ val puff by life.animateFloat(1f,1.05f,infiniteRepeatable(tween(2400,easing=FastOutSlowInEasing),RepeatMode.Reverse),label="petPuff")
+ val sway by life.animateFloat(-9f,9f,infiniteRepeatable(tween(3200,easing=FastOutSlowInEasing),RepeatMode.Reverse),label="petSway")
+ val halo by life.animateFloat(.16f,.4f,infiniteRepeatable(tween(1800,easing=FastOutSlowInEasing),RepeatMode.Reverse),label="petHalo")
+ val squeeze by life.animateFloat(1f,1.12f,infiniteRepeatable(tween(1500,easing=FastOutSlowInEasing),RepeatMode.Reverse),label="petSqueeze")
+ var blink by remember{mutableStateOf(false)}
+ LaunchedEffect(Unit){while(true){delay(Random.nextLong(2600,5400));blink=true;delay(110);blink=false}}
+ val eyeOpen by animateFloatAsState(if(blink).06f else if(dragging)1.18f else 1f,tween(90),label="petEye")
+ val arm by animateFloatAsState(if(expanded)1f else 0f,spring(dampingRatio=Spring.DampingRatioMediumBouncy,stiffness=Spring.StiffnessLow),label="petArm")
+ // Parked on an edge: both hands come out and cling to the screen border.
+ val gripRaw by animateFloatAsState(if(clinging)1f else 0f,spring(dampingRatio=Spring.DampingRatioMediumBouncy,stiffness=Spring.StiffnessLow),label="petCling")
+ var peeking by remember{mutableStateOf(false)}
+ LaunchedEffect(clinging){
+  peeking=false
+  if(clinging)while(true){delay(Random.nextLong(6000,11000));peeking=true;delay(950);peeking=false}
+ }
+ val peek by animateFloatAsState(if(peeking&&clinging)1f else 0f,spring(dampingRatio=.62f,stiffness=Spring.StiffnessLow),label="petPeek")
+ val grip=gripRaw*(1f-peek*.5f) // it loosens the hold a little while leaning out to peek
+ val horizontal=edge==PetEdge.LEFT||edge==PetEdge.RIGHT
+ val inwardX=when(edge){PetEdge.LEFT->1f;PetEdge.RIGHT->-1f;else->0f}
+ val inwardY=when(edge){PetEdge.TOP->1f;PetEdge.BOTTOM->-1f;else->0f}
+ val reveal=LocalDensity.current.run{PetSize.toPx()}*.34f
+ val lean=tilt*13f+(if(horizontal)inwardX*30f else inwardY*22f)*hangOut
+ Canvas(Modifier.fillMaxSize().graphicsLayer{
+  rotationZ=lean // hanging off the border: it leans right over so both eyes clear the edge
+  translationX=inwardX*reveal*peek
+  translationY=float*2.2f+inwardY*reveal*peek
+  scaleX=puff*(if(horizontal)1f-.05f*grip else 1f)
+  scaleY=(2f-puff)*(if(!horizontal)1f-.05f*grip else 1f)
+ }){
+  val w=size.width;val h=size.height
+  val top=h*.13f;val bodyH=h*.78f
+  // Live border line inside the body, derived from how much is currently revealed:
+  // hands are anchored to it, so they stay glued to the screen edge at any reveal.
+  val wallX=when(edge){PetEdge.LEFT->w*(1f-visible);PetEdge.RIGHT->w*visible;else->w*.5f}
+  val wallY=when(edge){PetEdge.TOP->h*(1f-visible);PetEdge.BOTTOM->h*visible;else->h*.5f}
+  val skin=Brush.linearGradient(listOf(palette.accent,palette.companion),start=Offset(w*.15f,0f),end=Offset(w*.85f,h))
+  if(expanded)drawCircle(palette.accent.copy(alpha=halo*.45f),radius=w*.6f,center=Offset(w*.5f,h*.55f))
+  // Ground shadow keeps it feeling physical while it floats.
+  drawOval(Color.Black.copy(alpha=.12f),topLeft=Offset(w*.22f,top+bodyH*.92f),size=Size(w*.56f,h*.07f))
+  // Sprout on top, swaying with the breath.
+  rotate(sway,pivot=Offset(w*.5f,top)){
+   drawLine(palette.companion,Offset(w*.5f,top+h*.03f),Offset(w*.5f,top-h*.13f),strokeWidth=2.4f,cap=StrokeCap.Round)
+   rotate(-32f,pivot=Offset(w*.5f,top-h*.13f)){drawOval(palette.companion.copy(alpha=.85f),topLeft=Offset(w*.5f-w*.18f,top-h*.18f),size=Size(w*.18f,h*.09f))}
+   rotate(32f,pivot=Offset(w*.5f,top-h*.13f)){drawOval(palette.companion.copy(alpha=.6f),topLeft=Offset(w*.5f,top-h*.18f),size=Size(w*.18f,h*.09f))}
+  }
+  // Arms pop out to hold the panel open.
+  if(arm>.02f)for(side in listOf(-1f,1f))drawCircle(palette.accent,radius=w*.075f*arm,center=Offset(w*.5f+side*w*.49f,h*.52f-arm*h*.12f))
+  // Body.
+  drawRoundRect(skin,topLeft=Offset(w*.05f,top),size=Size(w*.9f,bodyH),cornerRadius=CornerRadius(w*.44f,w*.44f))
+  drawRoundRect(palette.line.copy(alpha=.3f),topLeft=Offset(w*.05f,top),size=Size(w*.9f,bodyH),cornerRadius=CornerRadius(w*.44f,w*.44f),style=Stroke(1f))
+  drawCircle(Color.White.copy(alpha=.26f),radius=w*.24f,center=Offset(w*.37f,h*.34f))
+  // The whole face slides towards the screen while hanging, so both eyes make it past the edge.
+  translate(inwardX*w*.07f*hangOut,inwardY*h*.07f*hangOut){
+   // Eyes follow the drag and blink now and then.
+   val eyeY=h*.46f;val dx=w*.185f
+   for(side in listOf(-1f,1f)){
+    val ex=w*.5f+dx*side
+    if(eyeOpen>.25f){
+     drawOval(Color.White,topLeft=Offset(ex-w*.075f,eyeY-h*.1f*eyeOpen),size=Size(w*.15f,h*.2f*eyeOpen))
+     drawCircle(palette.ink,radius=w*.042f,center=Offset(ex+tilt*w*.022f+inwardX*w*.02f*grip,eyeY+inwardY*h*.02f*grip))
+     drawCircle(Color.White,radius=w*.014f,center=Offset(ex-w*.017f,eyeY-h*.022f))
+    }else drawLine(palette.ink,Offset(ex-w*.06f,eyeY),Offset(ex+w*.06f,eyeY),strokeWidth=2.4f,cap=StrokeCap.Round)
+   }
+   val blush=Color(0xFFFF8FB0)
+   drawCircle(blush.copy(alpha=.38f),radius=w*.058f,center=Offset(w*.5f-dx*1.3f,h*.58f))
+   drawCircle(blush.copy(alpha=.38f),radius=w*.058f,center=Offset(w*.5f+dx*1.3f,h*.58f))
+   // Mouth: a little "o" of effort while dragged, a small determined line while clinging, a smile otherwise.
+   if(dragging)drawCircle(palette.ink,radius=w*.032f,center=Offset(w*.5f,h*.63f))
+   else if(grip>.4f)drawLine(palette.ink,Offset(w*.45f,h*.62f),Offset(w*.55f,h*.62f),strokeWidth=2.2f,cap=StrokeCap.Round)
+   else drawArc(palette.ink,18f,144f,false,topLeft=Offset(w*.42f,h*.55f),size=Size(w*.16f,h*.1f),style=Stroke(2.4f,cap=StrokeCap.Round))
+  }
+  if(expanded)drawCircle(Color.White.copy(alpha=.92f),radius=w*.028f,center=Offset(w*.76f,h*.22f))
+  // Both hands gripping the border: palm tucked in, fingertips curled over the line.
+  if(grip>.03f){
+   val palm=if(horizontal)w*.095f else h*.095f
+   val along=if(horizontal)h*.3f else w*.3f
+   // Undo the lean and the peek shift for the hands only: they stay welded to the real border
+   // while the body swings, which is exactly how hanging works.
+   rotate(-lean,pivot=Offset(w*.5f,h*.5f)){
+    translate(-inwardX*reveal*peek,-inwardY*reveal*peek){
+     for(step in listOf(-1f,1f)){
+      val hx=if(horizontal)wallX+inwardX*palm else w*.5f+along*step
+      val hy=if(horizontal)h*.5f+along*step else wallY+inwardY*palm
+      drawCircle(palette.accent,radius=w*.082f*grip*squeeze,center=Offset(hx,hy))
+      drawCircle(palette.accent.copy(alpha=.35f),radius=w*.11f*grip*squeeze,center=Offset(hx,hy))
+      for(finger in listOf(-1f,0f,1f)){
+       val fx=if(horizontal)wallX+inwardX*w*.028f else hx+finger*w*.052f
+       val fy=if(horizontal)hy+finger*h*.052f else wallY+inwardY*h*.028f
+       drawCircle(palette.accent,radius=w*.026f*grip*squeeze,center=Offset(fx,fy))
+      }
+     }
+    }
+   }
+  }
+ }
+}
+
+@Composable internal fun PetPreference(pet:PetDock){
+ var failure by remember{mutableStateOf<String?>(null)}
+ fun flip(value:Boolean){runCatching{pet.setEnabled(value)}.onFailure{failure="设置未保存，请重试"}}
+ Column{
+  Row(Modifier.fillMaxWidth().clickable{flip(!pet.enabled)}.semantics{role=Role.Switch;selected=pet.enabled}.heightIn(min=46.dp).padding(horizontal=12.dp,vertical=8.dp),verticalAlignment=Alignment.CenterVertically){
+   LineIcon(AppGlyph.Pin,Modifier.size(19.dp),DutBlue)
+   Text("桌面小助手",Modifier.weight(1f).padding(start=10.dp),fontSize=14.sp,lineHeight=18.sp,color=Ink)
+   Text(if(pet.enabled)"可拖动贴边"else"固定底栏",fontSize=12.sp,lineHeight=16.sp,color=Muted)
+   Spacer(Modifier.width(8.dp))
+   androidx.compose.material3.Switch(pet.enabled,{flip(it)})
+  }
+  Text("开启后，AI 栏会收进一个可拖动的小助手：贴边只露出三分之一，点按展开，底部导航保持常驻。",Modifier.padding(start=12.dp,end=12.dp,bottom=10.dp),fontSize=11.sp,lineHeight=16.sp,color=Muted)
+  failure?.let{Text(it,Modifier.padding(start=12.dp,bottom=8.dp),fontSize=11.sp,color=androidx.compose.material3.MaterialTheme.colorScheme.error)}
+ }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.AssistantUndoTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:33:33.895Z" hostname="YORRIX-LEGION" time="0.002">
+  <properties/>
+  <testcase name="creationAndDeletionBothUndoAndRejectIdReuse" classname="cn.dapan.assistant.AssistantUndoTest" time="0.0"/>
+  <testcase name="newerFocusCannotBeUndoneByOldCard" classname="cn.dapan.assistant.AssistantUndoTest" time="0.001"/>
+  <testcase name="briefRepliesHandleConfirmationButNeverSwallowCorrections" classname="cn.dapan.assistant.AssistantUndoTest" time="0.0"/>
+  <testcase name="mixedNoteAndMorningUndoRoundTripsWithoutUnrelatedPrivateData" classname="cn.dapan.assistant.AssistantUndoTest" time="0.0"/>
+  <testcase name="storedDoneCardRetainsUndoButPendingExpiresOnRestart" classname="cn.dapan.assistant.AssistantUndoTest" time="0.001"/>
+  <testcase name="changedTargetBlocksUndoInsteadOfOverwriting" classname="cn.dapan.assistant.AssistantUndoTest" time="0.0"/>
+  <testcase name="renameUndoPreservesUnrelatedLaterEdits" classname="cn.dapan.assistant.AssistantUndoTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

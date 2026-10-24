@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET" tools:node="remove" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:node="remove" />
+    <application android:label="大盘离线集成验证" tools:replace="android:label">
+        <activity android:name="cn.dapan.assistant.AssistantAuditProbeActivity" android:exported="true" android:permission="android.permission.DUMP" />
+        <provider android:name="androidx.core.content.FileProvider" android:authorities="cn.dapan.assistant.audit.files" tools:replace="android:authorities" />
+        <receiver android:name="cn.dapan.assistant.RestoreReceiver" tools:node="remove" />
+    </application>
+</manifest>

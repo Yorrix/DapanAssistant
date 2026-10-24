@@ -1,0 +1,4157 @@
+{
+  "updatedAt": "2026-10-15T11:40:29.239920+00:00",
+  "sources": [
+    {
+      "id": "panjin",
+      "name": "盘锦校区",
+      "channel": "通知公告",
+      "url": "https://panjin.dlut.edu.cn/tzgg.htm",
+      "category": "校区"
+    },
+    {
+      "id": "pjteach",
+      "name": "教学与科研工作部",
+      "channel": "重要通告",
+      "url": "https://pjteach.dlut.edu.cn/index/zytg.htm",
+      "category": "教务"
+    },
+    {
+      "id": "pjteach-exam",
+      "name": "教学与科研工作部",
+      "channel": "考试安排",
+      "url": "https://pjteach.dlut.edu.cn/index/ksap.htm",
+      "category": "教务"
+    },
+    {
+      "id": "pjteach-innovation",
+      "name": "教学与科研工作部",
+      "channel": "创新创业",
+      "url": "https://pjteach.dlut.edu.cn/cxcyjy/cxcyjy.htm",
+      "category": "活动"
+    },
+    {
+      "id": "xsgzb",
+      "name": "学生发展与事务工作部",
+      "channel": "通知公告",
+      "url": "https://xsgzb.dlut.edu.cn/index/tzgg.htm",
+      "category": "学工"
+    },
+    {
+      "id": "xsgzb-events",
+      "name": "学生发展与事务工作部",
+      "channel": "活动预告",
+      "url": "https://xsgzb.dlut.edu.cn/index/hdyg.htm",
+      "category": "活动"
+    },
+    {
+      "id": "pjxqtw",
+      "name": "盘锦校区团工委",
+      "channel": "通知公告",
+      "url": "https://pjxqtw.dlut.edu.cn/tzgg.htm",
+      "category": "活动"
+    },
+    {
+      "id": "pjcareer",
+      "name": "盘锦校区就业中心",
+      "channel": "通知公告",
+      "url": "https://pjcareer.dlut.edu.cn/index/tzgg.htm",
+      "category": "就业"
+    },
+    {
+      "id": "pjcareer-jobs",
+      "name": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "url": "https://pjcareer.dlut.edu.cn/xsfw/qyzp.htm",
+      "category": "就业"
+    },
+    {
+      "id": "pjlib",
+      "name": "图书馆盘锦校区分馆",
+      "channel": "新闻通知",
+      "url": "https://pjlib.dlut.edu.cn/xw/xwtz.htm",
+      "category": "生活"
+    },
+    {
+      "id": "pjxqzwb",
+      "name": "盘锦校区总务部",
+      "channel": "工作通知",
+      "url": "https://pjxqzwb.dlut.edu.cn/index/gztz.htm",
+      "category": "生活"
+    },
+    {
+      "id": "hyxy",
+      "name": "化工海洋与生命学院",
+      "channel": "院务通知",
+      "url": "https://hyxy.dlut.edu.cn/tzgg/ywtz.htm",
+      "category": "学院"
+    },
+    {
+      "id": "hyxy-student",
+      "name": "化工海洋与生命学院",
+      "channel": "学工通知",
+      "url": "https://hyxy.dlut.edu.cn/tzgg/xgtz.htm",
+      "category": "学工"
+    },
+    {
+      "id": "business",
+      "name": "商学院",
+      "channel": "通知公告",
+      "url": "https://business.dlut.edu.cn/tzgg.htm",
+      "category": "学院"
+    },
+    {
+      "id": "business-student",
+      "name": "商学院",
+      "channel": "学工通知",
+      "url": "https://business.dlut.edu.cn/xsgz/xgtz.htm",
+      "category": "学工"
+    },
+    {
+      "id": "fldpj",
+      "name": "公共基础学院",
+      "channel": "重要通知",
+      "url": "https://fldpj.dlut.edu.cn/index/zytz.htm",
+      "category": "学院"
+    },
+    {
+      "id": "fldpj-teach",
+      "name": "公共基础学院",
+      "channel": "教学信息",
+      "url": "https://fldpj.dlut.edu.cn/jxgl/jxxx.htm",
+      "category": "教务"
+    },
+    {
+      "id": "dqise",
+      "name": "昆士兰科技国际工学院",
+      "channel": "通知公示",
+      "url": "https://dqise.dlut.edu.cn/xsgz/tzgs.htm",
+      "category": "学工"
+    },
+    {
+      "id": "dqise-teach",
+      "name": "昆士兰科技国际工学院",
+      "channel": "教学通知",
+      "url": "https://dqise.dlut.edu.cn/jyjx/tzgs.htm",
+      "category": "教务"
+    },
+    {
+      "id": "dqise-international",
+      "name": "昆士兰科技国际工学院",
+      "channel": "国际交流",
+      "url": "https://dqise.dlut.edu.cn/gjjl/tzgs.htm",
+      "category": "国际"
+    },
+    {
+      "id": "dli",
+      "name": "莱斯特国际学院",
+      "channel": "通知公告",
+      "url": "https://dli.dlut.edu.cn/tzgg/tzgg.htm",
+      "category": "学院"
+    },
+    {
+      "id": "dli-teach",
+      "name": "莱斯特国际学院",
+      "channel": "教育教学",
+      "url": "https://dli.dlut.edu.cn/jyjx/tzgs.htm",
+      "category": "教务"
+    },
+    {
+      "id": "dli-student",
+      "name": "莱斯特国际学院",
+      "channel": "学生工作",
+      "url": "https://dli.dlut.edu.cn/xsgz/tzgs.htm",
+      "category": "学工"
+    },
+    {
+      "id": "dli-international",
+      "name": "莱斯特国际学院",
+      "channel": "国际交流",
+      "url": "https://dli.dlut.edu.cn/gjjl/tzgs.htm",
+      "category": "国际"
+    },
+    {
+      "id": "teach-exams",
+      "name": "教务处",
+      "channel": "考试安排",
+      "url": "https://teach.dlut.edu.cn/ksap/ksap.htm",
+      "category": "全校"
+    },
+    {
+      "id": "international",
+      "name": "国际合作与交流处",
+      "channel": "学生通知",
+      "url": "https://dutdice.dlut.edu.cn/tzgg/xstong_zhi.htm",
+      "category": "全校"
+    },
+    {
+      "id": "ssc-jobs",
+      "name": "学生服务中心",
+      "channel": "招聘通知",
+      "url": "https://ssc.dlut.edu.cn/xsjy/zptz.htm",
+      "category": "全校"
+    },
+    {
+      "id": "graduate",
+      "name": "研究生院",
+      "channel": "培养通知",
+      "url": "https://gs.dlut.edu.cn/yjspy/pygcguan_li/zytz.htm",
+      "category": "全校"
+    },
+    {
+      "id": "graduate-degree",
+      "name": "研究生院",
+      "channel": "学位公告",
+      "url": "https://gs.dlut.edu.cn/yjspy/xwgl12/zxgong_goa.htm",
+      "category": "全校"
+    },
+    {
+      "id": "library",
+      "name": "图书馆",
+      "channel": "通知公告",
+      "url": "https://lib.dlut.edu.cn/xw/tzgg.htm",
+      "category": "全校"
+    },
+    {
+      "id": "innovation",
+      "name": "创新创业学院",
+      "channel": "重要通知",
+      "url": "https://chuangxin.dlut.edu.cn/zytz/zytz.htm",
+      "category": "全校"
+    },
+    {
+      "id": "xsc",
+      "name": "学生工作处",
+      "channel": "通知公告",
+      "url": "https://xsc.dlut.edu.cn/",
+      "category": "全校",
+      "articlePath": "/info/1042/"
+    },
+    {
+      "id": "gjzgb",
+      "name": "高等教育综合改革办公室",
+      "channel": "通知公告",
+      "url": "https://gjzgb.dlut.edu.cn/dttz/tzgg.htm",
+      "category": "全校"
+    }
+  ],
+  "status": [
+    {
+      "sourceId": "panjin",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "pjteach",
+      "ok": true,
+      "count": 4,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "pjteach-exam",
+      "ok": true,
+      "count": 5,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "pjteach-innovation",
+      "ok": true,
+      "count": 5,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "xsgzb",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "xsgzb-events",
+      "ok": true,
+      "count": 2,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "pjxqtw",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "pjcareer",
+      "ok": true,
+      "count": 4,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "pjcareer-jobs",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "pjlib",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "pjxqzwb",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "hyxy",
+      "ok": false,
+      "count": 6,
+      "errors": [
+        {
+          "url": "https://hyxy.dlut.edu.cn/tynry.jsp?urltype=news.NewsContentUrl&wbtreeid=1711&wbnewsid=31862",
+          "error": "ValueError"
+        },
+        {
+          "url": "https://hyxy.dlut.edu.cn/tynry.jsp?urltype=news.NewsContentUrl&wbtreeid=1711&wbnewsid=29842",
+          "error": "ValueError"
+        }
+      ],
+      "empty": false
+    },
+    {
+      "sourceId": "hyxy-student",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "business",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "business-student",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "fldpj",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "fldpj-teach",
+      "ok": true,
+      "count": 0,
+      "errors": [],
+      "empty": true
+    },
+    {
+      "sourceId": "dqise",
+      "ok": true,
+      "count": 1,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "dqise-teach",
+      "ok": true,
+      "count": 0,
+      "errors": [],
+      "empty": true
+    },
+    {
+      "sourceId": "dqise-international",
+      "ok": true,
+      "count": 0,
+      "errors": [],
+      "empty": true
+    },
+    {
+      "sourceId": "dli",
+      "ok": false,
+      "count": 3,
+      "errors": [
+        {
+          "url": "https://dli.dlut.edu.cn/tynry.jsp?urltype=news.NewsContentUrl&wbtreeid=1531&wbnewsid=28783",
+          "error": "ValueError"
+        },
+        {
+          "url": "https://dli.dlut.edu.cn/tynry.jsp?urltype=news.NewsContentUrl&wbtreeid=1531&wbnewsid=28553",
+          "error": "ValueError"
+        },
+        {
+          "url": "https://dli.dlut.edu.cn/tynry.jsp?urltype=news.NewsContentUrl&wbtreeid=1531&wbnewsid=28463",
+          "error": "ValueError"
+        },
+        {
+          "url": "https://dli.dlut.edu.cn/tynry.jsp?urltype=news.NewsContentUrl&wbtreeid=1531&wbnewsid=28443",
+          "error": "ValueError"
+        },
+        {
+          "url": "https://dli.dlut.edu.cn/tynry.jsp?urltype=news.NewsContentUrl&wbtreeid=1531&wbnewsid=27183",
+          "error": "ValueError"
+        }
+      ],
+      "empty": false
+    },
+    {
+      "sourceId": "dli-teach",
+      "ok": true,
+      "count": 3,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "dli-student",
+      "ok": false,
+      "count": 5,
+      "errors": [
+        {
+          "url": "https://dli.dlut.edu.cn/tynry.jsp?urltype=news.NewsContentUrl&wbtreeid=1321&wbnewsid=28743",
+          "error": "ValueError"
+        },
+        {
+          "url": "https://dli.dlut.edu.cn/tynry.jsp?urltype=news.NewsContentUrl&wbtreeid=1321&wbnewsid=28733",
+          "error": "ValueError"
+        },
+        {
+          "url": "https://dli.dlut.edu.cn/tynry.jsp?urltype=news.NewsContentUrl&wbtreeid=1321&wbnewsid=28623",
+          "error": "ValueError"
+        }
+      ],
+      "empty": false
+    },
+    {
+      "sourceId": "dli-international",
+      "ok": true,
+      "count": 1,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "teach-exams",
+      "ok": true,
+      "count": 1,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "international",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "ssc-jobs",
+      "ok": true,
+      "count": 4,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "graduate",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "graduate-degree",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "library",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "innovation",
+      "ok": true,
+      "count": 8,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "xsc",
+      "ok": true,
+      "count": 6,
+      "errors": [],
+      "empty": false
+    },
+    {
+      "sourceId": "gjzgb",
+      "ok": true,
+      "count": 5,
+      "errors": [],
+      "empty": false
+    }
+  ],
+  "items": [
+    {
+      "id": "22e622c7b15ea85835e5b520",
+      "title": "化工海洋与生命学院关于2025-2026学年研究生基本奖助学金评审答辩环节的通知",
+      "date": "2026-10-15",
+      "url": "https://hyxy.dlut.edu.cn/info/1991/33612.htm",
+      "source": "化工海洋与生命学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "hyxy-student"
+      ],
+      "headline": "化工海洋与生命学院研究生奖助学金答辩安排",
+      "summary": "化工海洋与生命学院发布2025-2026学年研究生基本奖助学金评审答辩通知。原则上申报人本人参加线下答辩，着装得体，每人汇报3分钟、评委提问不超过2分钟，顺序按同评审范畴内姓氏笔画确定。答辩于2026年10月16日8:30在D01-201举行，当日8:00-8:20可拷贝调试材料，命名格式为“答辩序号-姓名”。逾期未交材料或未参加视为放弃申报，建议脱稿，具体顺序见原文附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "4cdc364339f299e2e4c65945ecefa2432dfdbce0c51e0da9854e1b36ef7459c0",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:29.957462+00:00"
+    },
+    {
+      "id": "b8b4bc05b20956c2eca7e3f0",
+      "title": "化工海洋与生命学院关于2025-2026学年研究生基本奖助学金评审加分项核算结果公示及复议通知",
+      "date": "2026-10-15",
+      "url": "https://hyxy.dlut.edu.cn/info/1991/33602.htm",
+      "source": "化工海洋与生命学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "hyxy-student"
+      ],
+      "headline": "化工海洋与生命学院研究生奖助学金加分核算公示及复议通知",
+      "summary": "化工海洋与生命学院发布2025-2026学年研究生基本奖助学金评审加分项核算结果公示及复议通知。初审结果见附件，复议采取现场方式，时间为2026年10月15日9:30-11:30，地点D01-114A。复议只减不增，仅受理加分项分数核算错误或证明材料不充分问题，逾期不予受理；未参加现场复议者视为对审核结果无异议，后果自负。请相关同学提前准备复议材料并按时到场。附件未提供，关键内容需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "f3c3ca767c7dfe371d2aca6ba0ba272835e414b8d5932750b13584f50fcdc940",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:31.464490+00:00"
+    },
+    {
+      "id": "df99f04d37c5e08733e90694",
+      "title": "关于共青团大连理工大学盘锦校区工作委员会2026-2027学年学生骨干（第二批）纳新名单的公示",
+      "date": "2026-10-15",
+      "url": "https://pjxqtw.dlut.edu.cn/info/1055/16038.htm",
+      "source": "盘锦校区团工委",
+      "channel": "通知公告",
+      "category": "活动",
+      "sourceIds": [
+        "pjxqtw"
+      ],
+      "headline": "盘锦校区团工委学生骨干第二批纳新名单公示",
+      "summary": "盘锦校区团工委于2026年9月28日至10月14日完成2026-2027学年学生骨干第二批选拔，现对纳新名单予以公示，名单详见附件。公示期为3天，如对结果有异议，可通过电话0427-2631578或邮箱pjxqtwzzb@163.com提出意见和建议。如无异议，三天后正式生效，试用期三个月。具体名单需查阅附件，发布时间为2026年10月15日。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "2532878f286568988c85f0cc1c73b21851779bd88f5754300903f7cd8b213df8",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:32.486114+00:00"
+    },
+    {
+      "id": "22bf70f4743082213e78f2ed",
+      "title": "（项目通知）2027年德国亚琛工业大学冬令营",
+      "date": "2026-10-15",
+      "url": "https://dutdice.dlut.edu.cn/info/1007/21780.htm",
+      "source": "国际合作与交流处",
+      "channel": "学生通知",
+      "category": "全校",
+      "sourceIds": [
+        "international"
+      ],
+      "headline": "2027年亚琛工大冬令营报名开启",
+      "summary": "国际合作与交流处通知，2027年德国亚琛工业大学冬令营报名已开启，面向理工科专业本科在读生和硕士生，授课语言英语，含工业4.0与智能制造、人工智能在工业领域应用两个主题班，各28-30人，时间均为2027年1月17日至30日，费用3490欧元/人。需英文成绩单、英文简历和英语水平证书，通过办事大厅学生出国（境）交流项目申请及亚琛在线报名表提交，截止2026年11月15日，满额可能提前截止。2026年10月16日19:00-20:30有腾讯会议宣讲会。项目详情见原文附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "f5105daff9c82df42021a139246ab31c9c70a6830fcb18b9b30ccabe81c20e5d",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:34.126223+00:00"
+    },
+    {
+      "id": "b92d82a13602faac2b95af29",
+      "title": "“参宿”创业奖学金专项特评批次征集通知",
+      "date": "2026-10-15",
+      "url": "https://chuangxin.dlut.edu.cn/info/1018/17007.htm",
+      "source": "创新创业学院",
+      "channel": "重要通知",
+      "category": "全校",
+      "sourceIds": [
+        "innovation"
+      ],
+      "headline": "大连理工参宿创业奖学金专项特评征集",
+      "summary": "大连理工大学创新创业学院2026年10月15日通知，面向全校全日制学生创业及自媒体项目开启“参宿”创业奖学金专项特评通道，为常规学期评选的补充，标准与流程一致。申报周期为即日起至2026年10月25日，材料发至dlut_cxcy@hotmail.com，邮件主题注明“参宿创业奖学金特评申报—项目名称—负责人”。创业类须运营半年以上并提供近半年流水，自媒体类粉丝须达单平台1万或全网2万，已签约MCN机构账号不予参评。已申报本学期常规批次项目不得重复参评。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "0e7b0a409ba1b73aa52344e950d7a4c3ae0bb5c47994bfe7eb14ebab3ca93d6e",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:35.438377+00:00"
+    },
+    {
+      "id": "83685e51d385f985ef224fe8",
+      "title": "莱斯特国际学院关于开展2026年暑期社会实践优秀个人、优秀调研报告评选工作的通知",
+      "date": "2026-10-14",
+      "url": "https://dli.dlut.edu.cn/info/1321/28823.htm",
+      "source": "莱斯特国际学院",
+      "channel": "学生工作",
+      "category": "学工",
+      "sourceIds": [
+        "dli-student"
+      ],
+      "headline": "莱斯特国际学院暑期社会实践评优启动",
+      "summary": "莱斯特国际学院开展2026年暑期社会实践优秀个人、优秀调研报告评选。优秀个人面向参与该实践的学院学生（不含报国企业行），个人申报，须提交报名表及带团队全体成员签名的贡献度排名说明；优秀调研报告面向学院立项的实践团队，团队申报。两类申报均须于10月16日中午12:00前将材料发送至lsttwshijianbu@163.com，邮件命名分别按要求标注。学院计划10月16日18:00组织集中汇报，每人3分钟PPT，具体时间地点另行通知。报名者需加入咨询群538350361。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "f96f224a81b1b7dd18137be033347c5774cc2024770e6219aeef6bff68bdbb21",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:36.877191+00:00"
+    },
+    {
+      "id": "a99ea4cfcedf206e1caaf416",
+      "title": "关于开展大连理工大学化工海洋与生命学院2026-2027学年秋季学期团支部推优工作的通知",
+      "date": "2026-10-14",
+      "url": "https://hyxy.dlut.edu.cn/info/1991/33592.htm",
+      "source": "化工海洋与生命学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "hyxy-student"
+      ],
+      "headline": "化工海洋与生命学院秋季学期团支部推优通知",
+      "summary": "化工海洋与生命学院开展2026-2027学年秋季学期团支部推优，时间为2026年10月14日至10月21日。对象为18至28周岁、团龄1年以上、已提交入党申请书的共青团员，推优比例一般不超过团支部团员人数的10%。10月15日前确定名额，10月21日12:00前以团总支为单位将附件2、附件3等材料提交至学院团委组织部邮箱，10月25日12:00前在智慧团建系统录入结果，10月30日前上交纸质版推优册。附件内容未提供，具体要求需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "8fbee2bf03b195676037af33b78f1fd31977ca198e7235be3a1d8d473dc1b247",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:38.540746+00:00"
+    },
+    {
+      "id": "de5697f7c2bca9380ec8cba0",
+      "title": "关于化工海洋与生命学院推荐参评南宁庞博生物奖学金、薪火奖学金、燕宝奖学金（宁夏籍专项）的通知",
+      "date": "2026-10-14",
+      "url": "https://hyxy.dlut.edu.cn/info/1991/33582.htm",
+      "source": "化工海洋与生命学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "hyxy-student"
+      ],
+      "headline": "化工海洋与生命学院三项专项奖学金申报通知",
+      "summary": "化工海洋与生命学院启动南宁庞博生物奖学金、薪火奖学金、燕宝奖学金（宁夏籍专项）申报。已获国家奖学金和超高额奖学金者不参与；申报者须符合所在年级基本条件及附件1中的成绩排名、专业、年级、地域等附加条件。须在2026年10月15日9:00前填写申报问卷并扫码加入微信群，逾期视为放弃。评选年度内每人仅可参评一项，获评后不得放弃，最终结果以学校评审为准。奖励金额、名额等见附件1。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "2dfb068ddb93580f1d2b1bf70aba4e26ad9efe0260f1afee71eba839a90ab4c1",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:40.226651+00:00"
+    },
+    {
+      "id": "9040d146eacd4b9946deb860",
+      "title": "【重要】关于招募商学院2026-2027学年专业教师科研助手的通知",
+      "date": "2026-10-14",
+      "url": "https://business.dlut.edu.cn/info/1321/22332.htm",
+      "source": "商学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "business-student"
+      ],
+      "headline": "商学院招募2026-2027学年专业教师科研助手",
+      "summary": "商学院面向2024级、2025级本科生招募专业教师科研助手，要求理想信念坚定、学习成绩优良且科研兴趣浓厚，原则上所修课程无重修记录。有意者需参考附件1联系专业教师，填写附件2报名表并须有专业教师签名，于2026年10月28日12:00前以Word文档发送至2323942985@qq.com，邮件和文件命名为“学号-姓名-所报专业教师姓名”。学院将统一组织招募、录用及学年末考核，考核合格者按《大学生手册》创新创业奖标准加分。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "f2e29b91a2aa757d9d9dd517e0764a03a72505a7ab46c4c0967d9a007e36e5e7",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:41.541040+00:00"
+    },
+    {
+      "id": "70b73e2be5faee424750f9c2",
+      "title": "【重要】关于公示商学院2025-2026学年本科生国家奖学金评审结果的通知",
+      "date": "2026-10-14",
+      "url": "https://business.dlut.edu.cn/info/1321/22322.htm",
+      "source": "商学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "business-student"
+      ],
+      "headline": "商学院公示2025-2026学年本科生国家奖学金评审结果",
+      "summary": "商学院公布2025-2026学年本科生国家奖学金评审结果，经自主报名、材料审核、现场答辩，2023级崔鼎等5人、2024级孟龙飞等6人、2025级周柳彤等7人入选，其中孟龙飞为校区“十佳学子”自动获评。公示截止至10月15日16:00，有异议者须在公示期内联系于老师，办公室C03-104-2。仅涉及商学院本科生，名单详情需查看原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "d04438a46220eb09dca95baa1bb0a5aa9bba401c531b1c3b2993e36b2231ec42",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:43.174309+00:00"
+    },
+    {
+      "id": "4537b2ec7714475236688b89",
+      "title": "【重要】关于公示商学院2025-2026学年硕士研究生基本奖助学金动态调整结果的通知",
+      "date": "2026-10-14",
+      "url": "https://business.dlut.edu.cn/info/1321/22312.htm",
+      "source": "商学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "business-student"
+      ],
+      "headline": "商学院研究生基本奖助学金动态调整结果公示",
+      "summary": "商学院公示2025-2026学年硕士研究生基本奖助学金动态调整结果。二等升一等为赵雨婷（22437008）、郭志伟（22537004）；三等升二等为何文梅（22537008）。公示截止至10月17日（周六）中午12:00。有异议者请在公示期间联系王老师，办公室C03-104-2，办公QQ 1223306554。适用对象为商学院研究生。原文未提供异议处理后的进一步安排。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "d27d1e3d11999933635b9b6f08370f7807bb9ebb900b94091f4c98c405395c36",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:45.288333+00:00"
+    },
+    {
+      "id": "22a50f3fcde5e0056f0f712a",
+      "title": "（项目通知）德国亚琛工业大学4+2联合培养项目通知",
+      "date": "2026-10-14",
+      "url": "https://dutdice.dlut.edu.cn/info/1007/21750.htm",
+      "source": "国际合作与交流处",
+      "channel": "学生通知",
+      "category": "全校",
+      "sourceIds": [
+        "international"
+      ],
+      "headline": "亚琛工大4+2联合培养项目启动报名",
+      "summary": "大连理工与德国亚琛工业大学4+2联合培养项目现启动报名，面向全校理工科大一至大四学生，化学化工、计算机、机械、电气电子、土木、数理、材料、能源等大类均可申请。宣讲会为2026年10月20日19:00腾讯会议964-774-529。2027年度提前批报名截止2026年12月31日，需填写报名表并签前置培训管理协议、缴费后视为报名成功。语言、费用及课程详情需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "163949e2a5e4d11fabaae65d9c07cf4f39ebf72b37ab520429c0ca420b08f621",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:46.662506+00:00"
+    },
+    {
+      "id": "c9fa83ddffbcbf22d261f24f",
+      "title": "2026学年秋季学期π空间创意工社招新简章",
+      "date": "2026-10-14",
+      "url": "https://chuangxin.dlut.edu.cn/info/1018/16997.htm",
+      "source": "创新创业学院",
+      "channel": "重要通知",
+      "category": "全校",
+      "sourceIds": [
+        "innovation"
+      ],
+      "headline": "大连理工创意工社2026秋季招新",
+      "summary": "大连理工大学创新创业学院2026年10月14日发布创意工社招新简章。招新对象为全体在校生，可加入现有21个工社或申请创建新工社。现有工社即日起自行组织招募和面试；新建工社须至少5名学生发起、1名教师指导，征集截止2026年10月25日，需填写指定申请表。有意者请加入工社QQ群1011131396。具体工社名单、成员权益及考核要求需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "fd0cb99cdfc5abc203c786936432c74a71428b900d096c8fe565c25b098da3d6",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:48.043236+00:00"
+    },
+    {
+      "id": "fb0141b4a0dbb6812527cdfc",
+      "title": "大连理工大学莱斯特国际学院王泽、刘学伟赴日本参加学术会议公示",
+      "date": "2026-10-13",
+      "url": "https://dli.dlut.edu.cn/info/1531/28803.htm",
+      "source": "莱斯特国际学院",
+      "channel": "通知公告",
+      "category": "学院",
+      "sourceIds": [
+        "dli"
+      ],
+      "headline": "大连理工莱斯特国际学院两人赴日本参会公示",
+      "summary": "莱斯特国际学院公示王泽、刘学伟应名古屋大学邀请赴日本学术交流：2026年12月11日至15日前往名古屋参加国际数值线性代数研讨会并开展科研交流，往返经韩国首尔中转。经费来源为账号5009-81149004，经费负责人孙吉宁，两人各合计7500元人民币加146000日元。对公示有意见者请于10月19日17点前联系田老师，电话0427-2631235，邮箱tianchang@dlut.edu.cn。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "1dfac14e260c66adcc76cc2dcdaad5f44d19864ebc33508c432c35babefa524f",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:49.628579+00:00"
+    },
+    {
+      "id": "82a00e5fb7f373b7d7c6af57",
+      "title": "莱斯特国际学院2026-2027学年秋季学期晨读晨练出勤情况公示（第3-5周）",
+      "date": "2026-10-13",
+      "url": "https://dli.dlut.edu.cn/info/1321/28793.htm",
+      "source": "莱斯特国际学院",
+      "channel": "学生工作",
+      "category": "学工",
+      "sourceIds": [
+        "dli-student"
+      ],
+      "headline": "莱斯特国际学院晨读晨练出勤公示",
+      "summary": "莱斯特国际学院学生工作办公室对2026-2027学年秋季学期第3-5周晨读晨练出勤情况进行公示，通知日期为2026年10月13日。学生如对公示结果有异议，须在三天内联系辅导员老师或学习部，公示期过后不予受理，学习部官Q为2128932059。具体出勤结果名单等关键内容未随文提供，需查看原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "59bfa766c6b066c673c9704f6b5b6d1dee7947bb5417b1b3c11a38f14d1de7fc",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:50.587759+00:00"
+    },
+    {
+      "id": "2e76fd517fda86cb33b41120",
+      "title": "关于校园无线网设备升级的通知",
+      "date": "2026-10-13",
+      "url": "https://pjxqzwb.dlut.edu.cn/info/1081/9602.htm",
+      "source": "盘锦校区总务部",
+      "channel": "工作通知",
+      "category": "生活",
+      "sourceIds": [
+        "panjin",
+        "pjxqzwb"
+      ],
+      "headline": "三校区校园无线网设备升级通知",
+      "summary": "网信中心计划于2026年10月14日22:30至10月15日06:00，对凌水校区、开发区校区、盘锦校区的校园无线网设备进行升级。升级期间校园无线网将出现短暂中断。升级结束后如有问题，请发送邮件至support@dlut.edu.cn咨询。适用对象为校园网用户，请提前做好用网安排。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "bf34680f3977f4ef84e3c3327ff7b8768e91ed740544d7b6f0e173f1eb0570db",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:51.614324+00:00"
+    },
+    {
+      "id": "7381c7cb242ba015407a3285",
+      "title": "关于2026级本科生银行卡集中激活的通知",
+      "date": "2026-10-13",
+      "url": "https://panjin.dlut.edu.cn/info/1141/54554.htm",
+      "source": "盘锦校区",
+      "channel": "通知公告",
+      "category": "校区",
+      "sourceIds": [
+        "panjin"
+      ],
+      "headline": "盘锦校区2026级本科生银行卡集中激活",
+      "summary": "盘锦校区通知2026级本科生集中激活建行银行卡，用于奖助学金、生活补贴发放及校园费用结算。办理时间为2026年10月15日至17日每日9:00—18:00，其中10月18日为9:00—12:30，地点在二楼长廊校友墙处。需本人携带有效身份证原件、个人建行银行卡及实名制手机号到场，不支持代办。未能参加者可自行前往建行辽滨支行办理。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "f96cf8a7c092a467866eba61bd096e0461e6ced8c8ac1f47eaa4306c3b9cde0b",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:52.636439+00:00"
+    },
+    {
+      "id": "1420b2b7984425ce62dd5a18",
+      "title": "关于大连理工大学盘锦校区体育俱乐部联赛——“建行杯”第十届秋季运动会结果的公示",
+      "date": "2026-10-13",
+      "url": "https://pjxqtw.dlut.edu.cn/info/1058/16028.htm",
+      "source": "盘锦校区团工委",
+      "channel": "通知公告",
+      "category": "活动",
+      "sourceIds": [
+        "pjxqtw"
+      ],
+      "headline": "盘锦校区秋季运动会俱乐部排名公示",
+      "summary": "大连理工大学盘锦校区于2026年10月11日举办“建行杯”第十届秋季运动会，现公示体育俱乐部排名，A、B、C三组各列第一至第八名（部分组第八名空缺）。公示期截至2026年10月16日14:00，如有异议请在此期间反馈至邮箱dutpjxshtyb@163.com；未反馈视为无异议，逾期不予受理。原文未附完整排名表之外的其他说明。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "bf696458d519f9e88c55ae73899514012f06888911c6b66db0106e32cfe259c5",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:53.923155+00:00"
+    },
+    {
+      "id": "cd39d381f7b58b0946f72a9e",
+      "title": "关于举办大连理工大学盘锦校区体育俱乐部联赛——“阳光杯”七人制足球赛的通知",
+      "date": "2026-10-13",
+      "url": "https://pjxqtw.dlut.edu.cn/info/1058/16018.htm",
+      "source": "盘锦校区团工委",
+      "channel": "通知公告",
+      "category": "活动",
+      "sourceIds": [
+        "pjxqtw"
+      ],
+      "headline": "盘锦校区阳光杯七人制足球赛报名通知",
+      "summary": "大连理工大学盘锦校区将举办体育俱乐部联赛“阳光杯”七人制足球赛，比赛时间为2026年10月28日至11月15日，地点在西门小足球场。各体育俱乐部组队参赛，每队7至12人，须有1名队长。参赛者需到梦空间报名并加入QQ群992833071，按群内文档填写信息，赛前全员签署安全承诺书并由队长统一提交，未签署按弃权处理。赛事纳入公体课附加分申请范围，细则见原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "7f4e10145444aaf70cea4220bef2e3b79eee16fdbb899eaf7641c26b7eefa1a2",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:55.216199+00:00"
+    },
+    {
+      "id": "54939f5fa64f515d7673d582",
+      "title": "关于举办大连理工大学盘锦校区体育俱乐部联赛——定向越野比赛的通知",
+      "date": "2026-10-13",
+      "url": "https://pjxqtw.dlut.edu.cn/info/1058/16008.htm",
+      "source": "盘锦校区团工委",
+      "channel": "通知公告",
+      "category": "活动",
+      "sourceIds": [
+        "pjxqtw"
+      ],
+      "headline": "盘锦校区定向越野比赛报名通知",
+      "summary": "大连理工大学盘锦校区将举办体育俱乐部联赛定向越野比赛，时间为2026年10月28日13:30-16:30，地点在盘锦校区。各体育俱乐部须选拔4名学生组队，每队至少1名女生并确定队长。参赛者需到梦空间报名并加入QQ群983016388，填写群内在线文档，赛前全员签署安全承诺书由队长统一提交，未签署按弃权处理。赛事纳入公体课附加分申请范围，具体规则以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "abd426bb423abdc206f04e50f6ccfab363d5b62c5bbc5813d3aa7f23507f3641",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:56.512696+00:00"
+    },
+    {
+      "id": "8a9f246a95b5062a46e98a1d",
+      "title": "关于开展化工海洋与生命学院2025-2026学年学生集体荣誉评选的通知",
+      "date": "2026-10-13",
+      "url": "https://hyxy.dlut.edu.cn/info/1991/33552.htm",
+      "source": "化工海洋与生命学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "hyxy-student"
+      ],
+      "headline": "化工海洋与生命学院集体荣誉评选通知",
+      "summary": "化工海洋与生命学院开展2025-2026学年学生集体荣誉评选，对象含2023至2025级行政班、在校研究生集体及2025级及以上学生寝室。本科生班级需填附件1、2，研究生填附件3、4，标兵寝室另交申报表、汇总表、事迹材料、成绩单及合影等，10月14日22:00前发至gq0620@dlut.edu.cn，逾期视为放弃，纸质版暂不提交。负责人进QQ群274224387，学院答辩暂定10月15日下午。具体条件与附件内容需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "b49bec2c9f40d936c9efe082192dee0a63b8086c8b2a8621d456b71b89922c76",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:57.732476+00:00"
+    },
+    {
+      "id": "774e74fdf8e9b503838929a6",
+      "title": "关于开展公共基础学院2025-2026学年本科生专项奖学金（含国家励志奖学金）评审工作的通知",
+      "date": "2026-10-13",
+      "url": "https://fldpj.dlut.edu.cn/info/1147/7956.htm",
+      "source": "公共基础学院",
+      "channel": "重要通知",
+      "category": "学院",
+      "sourceIds": [
+        "fldpj"
+      ],
+      "headline": "公共基础学院启动专项奖学金评审申报",
+      "summary": "公共基础学院开展2025-2026学年本科生专项奖学金（含国家励志奖学金）评审，实行个人申报制，各专项奖学金之间不可兼得，国家奖学金不可与专项奖学金兼得。申请者需填写附件2申报汇总表，于10月15日（周四）17:00前发送至zouliang1989@dlut.edu.cn，逾期不再受理。具体名额、金额、条件见附件1，获奖者须履行颁奖座谈、企业回访等义务。咨询联系邹老师15642788805。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "9136b0da235c02ece1dd84dd28def97c9eab17543be0e32b97e5cdaa31b57f72",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:35:59.284124+00:00"
+    },
+    {
+      "id": "1ac69bbdf05b011ae3f46c67",
+      "title": "关于开展2026年盘锦校区校园安全管理能力素养提升培训的通知",
+      "date": "2026-10-12",
+      "url": "https://panjin.dlut.edu.cn/info/1141/54534.htm",
+      "source": "盘锦校区",
+      "channel": "通知公告",
+      "category": "校区",
+      "sourceIds": [
+        "panjin"
+      ],
+      "headline": "盘锦校区10月19日开展校园安全管理培训",
+      "summary": "盘锦校区拟于10月19日（星期一）14:00-16:00在G01报告厅开展校园安全管理能力素养提升培训，内容为《健全应急预案体系建设，提高校园安全管理能力》，主讲人为中共辽宁省委党校应急管理教研部主任伊文嘉。参会范围包括校区安全生产工作领导小组成员、处级干部、七级管理岗位人员、专兼职辅导员、实验室安全员、总务部职员等，欢迎其他感兴趣教职工参加。请各单位于10月16日14:00前统一填写参会回执，参会人员提前10分钟按座位帖就座。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "62ee8ac8cdf7be11d882670a4129b2664d629a197f4094e255f707f9c6b0b1c2",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:00.609014+00:00"
+    },
+    {
+      "id": "e3c02d2314c7b661308ec45d",
+      "title": "关于开展大连理工大学盘锦校区2025-2026学年硕士研究生奖助学金动态调整工作的通知",
+      "date": "2026-10-12",
+      "url": "https://xsgzb.dlut.edu.cn/info/1441/19232.htm",
+      "source": "学生发展与事务工作部",
+      "channel": "通知公告",
+      "category": "学工",
+      "sourceIds": [
+        "xsgzb"
+      ],
+      "headline": "大连理工盘锦校区硕士奖助学金动态调整启动",
+      "summary": "大连理工大学盘锦校区开展2025-2026学年2024级、2025级全日制硕士研究生基本奖助学金动态调整。各学院须在10月22日12:00前组织申报评审、初评排序并对升档推荐名单公示不少于3个工作日，同时报送名单、申报表及公示证明，纸质版送G01-E204，电子版发至pjxgb@dlut.edu.cn。校区预计10月26日至28日审核公示。名额分配详见学院通知。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "4c8b2627604ddd9f9b6ec3f1ae1be052e1ddb667a0d6dba688fef6cc314e79e2",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:02.801107+00:00"
+    },
+    {
+      "id": "648ebade7210075852ae4365",
+      "title": "关于2026年10月份总务部领导接待日安排的通知",
+      "date": "2026-10-12",
+      "url": "https://pjxqzwb.dlut.edu.cn/info/1081/9592.htm",
+      "source": "盘锦校区总务部",
+      "channel": "工作通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjxqzwb"
+      ],
+      "headline": "盘锦校区总务部10月领导接待日安排",
+      "summary": "盘锦校区总务部公布10月份部门领导接待日安排：10月21日由付成龙接待，地点为H03楼305，联系电话0427-2631077，接待时间为当日14:00—16:30。接待安排如有变动以临时通知为准。建议来访者提前将问题和联系方式发至zhangyj1215@dlut.edu.cn预约，接待日优先接待已预约来访者。适用对象为校区师生。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "67b1de6afe0f92c61ce2f9ace3a8421d6e6fcb38b80158f4d93696d209629a60",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:04.002035+00:00"
+    },
+    {
+      "id": "d8c99df7d9a4a159a405bcf0",
+      "title": "本周活动早知道（校历第7周）",
+      "date": "2026-10-12",
+      "url": "https://xsgzb.dlut.edu.cn/info/1811/19222.htm",
+      "source": "学生发展与事务工作部",
+      "channel": "活动预告",
+      "category": "活动",
+      "sourceIds": [
+        "xsgzb-events"
+      ],
+      "headline": "本周活动早知道校历第7周预告",
+      "summary": "学生发展与事务工作部发布《本周活动早知道（校历第7周）》活动预告，发布日期为2026年10月12日。通知仅给出标题所指的本周活动预告，正文未提供具体活动名称、时间地点、参与对象及报名方式等内容。需要了解本周活动安排的学生，请查阅原文获取完整信息。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "57c5222517b296d8f250f6e924ba970bb773f38ef00faa37d40dd14a6c2d4b4b",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:05.347650+00:00"
+    },
+    {
+      "id": "ec4cf39fea102e11c65cdabd",
+      "title": "化工海洋与生命学院关于2025-2026学年硕士研究生基本奖助学金动态调整工作的通知",
+      "date": "2026-10-12",
+      "url": "https://hyxy.dlut.edu.cn/info/1991/33542.htm",
+      "source": "化工海洋与生命学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "hyxy-student"
+      ],
+      "headline": "化工海洋与生命学院硕士奖助学金动态调整通知",
+      "summary": "化工海洋与生命学院开展2025-2026学年硕士研究生基本奖助学金动态调整，面向2024级、2025级全日制硕士。自主申报即日起至10月13日，材料提交10月13日8:30-17:00，纸质交至D01-114A辅导员处，电子材料须同步填写问卷上传，缺一不可，逾期视为放弃。支撑材料缺失的加分项不计入。志愿服务时长标准调整为18小时。答辩、复议等具体时间地点另行通知。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "3f6067cf898b6fe024fe8012da8bac62ac81d4ad420bb43e37b2f6374ecb536c",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:06.907306+00:00"
+    },
+    {
+      "id": "c2337eb2e13b5827ab8e12d9",
+      "title": "化工海洋与生命学院关于2025-2026学年研究生专项奖学金（比亚迪奖学金）评审结果的公示",
+      "date": "2026-10-12",
+      "url": "https://hyxy.dlut.edu.cn/info/1991/33512.htm",
+      "source": "化工海洋与生命学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "hyxy-student"
+      ],
+      "headline": "化工海洋与生命学院比亚迪奖学金评审结果公示",
+      "summary": "化工海洋与生命学院经学生自主申报、学院评审，公示2025-2026学年研究生专项奖学金（比亚迪奖学金）评审结果，名单含邓越、李江东、崔姣姣、梁国辉4人及排序，其中梁国辉拟推荐。适用对象为相关研究生。公示期至2025年10月14日上午10:00，如有异议须在公示期内实名发送邮件至hyxb@dlut.edu.cn，反映情况应实事求是；未反馈视为无异议，逾期不予受理。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "beaa084c0b909865b6aa5495ee576d5dfcf2926cf87d88c560fc1946c6f8c9df",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:08.193103+00:00"
+    },
+    {
+      "id": "048d6253b489785cde15486e",
+      "title": "【重要】关于开展商学院2025-2026学年硕士研究生基本奖助学金动态调整工作的通知",
+      "date": "2026-10-12",
+      "url": "https://business.dlut.edu.cn/info/1321/22302.htm",
+      "source": "商学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "business-student"
+      ],
+      "headline": "商学院硕士基本奖助学金动态调整申报通知",
+      "summary": "商学院开展2024级、2025级全日制硕士研究生2025-2026学年基本奖助学金动态调整，2024级二等升一等1人、三等升二等0人，2025级二等升一等1人、三等升二等1人。拟参评者需按要求填写相关附件并附成绩单、志愿服务时长证明（不低于20小时）等，2025级另需佐证材料。材料电子版打包发送至wcy@dlut.edu.cn，邮件命名为“姓名+学号+基本奖助学金动态调整申报”，截止10月14日（周三）中午12:00。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "b8e1db8b3e2722cf7a697dc7edd95aa922429fc4136e1252327c8e346f7d2ef2",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:09.462173+00:00"
+    },
+    {
+      "id": "dcdf0d927f377fe84f4f787e",
+      "title": "【重要】关于开展商学院2025-2026学年班级学风建设成果汇报大会暨“优良学风班”“先进班集体”“学风进步班”评选工作的通知",
+      "date": "2026-10-12",
+      "url": "https://business.dlut.edu.cn/info/1321/22292.htm",
+      "source": "商学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "business-student"
+      ],
+      "headline": "商学院开展班级学风建设成果汇报与荣誉评选",
+      "summary": "商学院开展2025-2026学年班级学风建设成果汇报大会及“优良学风班”“先进班集体”“学风进步班”评选，面向2023级、2024级、2025级各行政班级。申报班级须填写附件1、附件2，电子版于10月14日20:00前发至pjsytxxxb@163.com，附件1纸质版于10月14日17:00前交至学院学生工作办公室C03-104-2于日新老师处；学习委员加入指定钉钉群，答辩要求、时间及地点群内通知，具体条件以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "99a82e018873e6b7e965b071528fed465dc0ee6962f84a44dc27567dec412f8e",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:10.950091+00:00"
+    },
+    {
+      "id": "99a6f99aa46bbf6c5770d4d0",
+      "title": "关于开展公共基础学院2025-2026学年学生集体荣誉评选工作的通知",
+      "date": "2026-10-12",
+      "url": "https://fldpj.dlut.edu.cn/info/1147/7946.htm",
+      "source": "公共基础学院",
+      "channel": "重要通知",
+      "category": "学院",
+      "sourceIds": [
+        "fldpj"
+      ],
+      "headline": "公共基础学院启动2025-2026学年集体荣誉评选",
+      "summary": "公共基础学院开展2025-2026学年学生集体荣誉评选，面向在校本科生2023级行政班、2025级及以上研究生集体、2023级学生寝室。本科生班级可申报优良学风班、先进班集体、学风进步班，标兵寝室需另报事迹材料、成绩单及合影。全部材料须于10月14日16:00前发送至指定邮箱，过时视为放弃，疑问可咨询邹靓靓老师。具体名额与条件以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "b800779ef9d567c4141d83dd641268afb66f34eb1062bccd7fabad39bda78103",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:12.405772+00:00"
+    },
+    {
+      "id": "97a177dd93dc7e4e9fbd282e",
+      "title": "关于举办2026年“平安留学”行前培训会的通知",
+      "date": "2026-10-12",
+      "url": "https://dutdice.dlut.edu.cn/info/1007/21740.htm",
+      "source": "国际合作与交流处",
+      "channel": "学生通知",
+      "category": "全校",
+      "sourceIds": [
+        "international"
+      ],
+      "headline": "大连理工2026平安留学行前培训会报名通知",
+      "summary": "大连理工大学国际合作与交流处将于2026年10月27日13:30-16:40在主楼第一报告厅举办“平安留学”行前培训会，面向公派及自费留学人员、因公临时出国（境）人员、各学院/学部外事秘书及有出国（境）意向的师生。培训含思想政治、通识、国别、留学政策与管理服务等内容。参训人员须扫码填写统计表报名，截止2026年10月21日17:00，并提前10分钟到场。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "5e2c61636f620ec53fb863a856641970bb68cf24a12957f6d5d1906147e94c9f",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:13.646482+00:00"
+    },
+    {
+      "id": "026a879e7de19e5a607bef17",
+      "title": "2027年美国加州大学欧文分校暑期理工科英语强化营正式报名通知",
+      "date": "2026-10-10",
+      "url": "https://dli.dlut.edu.cn/info/1531/28683.htm",
+      "source": "莱斯特国际学院",
+      "channel": "通知公告",
+      "category": "学院",
+      "sourceIds": [
+        "dli"
+      ],
+      "headline": "加州大学欧文分校2027暑期英语强化营报名",
+      "summary": "莱斯特国际学院通知，2027年美国加州大学欧文分校暑期理工科英语强化营现开放报名，面向大连理工大学在读大二、大三学生。项目时间为2027年8月2日至8月13日，预估费用2400美元/人。需于10月14日17:00前完成线上报名，并于10月15日17:00前将签字后的两份知情同意书交至盘锦校区C07-309高老师处。具体课程、签证等以后续通知为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "1582110fdf0451532910ba19ce183e2975a789242920a117604c9aacdeb98bc5",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:14.955548+00:00"
+    },
+    {
+      "id": "4e817b7754dedd97c516a8c1",
+      "title": "关于开展盘锦校区2026年度第二期积极分子培训的通知",
+      "date": "2026-10-10",
+      "url": "https://panjin.dlut.edu.cn/info/1141/54414.htm",
+      "source": "盘锦校区",
+      "channel": "通知公告",
+      "category": "校区",
+      "sourceIds": [
+        "panjin"
+      ],
+      "headline": "盘锦校区2026年第二期积极分子培训通知",
+      "summary": "盘锦校区2026年第二期积极分子培训于10月12日至10月21日举行，由莱斯特国际学院党委分党校承办。对象为2026年6月底前确定的入党积极分子及从外校转入尚未参加培训者。培训含开班仪式、专题报告、线上理论学习、心得体会、结业考试等。线上学习须于10月19日24:00前完成必修学时，心得不少于1500字、10月19日24:00前提交；结业考试60分合格。请假超过总学时1/7或无故缺勤1次不予结业。日程、操作指南、请假条及名单见附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "e0a55a336b548c61ce42649cdf1fdaf2beae3bb0b9d278f19cab9c939a5abc51",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:16.396102+00:00"
+    },
+    {
+      "id": "c1ebe8c94ff10d330abe6778",
+      "title": "关于推荐学生申请赴新西兰坎特伯雷大学攻读博士学位项目的通知",
+      "date": "2026-10-10",
+      "url": "https://panjin.dlut.edu.cn/info/1141/54394.htm",
+      "source": "盘锦校区",
+      "channel": "通知公告",
+      "category": "校区",
+      "sourceIds": [
+        "panjin"
+      ],
+      "headline": "坎特伯雷大学CSC博士项目校区预报名通知",
+      "summary": "新西兰坎特伯雷大学2026年度CSC合作博士项目启动校区推荐预报名，面向校区2023级本科生、2024级硕士研究生。资助含坎特伯雷大学免除最长4年全额学费，国家留学基金委提供不超过48个月奖学金生活费、一次往返国际旅费及签证申请费。有意者应先明确深造意向，于2026年10月16日前将姓名及个人简历发送至学院外事联系人邮箱。导师方向参考附件1，外事联系人通讯录见附件2；附件内容未提供，需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "bbfeb544c52600462793e072263d9961bb43f748d54fd9eaf09efc77211f75d3",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:17.959282+00:00"
+    },
+    {
+      "id": "d23a16c677f8aa431383c606",
+      "title": "关于共青团大连理工大学盘锦校区工作委员会2026-2027学年学生骨干试用期考核结果的公示",
+      "date": "2026-10-10",
+      "url": "https://pjxqtw.dlut.edu.cn/info/1055/15998.htm",
+      "source": "盘锦校区团工委",
+      "channel": "通知公告",
+      "category": "活动",
+      "sourceIds": [
+        "pjxqtw"
+      ],
+      "headline": "盘锦校区团工委学生骨干试用期考核结果公示",
+      "summary": "共青团大连理工大学盘锦校区工作委员会2026-2027学年学生骨干试用期期满，现将通过考核结果予以公示，详见附件。对结果有异议者可在公示期内与校区团工委指导老师沟通解决，如有更改需以部门为单位上报至指导老师处，截止时间为10月12日18:00。咨询电话：张老师 0427-2631578。具体名单等关键内容需阅读原文附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "8e429dce5824de569431c875efb5a71b523dd553c198fcd2d855a94a109fda7e",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:19.123622+00:00"
+    },
+    {
+      "id": "cbd902f50201cebe506fa20a",
+      "title": "关于化工海洋与生命学院2025-2026学年国家奖学金（本科生）评审拟获奖结果的公示",
+      "date": "2026-10-10",
+      "url": "https://hyxy.dlut.edu.cn/info/1991/33502.htm",
+      "source": "化工海洋与生命学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "hyxy-student"
+      ],
+      "headline": "化工海洋与生命学院国家奖学金拟获奖名单公示",
+      "summary": "化工海洋与生命学院2026年10月10日开展2025-2026学年国家奖学金（本科生）答辩评审会，结合盘锦校区“十佳学子”及超高额奖学金评选结果和名额，公示拟获奖与依次递补名单，具体见附件。公示期截至10月15日上午9:00，如有异议请在公示期内工作日到D01-113B学院学生工作办公室反馈，未反馈视为无异议，逾期不予受理。附件内容未提供，需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "3c07419287c2ef9b831cb8b435375b8e09294df8588b1f072bc825130f450c5f",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:20.375456+00:00"
+    },
+    {
+      "id": "6f8e18ddfa3e3af17a319e1b",
+      "title": "2026博士学位论文单项\\特别奖学金评选结果公示",
+      "date": "2026-10-10",
+      "url": "https://gs.dlut.edu.cn/info/1206/51992.htm",
+      "source": "研究生院",
+      "channel": "学位公告",
+      "category": "全校",
+      "sourceIds": [
+        "graduate-degree"
+      ],
+      "headline": "2026博士论文单项特别奖学金评选结果公示",
+      "summary": "研究生院学位办公示2026年博士学位论文单项奖学金和特别奖学金评选结果，经本人申请、学院推荐及学校答辩评审，拟定21名博士生获单项奖学金资助、12名博士生获特别奖学金资助。公示期为2026年10月10日至10月12日，面向全校公示。如有异议，可在截止前通过书面、电话或电子邮件向研究生院学位办（主楼东侧楼330）反映，需实事求是并署真实姓名；联系人高老师，电话84708334，邮箱xwbgck@foxmail.com。具体名单见原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "bc071a2e9e5c91da7059968f83fda8f468e9003fb3b05545cc1745ba4b83d833",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:21.688127+00:00"
+    },
+    {
+      "id": "d67b4ec82d04fe5674a83fdd",
+      "title": "关于10月份校区领导接待日安排的通知",
+      "date": "2026-10-09",
+      "url": "https://panjin.dlut.edu.cn/info/1141/54364.htm",
+      "source": "盘锦校区",
+      "channel": "通知公告",
+      "category": "校区",
+      "sourceIds": [
+        "panjin"
+      ],
+      "headline": "盘锦校区10月领导接待日安排通知",
+      "summary": "盘锦校区公布10月校区领导接待日安排：时间为10月22日（星期四）14:00—16:30，接待领导占敬敬，党政办陪同人员王海楠，地点G01-S106，预约截止时间为10月20日14:00。来访人须提前预约，未预约原则上不予接待；预约电话0427-2631927，邮箱pjdut@dlut.edu.cn。同一问题群体应推选代表，人数不超过3人。该接待日仅面向校区师生员工，校外人员走日常信访渠道。安排如有变动以临时通知为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "971176adf5153f65648bf6654142a9a97ea8d7ef78774b7f01ca263083cdf110",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:23.148804+00:00"
+    },
+    {
+      "id": "9a79e128e187a7816d037ad3",
+      "title": "关于大连理工大学盘锦校区职业规划与就业协会2026-2027学年学生干部补录的通知",
+      "date": "2026-10-09",
+      "url": "https://xsgzb.dlut.edu.cn/info/1791/19212.htm",
+      "source": "学生发展与事务工作部",
+      "channel": "通知公告",
+      "category": "学工",
+      "sourceIds": [
+        "xsgzb",
+        "pjcareer"
+      ],
+      "headline": "大连理工盘锦校区校职协学生干部补录通知",
+      "summary": "大连理工大学盘锦校区职业规划与就业协会面向校区全日制本科生及研究生补录2026-2027学年学生干部，涉及办公室、外联部、活动部、宣创部、学生服务部干事及副部长岗位。报名须于2026年10月14日22:00前将报名表提交至pjjy@dlut.edu.cn，报名表和邮件主题命名为“姓名+补录岗位（第一志愿）+电话”。面试暂定2026年10月16日，结果经校区就业信息网公示，试用期3个月。候选人须无重修和违纪记录。具体岗位人数、条件及安排需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "7fa1e4d0fd24de6f53c06ec8cb7ee207eb738054aee977ecf7f6a2103ee768dc",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:24.627688+00:00"
+    },
+    {
+      "id": "4f63765e23e525c82da38dc2",
+      "title": "关于盘锦校区2026-2027学年秋季学期本科生体质健康测试的通知",
+      "date": "2026-10-09",
+      "url": "https://fldpj.dlut.edu.cn/info/1147/7916.htm",
+      "source": "公共基础学院",
+      "channel": "重要通知",
+      "category": "学院",
+      "sourceIds": [
+        "fldpj"
+      ],
+      "headline": "盘锦校区本科生秋季体质健康测试通知",
+      "summary": "盘锦校区面向全体本科生开展2026-2027学年秋季学期体质健康测试，时间为2026年10月17、18、24、25日08:30-11:00、14:00-16:00，地点为校区田径场和B01。学生需携带学生证、玉兰卡或身份证自主安排时间参加，先到B01门前取卡，测完到B01交卡确认信息及成绩。如有疑问可于10月14日前邮件咨询苏老师。免修、加分、缓测补测及违纪处理等要求以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "2da7f10f6724da8978e5c96e2ceedee64a4f5ead9186cee5598134118706fd9f",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:26.226871+00:00"
+    },
+    {
+      "id": "d68eb6ccc717814dbc7467f0",
+      "title": "大连理工大学2026年专职辅导员招聘启事",
+      "date": "2026-10-09",
+      "url": "https://xsc.dlut.edu.cn/info/1042/7142.htm",
+      "source": "学生工作处",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "xsc"
+      ],
+      "headline": "大连理工招聘2026年专职辅导员",
+      "summary": "大连理工大学面向校内外招聘专职辅导员A、B、C岗，按事业编聘用，数量若干，工作地点在大连。报名即日起至2026年10月30日17:00，需登录指定招聘网站网上报名，并将个人简历、诚信承诺书扫描件及证明材料合并为一个PDF上传，命名为“姓名-岗位类型”。应聘者须为中共党员或预备党员、研究生学历硕士及以上学位、年龄不超过38周岁，具体条件、材料排序及招聘环节以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "2280fb8bf983f6279344e021976e2c5d32d25a4a0ccd3cc457b2c25d24607efa",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:27.758569+00:00"
+    },
+    {
+      "id": "58b1b6ceac18281850bca257",
+      "title": "关于推荐大连理工大学2025-2026学年桃李面包校友奖学金候选人的公示",
+      "date": "2026-10-08",
+      "url": "https://xsgzb.dlut.edu.cn/info/1441/19202.htm",
+      "source": "学生发展与事务工作部",
+      "channel": "通知公告",
+      "category": "学工",
+      "sourceIds": [
+        "xsgzb"
+      ],
+      "headline": "大连理工盘锦校区桃李面包校友奖学金候选人公示",
+      "summary": "学生发展与事务工作部公示盘锦校区拟推荐参评大连理工大学2025-2026学年桃李面包校友奖学金的候选人名单，候选人为化工海洋与生命学院2023级马起乐。公示期截止至10月10日16:00。如有异议，请以电子邮件形式反映至pjxgb@dlut.edu.cn，反映情况应实事求是并署真实姓名。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "8bad24c3bbf245dcbf3dcc9dacb4df77c7bbedab70feba84a6b1445955d5edfb",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:29.113103+00:00"
+    },
+    {
+      "id": "95bc2152e1927caa323c7b60",
+      "title": "关于开展公共基础学院2025-2026学年本科生国家奖学金评审工作的通知",
+      "date": "2026-10-08",
+      "url": "https://fldpj.dlut.edu.cn/info/1147/7906.htm",
+      "source": "公共基础学院",
+      "channel": "重要通知",
+      "category": "学院",
+      "sourceIds": [
+        "fldpj"
+      ],
+      "headline": "公共基础学院2025-2026学年国家奖学金评审启动",
+      "summary": "公共基础学院开展2025-2026学年本科生国家奖学金评审，面向注册取得大连理工大学正式学籍的全日制二年级及以上在校本科生，奖励标准10000元/人，学院名额3个。申报学生须于10月9日17:00前填写《国家奖学金申请汇总表》发送至zouliang1989@dlut.edu.cn，逾期视为放弃，当晚公布答辩名单并抽取顺序；10月10日学院答辩评审，每人3分钟自述、2分钟提问，10月15日完成公示。学习成绩排名须在前10%（含，不四舍五入）；前30%者需某方面特别优秀并经审议。国家奖学金与国家励志奖学金不可兼得，与校级专项奖学金不可兼得（屈伯川奖学金、玉兰奖学金除外）。疑问可联系邹老师15642788805。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "b1a4fce29fc29ef09954ded01e021949066b8cc7ac079908b51d1febd32dbc1b",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:30.797904+00:00"
+    },
+    {
+      "id": "afc9d00829f5b021bec343ed",
+      "title": "瑞典皇家理工学院（KTH）“3+2” 联合培养项目宣讲会",
+      "date": "2026-10-08",
+      "url": "https://dutdice.dlut.edu.cn/info/1007/21720.htm",
+      "source": "国际合作与交流处",
+      "channel": "学生通知",
+      "category": "全校",
+      "sourceIds": [
+        "international"
+      ],
+      "headline": "KTH3+2联合培养宣讲会及申请安排",
+      "summary": "我校启动2027年瑞典皇家理工学院“3+2”项目报名选拔，面向相关专业全日制本科三年级学生。宣讲会于2026年10月15日18:00-19:30在凌水主校区第二教学馆407举行，需加入QQ群716868504。线上申请开放为2026年10月16日至2027年1月15日，KTH奖学金申请为2026年12月1日至2027年1月15日，录取2027年4月1日公布。申请需托福不低于4.5、雅思不低于6.5等条件，具体硕士项目要求、费用及附件内容请查阅原文和官网。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "212fd89b745e227b23690ac81edb91b689c5d3f2e64e606108a012d8a9ded7e0",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:32.424827+00:00"
+    },
+    {
+      "id": "a3edea8c7c04f08633725ae5",
+      "title": "关于报名参加香港城市大学2026年“AI与大数据前沿”研学项目的通知",
+      "date": "2026-10-07",
+      "url": "https://panjin.dlut.edu.cn/info/1141/54344.htm",
+      "source": "盘锦校区",
+      "channel": "通知公告",
+      "category": "校区",
+      "sourceIds": [
+        "panjin"
+      ],
+      "headline": "香港城市大学AI研学项目报名通知",
+      "summary": "盘锦校区通知报名香港城市大学2026年“AI与大数据前沿”研学项目，时间2026年11月29日至12月5日，名额35人，费用9800港币。面向全日制本科生，要求无违规违纪、身心健康、英语良好、服从双人标间住宿安排。需先获监护人同意，填写申请表和知情同意书并经学院审批，于10月16日17时前交至G01-S408。报名后校区视情况安排面试。盘锦校区普通类学生可申请国际化基金亚洲地区5000元资助。需自行办理港澳通行证及签注。附件和具体课程安排需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "228c2d8b863aa3492b55ede09a5fe0a6e304cc7e074f68c9aaea94a84ec8ce8c",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:33.806789+00:00"
+    },
+    {
+      "id": "57e2ad3852b8b974cecb3ca9",
+      "title": "本周活动早知道（校历第6周）",
+      "date": "2026-10-05",
+      "url": "https://xsgzb.dlut.edu.cn/info/1811/19182.htm",
+      "source": "学生发展与事务工作部",
+      "channel": "活动预告",
+      "category": "活动",
+      "sourceIds": [
+        "xsgzb-events"
+      ],
+      "headline": "校历第6周活动预告发布",
+      "summary": "学生发展与事务工作部发布校历第6周活动预告，发布时间为2026年10月5日，面向学生。该通知为本周活动早知道，但公开页面未提供正文内容，具体活动名称、时间、地点、参与对象及报名方式等关键信息需阅读原文或相关图片附件。请以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "6de1015f29383fc0545310fe33ff97be53711de6d1ed6b022e09b3685ce03579",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:34.916275+00:00"
+    },
+    {
+      "id": "efcd9003eaf6e068731fe664",
+      "title": "【重要】关于组织商学院本科生2025-2026学年国家奖学金评审答辩的通知",
+      "date": "2026-10-04",
+      "url": "https://business.dlut.edu.cn/info/1321/22272.htm",
+      "source": "商学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "business-student"
+      ],
+      "headline": "商学院组织本科生国家奖学金评审答辩",
+      "summary": "商学院面向本科生组织2025-2026学年国家奖学金评审答辩，申报截止10月10日中午12:00，需填写对应年级汇总表发送至pjsytxxxb@163.com，邮件主题为国家奖学金+姓名+年级，并扫码加入钉钉群。答辩暂定10月14日下午在A01-W101教室进行，每人3分钟PPT汇报加2分钟提问。已获盘锦校区第十三届“十佳学子”者自动获得且无需再参加。逾期未申报视为放弃。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "d08024c2b6713e4193c730d7eb513dda793177d93823bf05830325c0f4b8e7db",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:36.258309+00:00"
+    },
+    {
+      "id": "7d1a3ac10cc3996e708ba8cb",
+      "title": "莱斯特国际学院关于开展2025-2026学年国家奖学金及专项奖学金评选的通知",
+      "date": "2026-09-30",
+      "url": "https://dli.dlut.edu.cn/info/1321/28673.htm",
+      "source": "莱斯特国际学院",
+      "channel": "学生工作",
+      "category": "学工",
+      "sourceIds": [
+        "dli-student"
+      ],
+      "headline": "莱斯特国际学院启动国家奖学金及专项奖学金评选",
+      "summary": "莱斯特国际学院面向2023、2024、2025级本科生开展2025-2026学年国家奖学金及专项奖学金评选，要求学习成绩排名专业前10%，排名计算规则及依据见通知。评选实行个人申报制，专项奖学金不可兼得。国家奖学金答辩评审会计划于2026年10月10日开展，具体时间地点另行通知。申请人须于10月7日12:00前将附件1、附件2电子版发送至dlistudent@dlut.edu.cn，附件2纸质版于10月8日17:00前交至C07-202韩老师处，并加入答辩通知QQ群1085114339。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "84218f3c9491e5bec2e40339a548539676b64b1d266dcff9495346c0a6efd941",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:37.644191+00:00"
+    },
+    {
+      "id": "2948d2fa53f80bf60647f63c",
+      "title": "莱斯特国际学院关于开展2026-2027学年秋季学期团支部推优工作的通知",
+      "date": "2026-09-30",
+      "url": "https://dli.dlut.edu.cn/info/1321/28633.htm",
+      "source": "莱斯特国际学院",
+      "channel": "学生工作",
+      "category": "学工",
+      "sourceIds": [
+        "dli-student"
+      ],
+      "headline": "莱斯特国际学院秋季学期团支部推优工作通知",
+      "summary": "莱斯特国际学院团委面向各基层团支部开展2026-2027学年秋季学期推优工作，推优时间为2026年10月8日至10月22日。推荐对象须为18至28周岁、团龄1年以上并已提交入党申请书的团员，2024级成绩排名专业前60%以内、2025级前40%以内，且2025-2026学年春季和夏季学期无一考挂科等。各支部需召开线下推优大会，到会人数超团员总数90%，赞成票超过到会团员2/3。推荐人数不超过支部团员数10%，结果报送截至2026年10月23日17:00，材料发至dlitwzzb@163.com。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "b23f0e4f5db9ff905e5afdeb317e6cca53df810c54cddf9ff803cdc5ce99aef4",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:39.143330+00:00"
+    },
+    {
+      "id": "9eff86c263ad058d5169058d",
+      "title": "关于大连理工大学盘锦校区自强社2026-2027学年学生干部名单的公示",
+      "date": "2026-09-30",
+      "url": "https://xsgzb.dlut.edu.cn/info/1791/19162.htm",
+      "source": "学生发展与事务工作部",
+      "channel": "通知公告",
+      "category": "学工",
+      "sourceIds": [
+        "xsgzb"
+      ],
+      "headline": "大连理工盘锦校区自强社干部名单公示",
+      "summary": "大连理工大学盘锦校区自强社公布2026-2027学年学生干部名单，经自主报名、面试选拔共遴选出47名学生干部，涉及社长团及事务部、实践部、义工部、宣传部。公示期为3天，对结果有异议可通过邮箱3371233409@qq.com提出；公示期满无异议则正式生效，试用期1个月。名单详情需阅读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "b274463fb0c01dac2db9ee93a8fa6b88fedb396476a87e3604a1ca36ff5fc157",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:40.290490+00:00"
+    },
+    {
+      "id": "34ed47a62d4bb62f3388d3da",
+      "title": "自聘网络工程师校区内招聘启事",
+      "date": "2026-09-30",
+      "url": "https://pjxqzwb.dlut.edu.cn/info/1081/9552.htm",
+      "source": "盘锦校区总务部",
+      "channel": "工作通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjxqzwb"
+      ],
+      "headline": "盘锦校区招聘自聘网络工程师1名",
+      "summary": "盘锦校区总务部面向校区内招聘自聘网络工程师1名，负责校园网络运维与升级改造、网络安全管理、G01报告厅和E03礼堂等会场设备运维与升级改造等工作。应聘者将个人简历发送至邮箱pjrs@dlut.edu.cn，邮件主题格式为“校区内应聘+岗位名称+姓名”，报名截止时间为2026年10月10日17：00。联系人宿旺、孙佳琦，联系电话2631939/2631937。具体条件以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "3479f56a6caf93f92eae0f6a604747154707e6e02e62da17cba36d4b480ef50b",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:41.571758+00:00"
+    },
+    {
+      "id": "9a3285eab69defa3397de50e",
+      "title": "2026-2027学年大连理工大学学生海外交流协会社团学生干部换届公示",
+      "date": "2026-09-30",
+      "url": "https://dutdice.dlut.edu.cn/info/1007/21710.htm",
+      "source": "国际合作与交流处",
+      "channel": "学生通知",
+      "category": "全校",
+      "sourceIds": [
+        "international"
+      ],
+      "headline": "大连理工学生海外交流协会干部换届公示",
+      "summary": "国际合作与交流处2026年9月30日发布2026-2027学年大连理工大学学生海外交流协会社团学生干部换届公示，列出会长、亚非欧项目部、欧美大项目部、港澳台项目部、综合事务部等部门担任部长及工作人员的学生姓名、学号、学院班级。公示面向全校，正文未说明异议反映方式或时间等具体安排，相关关键内容需阅读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "2d02cf53476c6e1e4192913dbc05f00f66a38c2270bbd471697d17e72d850c9b",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:42.727100+00:00"
+    },
+    {
+      "id": "234201c627c4797c0f647fcc",
+      "title": "关于大连理工大学盘锦校区校友工作志愿者协会2026-2027学年学生骨干补录名单的公示",
+      "date": "2026-09-29",
+      "url": "https://xsgzb.dlut.edu.cn/info/1791/19122.htm",
+      "source": "学生发展与事务工作部",
+      "channel": "通知公告",
+      "category": "学工",
+      "sourceIds": [
+        "xsgzb"
+      ],
+      "headline": "盘锦校区校友志愿者协会骨干补录名单公示",
+      "summary": "大连理工大学盘锦校区校友工作志愿者协会2026-2027学年干事补录选拔已完成，经个人报名、资格审查、面试考察等环节，现对办公室、宣创部、服务部、外联部共21名补录干事名单予以公示。公示期为3天，自2026年9月29日起，如对结果有异议可通过电话0427-2631999或邮箱pjjz@dlut.edu.cn提出。公示无异议者试用期3个月，3天后正式生效。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "6e9350c3dcd44ee05385039dbfac99d28e3baceedecc9db7d13dc4a4863be562",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:44.025772+00:00"
+    },
+    {
+      "id": "4300c9b7c0505a2328506230",
+      "title": "关于2027届研究生毕业生图像采集报名的通知",
+      "date": "2026-09-29",
+      "url": "https://gs.dlut.edu.cn/info/1089/51902.htm",
+      "source": "研究生院",
+      "channel": "培养通知",
+      "category": "全校",
+      "sourceIds": [
+        "graduate"
+      ],
+      "headline": "大连理工2027届研究生毕业生图像采集报名通知",
+      "summary": "大连理工大学研究生院通知，全体2027届毕业研究生须参加图像采集。凌水主校区10月26日8:00—11:40，开发区校区10月12日10:30—11:50，盘锦校区10月17日9:00—9:30，须提前10分钟到场。缴费每人17元，微信支付：凌水校区9月29日15:00至10月24日23:59，开发区、盘锦校区至10月9日23:59，未缴费不可采集。须提前下载采集码并出示，注意着装、发型、不化妆等要求，具体地点及附件详见原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "24293a65afa1b0e7f7751ceee6ba2f7e20b80081f2b67e863586d3305c4c3c39",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:45.363870+00:00"
+    },
+    {
+      "id": "39a1ddb3b0c2a3afee910962",
+      "title": "关于大连理工大学盘锦校区2026-2027学年学生社团骨干（第二批）纳新工作的通知",
+      "date": "2026-09-28",
+      "url": "https://pjxqtw.dlut.edu.cn/info/1055/15968.htm",
+      "source": "盘锦校区团工委",
+      "channel": "通知公告",
+      "category": "活动",
+      "sourceIds": [
+        "pjxqtw"
+      ],
+      "headline": "大连理工盘锦校区社团骨干第二批纳新通知",
+      "summary": "大连理工大学盘锦校区团工委开展2026-2027学年学生社团骨干第二批纳新，面向具有正式学籍的在校本科生，涉及多个社团社长、副社长岗位。每人最多填报两个顺序志愿，优先录取第一志愿。报名表须于10月4日12:00前发送至pjxqtwstglb@163.com，报名表和邮件主题均命名为“姓名+报名岗位全称+电话”，不符合要求不予接收。面试为3分钟自我介绍和2分钟评委提问，结果将在校区团工委官网公示。岗位需求、报名条件及附件内容需阅读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "5d50010ea495174a1100a25ff793d3b0d2060514b40d0ddeeead47d69909fe54",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:47.058402+00:00"
+    },
+    {
+      "id": "3415cab142ff9f5d2c6a412c",
+      "title": "关于盘锦校区2026年青年人才培养计划选聘结果的公示（第二批）",
+      "date": "2026-09-28",
+      "url": "https://xsgzb.dlut.edu.cn/info/1791/19112.htm",
+      "source": "学生发展与事务工作部",
+      "channel": "通知公告",
+      "category": "学工",
+      "sourceIds": [
+        "xsgzb"
+      ],
+      "headline": "盘锦校区青年人才培养计划拟聘人员公示",
+      "summary": "学生发展与事务工作部公示盘锦校区2026年第二批青年人才培养计划选聘结果，经报名、资格审查、面试考核，确定张金华、徐美歌2名研究生为拟聘人选。公示时间为2026年9月28日至9月30日，如有异议请书面反映至学生发展与事务工作部G01-E204办公室。公示期满无异议后纳入计划，岗位试用期1个月，试用合格发放聘任证书，聘期1年，聘期满表现优秀者可续聘。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "c639a56f8cd303971875731d058b817a827ebc71a211066ca452aaee548d868f",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:48.124577+00:00"
+    },
+    {
+      "id": "516d6f570b54ce392ab99bc9",
+      "title": "关于组织学生参加第七届联合国机构宣讲咨询活动的通知",
+      "date": "2026-09-28",
+      "url": "https://pjcareer.dlut.edu.cn/info/1021/47262.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "通知公告",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer"
+      ],
+      "headline": "第七届联合国机构宣讲咨询活动报名通知",
+      "summary": "国家留学基金管理委员会10月组织第七届联合国机构宣讲咨询活动，我校代表将于2026年10月27日在湖南省长沙市中南大学潇湘校区参加，食宿交通等费用自理。参加者须为中国公民，年满18周岁且不超过32周岁，外语水平良好，对国际组织有基本认知并有志于到国际组织工作。各学院组织学生报名，须于9月29日12点前扫码填写报名表，联系人张老师，电话84706143。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "443b77673a388afc9d1851afcd325a50b3f3174324f8f5d3d63a03038f00f765",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:49.290183+00:00"
+    },
+    {
+      "id": "4569c0b390e0e502b89d6022",
+      "title": "“我与法治”故事征集活动获奖结果公布",
+      "date": "2026-09-25",
+      "url": "https://panjin.dlut.edu.cn/info/1141/54224.htm",
+      "source": "盘锦校区",
+      "channel": "通知公告",
+      "category": "校区",
+      "sourceIds": [
+        "panjin"
+      ],
+      "headline": "盘锦校区我与法治故事征集获奖结果公布",
+      "summary": "盘锦校区面向全体学生开展“我与法治”故事征集活动，共征集作品80篇，经多位教师评委评审产生获奖名单。获奖同学须于9月28日至9月30日8:00-11:30、13:30-17:00至G01-S408领取获奖证书。具体获奖名单及活动后续要求需查看原文。通知由盘锦校区党工委2026年9月25日发布。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "edc9ed5000b9247d265eb82e03e0a8cb3fa05d8d150baa8e7d743fb2c65259ef",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:50.389888+00:00"
+    },
+    {
+      "id": "e8ca98bdaa96a49bc17f4b75",
+      "title": "关于大连理工大学盘锦校区体育俱乐部联赛——啦啦操比赛结果的公示",
+      "date": "2026-09-24",
+      "url": "https://pjxqtw.dlut.edu.cn/info/1058/15958.htm",
+      "source": "盘锦校区团工委",
+      "channel": "通知公告",
+      "category": "活动",
+      "sourceIds": [
+        "pjxqtw"
+      ],
+      "headline": "盘锦校区啦啦操比赛结果公示",
+      "summary": "大连理工大学盘锦校区于2026年9月23日举办体育俱乐部联赛啦啦操比赛，现公示各俱乐部排名及最佳领操员（队长）名次。适用对象为相关参赛体育俱乐部，参赛人员名单详见附件1（附件内容未提供）。公示期截止至2026年9月27日18:00，如有异议请在期内反馈至邮箱dutpjxshtyb@163.com，未反馈视为无异议，逾期不予受理。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "7d8a81e9d12118dbd07d27cf0e54740e508bfb428055015c30798f56a7ad7a91",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:51.707134+00:00"
+    },
+    {
+      "id": "16bce42477e1b66f564277b5",
+      "title": "关于推荐大连理工大学2025-2026学年大额专项奖学金候选人的公示",
+      "date": "2026-09-24",
+      "url": "https://xsgzb.dlut.edu.cn/info/1441/18792.htm",
+      "source": "学生发展与事务工作部",
+      "channel": "通知公告",
+      "category": "学工",
+      "sourceIds": [
+        "xsgzb"
+      ],
+      "headline": "大连理工盘锦校区大额专项奖学金候选人公示",
+      "summary": "学生发展与事务工作部公示盘锦校区拟推荐参评大连理工大学2025-2026学年大额专项奖学金候选人名单，包括2024级莱斯特国际学院李元浩、化工海洋与生命学院于瀚翔两位同学，排序如上。公示期截止至9月28日16:00。如有异议，请以电子邮件形式发至pjxgb@dlut.edu.cn，反映情况应实事求是并署真实姓名。相关评选规定见对应通知，具体内容可查阅原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "f6c09f9f39884c81b47308c67d2aa2177478682c0d611d6c1bc606000923f2a6",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:52.988511+00:00"
+    },
+    {
+      "id": "da34709219778401212db983",
+      "title": "关于评选大连理工大学盘锦校区2026年度优秀实习学生的通知",
+      "date": "2026-09-24",
+      "url": "https://pjcareer.dlut.edu.cn/info/1021/47252.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "通知公告",
+      "category": "就业",
+      "sourceIds": [
+        "xsgzb",
+        "pjcareer"
+      ],
+      "headline": "盘锦校区评选2026年度优秀实习学生",
+      "summary": "大连理工大学盘锦校区开展2026年度优秀实习学生评选，面向2026年1月至9月线下连续实习不少于3周且完成任务的全日制本科生及研究生。申请者须提交申请表、不少于1500字实习总结、加盖企业公章的实习评价材料及辅助材料，10月10日11:30前发送电子版至pjjy@dlut.edu.cn并提交纸质版至G01-E205，10月14日参加3分钟现场答辩。评选前十名获证书及每人2000元实习补贴。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "c99e980c440f463177fd14dfbf0555ac0db9c1ae9e68a1ee8ddcade2841a57c2",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:54.457189+00:00"
+    },
+    {
+      "id": "73a7543b2049c5e8e539abb4",
+      "title": "盘锦校区总值班室2026年10月值班安排",
+      "date": "2026-09-23",
+      "url": "https://panjin.dlut.edu.cn/info/1141/54144.htm",
+      "source": "盘锦校区",
+      "channel": "通知公告",
+      "category": "校区",
+      "sourceIds": [
+        "panjin"
+      ],
+      "headline": "盘锦校区总值班室2026年10月值班安排",
+      "summary": "盘锦校区公布2026年10月总值班安排，面向各学院及各管理服务机构。总值班室在G01-S105，全年每天24小时值班，分白班8:00～17:00和夜班17:00～次日8:00，值班电话13700078781，传真0427-2631928。要求按时交接班，不得迟到早退、擅自离岗；确需调换须本人协商并向党政办公室报备；负责处理来电来访、突发事件等，实行首办负责制，做好记录，紧急事件第一时间通报或汇报。具体值班人员表见原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "5a097a2888f4913d2a45fa37d70e17626e9931a2a00c6fee2f2a6b9eadf5c2dc",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:56.281445+00:00"
+    },
+    {
+      "id": "c280fc350c6bf6af6e6e545c",
+      "title": "大连理工大学盘锦校区2026年第二期发展对象培训结业通知",
+      "date": "2026-09-23",
+      "url": "https://panjin.dlut.edu.cn/info/1141/54104.htm",
+      "source": "盘锦校区",
+      "channel": "通知公告",
+      "category": "校区",
+      "sourceIds": [
+        "panjin"
+      ],
+      "headline": "盘锦校区发展对象培训结业及领证安排",
+      "summary": "大连理工大学盘锦校区2026年第二期发展对象培训已结束，共88名学员通过考核准予结业，具体名单详见附件。各单位组织员老师需于9月23日至10月12日之间，携带本单位结业同学的《学生党员教育培训个人登记表》，先到党政办公室（G01-S307）在发展对象培训结业证明处加盖公章，再到G01-S407领取结业证书。附件未提供，名单等关键内容需查阅原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "ac31aef26ffa7fcfc9fae5f6044c9e7fb7fe652a7b0ade433ba9f7da7fc658c6",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:57.305668+00:00"
+    },
+    {
+      "id": "12cdbbe920fa38ee7a22d417",
+      "title": "关于大连理工大学盘锦校区2025-2026学年“十佳学子”（研究生部分）评选结果的公示",
+      "date": "2026-09-23",
+      "url": "https://xsgzb.dlut.edu.cn/info/1441/18762.htm",
+      "source": "学生发展与事务工作部",
+      "channel": "通知公告",
+      "category": "学工",
+      "sourceIds": [
+        "xsgzb"
+      ],
+      "headline": "盘锦校区研究生十佳学子评选结果公示",
+      "summary": "大连理工大学盘锦校区公示2025-2026学年“十佳学子”研究生部分评选结果：2024级化工海洋与生命学院刘佳乐获评，并被推荐参加校优秀研究生标兵答辩。获评者将自动获得盘锦校区2025-2026学年英才奖学金，并可在符合学校奖学金兼得原则基础上直接获得2025-2026学年普通国家奖学金，无需重复参与各学院国奖答辩。公示期截止至9月27日17:00，有异议须署真实姓名发邮件至pjxgb@dlut.edu.cn反映。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "4644b15dd6a4da57e2d3f76aabef29dc09ae01cae291233eb2fe85c5dafda06c",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:36:58.828385+00:00"
+    },
+    {
+      "id": "145db0a2658f4df95ae421fb",
+      "title": "关于大连理工大学盘锦校区校友工作志愿者协会2026-2027学年学生干部纳新的通知（第二批）",
+      "date": "2026-09-23",
+      "url": "https://xsgzb.dlut.edu.cn/info/1791/18752.htm",
+      "source": "学生发展与事务工作部",
+      "channel": "通知公告",
+      "category": "学工",
+      "sourceIds": [
+        "xsgzb"
+      ],
+      "headline": "盘锦校区校友工作志愿者协会纳新补录通知",
+      "summary": "大连理工大学盘锦校区校友工作志愿者协会面向校区全日制本科生补录2026-2027学年学生骨干，补录办公室6人、宣创部7人、校友服务部10人、外联部9人。报名须在2026年9月23日22:00前将报名表发送至pjjz@dlut.edu.cn，每人最多填报两个顺序志愿；面试定于9月24日线下进行，具体时间地点在咨询QQ群1107547517通知。报名后请及时加群。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "a844842a19b0d7722bf30697ea666128e9333d150233ae17f54e4581911af648",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:00.029849+00:00"
+    },
+    {
+      "id": "f67eba145fac6f8b7e0a41c2",
+      "title": "图书馆2026年中秋十一开放时间安排",
+      "date": "2026-09-23",
+      "url": "https://pjlib.dlut.edu.cn/info/1049/2564.htm",
+      "source": "图书馆盘锦校区分馆",
+      "channel": "新闻通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjlib"
+      ],
+      "headline": "图书馆盘锦校区分馆中秋国庆开放安排",
+      "summary": "图书馆盘锦校区分馆通知，根据学校2026年中秋节、国庆节放假安排，为保障师生教学科研和学习需要，中秋节（9月25日—9月27日）和国庆节（10月1日—10月7日）均正常开馆，开放时间均为7:00—22:00。适用对象为师生读者，无需报名，按上述时间前往即可。通知仅说明开放时间，其余安排需以原文和学校相关通知为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "acade058da987868754db0d6dbd527e2ab385eb672f8188b36b0520d8d20412e",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:01.491948+00:00"
+    },
+    {
+      "id": "34797b1d4b85908089595c97",
+      "title": "【重要】关于公示商学院2025-2026学年研究生国家奖学金评选结果的通知",
+      "date": "2026-09-23",
+      "url": "https://business.dlut.edu.cn/info/1321/22252.htm",
+      "source": "商学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "business-student"
+      ],
+      "headline": "商学院研究生国家奖学金评选结果公示",
+      "summary": "商学院面向2024级、2025级研究生公示2025-2026学年研究生国家奖学金评选结果，公示名单中2024级为曹福一。公示截止至9月30日17:00，如有异议须在公示期内联系王老师，办公室C03-104-2。该通知由商学院资助育人工作委员会于2026年9月23日发布，具体完整名单及要求请以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "46a52049ab7567b01400a61b679240df0a8845162b61f5007a44d51ae0acdad1",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:02.861795+00:00"
+    },
+    {
+      "id": "f8c7a904a10bae7670d3c062",
+      "title": "关于开展公共基础学院2025-2026学年研究生国家奖学金评选的通知",
+      "date": "2026-09-23",
+      "url": "https://fldpj.dlut.edu.cn/info/1147/7876.htm",
+      "source": "公共基础学院",
+      "channel": "重要通知",
+      "category": "学院",
+      "sourceIds": [
+        "fldpj"
+      ],
+      "headline": "公共基础学院研究生国家奖学金评选通知",
+      "summary": "公共基础学院开展2025-2026学年研究生国家奖学金评选，学院名额1个。参评需符合《研究生手册》相关规定，如无违纪、寝室达文明寝室标准、民主评议良好及以上等，并有限制条件。9月28日8:00前提交申报表、支撑材料、优研证明至C05-206，逾期视为放弃；同日计划完成材料审核及复议，答辩暂定9月28日，具体安排另行通知。志愿服务时长标准调整为不低于18小时。疑问联系邹靓靓老师。附件未提供，关键内容需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "f24391d38f2abe24af06995a4227ee8c450b7bab5516b252c9cecccfbc556e31",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:04.568245+00:00"
+    },
+    {
+      "id": "c649b45d864ba29a03e3ccaf",
+      "title": "莱斯特国际学院关于2026-2027学年学院学生组织人员名单的公示",
+      "date": "2026-09-22",
+      "url": "https://dli.dlut.edu.cn/info/1321/28613.htm",
+      "source": "莱斯特国际学院",
+      "channel": "学生工作",
+      "category": "学工",
+      "sourceIds": [
+        "dli-student"
+      ],
+      "headline": "莱斯特国际学院公示新学年学生组织人员名单",
+      "summary": "莱斯特国际学院于2026年9月22日公示2026-2027学年学生组织人员名单，经自主报名、材料初审、现场面试、综合评议等程序产生，名单详见附件。公示截止2026年9月30日，如有异议请实名通过邮件（xsy@dlut.edu.cn）或电话0427-2631231反馈。秋季学期纳新人员试用期1个月，自公示期结束之日起计算。名单具体内容需查阅原文附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "bbf023372ef0184e9cc20cd78c88d67563d864865a896b6ac683587fbad8a542",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:05.793100+00:00"
+    },
+    {
+      "id": "05d35d3318604fa9fbad5754",
+      "title": "关于开展共青团大连理工大学盘锦校区工作委员会2026-2027学年学生骨干（第二批）纳新工作的通知",
+      "date": "2026-09-22",
+      "url": "https://pjxqtw.dlut.edu.cn/info/1055/15948.htm",
+      "source": "盘锦校区团工委",
+      "channel": "通知公告",
+      "category": "活动",
+      "sourceIds": [
+        "pjxqtw"
+      ],
+      "headline": "盘锦校区团工委2026-2027学年学生骨干第二批纳新",
+      "summary": "盘锦校区团工委面向校区全日制本科生及研究生开展2026-2027学年学生骨干第二批纳新，岗位涉及团工委内设部门、学生会、校园大使服务中心、研究生会及艺术团等。报名者须于9月28日12:00前将补报申报表发送至pjxqtwzzb@163.com，邮件及报名表以“姓名-报名岗位全称-电话”命名。面试地点为E02-211，时间等短信通知。岗位不对专业年级限制，候选人条件与选拔流程同此前选拔通知。咨询电话0427-2631578。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "f0a468895f2a8a6bc9ac87cb239b6009021c50f03d7f839ccc402a9677d75d58",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:07.022617+00:00"
+    },
+    {
+      "id": "09c9bb495f0aaf20f03fa749",
+      "title": "关于化工海洋与生命学院工会举办教职工“喜迎国庆・活力健行”健步走比赛活动的通知",
+      "date": "2026-09-22",
+      "url": "https://hyxy.dlut.edu.cn/info/1711/33402.htm",
+      "source": "化工海洋与生命学院",
+      "channel": "院务通知",
+      "category": "学院",
+      "sourceIds": [
+        "hyxy"
+      ],
+      "headline": "化工海洋与生命学院教职工国庆健步走比赛通知",
+      "summary": "化工海洋与生命学院工会面向学院全体教职工举办“喜迎国庆・活力健行”健步走比赛。打卡时间为2026年10月1日至10月7日，报名截止9月30日，通过微信小程序报名并自动记录每日步数，按7天累计总步数排名评奖。参与需先在学院教工群将群昵称改为实名，再进入微信运动小程序报名。活动自愿参加、量力而行，严禁刷步等弄虚作假，每晚10:00截屏统计步数，获奖名单内部公示，获奖人员不超过参赛人员的65%。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "83a42777407699b8ead38d990a9f223612757db55d955ebd444b21848fc59ea1",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:08.333542+00:00"
+    },
+    {
+      "id": "73b2bb3c29d6a9f84dfcbb64",
+      "title": "关于图书馆2026年中秋节、国庆节开放安排的通知",
+      "date": "2026-09-22",
+      "url": "https://lib.dlut.edu.cn/info/1049/11319.htm",
+      "source": "图书馆",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "library"
+      ],
+      "headline": "图书馆中秋国庆开放安排通知",
+      "summary": "图书馆发布2026年中秋节、国庆节开放安排：9月25日至27日、10月1日至7日正常开馆。伯川图书馆开放时间为7:00—22:00，令希图书馆、盘锦校区分馆、开发区校区分馆为8:00—22:00，马克思主义分馆闭馆。适用对象为全校师生读者，具体以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "22e2720b3ed1468e7c9ba552a017d6a37432333512d87de07dd128d1c0712c7b",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:09.440228+00:00"
+    },
+    {
+      "id": "b18e1f67dfd655ec1398e61b",
+      "title": "莱斯特国际学院关于2026级新生“书香力行杯”评选结果的公示",
+      "date": "2026-09-21",
+      "url": "https://dli.dlut.edu.cn/info/1321/28593.htm",
+      "source": "莱斯特国际学院",
+      "channel": "学生工作",
+      "category": "学工",
+      "sourceIds": [
+        "dli-student"
+      ],
+      "headline": "莱斯特国际学院2026级书香力行杯评选结果公示",
+      "summary": "莱斯特国际学院根据相关通知安排，经学生个人申报、学院评审答辩等环节，公示2026级新生“书香力行杯”评选结果，含“躬身力行”24人获奖、“品鉴书香”24人获奖。公示期自即日至2026年9月25日。如对评选结果有异议，须在公示期内以实名方式向学院团委反映。具体名单见原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "cee57376729454bf69f699ed785945e2cb0c69c9ef9ec743c893c844ce7c46cf",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:10.824591+00:00"
+    },
+    {
+      "id": "dc1dc77ce823f34fed660846",
+      "title": "关于报名参加2027年寒假赴港澳名校访学项目的通知",
+      "date": "2026-09-21",
+      "url": "https://panjin.dlut.edu.cn/info/1141/54084.htm",
+      "source": "盘锦校区",
+      "channel": "通知公告",
+      "category": "校区",
+      "sourceIds": [
+        "panjin"
+      ],
+      "headline": "盘锦校区2027寒假港澳访学项目报名",
+      "summary": "盘锦校区发布2027年寒假港澳名校访学项目通知，面向校区全日制本科生，招募上限30人，要求无违规违纪、身心健康，项目英语授课。项目时间暂定2027年1月18日至25日，费用14800元，含住宿含早、参访交通、课程讲座、四顿正餐及境外旅行险，不含往返机票等。普通类学生可申请校区国际化基金亚洲地区5000元/人资助。需自行办理港澳通行证及签注，深圳集合、珠海解散。报名须先获监护人同意，填写申请表及家长知情同意书，经学院审批后，于2026年10月9日17时前提交纸质版至G01-S408并完成线上报名。详情联系王老师，电话0427-2631933。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "f63ec4b20f71053a4d20d0b447290df28de5e5b3f5cacffc1b5b5737bc6239ca",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:12.310753+00:00"
+    },
+    {
+      "id": "6e87eb45f6e8e48029874857",
+      "title": "关于选拔学生代表团2027年寒假赴新加坡国立大学访学的通知",
+      "date": "2026-09-21",
+      "url": "https://panjin.dlut.edu.cn/info/1141/54074.htm",
+      "source": "盘锦校区",
+      "channel": "通知公告",
+      "category": "校区",
+      "sourceIds": [
+        "panjin"
+      ],
+      "headline": "盘锦校区选拔学生2027寒假赴新加坡国立大学访学",
+      "summary": "盘锦校区通知选拔40名全日制本科生参加2027年1月10日至17日（暂定）赴新加坡国立大学访学，主题为人工智能与机器学习，费用20000元，不含机票及个人消费。申请者须无违规违纪、英语交流能力良好，并先获监护人同意。报名需填写申请表和家长知情同意书，经学院审批后于2026年10月9日17时前提交纸质版至G01-S408并完成线上报名，之后面试择优选拔。普通类获资格学生可申请校区国际化基金资助5000元，在读期间仅一次。关键附件内容需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "88df0243dfef8d5c57aa518cc101e3b1f07f7e68602714268d67316e7431e943",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:13.925715+00:00"
+    },
+    {
+      "id": "3cc4e2468690c0ee900be036",
+      "title": "盘锦校区关于开展2026-2027学年秋季学期课程研究生助教选聘工作的通知",
+      "date": "2026-09-21",
+      "url": "https://pjteach.dlut.edu.cn/info/1021/2802.htm",
+      "source": "教学与科研工作部",
+      "channel": "重要通告",
+      "category": "教务",
+      "sourceIds": [
+        "pjteach"
+      ],
+      "headline": "盘锦校区秋季学期研究生助教选聘启动",
+      "summary": "盘锦校区启动2026-2027学年秋季学期研究生助教选聘。申请者须为盘锦校区全日制在校研究生，已进入学校研究生助管、助教岗位人才库，并参加过研究生助教培训取得结业证书编号；每人不可同时申请超过2个助教岗位。9月21日至10月15日由各学院、书院组织填写申请表，不接受个人提交，纸质版送至G01行政服务大厅11号窗口。10月16日前需登录大工博雅在线教学平台完成培训及线上考核。岗位设置、注册流程等详见原文附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "d3cc4ab7451e32128b0adaa84ae3754758e7f96da848116959f8e77b497f73ed",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:15.093888+00:00"
+    },
+    {
+      "id": "12b396c47f68e032aab7b145",
+      "title": "关于开展“海外硕士申请实务：项目选择与申请文书”讲座的通知",
+      "date": "2026-09-21",
+      "url": "https://pjteach.dlut.edu.cn/info/1021/3392.htm",
+      "source": "教学与科研工作部",
+      "channel": "重要通告",
+      "category": "教务",
+      "sourceIds": [
+        "pjteach"
+      ],
+      "headline": "海外硕士申请实务讲座9月21日开讲",
+      "summary": "校区将开设“海外硕士申请实务：项目选择与申请文书”讲座，主讲人为Hayden Haines Moon，第一讲时间为9月21日9-10节18:00-19:35，地点为智慧研讨语音室W505。课程介绍美国、英国、香港和新加坡高校硕士项目申请流程，重点是申请文书写作，学生需携带电脑。主要面向本科生，人数上限36人，需扫描二维码预约，先报先得，报满为止。关键内容请以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "15b32c4dec7166df5e6b87f64823f0c8329e21d0dae3fd9d5d520acc6ccecbe7",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:16.116849+00:00"
+    },
+    {
+      "id": "8562fd8938131f6639189bd6",
+      "title": "2026级数字经济学域转校区成绩排名核算课程清单",
+      "date": "2026-09-21",
+      "url": "https://business.dlut.edu.cn/info/1491/22182.htm",
+      "source": "商学院",
+      "channel": "通知公告",
+      "category": "学院",
+      "sourceIds": [
+        "business"
+      ],
+      "headline": "商学院公示数字经济学域转校区成绩核算课程清单",
+      "summary": "商学院面向2026级数字经济学域转校区相关学生发布通知，现公示参与成绩排名计算的课程清单，具体课程内容详见附件。通知未在正文中列出课程名称、适用条件或办理时限，学生需查阅原文及附件确认自己是否涉及、包含哪些课程，并据此核对成绩排名相关信息。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "a9c0ea76dae3cedc6af4c1390c455501f64778dce41e80b7e9737721d7d9105c",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:17.260328+00:00"
+    },
+    {
+      "id": "096372f55e4e50eb1447b326",
+      "title": "关于做好盘锦校区2026级本科生“AI大模型及其应用”  选修课选课工作的通知",
+      "date": "2026-09-20",
+      "url": "https://pjteach.dlut.edu.cn/info/1021/3382.htm",
+      "source": "教学与科研工作部",
+      "channel": "重要通告",
+      "category": "教务",
+      "sourceIds": [
+        "pjteach"
+      ],
+      "headline": "盘锦校区2026级AI大模型选修课选课通知",
+      "summary": "盘锦校区启动2026级本科生“AI大模型及其应用”选修课选课，选课时间为9月23日12:30至9月24日17:00。课程为依托“连小理”平台的线上自学课，主要面向一年级本科生，与《人工智能概论》二选一修读；计算机科学与技术、环境生态工程中外合作办学专业不作要求。学生须提前熟悉培养方案、不得跨校区选退课，选课容量不设限，结束后不再补选退选，需核对课表并按时学习考核。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "d199d1af2c554f83d681abe5efd7c3c027a06cd3842c0888cbdc0411e164ab6e",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:18.831656+00:00"
+    },
+    {
+      "id": "69279fbb781471a1475e9546",
+      "title": "关于开展校区国庆节前安全大检查暨用电安全专项检查的通知",
+      "date": "2026-09-20",
+      "url": "https://panjin.dlut.edu.cn/info/1141/54054.htm",
+      "source": "盘锦校区总务部",
+      "channel": "工作通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjxqzwb"
+      ],
+      "headline": "校区开展国庆节前安全与用电专项检查",
+      "summary": "盘锦校区安全生产工作领导小组于2026年9月20日发布通知，9月20日至22日开展国庆节前安全大检查暨用电安全专项检查。学生宿舍用电检查由学生发展与事务工作部牵头，实验室检查由教学与科研工作部牵头，消防、施工、供电等检查由总务部牵头，其他二级单位负责本单位场所。各单位须填写《安全大检查问题隐患清单》，于9月22日17:00前报送至pjawh@dlut.edu.cn。附件内容未提供，需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "12bb487c8687bc22e6471a1d789b7ff8b89de14d58fa8e788955ff14b95169b2",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:20.080849+00:00"
+    },
+    {
+      "id": "4dde2cf4662a8f32aa21552c",
+      "title": "商学院2027年接收推荐免试攻读硕士学位研究生（预推免）复试考核结果公示",
+      "date": "2026-09-20",
+      "url": "https://business.dlut.edu.cn/info/1491/22162.htm",
+      "source": "商学院",
+      "channel": "通知公告",
+      "category": "学院",
+      "sourceIds": [
+        "business"
+      ],
+      "headline": "商学院2027年预推免复试考核结果公示",
+      "summary": "商学院发布2027年接收推荐免试攻读硕士学位研究生（预推免）复试考核结果公示，公示发布于2026年9月20日，来源为商学院通知公告。原文正文仅说明结果详见附件，未提供具体名单、成绩或后续安排。适用对象为参加该院2027年预推免复试的考生，如需了解结果及后续要求，请查阅原文附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "dca1dbc68aedf1d1764c5f8310b662063bc1452e73d23c165555a36e9452712d",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:21.183263+00:00"
+    },
+    {
+      "id": "83530457d36eb8ff15ef46dc",
+      "title": "总务部2026年中秋节及国庆节假期工作安排",
+      "date": "2026-09-18",
+      "url": "https://pjxqzwb.dlut.edu.cn/info/1081/9472.htm",
+      "source": "盘锦校区总务部",
+      "channel": "工作通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjxqzwb"
+      ],
+      "headline": "盘锦校区中秋国庆假期总务工作安排",
+      "summary": "盘锦校区总务部公布2026年中秋节（9月25日至27日）及国庆节（10月1日至7日）假期工作安排，值班时间为8:30-11:30、13:30-16:30。餐饮、商业街、公共浴池、门诊等开放时间有调整，10月7日多数服务恢复正常。营口东及大连校区班车按指定日期发车，车票已开始预售，需在虎跃易行小程序购票，每班未满15人可能不发车。具体值班电话、各商铺暂停营业时段等请以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "8c9cc3e68b67a6c7a193e5714222de0e6c0424737f75e2b2f49218ec57fd4a16",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:22.597471+00:00"
+    },
+    {
+      "id": "43dad12cb01d69592b4bd17e",
+      "title": "关于大连理工大学盘锦校区职业规划与就业协会2026-2027学年学生骨干纳新公示",
+      "date": "2026-09-18",
+      "url": "https://pjcareer.dlut.edu.cn/info/1021/46872.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "通知公告",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer"
+      ],
+      "headline": "盘锦校区职业规划与就业协会骨干纳新名单公示",
+      "summary": "大连理工大学盘锦校区职业规划与就业协会2026-2027学年学生骨干选拔于2026年9月1日至16日开展，现将纳新名单予以公示，涉及办公室、外联部、活动部、宣创部、学生服务部等部门副部长及干事。公示期为3天，如对结果有异议，可通过电话0427-2631999或邮箱pjjy@dlut.edu.cn提出；如无异议，3天后正式生效，任用无异议者试用期3个月。具体名单及附件内容需阅读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "f9ece682780d502e729cdbe157f6a01aa8e18c7a6290fcaf9b13df7c2c99d01b",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:23.850304+00:00"
+    },
+    {
+      "id": "9785f37fab01ff8d3609b70e",
+      "title": "参宿创业奖学金评审结果公示",
+      "date": "2026-09-18",
+      "url": "https://chuangxin.dlut.edu.cn/info/1018/16907.htm",
+      "source": "创新创业学院",
+      "channel": "重要通知",
+      "category": "全校",
+      "sourceIds": [
+        "innovation"
+      ],
+      "headline": "参宿创业奖学金拟获奖名单公示",
+      "summary": "大连理工大学创新创业学院根据参宿创业奖学金评选办法，经学生申报、评委函审和答辩评审，公示拟获奖学生名单：黄程远（20241055004）自媒体项目一等奖，徐沛希（20251071151）自媒体项目一等奖，李秋翰（22552001）自媒体项目三等奖。公示期为3个工作日，2026年9月18日至9月21日17:00。公示期内如有异议，请向创新创业学院实名反映，邮箱cxcy@dlut.edu.cn，电话84706719。附件内容未提供，需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "1010301115d80eeb050ca83ba3264ace38b0ed01c11f158467bc3a173ee23c2c",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:25.221424+00:00"
+    },
+    {
+      "id": "e2100c46536537411136cece",
+      "title": "关于举办“连小理”新生智能体应用与设计大赛的通知",
+      "date": "2026-09-18",
+      "url": "https://gjzgb.dlut.edu.cn/info/1311/1611.htm",
+      "source": "高等教育综合改革办公室",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "gjzgb"
+      ],
+      "headline": "“连小理”新生智能体应用与设计大赛通知",
+      "summary": "大连理工大学面向全体2026级本科新生举办“连小理”智能体应用与设计大赛，设智能体创意应用、智能体场景设计两个赛道，支持个人或团队参赛（团队不超过5人，每人仅限一支团队）。报名登记截止9月30日，作品须于10月25日前通过“连小理”平台赛事板块提交，11月评审并颁发证书及奖品。作品须原创，不得虚构对话或使用过程、效果。具体提交要求、登录方式及报名链接见原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "8fcf8d0a7933b0cff29beedaf70a29f2062722621cf03682e65ca41b90e0c88e",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:40:22.949481+00:00"
+    },
+    {
+      "id": "e154b76304c595b86c053b0e",
+      "title": "大连理工大学莱斯特国际学院英方行政助理招聘启事(2026年9月)",
+      "date": "2026-09-17",
+      "url": "https://dli.dlut.edu.cn/info/1531/28563.htm",
+      "source": "莱斯特国际学院",
+      "channel": "通知公告",
+      "category": "学院",
+      "sourceIds": [
+        "dli"
+      ],
+      "headline": "大连理工莱斯特国际学院招聘英方行政助理",
+      "summary": "大连理工大学莱斯特国际学院面向社会招聘英方行政助理1名，岗位由英国莱斯特大学设立，工作地点为大连理工大学盘锦校区，采用劳务派遣方式全职聘用。应聘者需在2026年10月7日中午12:00前将英文求职信、英文简历及毕业证件电子版发送至panjinadmin@le.ac.uk，邮件以姓名+Administration Assistant命名。面试预计在10月21日左右举行，咨询可联系同一邮箱或电话0427-2631239。岗位职责、任职条件及薪酬福利等具体内容需查看原文附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "7e842a42da3c4c0b2b6cebde781cd8bd816b5ac05154565338ceddfbeb58955c",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:26.422127+00:00"
+    },
+    {
+      "id": "78bf559a22810f2f22b87af6",
+      "title": "关于举办大连理工大学盘锦校区程序设计大赛暨2026年度ICPC区域赛参赛成员选拔赛的通知",
+      "date": "2026-09-17",
+      "url": "https://pjxqtw.dlut.edu.cn/info/1059/15928.htm",
+      "source": "盘锦校区团工委",
+      "channel": "通知公告",
+      "category": "活动",
+      "sourceIds": [
+        "pjxqtw"
+      ],
+      "headline": "盘锦校区程序设计大赛及ICPC选拔赛通知",
+      "summary": "大连理工大学盘锦校区面向全日制在校本科生举办程序设计大赛，时间2026年9月27日，地点A01机房，采用个人ACM赛制并纳入奖学金评审。报名需扫码填表，截止9月25日22:00，并加入QQ群1125533638。比赛兼作2026年度ICPC区域赛成员选拔，校赛成绩占70%、网络预选赛占30%。选手须自备计算机并全程录屏，禁止AI工具、联网查题解及外接设备。评奖设一二三等奖，比例分别不超过10%、20%、30%，须至少通过1题。请阅读原文了解竞赛环境等细节。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "ff38a6449377734fea54c52014fe01afb45e6d34cac0b19ab731cb5b36e7ca30",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:27.936426+00:00"
+    },
+    {
+      "id": "13bccbf0ff52aa614f0f728c",
+      "title": "关于共青团大连理工大学盘锦校区工作委员会2026-2027学年学生骨干名单的公示",
+      "date": "2026-09-17",
+      "url": "https://pjxqtw.dlut.edu.cn/info/1055/15918.htm",
+      "source": "盘锦校区团工委",
+      "channel": "通知公告",
+      "category": "活动",
+      "sourceIds": [
+        "pjxqtw"
+      ],
+      "headline": "盘锦校区团工委学生骨干名单公示",
+      "summary": "共青团大连理工大学盘锦校区工作委员会2026-2027学年学生骨干选拔于2026年9月8日至9月17日完成，名单现予公示，详见附件。公示期为3天，自2026年9月17日起；如对结果有异议，可通过邮箱pjxqtwzzb@163.com或电话0427-2631578提出意见和建议。无异议则三天后正式生效，试用期三个月。具体名单内容需查看附件原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "60db816d2cc0e16241a273d6fdb76f3a8b0c7cbdd922ee4055b1eff33ea06416",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:29.179138+00:00"
+    },
+    {
+      "id": "e177dfe245abe7c077bb8a48",
+      "title": "商学院2027年接收推荐免试攻读硕士学位研究生章程",
+      "date": "2026-09-17",
+      "url": "https://business.dlut.edu.cn/info/1491/22092.htm",
+      "source": "商学院",
+      "channel": "通知公告",
+      "category": "学院",
+      "sourceIds": [
+        "business"
+      ],
+      "headline": "商学院2027年接收推免硕士生章程",
+      "summary": "商学院发布2027年接收推荐免试攻读硕士学位研究生章程，接收专业为企业管理学术型硕士，学制3年，申请者须为能获2027年推免资格的应届毕业生。申请分两种方式：已通过预考核者须在全国推免系统开通后6小时内申报，复试通知4小时内确认，部分待录取通知有具体确认时限；直接申报者须在规定时间内申报，复试通知4小时内接受，待录取通知4小时内确认，额满为止。复试时间另行通知，拟录取推免生须于2026年10月15日前提交思想政治与综合文化素质考核表。关键内容以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "5237963cadd0fbdf33675419d8b7bc0248ccd3187d42b88af7516171b14d75be",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:30.681532+00:00"
+    },
+    {
+      "id": "8d076ba476e0e5d86f356810",
+      "title": "关于公示商学院2025-2026学年校优秀大学生、校优秀三好学生、校三好学生评选结果的通知",
+      "date": "2026-09-17",
+      "url": "https://business.dlut.edu.cn/info/1321/22132.htm",
+      "source": "商学院",
+      "channel": "学工通知",
+      "category": "学工",
+      "sourceIds": [
+        "business-student"
+      ],
+      "headline": "商学院公示2025-2026学年三项本科生评优结果",
+      "summary": "商学院公示2025-2026学年校优秀大学生、校优秀三好学生、校三好学生评选结果，公示详见附件。校优秀大学生面向2024、2025级本科生，校优秀三好学生和校三好学生面向2023级本科生，参评需满足国籍、无违法违纪、学分不低于24学分、必修课合格、体测及格、民主评议等条件。有异议者须于9月18日08:00-10:00到C03-104-2办公室线下复议，不接受其他形式，逾期不再办理，未反馈视为无异议。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "fea4c13653b2f6ed373311ba1ffb0d034ac2c8a0350f582089d43301cd6635d8",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:32.182826+00:00"
+    },
+    {
+      "id": "476138aaf5797b6a6d9e15bd",
+      "title": "2026-2027学年秋季学期通识课教育网络课、《国家安全教育》学习、考核办法及操作指南",
+      "date": "2026-09-16",
+      "url": "https://pjteach.dlut.edu.cn/info/1021/3352.htm",
+      "source": "教学与科研工作部",
+      "channel": "重要通告",
+      "category": "教务",
+      "sourceIds": [
+        "pjteach",
+        "pjteach-exam"
+      ],
+      "headline": "本学期通识网络课及国家安全教育学习考核安排",
+      "summary": "教学与科研工作部通知本学期通识教育网络课及《国家安全教育》学习考核办法。课程含超星学习通、智慧树平台，尔雅14门、东西部联盟2门。学习截止2026年11月28日23:59，考试11月29日。尔雅课在机房统一考试，须留意教务系统考试安排；《国家安全教育》及东西部课当日自行登录平台考试。任务点完成达80%方可参加考试。平台监控违规行为，请诚信学习，详见原文及附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "fc3b4701c2b7d8a579accc1e918c137c7043762d2ff956bcea1bda0b0c27be38",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:33.508442+00:00"
+    },
+    {
+      "id": "978c700d8719572806ecc0f3",
+      "title": "关于2026级研究生新生课程免修的补充通知",
+      "date": "2026-09-16",
+      "url": "https://gs.dlut.edu.cn/info/1089/51692.htm",
+      "source": "研究生院",
+      "channel": "培养通知",
+      "category": "全校",
+      "sourceIds": [
+        "graduate"
+      ],
+      "headline": "2026级研究生课程免修补充通知及申请安排",
+      "summary": "研究生院培养处发布2026级研究生新生课程免修补充通知。适用对象为符合三条件的2026级研究生新生，成绩沿用此前已修课程真实成绩。学院系统维护新旧课程对应免修关系时间为2026年9月16日至17日，学生系统申请免修时间为9月18日至28日，学院自9月18日起审核。申请者须登录研究生管理信息系统在“培养管理”—“课程免修申请”中办理并上传成绩单电子版。不满足条件不可申请；申请免修不需选课，须将课程加入个人培养计划，已选课应及时退课，否则按旷课旷考处理。具体附件内容需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "3bd21e546a9db9f0c3ace30c5bb8df04e680b491d9e4e93bd64bb40b20e4d097",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:35.254933+00:00"
+    },
+    {
+      "id": "d36a7634ae9d5aa2f3150df2",
+      "title": "2026年度辽宁省大学生材料力学竞赛通知",
+      "date": "2026-09-15",
+      "url": "https://hyxy.dlut.edu.cn/info/1981/33262.htm",
+      "source": "教学与科研工作部",
+      "channel": "重要通告",
+      "category": "教务",
+      "sourceIds": [
+        "pjteach"
+      ],
+      "headline": "2026辽宁省大学生材料力学竞赛通知",
+      "summary": "2026年度辽宁省大学生材料力学竞赛定于2026年10月25日在省内各高校同步举行，由辽宁省力学学会等主办。报名信息见附件1。大连理工大学盘锦校区拟设考场，由樊哲良老师带队，面向海洋技术专业、莱斯特过程装备与控制专业及力学相关专业研究生，其他专业同学鼓励参与。感兴趣的同学请提前加入盘锦校区材料力学竞赛QQ群：1041412619。联系方式：樊哲良老师，13214111933，fanzl@dlut.edu.cn。具体报名截止等关键内容需读原文附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "032dcf0c10428d299350fddaa9d52ce1a05bf56086eb551f75a9df2d3a0de2da",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:36.503916+00:00"
+    },
+    {
+      "id": "89faff85e0ecf280328e9a20",
+      "title": "关于开展2026年优秀博士论文特别奖学金评选工作的通知",
+      "date": "2026-09-14",
+      "url": "https://gs.dlut.edu.cn/info/1206/51652.htm",
+      "source": "研究生院",
+      "channel": "学位公告",
+      "category": "全校",
+      "sourceIds": [
+        "graduate-degree"
+      ],
+      "headline": "2026年优秀博士论文特别奖学金评选启动",
+      "summary": "研究生院9月14日通知开展2026年优秀博士论文特别奖学金评选，面向2022级继续在读全日制博士生（非全、定向、委培除外），专业学位博士单列。资助标准10000元/月，最长12个月，与助学金不兼得，资助期间半年内不能申请答辩或出国访学（不含国际会议）。学院9月14日至20日组织推荐评审并排序，9月20日报送纸质和电子版材料至研究生院学位办，后续专家答辩评审，PPT自述3分钟、提问1分钟，时间地点另行通知。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "72239b285e1b9e7a100407a03692b54757ad432e377879886fc8ce8df224d2af",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:37.751155+00:00"
+    },
+    {
+      "id": "2e0d8f14e3687d0996cd83d1",
+      "title": "关于开展2026年优秀博士论文单项奖学金评选工作的通知",
+      "date": "2026-09-14",
+      "url": "https://gs.dlut.edu.cn/info/1206/51642.htm",
+      "source": "研究生院",
+      "channel": "学位公告",
+      "category": "全校",
+      "sourceIds": [
+        "graduate-degree"
+      ],
+      "headline": "大连理工2026优秀博士论文单项奖学金评选启动",
+      "summary": "大连理工大学研究生院2026年9月14日通知开展优秀博士论文单项奖学金评选。申报对象为2023级在读全日制博士生和2021级直博生，非全、定向、委培除外，专业学位博士单列。资助标准6000元/月，最长12个月。9月14日至20日各学院组织推荐评审并排序，9月20日报送纸质和电子版材料至研究生院学位办。获资助者资助期间半年内不能申请答辩或出国访学，同助学金不兼得。答辩要求PPT自述3分钟、提问1分钟，时间地点另行通知。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "17e264200fa690a1cc78a10807d5f8af570c757bd12c81b35eba7ce275bd9a97",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:39.319564+00:00"
+    },
+    {
+      "id": "24dfe3eb7c1cfec926394b42",
+      "title": "关于开展公共基础学院2025-2026学年优秀研究生评选工作的通知",
+      "date": "2026-09-13",
+      "url": "https://fldpj.dlut.edu.cn/info/1147/7826.htm",
+      "source": "公共基础学院",
+      "channel": "重要通知",
+      "category": "学院",
+      "sourceIds": [
+        "fldpj"
+      ],
+      "headline": "公共基础学院2025-2026学年优秀研究生评选通知",
+      "summary": "公共基础学院开展2025-2026学年优秀研究生评选，面向全校二年级（硕博连读一年级）及以上研究生，须符合国籍、品行、必修课合格、民主评议及志愿服务时长等条件。2024级名额1个。申报表及支撑材料须于9月14日16:00前交至C05-206办公室，逾期不予处理；计划9月14日审核，复议线下进行且仅可补充已申报加分项佐证。疑问可咨询邹靓靓老师。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "7d3a1cf9d2f892dafc5d80feb5faecd030ec5e26cc5175e33cfd599d99ffd4a3",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:40.820541+00:00"
+    },
+    {
+      "id": "c2149b4cd0067b60ee7747ed",
+      "title": "关于举办大连理工大学盘锦校区体育俱乐部联赛——“啦啦操”比赛的通知",
+      "date": "2026-09-11",
+      "url": "https://pjxqtw.dlut.edu.cn/info/1058/15908.htm",
+      "source": "盘锦校区团工委",
+      "channel": "通知公告",
+      "category": "活动",
+      "sourceIds": [
+        "pjxqtw"
+      ],
+      "headline": "盘锦校区啦啦操比赛报名9月13日截止",
+      "summary": "大连理工大学盘锦校区将于2026年9月23日在大操场举办体育俱乐部联赛“啦啦操”比赛，各体育俱乐部独立组队，每队选拔20名学生并设队长、副队长、领队各1名，领队仅限女生且身高168cm至172cm。队长需于2026年9月13日17:00前将报名表发送至dutpjwhb@163.com，逾期不受理；赛事QQ群为329141719。优秀队伍将参与暂定10月10日的校区运动会开幕式展演，合规参赛学生可申请公体课附加分。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "4dbcf422e4fd4c786e0557038ad2944e2079124fcf77893dda160e1acd668334",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:42.362401+00:00"
+    },
+    {
+      "id": "b130788de203f8b200c58d4d",
+      "title": "公共基础学院2027年推免成绩公示",
+      "date": "2026-09-11",
+      "url": "https://fldpj.dlut.edu.cn/info/1147/7816.htm",
+      "source": "公共基础学院",
+      "channel": "重要通知",
+      "category": "学院",
+      "sourceIds": [
+        "fldpj"
+      ],
+      "headline": "公共基础学院2027年推免成绩公示",
+      "summary": "公共基础学院对2027年推免成绩进行公示，成绩详情见附件（附件内容未提供）。如对公示成绩有异议，须于9月11日下午15:30至16:30到C05-206现场复议，逾期视为无异议。适用对象为公共基础学院2027年推免相关学生，具体成绩请查阅原文附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "7ba572adc5e7b5b3df482670db74f26788ca9e38c949cd2667b92bbe9213f8da",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:43.458587+00:00"
+    },
+    {
+      "id": "a1e4775052c3df2273b5e3e7",
+      "title": "关于大连理工大学2027年推荐优秀应届本科毕业生（科技创新类）免试攻读研究生综合测评的通知",
+      "date": "2026-09-11",
+      "url": "https://chuangxin.dlut.edu.cn/info/1018/16877.htm",
+      "source": "创新创业学院",
+      "channel": "重要通知",
+      "category": "全校",
+      "sourceIds": [
+        "innovation"
+      ],
+      "headline": "大连理工科技创新类推免综合测评安排",
+      "summary": "大连理工大学公布2027年推荐优秀应届本科毕业生（科技创新类）免试攻读研究生综合测评安排。经学生申请和资格审查，获资格同学须于2026年9月12日13时30分起，在凌水主校区主楼西侧楼219参加评审，答辩前15分钟到场，未按时参加视为自动放弃。评审含3分钟自我介绍和2分钟提问，需用PPT者提前调试。具体名单及个人时段见原文，请相关同学按通知准备。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "79942d7cf69b0b53feb9187f3a5fd811685b17253293d94c4a69531ec58f578d",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:45.019854+00:00"
+    },
+    {
+      "id": "c3cf62635fa3343e33dbca5c",
+      "title": "2027年春季第二批研究生赴国（境）外校际交换项目报名通知",
+      "date": "2026-09-10",
+      "url": "https://gs.dlut.edu.cn/info/1089/51632.htm",
+      "source": "研究生院",
+      "channel": "培养通知",
+      "category": "全校",
+      "sourceIds": [
+        "graduate"
+      ],
+      "headline": "2027年春季第二批研究生校际交换项目报名启动",
+      "summary": "研究生院启动2027年春季第二批赴国（境）外校际交换项目选拔，面向全日制在校研究生，派出时间为2027年春季学期，一学期或一学年。学生须于9月23日17:00前将申请表、中文成绩单、外语能力证明等提交至所在学院研究生教务员，每人限报一所高校，逾期不再受理。学院须于9月24日17:00前报送推荐汇总表及材料电子版至指定邮箱。项目免收接收高校学费，交通食宿等费用自负。具体项目信息及要求见附件并咨询项目主管。联系人：研究生院莎日娜84706321，国际合作与交流处谢依含84708191。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "8dbea2783a738731c40aa7a5a93edaa46ac60f407492bb550aeb4e6ab1a95aa0",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:46.399675+00:00"
+    },
+    {
+      "id": "42e653d212f0c0fe9d85cbb5",
+      "title": "面向全校教师开通免费专利申请前评估服务的通知",
+      "date": "2026-09-09",
+      "url": "https://lib.dlut.edu.cn/info/1049/11289.htm",
+      "source": "图书馆",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "library"
+      ],
+      "headline": "面向全校教师开通免费专利申请前评估服务",
+      "summary": "图书馆面向全校教师推出免费专利申请前评估服务，对拟申请专利的技术方案开展实用性、新颖性、创造性等评估并出具评估报告，依托图书馆专利数据库和中外文科技文献资源。本批次限20个免费名额，先到先得。有意向教师可通过图书馆主页“知识产权服务”或指定平台网址提交服务委托，疑问可拨打0411-84708626。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "18b0d266064850b15bb13a77844b63c4c6f04ec49b9c77f6bdd73978f06cc65d",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:47.392576+00:00"
+    },
+    {
+      "id": "2e186c2cc7447f176f059af5",
+      "title": "关于2026年下半年全国大学英语考试报名工作的通知",
+      "date": "2026-09-08",
+      "url": "https://pjteach.dlut.edu.cn/info/1031/2181.htm",
+      "source": "教学与科研工作部",
+      "channel": "考试安排",
+      "category": "教务",
+      "sourceIds": [
+        "pjteach-exam"
+      ],
+      "headline": "2026下半年全国大学英语四六级考试报名通知",
+      "summary": "校区各学院全日制本科在校生及在籍研究生可报考2026年下半年CET，报名时间9月11日9:00至9月28日17:00，登录全国大学英语四、六级考试报名网站完成注册、报名及缴费，四级30元/人，六级不可与四级兼报，六级报名者四级须达425分及以上；口试11月21日、22日举行，笔试12月12日。逾期无法补报，报名后24小时内须完成缴费并确认。信息或照片错误请联系教学与科研工作部，具体附件内容需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "0310bec0d6599916f5e97d0fe123309d4616d8915a0fabe732edc2616259bacf",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:48.855498+00:00"
+    },
+    {
+      "id": "62f565e7b19c8d477bbae753",
+      "title": "商学院2023级前六学期学习成绩排名公示",
+      "date": "2026-09-08",
+      "url": "https://business.dlut.edu.cn/info/1491/21882.htm",
+      "source": "商学院",
+      "channel": "通知公告",
+      "category": "学院",
+      "sourceIds": [
+        "business"
+      ],
+      "headline": "商学院2023级前六学期成绩排名公示",
+      "summary": "商学院现对2023级本科生前六学期学习成绩排名进行公示，具体排名见附件。如对公示结果有异议，请于9月8日17:00前到商学院综合办公室C03-203-1现场复议，逾期视为无异议。适用对象为商学院2023级本科生，关键内容需阅读原文附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "476768ab0a215cfe6560f5b06b3dd269154afe340405467ea469669dd7206953",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:50.133306+00:00"
+    },
+    {
+      "id": "0a2486781f13db90b15df232",
+      "title": "大连理工大学商学院推荐优秀应届本科毕业生免试攻读研究生综合成绩排序方法",
+      "date": "2026-09-08",
+      "url": "https://business.dlut.edu.cn/info/1491/21922.htm",
+      "source": "商学院",
+      "channel": "通知公告",
+      "category": "学院",
+      "sourceIds": [
+        "business"
+      ],
+      "headline": "商学院公布推免综合成绩排序方法",
+      "summary": "大连理工大学商学院发布推免综合成绩排序办法，适用于优秀应届本科毕业生。推免成绩由学习成绩占85%、思想素养占5%、综合素质和能力测评占10%构成。学习成绩要求原则上修完前三学年必修课，一考不及格必修课不超过2门；交流生成绩、部分导论课等不计入。研究能力限2篇论文、2项竞赛、1项专利，成果须在校期间取得且大连理工大学为第一单位。专家审核小组将审查材料并组织公开答辩，具体实施细则每年另行公布，未尽事宜需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "57a54b648d70f47d1f2ef7539368b0af1983c7605abd9399f5f88e872030c22a",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:51.556811+00:00"
+    },
+    {
+      "id": "60b8bd7091f2ace74104f557",
+      "title": "大连理工大学商学院2027年推荐优秀应届本科毕业生免试攻读研究生工作实施细则",
+      "date": "2026-09-08",
+      "url": "https://business.dlut.edu.cn/info/1491/21942.htm",
+      "source": "商学院",
+      "channel": "通知公告",
+      "category": "学院",
+      "sourceIds": [
+        "business"
+      ],
+      "headline": "大连理工商学院发布2027年推免实施细则",
+      "summary": "大连理工大学商学院发布2027年推免工作实施细则，适用于2027年应届本科毕业生。申请人需完成前三学年必修课程，成绩排名专业前40%或符合创新、体育等条件者前50%。电子商务普通类推免名额4个、经济学17个。9月8日公布成绩排名并组织申请，11:00前提交签字申请表至C03-203-1郭宇婷老师；9月9日至10日答辩评审，9月11日报教务处。一考不及格必修课不超过2门。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "7b59577831414dc303593c4271240a5a260a28c3c099b8f81021946823b4f364",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:53.061279+00:00"
+    },
+    {
+      "id": "8c1ecab38d61b910842f53af",
+      "title": "【重要】公共基础学院2027年推荐优秀应届本科毕业生免试攻读研究生工作实施办法",
+      "date": "2026-09-08",
+      "url": "https://fldpj.dlut.edu.cn/info/1147/7786.htm",
+      "source": "公共基础学院",
+      "channel": "重要通知",
+      "category": "学院",
+      "sourceIds": [
+        "fldpj"
+      ],
+      "headline": "公共基础学院发布2027年推免实施办法",
+      "summary": "公共基础学院2026年9月8日发布2027年推免实施办法，适用于运动康复、商务英语专业应届本科生，普通类推免名额分别为5人和7人。申请者须于2026年9月10日17:00前将签字申请表交至学院办公室C05-206郑惠文老师，未按时提交视为放弃。学院9月11日13:30组织成果答辩，每人五分钟，论文需指导教师签署贡献说明，竞赛须全体成员排序签名。推免成绩由思想素养5%、学习成绩85%、综合素质和能力测评10%构成。具体条件、材料要求等以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "43d302d7aebe7f399ee543b56a36afab5e6cc3d0f43515655546993950f15d88",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:55.829213+00:00"
+    },
+    {
+      "id": "9d5801d71aa64e92fdcb210d",
+      "title": "关于2027年推荐优秀应届本科毕业生（科技创新类）免试攻读研究生工作的通知",
+      "date": "2026-09-08",
+      "url": "https://chuangxin.dlut.edu.cn/info/1018/16847.htm",
+      "source": "创新创业学院",
+      "channel": "重要通知",
+      "category": "全校",
+      "sourceIds": [
+        "innovation"
+      ],
+      "headline": "大连理工2027届科创类推免报名9月9日截止",
+      "summary": "大连理工大学创新创业学院发布2027届科技创新类推免通知，面向符合条件的应届本科毕业生。报名时间为2026年9月7日至9月9日下午17:00，需填写附件2、附件3并提交成果支撑材料，电子版发至ln@dlut.edu.cn，纸质材料交至创新创业学院410。9月10日资格审查，9月11日确定拟推名单，9月18日进入推免服务系统。具体条件见附件1，答辩安排另行通知。须加入QQ群1043397553。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "f43a9778c2f05525384d1db4c5a715a03a2dcf00f8b63c96193df49bd18e45b4",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:57.096911+00:00"
+    },
+    {
+      "id": "dc9dd65da6216265be572e9a",
+      "title": "关于为2026级本科新生开通“连小理”全场景AI学伴智能体平台的通知",
+      "date": "2026-09-07",
+      "url": "https://gjzgb.dlut.edu.cn/info/1311/1361.htm",
+      "source": "高等教育综合改革办公室",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "gjzgb"
+      ],
+      "headline": "学校为2026级新生开通AI学伴平台",
+      "summary": "高等教育综合改革办公室通知，学校联合腾讯打造的“连小理”全场景AI学伴智能体平台即日起面向2026级本科新生开通，为每人配置专属Token算力。平台提供多场景智能协同、校本化学习指导、跨会话长期记忆和全周期成长支撑。使用需从LearnBuddy官网下载客户端，Windows 10及以上或macOS 12及以上，登录选SSO并输入dlut跳转统一身份认证。有问题可联系计算机基础实验教学中心0411-84986421。具体功能与操作细节请读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "04b084bccf46bc0217c07bb6e385399b898dd7e1d4acf98b6ca4b09a36802ec4",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:40:24.542940+00:00"
+    },
+    {
+      "id": "fe414abbbec48305cad6f543",
+      "title": "关于选拔2026-2027学年SSC (Student Staff Committee) 学生代表的通知",
+      "date": "2026-09-04",
+      "url": "https://dli.dlut.edu.cn/info/1531/27113.htm",
+      "source": "莱斯特国际学院",
+      "channel": "通知公告",
+      "category": "学院",
+      "sourceIds": [
+        "dli"
+      ],
+      "headline": "莱斯特国际学院选拔2026-2027学年SSC学生代表",
+      "summary": "莱斯特国际学院面向学生选拔2026-2027学年SSC（师生联席会）学生代表，负责收集反馈学生意见、协助每学期两次师生联席会及接待莱大教师等。报名即日起至2026年9月7日20:00（暂定），需下载附件1和附件2填写后发至3750556370@qq.com，邮件主题为姓名+专业+班级+学号+联系方式，并扫码入纳新群；面试定于2026年9月9日中午，具体时间群内通知，名单公示三天。名额及附件内容需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "eefb71c1eb87482a27f418631f192b64cd39235354184d139a474eb5af612557",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:37:58.377576+00:00"
+    },
+    {
+      "id": "a6471edec64a5983aabfdba3",
+      "title": "关于举办“师者同心・焙遇芳华”教师节主题活动的通知",
+      "date": "2026-09-03",
+      "url": "https://business.dlut.edu.cn/info/1451/21782.htm",
+      "source": "商学院",
+      "channel": "通知公告",
+      "category": "学院",
+      "sourceIds": [
+        "business"
+      ],
+      "headline": "商学院等两院教师节糕点手作活动通知",
+      "summary": "商学院联合化工海洋与生命学院举办“师者同心・焙遇芳华”教师节主题活动，时间为2026年9月9日15:00—17:00，地点在青春集市蛋糕店，参与对象为两院全体教职工，内容为沉浸式糕点手作体验。有意参与者须于2026年9月6日11:00前填写电子问卷报名。联系人：商学院工会丁晓梅、化工海洋与生命学院工会宋晓雪。附件未提供，详情需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "3349994623c09a8818aed9e61f989d237d0efdec6c02f5efd369433bced354a5",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:00.085647+00:00"
+    },
+    {
+      "id": "856b66c943f38ce79ae64ef1",
+      "title": "联想•中国2027届校园招聘",
+      "date": "2026-09-01",
+      "url": "https://pjcareer.dlut.edu.cn/info/1051/48532.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer-jobs"
+      ],
+      "headline": "联想中国2027届秋招启动 网申至11月13日",
+      "summary": "联想中国2027届秋季校园招聘已启动，面向2027届海内外毕业生，毕业时间须在2026年9月1日至2027年8月31日。招聘含应届生、AI专项、管培生三类项目，岗位覆盖技术、产品、设计、市场销售、职能、供应链等。网申时间为8月5日至11月13日，岗位招满随时关停。官网为https://talent.lenovo.com.cn/home，内推码2027XZLMZQY。简历筛选通过后系统自动触发测评，须在3个自然日内完成；过往有测评成绩则无需重复作答，成绩保留。offer自9月起陆续发出。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "595445a3c0f111ca13f1af5f8713ae676182c0260a2f37b2ae552d8c41648b62",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:01.651087+00:00"
+    },
+    {
+      "id": "c472fd5564fadfb95e6fb782",
+      "title": "网易游戏（互娱）2027届校园招聘",
+      "date": "2026-09-01",
+      "url": "https://pjcareer.dlut.edu.cn/info/1051/48522.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer-jobs"
+      ],
+      "headline": "网易游戏互娱启动2027届校园招聘",
+      "summary": "网易游戏（互娱）2027届校园招聘已启动，面向2026年9月1日至2027年8月31日毕业的应届毕业生，工作地点包括广州、杭州、上海等，岗位涵盖游戏策划、研发技术、艺术设计、用户体验、运行、市场渠道、产品策划、项目管理等。流程为网申、多批次笔试、面试、意向书及Offer。可同时投递2个志愿，志愿进入流程前可修改或增加，需认真全面真实填写游戏经历。建议PC端网申，投递时选择内推并填写内推码。薪酬福利、岗位详情及附件内容需阅读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "b9b5b532943c09e586adfd4dcca59d6f3b9ad974adf261e8840fb2d953625ffb",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:03.167802+00:00"
+    },
+    {
+      "id": "2fa2cb71fcc0ce1b1f0283bf",
+      "title": "波克城市2027校园招聘",
+      "date": "2026-09-01",
+      "url": "https://pjcareer.dlut.edu.cn/info/1051/48512.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer-jobs"
+      ],
+      "headline": "波克城市2027校园招聘信息",
+      "summary": "盘锦校区就业中心发布波克城市2027校园招聘信息，发布日期为2026年9月1日。通知面向有意应聘的学生，但正文未提供具体岗位、适用对象、工作地点、报名方式或截止时间等内容。学生如需了解详情，应查阅原文及所附图片，并以官方最新信息为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "ea52b2a4f2e51be490ddd7d3a966eca37c0a556df6775ef95fa9f646fbb42efc",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:04.276313+00:00"
+    },
+    {
+      "id": "e56face5ab77f71a84dd41ee",
+      "title": "淘宝闪购2027届秋季校园招聘",
+      "date": "2026-09-01",
+      "url": "https://pjcareer.dlut.edu.cn/info/1051/48502.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer-jobs"
+      ],
+      "headline": "淘宝闪购2027届秋季校园招聘通知",
+      "summary": "盘锦校区就业中心发布淘宝闪购2027届秋季校园招聘信息，面向2027届毕业生。通知未提供具体岗位、工作地点、报名截止时间及应聘流程等内容，相关要求需查阅原文。有意应聘的学生请阅读来源页面了解详情，并按要求完成报名。图片内容未提供，无法确认其中信息。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "3d1f1d362b168385630ff5b971a0ce5c028e5eac2ff7f165395bbc5ec67790bf",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:05.427145+00:00"
+    },
+    {
+      "id": "5c50522c5b5ff57d41798ff8",
+      "title": "桃李未来2027届秋季校园招聘",
+      "date": "2026-09-01",
+      "url": "https://pjcareer.dlut.edu.cn/info/1051/48542.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer-jobs"
+      ],
+      "headline": "桃李未来启动2027届秋季校园招聘",
+      "summary": "深圳桃李未来教育集团面向2027届毕业生开展秋季校园招聘，招聘培优班课教师（小学创新思维、国际素养、人文创作，初中多科，高中语文数学英语物理化学）及1对1教师（高中数学物理化学，招满即止）。班课老师平均首年薪酬20万-25万，1对1老师15万-20万。流程含初试、复试、培训及签约等。投递邮箱Campus@taoliweilai.com，联系人柯洽，微信15501833827。具体岗位要求及截止时间需阅读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "4b075ffd4bb8089931475c63eb69cd013930b5c3ba1d513025ec42fc4dbeb950",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:06.882209+00:00"
+    },
+    {
+      "id": "f55685fffd462ba0f0a897e3",
+      "title": "关于2026级研究生外语免修的通知",
+      "date": "2026-09-01",
+      "url": "https://gs.dlut.edu.cn/info/1089/51582.htm",
+      "source": "研究生院",
+      "channel": "培养通知",
+      "category": "全校",
+      "sourceIds": [
+        "graduate"
+      ],
+      "headline": "2026级研究生外语免修申请通知",
+      "summary": "2026级新入学研究生如满足托福、雅思、GRE、六级520分等十类条件之一，可申请英语或日语公共课免修。需登录研究生管理信息系统在“培养管理”中提交申请，打印并填写申请表，附证书复印件交至所在学部（学院）教务员。网上申请自2026年9月4日起，材料须于9月14日前提交，逾期不予处理。已选课者应及时退课。具体条件及流程以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "00aa3162c9188c62d108af7048a896fc719fa9cc3aad94bd9ed1ac0907636409",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:08.095390+00:00"
+    },
+    {
+      "id": "7e9af8d6b7e0db9e76966c8f",
+      "title": "2027年春季研究生赴国（境）外校际交换项目报名通知",
+      "date": "2026-08-29",
+      "url": "https://gs.dlut.edu.cn/info/1089/51572.htm",
+      "source": "研究生院",
+      "channel": "培养通知",
+      "category": "全校",
+      "sourceIds": [
+        "graduate"
+      ],
+      "headline": "2027春季研究生境外交换项目报名启动",
+      "summary": "研究生院启动2027年春季赴国（境）外校际交换项目报名，面向全日制在校研究生，派出时间为一学期或一学年。学生须于8月31日17:00前将申请表、中文成绩单、外语能力证明纸质版及电子版交至所在学院研究生教务员，每人限报一所高校，逾期或材料不全无效；学院须于9月1日17:00前报送推荐汇总表及学生材料至指定邮箱。项目免收接收高校学费，其他费用自负，具体项目信息见附件1。图片和附件未提供内容。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "82789775f0721922b6917d98659a1e2f1a995ab5280a4e6c5ac5b7701fd98c1d",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:09.423172+00:00"
+    },
+    {
+      "id": "66f9fc819948b9800eb6a964",
+      "title": "关于开展创新创业学院“参宿”创业奖学金项目申报的通知",
+      "date": "2026-08-29",
+      "url": "https://chuangxin.dlut.edu.cn/info/1018/16757.htm",
+      "source": "创新创业学院",
+      "channel": "重要通知",
+      "category": "全校",
+      "sourceIds": [
+        "innovation"
+      ],
+      "headline": "大连理工“参宿”创业奖学金申报启动",
+      "summary": "大连理工大学创新创业学院开展“参宿”创业奖学金申报，面向全日制在校学生，分创业类和自媒体类。创业类需运营半年以上并提供近半年流水，自媒体类单平台粉丝不低于1万或全网不低于2万，已签约MCN账号不予参评。奖补创业类设3000元、5000元、10000元三档，自媒体类设1000元、2500元、5000元三档。申报截止2026年9月9日，材料发至dlut_cxcy@hotmail.com，邮件主题注明“参宿创业奖学金申报—项目名称—负责人”。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "82657c376b171f742497adfc45155968c97a6c9cdeba89fe739b5cff82aee59a",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:10.671428+00:00"
+    },
+    {
+      "id": "05c5ae8928a98136cc2a7d1e",
+      "title": "关于组织开展中国国际大学生创新大赛（2026）报名工作的通知",
+      "date": "2026-08-27",
+      "url": "https://chuangxin.dlut.edu.cn/info/1018/16747.htm",
+      "source": "创新创业学院",
+      "channel": "重要通知",
+      "category": "全校",
+      "sourceIds": [
+        "innovation"
+      ],
+      "headline": "中国国际大学生创新大赛2026报名通知",
+      "summary": "大连理工大学创新创业学院8月27日通知，按教育部教高函〔2026〕26号组织开展中国国际大学生创新大赛（2026）报名。报名时间为8月27日至9月4日12:00，参赛项目须在大创网报名系统完成报名，高教主赛道国际参赛项目在全球青年创新领袖共同体促进会网站报名。项目团队3至15人，一名学生一个赛道最多参与一个项目，一个项目只能报一个赛道，未成功报名无法生成获奖证书。报名前需阅读学生操作手册，相关问题可联系大赛官方微信公众号或学信网。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "8914f76cb4a7aeb500ba20e2873dac0d78820d8fcfa6547f0288326752502ac9",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:12.081408+00:00"
+    },
+    {
+      "id": "31dd4d3fdd591ad3e0841750",
+      "title": "关于领取2026级本科新生图书馆入馆指南资料的通知",
+      "date": "2026-08-24",
+      "url": "https://lib.dlut.edu.cn/info/1049/11269.htm",
+      "source": "图书馆",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "library"
+      ],
+      "headline": "2026级本科新生图书馆入馆指南领取通知",
+      "summary": "图书馆向各书院、学部、学院发放2026级本科新生“图书馆入馆指南”，请各单位派一名工作人员到对应校区图书馆总服务台领取。领取时间为8月24日至8月31日，盘锦校区领取时间另行通知。指南内容含馆藏资源、各项服务、开闭馆时间、读者活动及图书馆官方微信等，适用对象为2026级本科新生。各学院对应领取地点见原文，具体安排需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "237369ea4710cf6fdc1b3f9c6cb7cab277d2c5b3bfae18aad3f76920684d71dc",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:13.215801+00:00"
+    },
+    {
+      "id": "925c630d4fb2a1849715a3d2",
+      "title": "大连理工大学商学院2027年接收推荐免试研究生预报名开放通知",
+      "date": "2026-08-23",
+      "url": "https://business.dlut.edu.cn/info/1371/21662.htm",
+      "source": "商学院",
+      "channel": "通知公告",
+      "category": "学院",
+      "sourceIds": [
+        "business"
+      ],
+      "headline": "大连理工商学院开放2027推免预报名",
+      "summary": "大连理工大学商学院2027年接收推荐免试研究生预报名开放，商学院预报名时间为2026年8月25日00:00至9月15日24:00。申请者须为预计获得本科高校2027年推免资格的应届毕业生，未获得资格者考核结果无效。需登录大连理工大学接收推免生预报名系统提交成绩证明、排名证明、英语成绩证明、其他证明材料及个人简历，材料命名格式为“考生姓名+材料名称”。通过考核者须按学院规定时间在全国推免服务系统中申报，否则前期考核结果无效。详情及要求见原文。联系人刘老师，电话0427-2631279、18342776188。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "fe04ea8ed4e57a5b2e38d010d472b6064a0f6c45e5b85ca0aba06c49f802eae6",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:14.784091+00:00"
+    },
+    {
+      "id": "9d5ce8c617ee5ce87cd20728",
+      "title": "关于申报国家留学基金委2027年创新型人才国际合作培养项目的通知",
+      "date": "2026-08-21",
+      "url": "https://gs.dlut.edu.cn/info/1089/51552.htm",
+      "source": "研究生院",
+      "channel": "培养通知",
+      "category": "全校",
+      "sourceIds": [
+        "graduate"
+      ],
+      "headline": "研究生院启动2027年创新项目新申报",
+      "summary": "研究生院通知各学部（学院）组织申报国家留学基金委2027年创新型人才国际合作培养项目，我校本次可新申报3项，不受理个人申请，获批项目执行期为2027-2030年。校内报名截止2026年9月25日，申报人需将申请书和有效期内中外文双方合作协议电子版发送至sharina@dlut.edu.cn。校内评审为2026年10月9日至14日。具体选派类别、资助及申报要求请阅读原文及附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "39d706779d5e779f4cc3fcf47f4a02db88c9366d9cb51ab1d830f274464e48d8",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:16.195103+00:00"
+    },
+    {
+      "id": "328ade64aea1aabdff063bac",
+      "title": "关于开展校区林木病虫害防治工作的温馨提示",
+      "date": "2026-08-16",
+      "url": "https://pjxqzwb.dlut.edu.cn/info/1081/9422.htm",
+      "source": "盘锦校区总务部",
+      "channel": "工作通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjxqzwb"
+      ],
+      "headline": "盘锦校区将开展林木病虫害防治喷洒",
+      "summary": "盘锦校区总务部通知，为灭蚊、灭蝇、灭虫，2026年8月17日至8月23日对校内林地、绿地开展药物喷洒，作业时间为每日6:30—11:00、13:00—16:00，周末正常作业，雨天顺延。请师生避免在喷药区域长时间逗留，勿触摸正在或刚喷施过的苗木枝叶；靠近绿化带的楼宇在作业时段暂时关闭门窗；勿在作业区域树冠下及绿化带旁停放车辆；勿在室外公共区域绿化带附近晾晒衣物、被褥或放置物品，并遵守临时警示牌提示。关键内容请读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "420b2a19c658fb4d9bb4d95d0158380c938856ceb2150d18e52a4b8de2fb1006",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:17.864468+00:00"
+    },
+    {
+      "id": "118a0e2ad03f75e5cb2d65ad",
+      "title": "关于开展校区林木病虫害防治工作的温馨提示",
+      "date": "2026-08-07",
+      "url": "https://pjxqzwb.dlut.edu.cn/info/1081/9402.htm",
+      "source": "盘锦校区总务部",
+      "channel": "工作通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjxqzwb"
+      ],
+      "headline": "盘锦校区8月7日起开展林木病虫害防治喷洒",
+      "summary": "盘锦校区总务部通知，2026年8月7日至8月13日由绿城物业绿化管理对校内林木开展病虫害防治药物喷洒，作业时间为每日上午6:30-11:00、下午13:00-16:00，周末正常作业，雨天顺延。适用对象为校区师生员工。请避免在喷药区域长时间逗留，勿触摸正在或刚喷施过的苗木枝叶；临近绿化带楼宇在作业时段暂时关闭门窗；勿将机动车、非机动车停在作业区树冠下及绿化带旁；勿在绿化带附近晾晒衣物被褥或放置物品，并遵守现场临时警示牌提示。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "2872c909912a9d169bce25156b20dfcd55d339878eb7261744ec54b467b69a90",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:19.398818+00:00"
+    },
+    {
+      "id": "7a7d69f974d60c07bccf402f",
+      "title": "关于招募大连理工大学昆士兰科技国际工学院2026级迎新志愿者的通知",
+      "date": "2026-08-07",
+      "url": "https://dqise.dlut.edu.cn/info/1311/1551.htm",
+      "source": "昆士兰科技国际工学院",
+      "channel": "通知公示",
+      "category": "学工",
+      "sourceIds": [
+        "dqise"
+      ],
+      "headline": "大连理工昆士兰学院招募2026级迎新志愿者",
+      "summary": "大连理工大学昆士兰科技国际工学院面向盘锦校区全体在读学生招募2026级迎新志愿者。服务分四个时段：8月29日13:00-17:00招16人，8月30日5:30-7:00及17:00-18:30招20人，8月30日6:30-12:00招40人，8月30日12:00-17:00招35人。入选者须参加8月28日下午培训会，并于8月28日中午前返校。报名须扫描问卷星二维码按时段报名，并加入QQ工作群。咨询联系杜同学。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "e07b09b90e06d14829d91c9c215371fb671105dd436f672d0d607f11b53ad916",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:20.621587+00:00"
+    },
+    {
+      "id": "8f08907ed65d317d171493d1",
+      "title": "关于2026级本科生大学英语分级考试的通知【更新第二次分级考试名单】",
+      "date": "2026-08-06",
+      "url": "https://pjteach.dlut.edu.cn/info/1031/2241.htm",
+      "source": "教学与科研工作部",
+      "channel": "考试安排",
+      "category": "教务",
+      "sourceIds": [
+        "pjteach-exam"
+      ],
+      "headline": "2026级英语分级考试9月5日和9日举行",
+      "summary": "盘锦校区2026级本科生英语分级考试于9月5日、9月9日举行，每次100分钟含听力，考场在A01主教学楼S区机房。学生自愿参加，未参加者从大学英语1级修读；莱斯特国际学院、昆士兰科技国际工学院各专业不参加。首次登录iTEST需在第一次考试当天8点前完成认证，自备3.5mm圆孔有线耳机。9月11日至13日确认分级及成绩，9月16日至17日置入英语课程。考生名单等详见附件1、附件2。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "800b607ba4825bef3128324053654f4a905b3905d14f129a416aaaf0f3fa51db",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:22.044939+00:00"
+    },
+    {
+      "id": "6fa72013577de1fd7a42ac11",
+      "title": "关于图书馆2026年暑假期间开放安排调整的通知",
+      "date": "2026-08-05",
+      "url": "https://lib.dlut.edu.cn/info/1049/11259.htm",
+      "source": "图书馆",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "library"
+      ],
+      "headline": "图书馆2026年暑假开放安排调整通知",
+      "summary": "图书馆发布2026年暑假（8月8日至8月30日）开放安排调整。伯川图书馆8:00-22:00开放1-4层阅览室；令希、盘锦、开发区分馆开放部分区域；马克思主义分馆闭馆。数字资源24小时开放；假期到期外借图书延期至2026年9月16日归还；三校区通借通还、馆际互借7月25日至8月30日暂停。具体馆舍时间、预约及查收查引等安排需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "8d5efa2fb88fd1fb2c0aeb28d459a5779ac8bfb060b9e3018c7236e629950676",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:23.460260+00:00"
+    },
+    {
+      "id": "93f9cd9d0794459b67f57a6a",
+      "title": "关于G01、D01周边路段封闭的通知",
+      "date": "2026-07-31",
+      "url": "https://pjxqzwb.dlut.edu.cn/info/1081/9352.htm",
+      "source": "盘锦校区总务部",
+      "channel": "工作通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjxqzwb"
+      ],
+      "headline": "盘锦校区G01至D01路段施工封闭",
+      "summary": "盘锦校区总务部通知，因道路施工，G01南侧至D01西侧路段（约230m）于7月31日至8月29日封闭，期间禁止任何车辆或行人通过。行人可从D01北侧绕行，车辆可停放至F05东侧停车场。请师生提前规划路线，施工带来不便敬请谅解。具体信息以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "5cb6bdbd1be3ea175c5c41f1ec7956c896f0f79ca8c2f315ce8b3304213902c9",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:24.591169+00:00"
+    },
+    {
+      "id": "96b97224021c66013dfd0e5c",
+      "title": "（国家资助项目）关于做好2026年创新型人才国际合作培养项目第三批人员申报工作的通知",
+      "date": "2026-07-29",
+      "url": "https://dutdice.dlut.edu.cn/info/1007/21220.htm",
+      "source": "国际合作与交流处",
+      "channel": "学生通知",
+      "category": "全校",
+      "sourceIds": [
+        "international"
+      ],
+      "headline": "2026创新项目第三批人员申报启动",
+      "summary": "国家留学基金委2026年创新型人才国际合作培养项目启动第三批人员选拔，面向高级研究学者、访问学者、博士后、攻读学位研究生、联合培养研究生及本科插班生等类别，各有留学期限和年龄等条件。即日起申请人自行联系项目负责人；2026年8月28日前项目组将推荐名单电子版发至国际处及相关单位邮箱；9月1日0时至11日14时登录国家留学基金委系统网上填报，10月底前发布录取结果。具体项目列表及外语要求见原文附件和链接。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "450774c97606cccd0677ac214f960453dcffe30f05f56ab22311bafe6f4e0091",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:26.036246+00:00"
+    },
+    {
+      "id": "1c0f071b85976d29e3ceed44",
+      "title": "总务部关于2026年暑假服务保障及值班安排的通知",
+      "date": "2026-07-25",
+      "url": "https://pjxqzwb.dlut.edu.cn/info/1081/9332.htm",
+      "source": "盘锦校区总务部",
+      "channel": "工作通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjxqzwb"
+      ],
+      "headline": "盘锦校区总务部发布2026年暑假服务及值班安排",
+      "summary": "盘锦校区总务部通知2026年暑假服务保障安排。第八食堂一楼大餐正常营业，其余档口7月25日至8月25日暂停、8月26日恢复；教工餐厅7月26日至8月29日暂停。商业街、公共浴室、校园超市等有停业时段。综合门诊部24小时值班。营口东、虎跃班车假期暂停，仅主要时间节点发车。留校师生需遵守安全管理规定，离校前切断水电。具体值班表及联系方式见原文附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "27eb85aa43a24237760669a335447511f83b9756c8211f8447d6492d688d380c",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:27.743276+00:00"
+    },
+    {
+      "id": "504e32186897debbd7af25e1",
+      "title": "关于2026年暑假论文博士学位论文送审时间的通知",
+      "date": "2026-07-24",
+      "url": "https://gs.dlut.edu.cn/info/1206/51512.htm",
+      "source": "研究生院",
+      "channel": "学位公告",
+      "category": "全校",
+      "sourceIds": [
+        "graduate-degree"
+      ],
+      "headline": "2026年暑假博士论文送审时间通知",
+      "summary": "研究生院通知，自假期开始至开学前，博士学位论文送审安排在每周四下午4点，无冷静期，外审更新每周至少两次。适用对象为2026年暑假期间需送审论文的博士生。通知日期2026年7月24日，具体安排以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "cc94f18c3d0e0589caf1be16d418179a86c4b7435199ac3bedf8c2fb19b7fe78",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:28.948711+00:00"
+    },
+    {
+      "id": "1f794a0e6c70dfc6dd05bc91",
+      "title": "大连理工大学第五届数智素养大赛暨2026年大学生“AI+信息素养”大赛校赛选拔报名通知",
+      "date": "2026-07-24",
+      "url": "https://lib.dlut.edu.cn/info/1049/11229.htm",
+      "source": "图书馆",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "library"
+      ],
+      "headline": "大连理工第五届数智素养大赛报名通知",
+      "summary": "大连理工大学第五届数智素养大赛暨2026年大学生“AI+信息素养”大赛校赛选拔于7月3日至9月17日开放线上报名，面向全校全日制在籍在校本科生、研究生。学生需在大赛官网平台csc.xxsuyang.com注册报名并选择对应赛道，报名时务必填写正确手机号用于接收考试验证码，报名人数不限。校赛设特等奖2名、一等奖6名、二等奖12名、三等奖25名，获奖者可获证书、奖品，共同主办书院给予成长积分认定。咨询可联系刘老师0411-84708626转8365或15940889923。其他未尽事项以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "78fb2bf709f6860da2cdcdf52e0300ae2315aeae18d743a494f31e37049b05f3",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:30.230764+00:00"
+    },
+    {
+      "id": "97500def4fb5669e4fc7cc92",
+      "title": "关于开展盘锦校区“实验室安全活动周”系列活动的通知",
+      "date": "2026-07-21",
+      "url": "https://pjxqzwb.dlut.edu.cn/info/1081/9302.htm",
+      "source": "盘锦校区总务部",
+      "channel": "工作通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjxqzwb"
+      ],
+      "headline": "盘锦校区实验室安全活动周系列安排",
+      "summary": "盘锦校区总务部联合化海生学院开展“实验室安全活动周”系列活动，面向各实验室负责人、研究生及相关人员。7月22日16:00至16:50在G01一楼报告厅举办化学化工实验室安全专题讲座，要求实验室负责人和研究生参加并签到，无特殊事由不得缺席；16:50至17:20同一地点进行危化品泄漏应急处置培训，请安全联络员和一线操作人员参与。7月23日至25日每天11:00至12:00在D02二楼走廊西侧开展AI模拟灭火实操演练，确保相关研究生全覆盖并签到。各实验室须7月21日前完成存量自查盘点，7月24日前完成补码贴码，活动周期间接受联合现场核查，逾期未完成或弄虚作假将暂停化学品采购权限。联系人及电话：总务部保卫室0427-2631078、H03-313；试剂管家13795110415、D02-111。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "29871faa5165aae5c6c1a5f40542ffd735c0b23b4b05ea84007245425fda3713",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:32.050098+00:00"
+    },
+    {
+      "id": "7b8a8b42ad8fde5af3edc465",
+      "title": "关于2025-2026学年春季、夏季学期本科生课程补缓考的通知",
+      "date": "2026-07-21",
+      "url": "https://pjteach.dlut.edu.cn/info/1261/3262.htm",
+      "source": "教学与科研工作部",
+      "channel": "考试安排",
+      "category": "教务",
+      "sourceIds": [
+        "pjteach-exam"
+      ],
+      "headline": "本科生春季夏季学期补缓考安排通知",
+      "summary": "盘锦校区各学院、书院：2025-2026学年春季、夏季学期本科生课程补缓考安排在2026-2027学年秋季学期开学第一周，即9月2日至9月6日进行。具体考试日程需于8月29日以后登录综合教学管理系统查询。相关教师应及时提交成绩并送交补缓考试卷。学生应按期查询日程并参加考试，如有问题可咨询教学与科研工作部，电话0427-2631952。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "68c3e48dafe06fc0a1f0107625e22f5f4458c351f9be7ea4da20dd3f2504d21f",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:33.084875+00:00"
+    },
+    {
+      "id": "e889e900052989e909eedef5",
+      "title": "关于图书馆2026年暑假期间开放安排的通知",
+      "date": "2026-07-20",
+      "url": "https://lib.dlut.edu.cn/info/1049/11069.htm",
+      "source": "图书馆",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "library"
+      ],
+      "headline": "图书馆2026年暑假开放与服务安排通知",
+      "summary": "图书馆公布2026年暑假开放安排：7月25日、8月30日部分馆舍开放，7月26日至8月29日伯川图书馆7:00-22:00开放1-3层阅览室等。暑假期间数字资源24小时开放，校外可通过WebVPN、CARSI或客户端VPN访问；查收查引、科技查新线下每周二、周五在伯川305办理；暑假到期外借图书延期至2026年9月16日归还；三校区通借通还、馆际互借7月25日至8月30日暂停。部分时段停电临时闭馆，个别区域修缮，需关注临时通知。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "7794b5e8ea7019be544403bb262941173e82321c5d9d8b1ebabf1f60d5861bed",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:34.631918+00:00"
+    },
+    {
+      "id": "9d732fb91f63f19e545aa67b",
+      "title": "关于党委学生工作部2026年暑假值班安排的通知",
+      "date": "2026-07-20",
+      "url": "https://xsc.dlut.edu.cn/info/1042/7112.htm",
+      "source": "学生工作处",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "xsc"
+      ],
+      "headline": "党委学生工作部公布2026年暑假值班安排",
+      "summary": "党委学生工作部发布2026年暑假值班安排通知，值班带班时间为8:30-11:30、13:30-16:30。该通知面向全校，涉及暑假期间学生工作部值班事宜。正文未明确值班具体日期、地点、联系方式及办理事项，需查阅原文或相关附件了解详情。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "b62b004de8bcc0e91ae99ec4ca9fedb3a88bbd79aac199443b753f9ccb2ad701",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:35.920623+00:00"
+    },
+    {
+      "id": "877813f01dcc912a70c14a32",
+      "title": "“AI赋能·教学重构：打造数智化学习新场景”研讨会通知",
+      "date": "2026-07-19",
+      "url": "https://gjzgb.dlut.edu.cn/info/1311/1351.htm",
+      "source": "高等教育综合改革办公室",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "gjzgb"
+      ],
+      "headline": "大连理工7月办AI赋能教学重构研讨会",
+      "summary": "大连理工大学主办的“AI赋能·教学重构：打造数智化学习新场景”研讨会将于2026年7月29日9:00—17:00在大连理工大学举办，7月28日12:00起报到。面向各高校分管教学负责同志及教务处、研究生院、教师教学发展中心等部门人员，二级学院、专业、教研室负责人，专任教师及教研、教学管理人员等。会议不收取会务费，交通费、住宿费由所在单位承担。参会代表须于7月25日17:00前通过微信扫码线上报名。具体议程及二维码需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "98a98dcd77f92ab261c68918a7b66ed89c7b7d92015cbcff21424ae26b2aa7b1",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:40:26.059529+00:00"
+    },
+    {
+      "id": "4d347c46ae0c895eb7eec9b2",
+      "title": "大学生创新创业训练计划项目申报流程（2026版）",
+      "date": "2026-07-16",
+      "url": "https://pjteach.dlut.edu.cn/info/1311/3242.htm",
+      "source": "教学与科研工作部",
+      "channel": "创新创业",
+      "category": "活动",
+      "sourceIds": [
+        "pjteach-innovation"
+      ],
+      "headline": "大学生创新创业训练计划项目申报流程发布",
+      "summary": "教学与科研工作部发布大学生创新创业训练计划项目申报流程（2026版），并附申报流程图。通知明确，各项工作具体时间以创新创业学院网站发布为准，另提供“大连理工大学大学生创新创业训练计划百问百答——全流程指导手册”链接。原文未列报名截止日期、申报资格及材料要求，学生需查看流程图和原网页获取具体安排。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "93343d28c7f9f050f4515c7c448dcc168c9a981e2127dec63a7553b7dababdc0",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:37.222045+00:00"
+    },
+    {
+      "id": "85e46d7ca11d62665bbd0561",
+      "title": "【通知】2026年暑假前清馆通知",
+      "date": "2026-07-16",
+      "url": "https://pjlib.dlut.edu.cn/info/1049/2554.htm",
+      "source": "图书馆盘锦校区分馆",
+      "channel": "新闻通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjlib"
+      ],
+      "headline": "图书馆盘锦校区分馆暑假前清馆通知",
+      "summary": "图书馆盘锦校区分馆2026年7月16日通知，本学期接近尾声，为保持阅览室整洁和公共空间合理利用，将于7月24日（周五）集中清理存包柜、读者置物架及阅览区的个人书籍物品。请各位师生读者在7月24日前取走个人物品；如有遗留，图书馆将统一清理至107室。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "d5b991a3f03a510770bd40ad99c307fd6616843e39a002859f2e7e1048b1f0fa",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:38.712598+00:00"
+    },
+    {
+      "id": "3c21466c8eaf96bfa5570d6c",
+      "title": "（国家资助项目）关于2026年促进与俄乌白国际合作培养项目人选申报（第二批）报名通知",
+      "date": "2026-07-14",
+      "url": "https://dutdice.dlut.edu.cn/info/1007/21120.htm",
+      "source": "国际合作与交流处",
+      "channel": "学生通知",
+      "category": "全校",
+      "sourceIds": [
+        "international"
+      ],
+      "headline": "2026年促进与俄乌白国际合作项目第二批申报通知",
+      "summary": "国际合作与交流处通知，2026年促进与俄乌白国际合作培养项目人选申报（第二批）启动。获资助项目留学单位为白俄罗斯国立大学，招收联合培养博士2人、硕士2人、访问学者1人、本科插班生1人。网上申报时间为2026年9月1日0时至11日14时。学生须在8月31日前联系国外院校导师并获取邀请信等材料，9月1日至8日登录校园网及国家公派留学管理信息平台报名。具体条件、材料及流程需阅读原文及附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "f098574dd6ef8b2ea85abb3b69b0cf1971cf14f4ec45f3babecff4764a249a7a",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:40.235189+00:00"
+    },
+    {
+      "id": "556feeb36ea5879b1e65b8b7",
+      "title": "“连理全球”留学专项派出办理流程",
+      "date": "2026-07-06",
+      "url": "https://dutdice.dlut.edu.cn/info/1007/21050.htm",
+      "source": "国际合作与交流处",
+      "channel": "学生通知",
+      "category": "全校",
+      "sourceIds": [
+        "international"
+      ],
+      "headline": "“连理全球”留学专项派出办理流程通知",
+      "summary": "国际合作与交流处发布“连理全球”留学专项派出办理流程，适用对象为已获本专项资助资格的拟留学人员。流程包括：签署承诺书并领取资助证明（主楼123办公室，工作日上午8:30-11:30、下午14:00-17:00）；登录校园门户提交线上派出申请，须在出国前完成审批；登记资助账户信息（经人资处评审通过者无需办理）；确定出国日期后向推荐部门报备。通知含邮箱、电话及推荐部门联系方式，附件内容未提供。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "a60db8d6f17af3779065136c1af886162f0f2e2ffc7f215c2f18f108bc740a4b",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:41.619798+00:00"
+    },
+    {
+      "id": "88d2c9b7df563930708b91eb",
+      "title": "关于报名2026“未来科学家”研学活动的通知",
+      "date": "2026-06-25",
+      "url": "https://gs.dlut.edu.cn/info/1089/51442.htm",
+      "source": "研究生院",
+      "channel": "培养通知",
+      "category": "全校",
+      "sourceIds": [
+        "graduate"
+      ],
+      "headline": "华南理工2026未来科学家研学招募5人",
+      "summary": "华南理工大学联合江西省人才发展集团、广州人才集团举办2026年“未来科学家”研学活动，面向集成电路、人工智能、新能源、生物医药、化学化工等相关专业硕博士研究生，全校限5人、择优录取。活动时间为2026年8月7日至13日，地点江西省南昌市。报名需提交报名表、研学猜想提案、推荐信等材料，6月30日前打包发送至peiyangke@dlut.edu.cn，过期不予推荐，联系人莎日娜，电话84706321。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "792f8874b760fdd41d9919b22edf55ef36f2b2ac6a27ecbe5f1347a7783e0534",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:42.796868+00:00"
+    },
+    {
+      "id": "b61660daeeb93b8c42abbed2",
+      "title": "关于2026年9月全国计算机等级考试（NCRE）报名的通知",
+      "date": "2026-06-23",
+      "url": "https://pjteach.dlut.edu.cn/info/1031/2922.htm",
+      "source": "教学与科研工作部",
+      "channel": "考试安排",
+      "category": "教务",
+      "sourceIds": [
+        "pjteach-exam"
+      ],
+      "headline": "辽宁2026年9月NCRE报名6月25日启动",
+      "summary": "辽宁省2026年9月全国计算机等级考试（第78次）定于9月19日至20日举行，本考点考试时间为9月19日无纸化机考。报名时间为2026年6月25日9时至7月15日16时，登录中国教育考试网NCRE页面注册缴费，提交后24小时内须缴费，否则报考失效。我校考点最多报两个科目，不得重复报考同一科目。一级80元，二至四级100元。准考证9月14日9时后自行打印，入场需身份证并人脸识别。关键内容需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "a21d41a50504bc32dc9093a97021aed8c43131d3e8cd59d3ad3508053ba95fdc",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:44.411888+00:00"
+    },
+    {
+      "id": "822c56242ef90fa99bb9ad07",
+      "title": "关于图书馆2026年端午节开放安排的通知",
+      "date": "2026-06-16",
+      "url": "https://lib.dlut.edu.cn/info/1049/10939.htm",
+      "source": "图书馆",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "library"
+      ],
+      "headline": "图书馆2026年端午节开放安排通知",
+      "summary": "图书馆通知，根据学校2026年上半年节假日安排，端午节期间6月19日至6月21日正常开馆：伯川图书馆7:00—22:00，令希图书馆、盘锦校区分馆、开发区校区分馆8:00—22:00，马克思主义分馆闭馆。适用对象为全校师生读者，无需报名，按开放时间前往即可。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "d4c4cf973b95e1984194cbeab4f98503dc9eb2572d1827740fb2633ab63defd6",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:45.478474+00:00"
+    },
+    {
+      "id": "0d5431bad0fb980574004259",
+      "title": "中国高等教育学会高等教育管理分会2026年学术年会通知（第二轮）",
+      "date": "2026-06-15",
+      "url": "https://gjzgb.dlut.edu.cn/info/1311/1341.htm",
+      "source": "高等教育综合改革办公室",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "gjzgb"
+      ],
+      "headline": "高教学会高教管理分会2026学术年会通知",
+      "summary": "中国高等教育学会高等教育管理分会2026年学术年会将于2026年7月22日至24日在辽宁省大连市凌工路2号大连理工大学举办，主题为“高等教育综合改革与治理创新”。征文面向高等院校、研究机构等中青年教师、科研人员和硕博研究生，未公开发表论文可投稿至gaojiaozonggai2026@163.com，截止2026年7月15日。会议注册费1680元/人，全日制脱产研究生1080元/人，报名截止同为2026年7月15日，需扫码填写回执并缴费。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "28996760ca9ee384df89f7647ea4958f47ba3014b628e2c8dc81ea925ba6dbdc",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:40:27.711645+00:00"
+    },
+    {
+      "id": "aba382c7e265bf7a7d572ea1",
+      "title": "中国高等教育学会高等教育管理分会2026年度会议暨“高等教育综合改革与治理创新”学术交流会（预通知）",
+      "date": "2026-06-09",
+      "url": "https://gjzgb.dlut.edu.cn/info/1311/1331.htm",
+      "source": "高等教育综合改革办公室",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "gjzgb"
+      ],
+      "headline": "高等教育管理分会2026年度会议征文与报名",
+      "summary": "中国高等教育学会高等教育管理分会等四家单位联合主办2026年度会议暨“高等教育综合改革与治理创新”学术交流会，7月22-24日在大连理工大学举行。征文对象主要为高校、研究机构等中青年教师、科研人员和硕博研究生，论文须未公开发表，格式遵《教育研究》，建议8千至1万字。征文和会议报名截止均为2026年7月10日，论文发至gaojiaozonggai2026@163.com并按规定标注邮件标题，报名需扫二维码填写回执。注册费1680元/人，全日制脱产研究生1080元/人，住宿交通自理。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "1718be94eb110579bff018e7d85e91179c534a031bb90c280f02a1f35d445dd5",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:40:29.199419+00:00"
+    },
+    {
+      "id": "667806f611349ccb875e60a4",
+      "title": "关于举办大连理工大学“令希・智汇”AI赋能空间文化设计大赛决赛的通知",
+      "date": "2026-06-03",
+      "url": "https://lib.dlut.edu.cn/info/1049/10899.htm",
+      "source": "图书馆",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "library"
+      ],
+      "headline": "大连理工AI空间设计大赛决赛6月8日举行",
+      "summary": "大连理工大学“令希・智汇”AI赋能空间文化设计大赛初赛已结束，16位选手晋级决赛。决赛于2026年6月8日14:00在伯川图书馆报告厅举行，分局部空间改造和墙面文化及空间展陈设计两个赛道。全校师生可到场观摩，入围奖获奖者需到场观赛并现场领取证书与奖品。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "511f0d80bf85850061f472191ef186bc543db816db3190693fad3183a8f01631",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:46.559542+00:00"
+    },
+    {
+      "id": "05fe1c2d3401cf9179ac1fba",
+      "title": "转发活动邀请：香港中文大学（深圳）2026年大湾区研究生科研论坛 2026 Greater Bay Area Graduate Research Forum, CUHK-Shenz",
+      "date": "2026-06-02",
+      "url": "https://gs.dlut.edu.cn/info/1089/51032.htm",
+      "source": "研究生院",
+      "channel": "培养通知",
+      "category": "全校",
+      "sourceIds": [
+        "graduate"
+      ],
+      "headline": "港中大深圳转发大湾区研究生科研论坛邀请",
+      "summary": "香港中文大学（深圳）研究生院转发2026年大湾区研究生科研论坛活动邀请，通知日期为2026年6月2日，来源为培养通知、面向全校。正文未列具体安排，仅提示详见附件及链接 https://gs.cuhk.edu.cn/node/385 ，报名截止、时间地点及参会要求等关键内容需阅读原文。请有意参加的研究生按原文指引查阅附件并完成后续操作。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "d65a3c61cb198d1713a62b4457cafbc4e634fe51967d3f30cfb060786b50b71a",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:47.951591+00:00"
+    },
+    {
+      "id": "7f21fd1d8c73042df49365b5",
+      "title": "关于2025年度推选辽宁省优秀学位论文及大连理工大学优秀博士学位论文评选结果公示",
+      "date": "2026-05-19",
+      "url": "https://gs.dlut.edu.cn/info/1206/50832.htm",
+      "source": "研究生院",
+      "channel": "学位公告",
+      "category": "全校",
+      "sourceIds": [
+        "graduate-degree"
+      ],
+      "headline": "大连理工公示2025年度优秀学位论文评选结果",
+      "summary": "2026年5月19日，研究生院公示2025年度校优博士、推荐省优博士及硕士名单，公示期至5月25日12:00，排名不分先后。博士名单中陈荣春等48人获校优并推荐省优，另有祖超等若干人仅获校优；硕士名单含王明栋等41人。如有问题请实名反馈至gck@dlut.edu.cn。名单涉及众多姓名，需查阅原文核对。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "e0b0c420f3f05f2d75093c3d9d882956e21e0a5451a3482fb6ae0859b683ebc1",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:49.507464+00:00"
+    },
+    {
+      "id": "9d28f39b656a8a589787016f",
+      "title": "大连理工大学竞赛目录（2026年）",
+      "date": "2026-05-18",
+      "url": "https://chuangxin.dlut.edu.cn/info/1018/16217.htm",
+      "source": "创新创业学院",
+      "channel": "重要通知",
+      "category": "全校",
+      "sourceIds": [
+        "innovation"
+      ],
+      "headline": "大连理工发布2026年竞赛目录供参考",
+      "summary": "2026年5月18日，大连理工大学创新创业学院发布《大连理工大学竞赛目录（2026年）》，旨在落实学校拔尖创新人才培养实施方案，推动大学生科创竞赛发展。通知明确该目录为建议目录，供各学院、书院、医学部参考，并用于确认本单位科创竞赛认定目录。适用对象为上述相关单位。正文未列出具体竞赛名称、报名截止时间及参与要求，相关关键内容需查阅原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "1f62f66bd2358e5c39b498cf015d866e53ca4a623a2776820f80225642246346",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:51.142354+00:00"
+    },
+    {
+      "id": "23d76374f78de69b9aa80568",
+      "title": "关于2025年度辽宁省优秀学位论文推荐及大连理工大学优秀博士学位论文评选工作的通知",
+      "date": "2026-05-08",
+      "url": "https://gs.dlut.edu.cn/info/1206/50502.htm",
+      "source": "研究生院",
+      "channel": "学位公告",
+      "category": "全校",
+      "sourceIds": [
+        "graduate-degree"
+      ],
+      "headline": "辽宁优秀学位论文推荐及校优博评选启动",
+      "summary": "研究生院2026年5月8日通知，开展2025年度辽宁省优秀学位论文推荐及大连理工大学优秀博士学位论文评选。省优博士论文限2023年9月1日至2024年8月31日获学位者；省优硕士论文限2024年9月1日至2025年8月31日期间校优硕士学位论文获得者，且作者答辩前已获副高级以上职称不得申报。学院初选定于5月8日至15日上午，答辩评审为5月19日；材料须于5月15日11点前报送研究生院614。申报表、汇总表等具体要求及附件需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "8c7da9e47cd2c093bcc641a541af2b159ee1424caada52ef26d02877d1cce8a3",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:52.726735+00:00"
+    },
+    {
+      "id": "4b63dfdccad2c1f483fa91ae",
+      "title": "关于举办专利申请专题讲座的通知",
+      "date": "2026-04-13",
+      "url": "https://hyxy.dlut.edu.cn/info/1711/30902.htm",
+      "source": "化工海洋与生命学院",
+      "channel": "院务通知",
+      "category": "学院",
+      "sourceIds": [
+        "hyxy"
+      ],
+      "headline": "化工海洋与生命学院举办专利申请专题讲座",
+      "summary": "化工海洋与生命学院将于2026年4月16日（星期四）13:30在盘锦校区D01-201会议室举办专题讲座，主题为专利申请的基本流程与专利技术交底书的撰写，主讲嘉宾为律师、专利代理师朱甲子。参加对象为专任教师、科研人员、科研项目负责人、研究生及有专利申报需求的师生。通知未说明报名方式，相关安排需阅读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "170d91ce13a20861013ba112188ee4ed10d950407631135be31841e14eb87c55",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:53.785802+00:00"
+    },
+    {
+      "id": "118b63d64dc2b3d91fded513",
+      "title": "关于召开科技成果奖励申报交流研讨会的通知",
+      "date": "2026-04-07",
+      "url": "https://hyxy.dlut.edu.cn/info/1711/30692.htm",
+      "source": "化工海洋与生命学院",
+      "channel": "院务通知",
+      "category": "学院",
+      "sourceIds": [
+        "hyxy"
+      ],
+      "headline": "科技成果奖励申报交流研讨会将于4月10日召开",
+      "summary": "化工海洋与生命学院将于2026年4月10日13:30在G01-E402会议室召开科技成果奖励申报交流研讨会，邀请学校科研院科技创新研究院副院长蒋成刚、成果奖励办公室主任孔凌到会指导。会议内容为解读各级各类科技成果奖励申报政策与要求、讲解申报材料规范准备方法及重点注意事项，并由嘉宾现场答疑和经验分享。学院教师可参加。正文未说明报名方式、截止时间，相关安排需阅读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "58e4ce9dc9290fe05b941dce1fb53b7453f244a2bcfc1c7ea7b424c39e2c22d4",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:54.820343+00:00"
+    },
+    {
+      "id": "0600085f5175464bad06beac",
+      "title": "化工海洋与生命学院2026年工作会议暨全体教师大会通知",
+      "date": "2026-03-16",
+      "url": "https://hyxy.dlut.edu.cn/info/1711/30262.htm",
+      "source": "化工海洋与生命学院",
+      "channel": "院务通知",
+      "category": "学院",
+      "sourceIds": [
+        "hyxy"
+      ],
+      "headline": "化工海洋与生命学院将召开2026年全体教师大会",
+      "summary": "化工海洋与生命学院定于3月18日（周三）8:20-9:50在G01报告厅召开2026年工作会议暨全体教师大会，参会人员为全院教职工及学生代表。议程包括院长彭冲作“十五五”建设发展规划与2026年度工作安排报告，党委书记张大勇传达学校教代会及全面从严治党工作会议精神、通报学院领导班子民主生活会情况并部署新学期安全稳定工作，全体教师集中观看警示教育学习视频。会议设签到，请全体老师预留时间按时参加，有特殊事项须提前向学院综合办公室请假。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "6dea6641c47a742bc04310ce44317c73c453a59a9aed97c12c0662afab686a19",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:56.018625+00:00"
+    },
+    {
+      "id": "9acc0c6c0b943f5471cec33b",
+      "title": "【通知】关于图书馆2026年寒假期间开放安排的通知",
+      "date": "2026-01-09",
+      "url": "https://pjlib.dlut.edu.cn/info/1049/2544.htm",
+      "source": "图书馆盘锦校区分馆",
+      "channel": "新闻通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjlib"
+      ],
+      "headline": "图书馆2026年寒假盘锦校区分馆开放安排",
+      "summary": "图书馆发布2026年寒假开放安排：盘锦校区103自习室1月10日至2月9日7:00-22:00开放，2月10日至23日闭馆，2月24日至3月1日恢复7:00-22:00，其余空间关闭。寒假到期外借图书延期至2026年3月18日归还；三校区通借通还、馆际互借1月10日至2月28日暂停。数字资源24小时开放。图书馆提醒会按入馆量调整开放区域，读者须在闭馆前取走个人物品，其他细节需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "8b234a4d10beda6ae012aa5a700e3a6c1293a10f3baf388db33c084fb6acb188",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:57.497426+00:00"
+    },
+    {
+      "id": "02be12d91caa7b65fe634b99",
+      "title": "关于2026年硕士研究生学位论文答辩及相关工作安排",
+      "date": "2026-01-04",
+      "url": "https://gs.dlut.edu.cn/info/1206/48652.htm",
+      "source": "研究生院",
+      "channel": "学位公告",
+      "category": "全校",
+      "sourceIds": [
+        "graduate-degree"
+      ],
+      "headline": "大连理工2026年硕士论文答辩工作安排",
+      "summary": "大连理工大学研究生院2026年1月4日通知2026年硕士研究生学位论文答辩及相关工作安排。学位申请资格审核由学院完成，审查是否在最长修业年限内、完成培养计划、达到创新性成果要求并完成学位论文。资格审核分四个批次：3月批次1月5日至3月6日，6月批次4月1日至6月5日，9月批次6月30日至9月4日，12月批次10月12日至12月4日，具体时间可由各学院自行安排。通过审核和学术不端检测后方可进入评阅，通过评阅方可答辩。学生需按批次提交学位申请并关注学院安排。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "1aafde43f06670ceb887834fb2a4373b2a7e3496b92b56d704431a75794ef898",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:38:58.819832+00:00"
+    },
+    {
+      "id": "7daa8700d36747780e9b4ce5",
+      "title": "关于化工海洋与生命学院领导班子2025年度民主生活会征求意见的通知",
+      "date": "2025-12-31",
+      "url": "https://hyxy.dlut.edu.cn/info/1711/29652.htm",
+      "source": "化工海洋与生命学院",
+      "channel": "院务通知",
+      "category": "学院",
+      "sourceIds": [
+        "hyxy"
+      ],
+      "headline": "化工海洋与生命学院民主生活会征求意见",
+      "summary": "化工海洋与生命学院面向全院师生征求对学院领导班子2025年度民主生活会的意见。意见内容围绕政治忠诚、党性修养、敬畏人民组织法纪、干事创业担当、管党治党责任等五方面。师生可填写《征求意见表》（见附件），于2026年1月5日12点前将电子版发送至hhsdw@dlut.edu.cn，或投放至学院D01一楼意见箱。附件内容需查阅原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "4c143c1158663418856bcc6c3f81db35356f581ac4b1ac283e63d080bd3df779",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:00.182876+00:00"
+    },
+    {
+      "id": "11604ccd5dfb1ef9a9e10a51",
+      "title": "【通知】2026年元旦开放时间安排",
+      "date": "2025-12-29",
+      "url": "https://pjlib.dlut.edu.cn/info/1049/2534.htm",
+      "source": "图书馆盘锦校区分馆",
+      "channel": "新闻通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjlib"
+      ],
+      "headline": "图书馆元旦期间正常开馆安排",
+      "summary": "图书馆盘锦校区分馆发布通知，根据学校元旦及寒假安排，结合师生教学科研和学习需要，元旦期间1月1日至1月3日正常开馆，开馆时间为7:00-22:00。适用对象为全校师生读者。学生如需在元旦假期使用图书馆，可按上述时间前往。具体以原文及学校相关安排为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "45356f6bd39280848774d4d2b98f531d9b192e145345d26fce9adf48ca91ffcf",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:01.533146+00:00"
+    },
+    {
+      "id": "b2f2e0e67a2f6b9abe0ecc14",
+      "title": "【通知】图书馆关于毕业离校流程中取消“研究生学位论文提交”事项的通知",
+      "date": "2025-12-26",
+      "url": "https://pjlib.dlut.edu.cn/info/1049/2524.htm",
+      "source": "图书馆盘锦校区分馆",
+      "channel": "新闻通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjlib"
+      ],
+      "headline": "图书馆取消研究生离校论文提交流程",
+      "summary": "大连理工大学图书馆通知，为简化研究生毕业离校办理流程，自2026年1月1日起取消研究生毕业离校前向图书馆提交电子版学位论文的规定，离校系统中图书馆“论文提交”模块同步取消。适用对象为毕业研究生等相关师生。图书馆将从研究生院信息系统定期同步论文数据至统一检索平台，供师生查询。学生无需再向图书馆提交电子版学位论文。特此通知。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "d180f62f7643febbbac22a0206f0cb67c24aa772030561de30da884a06dcdeff",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:03.711473+00:00"
+    },
+    {
+      "id": "8e7db3fdf018e388dc79dfe7",
+      "title": "盘锦校区深化大学生创新创业教育改革实践 ——校区创新创业实践中心建设纪实",
+      "date": "2025-12-23",
+      "url": "https://pjteach.dlut.edu.cn/info/1311/1311.htm",
+      "source": "教学与科研工作部",
+      "channel": "创新创业",
+      "category": "活动",
+      "sourceIds": [
+        "pjteach-innovation"
+      ],
+      "headline": "盘锦校区创新创业实践中心建设纪实",
+      "summary": "2025年12月23日，教学与科研工作部发布盘锦校区创新创业实践中心建设纪实。校区自2024年建设“创新工作坊”起，到2025年推进创新创业实践中心，设有创新项目动态成长区、创新微课程共建实操区、头脑风暴创意思维区、开放协作创业孵化区等，配备3D打印机、激光切割器等工具并开展无人航行器等微课程。原文未列具体报名方式、截止时间及成果明细，需读原文了解。图片与附件内容未提供。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "c58d0623ab2c9a57472f524da2e63239a1eae025a8d3329801c4a4df6fbbcdea",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:05.296217+00:00"
+    },
+    {
+      "id": "5a37c02392c3f239b25787ca",
+      "title": "校区学生团队在中国国际大学生创新大赛中取得佳绩",
+      "date": "2025-12-01",
+      "url": "https://pjteach.dlut.edu.cn/info/1311/1301.htm",
+      "source": "教学与科研工作部",
+      "channel": "创新创业",
+      "category": "活动",
+      "sourceIds": [
+        "pjteach-innovation"
+      ],
+      "headline": "校区学生团队中国国际大学生创新大赛获奖",
+      "summary": "近日，中国国际大学生创新大赛（2025）总决赛在河南郑州落幕。盘锦校区学生团队获国家银奖一项、省金奖两项并入围总决赛网评，另有三项国际项目直接入围总决赛网评。莱斯特国际学院团队项目《CogniFlo: Smarter Flow, Cleaner Manufacturing》在高教主赛道（国际项目）中获国家银奖。校区自2023年起推进工作坊和创新创业实践中心建设。原文未说明学生后续具体报名或申报事项。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "d9acf2c66ce4eb254f7c033d1263c65ea0c49d9d3232092792d04fcf10c3349c",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:06.641468+00:00"
+    },
+    {
+      "id": "5fa7b9569ac29d6a98fd26c4",
+      "title": "创新创业教育实践系列活动第九期 成为智能时代的“超级个体”：AI在高校学习科研与工作中的应用",
+      "date": "2025-11-26",
+      "url": "https://pjteach.dlut.edu.cn/info/1311/1281.htm",
+      "source": "教学与科研工作部",
+      "channel": "创新创业",
+      "category": "活动",
+      "sourceIds": [
+        "pjteach-innovation"
+      ],
+      "headline": "创新创业教育实践系列活动第九期通知",
+      "summary": "教学与科研工作部发布创新创业教育实践系列活动第九期，主题为“成为智能时代的‘超级个体’：AI在高校学习科研与工作中的应用”，发布日期为2025-11-26，面向创新创业方向。正文仅显示“创新创业教育2”，未提供活动时间、地点、报名方式及截止日期等具体安排，学生需查阅原文获取关键内容。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "7cd257a4d7313e48db383bcf7c93f4a769b724d36cb9aad04d84b2133a0ae04b",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:07.542909+00:00"
+    },
+    {
+      "id": "851b70761aabc83b356d1bb8",
+      "title": "创新创业教育实践系列活动第八期 从科教融汇谈创新项目如何推动实现科研突破",
+      "date": "2025-11-21",
+      "url": "https://pjteach.dlut.edu.cn/info/1311/1271.htm",
+      "source": "教学与科研工作部",
+      "channel": "创新创业",
+      "category": "活动",
+      "sourceIds": [
+        "pjteach-innovation"
+      ],
+      "headline": "创新创业教育实践系列活动第八期通知",
+      "summary": "根据教学与科研工作部发布的通知，创新创业教育实践系列活动第八期主题为“从科教融汇谈创新项目如何推动实现科研突破”，发布日期为2025年11月21日，属于创新创业类活动。网页未提供具体活动时间、地点、主讲人及报名方式等关键内容，参与对象和报名要求需阅读原文确认。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "b5d590cfd60301df9aeb477ea022f6ea582d103f452e7b3a2036ef90a25158fe",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:08.738225+00:00"
+    },
+    {
+      "id": "5e41ec22cd4a7e9e85bc62f0",
+      "title": "大连理工大学专职心理健康教师公开招聘初试考核结果发布及复试考核通知",
+      "date": "2025-11-12",
+      "url": "https://xsc.dlut.edu.cn/info/1042/6992.htm",
+      "source": "学生工作处",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "xsc"
+      ],
+      "headline": "大连理工心理教师招聘复试安排通知",
+      "summary": "大连理工大学学生工作处11月12日通知：按1:5比例，20人进入专职心理健康教师复试。复试定于2025年11月21日在大连理工大学主校区伯川图书馆普罗名特厅举行，上午8:30-11:30教学试讲，下午13:30-16:30综合面试。复试人员须11月19日前发送基本信息表电子版及签字版至dutxlzp@163.com，11月20日17:00前发送教学试讲课件并完成入校报备，11月21日8:00前报到，逾期视为放弃。须携带身份证、学历学位证书等原件及复印件。交通食宿自理。未尽事宜及附件须读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "a699b71976992846f7c76c6da176a0461e83c2d14ac5b8450bcf2b5b6b2b720b",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:10.730424+00:00"
+    },
+    {
+      "id": "827e5a4956a646af9cb21b65",
+      "title": "【通知】关于图书馆103 自习室开放时间调整的通知",
+      "date": "2025-11-10",
+      "url": "https://pjlib.dlut.edu.cn/info/1049/2494.htm",
+      "source": "图书馆盘锦校区分馆",
+      "channel": "新闻通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjlib"
+      ],
+      "headline": "图书馆103自习室调整考研开放规则",
+      "summary": "图书馆盘锦校区分馆通知，因2026年全国硕士研究生招生初试临近，自11月10日（周一）起调整103自习室开放规则：取消预约要求，考研学子无需预约即可直接入场；每日开放至22:30，原开放时间为7:00~22:00。本次调整仅适用于考研备考阶段，初试结束后恢复常规开放时间7:00~22:00，其余空间的预约方式和开放时间不变。学生需合理规划学习安排，自觉维护自习室整洁与安静。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "c9eb9eef26b451dc5c3ae457fc31e1b12f0bc4d8efff366c343843bce9965b19",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:12.081463+00:00"
+    },
+    {
+      "id": "f4717d02f2a8f173064b926e",
+      "title": "【通知】电子存包柜服务升级",
+      "date": "2025-10-30",
+      "url": "https://pjlib.dlut.edu.cn/info/1049/2504.htm",
+      "source": "图书馆盘锦校区分馆",
+      "channel": "新闻通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjlib"
+      ],
+      "headline": "图书馆电子存包柜预约服务11月2日上线",
+      "summary": "大连理工大学图书馆主校区及盘锦校区分馆自11月2日（本周日）起上线电子存包柜预约服务，可通过网页、i大工APP或图书馆微信公众号预约空柜。主校区设短期箱柜和长期箱柜：短期箱柜位于伯川图书馆2楼、令希图书馆2-3楼，每周六晚十点闭馆后清柜，当月违规占柜2次暂停当月使用权限；长期箱柜仅面向大四和双学位同学，位于伯川1楼、令希4-6楼，每月最后一个周六闭馆后清柜，预约后一周不使用会被释放并记违规，2次违规停当月权限，仅适用于秋季学期。盘锦校区分馆只有短期箱柜，每周三14:00清理，遗留物品放105室。学生需注意贵重物品和危险物品严禁存放，主校区遗留物品放伯川104室、令希2楼自助服务区。具体规则和预约方式请阅读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "4146e4d2c2939641d0ea4a339896c640e147904583ce233395e132e7ec48ad62",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:14.070142+00:00"
+    },
+    {
+      "id": "dac9f156a6b5ccfc0fdd63bc",
+      "title": "大连理工大学2025年专职心理健康教师招聘初试考核名单公告及初试考核安排的通知",
+      "date": "2025-10-29",
+      "url": "https://xsc.dlut.edu.cn/info/1042/6972.htm",
+      "source": "学生工作处",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "xsc"
+      ],
+      "headline": "大连理工心理教师招聘初试名单及安排",
+      "summary": "大连理工大学学生工作处公布2025年专职心理健康教师招聘资格审查通过名单共214人，并安排初试考核。初试时间为2025年11月5日9:00至11:10，内容为高校心理健康教师应掌握的政策法规和专业知识，采用线上笔试。应聘者须全程参加，提前交卷也需考试结束后退出考场；放弃者应手写放弃声明并发送至dutxlzp@163.com。组织方不办辅导班，详情见线上考试安排链接及原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "b7b50045d34a8c3f50d7bed9ad66b76ca6f2df88718e19c8941ea0990985099e",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:15.373825+00:00"
+    },
+    {
+      "id": "730da3489d88466e100630d7",
+      "title": "【活动】图书馆闭馆音乐征集",
+      "date": "2025-10-13",
+      "url": "https://pjlib.dlut.edu.cn/info/1049/2514.htm",
+      "source": "图书馆盘锦校区分馆",
+      "channel": "新闻通知",
+      "category": "生活",
+      "sourceIds": [
+        "pjlib"
+      ],
+      "headline": "图书馆闭馆音乐征集活动通知",
+      "summary": "图书馆盘锦校区分馆向盘锦校区全体师生征集闭馆音乐，截止2025年10月31日。要求音乐类型不限、旋律优美积极向上，音频为标准MP3，每人可推荐1首及以上，并附30字以上推荐理由。将MP3和推荐理由发至pjlib@dlut.edu.cn，邮件注明音乐名称、演唱者、推荐人姓名及联系方式，也可附播放建议。线上试听投票得票最高十首将加入闭馆音乐歌单，推荐人获小礼品。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "14ffd875dae3a8306f720d2f8946cefb1faa4a320173fd37822fa6554943d3c4",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:16.811133+00:00"
+    },
+    {
+      "id": "041df260bd65b6e62b0276cc",
+      "title": "2025年博士学位论文单项、特别奖学金评选结果公示",
+      "date": "2025-09-12",
+      "url": "https://gs.dlut.edu.cn/info/1206/17266.htm",
+      "source": "研究生院",
+      "channel": "学位公告",
+      "category": "全校",
+      "sourceIds": [
+        "graduate-degree"
+      ],
+      "headline": "2025年博士论文单项及特别奖学金评选结果公示",
+      "summary": "研究生院学位办公示2025年博士学位论文单项、特别奖学金评选结果：经本人申请、学院（部）推荐及学校答辩评审，拟定20名博士生获单项奖学金资助、12名博士生获特别奖学金资助。公示期为2025年9月12日至9月14日。如有异议，可以书面、电话或电子邮件向研究生院学位办（研教楼614室）反映，要求实事求是并署真实姓名。联系人高老师，电话84708334，邮箱xwbgck@foxmail.com。名单详情见原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "b5961d904a60424d2f46ace753e693002c8ba1712a326a2ead46f3a72bccd8e2",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:18.289434+00:00"
+    },
+    {
+      "id": "b49d5bbce4b1ab1242f60f92",
+      "title": "大连理工大学专职心理健康教师招聘公告",
+      "date": "2025-09-12",
+      "url": "https://xsc.dlut.edu.cn/info/1042/6921.htm",
+      "source": "学生工作处",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "xsc"
+      ],
+      "headline": "大连理工大学公开招聘专职心理健康教师",
+      "summary": "大连理工大学面向社会公开招聘专职心理健康教师，岗位位于凌水主校区、开发区校区或盘锦校区，盘锦校区1人、开发区校区1人、凌水校区若干。要求心理学或精神卫生相关专业硕士及以上，硕士原则上不超30周岁、博士不超32周岁，2026年应届生须于2026年7月31日前取得学历学位并入职。报名截至2025年10月15日17:00，通过问卷链接填写报名表，并将简历、诚信承诺书及证明材料合并为1个PDF发至dutxlzp@163.com。招聘含资格审查、笔试、复试等环节，具体安排以学校网站公布为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "059bc99a49c6f0d0dd8293a0ae4c028a04c747fdc93fa616cf093df5a7db2d95",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:19.640394+00:00"
+    },
+    {
+      "id": "951701a80a266715e0296630",
+      "title": "第四届全国大学生电化学测量技术竞赛获奖名单公示",
+      "date": "2025-07-15",
+      "url": "https://hyxy.dlut.edu.cn/info/1711/27191.htm",
+      "source": "化工海洋与生命学院",
+      "channel": "院务通知",
+      "category": "学院",
+      "sourceIds": [
+        "hyxy"
+      ],
+      "headline": "第四届全国大学生电化学测量技术竞赛获奖名单公示",
+      "summary": "第四届全国大学生电化学测量技术竞赛已完成全部比赛，2208支队伍有效报名参赛，194支进入复赛，27支参加2025年7月8日至10日在大连理工大学盘锦校区举办的决赛答辩。组委会按竞赛规程评分确定获奖名单，现公示本科生组、研究生组、优秀指导老师及优秀组织奖名单。公示期为2025年7月15日至7月19日，如有异议请通过dlutecmt@163.com联系刘老师。名单详情请查看原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "87e081aeea49bf2210e4219759ee28457b7891f580fcab6f348ec92789d7c662",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:21.108127+00:00"
+    },
+    {
+      "id": "cc5d284840e17aef94858633",
+      "title": "关于党委学生工作部2025年暑假值班安排的通知",
+      "date": "2025-07-14",
+      "url": "https://xsc.dlut.edu.cn/info/1042/6901.htm",
+      "source": "学生工作处",
+      "channel": "通知公告",
+      "category": "全校",
+      "sourceIds": [
+        "xsc"
+      ],
+      "headline": "党委学生工作部公布暑假值班时间",
+      "summary": "党委学生工作部发布2025年暑假值班安排通知，明确暑假期间值班时间为上午8:30至11:30、下午13:30至16:30。通知面向全校，具体值班日期、地点及联系方式等关键内容未在正文中列出，需查看原文或相关附件。学生如需在暑假期间到学生工作部办理事务，请留意上述值班时段。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "55c0a3ee83e3cbe7547e4825cc7fd4edeb9f682ac2f69555b18505f491bbf559",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:22.483450+00:00"
+    },
+    {
+      "id": "f9a27003c294c4d44bb9d5f3",
+      "title": "教学运行保障中心校内考试通知",
+      "date": "2023-11-22",
+      "url": "https://teach.dlut.edu.cn/info/1086/12587.htm",
+      "source": "教务处",
+      "channel": "考试安排",
+      "category": "全校",
+      "sourceIds": [
+        "teach-exams"
+      ],
+      "headline": "教务处发布校内考试通知指引",
+      "summary": "教务处2023年11月22日发布校内考试通知，面向全校，属考试安排类，正文未列出具体考试科目、时间、地点或报名方式，仅指向教学运行保障中心校内考试通知栏目。学生需自行查看该栏目获取详情，附件内容未提供，关键信息以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "215e07e9d79339d43a7cb3a7c9d625d32a678510eccf0c2bd172dc5ab7c02bcf",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:23.694882+00:00"
+    },
+    {
+      "id": "89b22006a84a24e4bdbe921c",
+      "title": "东北五校2024届毕业生秋季双选会通知",
+      "date": "2023-10-13",
+      "url": "https://ssc.dlut.edu.cn/info/1029/1061.htm",
+      "source": "学生服务中心",
+      "channel": "招聘通知",
+      "category": "全校",
+      "sourceIds": [
+        "ssc-jobs"
+      ],
+      "headline": "东北五校2024届秋季双选会大连理工安排",
+      "summary": "东北五校联合举办2024届毕业生秋季双选会，大连理工大学设盘锦校区（10月31日，E02楼，10月30日报到）和大连主校区（11月1日，刘长春体育馆，10月31日报到）。用人单位需先联系学校获取邀请码，再在大工就业网报名并网上缴费，会务费800元/展位，每单位限1个展位、最多2人，按缴费顺序发放展位，报满即止。盘锦校区不单独收费，发票会后发至预留邮箱。接送站需扫码登记，盘锦截止10月22日17:00，主校区接站截止10月29日10:00、送站截止10月31日24:00。酒店自行预订。招聘会仅对本校学生开放。具体以原文及附件为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "013c4a5f0a8d4e5dc70e3e4c3e2e13bdf238649f8163c8b26fd1bdb737fb56e1",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:25.557590+00:00"
+    },
+    {
+      "id": "febbf4a5a56883cc04f9703a",
+      "title": "大连理工大学2023年秋季学期校园招聘活动安排",
+      "date": "2023-08-27",
+      "url": "https://ssc.dlut.edu.cn/info/1029/1022.htm",
+      "source": "学生服务中心",
+      "channel": "招聘通知",
+      "category": "全校",
+      "sourceIds": [
+        "ssc-jobs"
+      ],
+      "headline": "大连理工2023秋季校园招聘活动安排",
+      "summary": "大连理工大学学生服务中心发布2023年秋季学期校园招聘安排，面向用人单位。9月4日起可进校招聘，即日起可登录毕业生就业信息网预约；线下专场需提前五个工作日预约。线下招聘仅对本校毕业生开放，入校须在线报备。学校2024届预计毕业约12300人。具体生源信息、联系方式及入校流程需查原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "a0c2add05f70863bb754c34712b54660d2788cdb901c1f6e88ab91c2a948c300",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:27.045330+00:00"
+    },
+    {
+      "id": "6b760b7e6594cd010e008274",
+      "title": "大连理工大学用人单位入校申请说明（2023年秋季学期）",
+      "date": "2023-08-21",
+      "url": "https://ssc.dlut.edu.cn/info/1029/1023.htm",
+      "source": "学生服务中心",
+      "channel": "招聘通知",
+      "category": "全校",
+      "sourceIds": [
+        "ssc-jobs"
+      ],
+      "headline": "大连理工大学秋季用人单位入校申请说明",
+      "summary": "2023年8月21日，学生服务中心发布通知，面向已预约该校招聘活动并确定场地的用人单位。申请须由指定一名工作人员统一提交，专场招聘会进校人数不超过5人；入校日期须与招聘活动日期一致，工作日8:00-20:00申请，获批后凭身份证原件入校。主校区联系人马梓健、教工号2020013069，盘锦校区李政坤、教工号2015012165。申请入口为“i大工”小程序或指定网址，详情需读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "a47ac121a9d5ba5170a02b399e73e042ec3a3e5c1511d1d81a0ee51836aa849c",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:28.570904+00:00"
+    },
+    {
+      "id": "e6d6521d3a3b26ca700fbdee",
+      "title": "莱斯特国际学院关于评选2022-2023学年师生联席会“SSC卓越学生代表”的通知",
+      "date": "2023-07-14",
+      "url": "https://dli.dlut.edu.cn/info/1391/6741.htm",
+      "source": "莱斯特国际学院",
+      "channel": "国际交流",
+      "category": "国际",
+      "sourceIds": [
+        "dli-international"
+      ],
+      "headline": "莱斯特国际学院评选SSC卓越学生代表",
+      "summary": "莱斯特国际学院师生联席会开展2022-2023学年“SSC卓越学生代表”评选，面向本学年参会出勤达3/4次以上的SSC学生代表，共评4名。符合资格者须如实填写附件申报表，于7月17日12:00前发送至dlissc@foxmail.com，报名表及邮件主题命名为【SSC-年级专业-姓名】。投票在学院公众号推送发起，学生与教师匿名投票，每人最多5票，学生票每张1分、教师票每张5分，投票至2023年7月20日12:00。公示无异议后获奖者将获英方院长潘敬哲教授出具的SSC工作推荐信。附件内容须读原文。最终解释权归SSC所有。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "0cbf7fd1e218aec6c889d6f615413429829abf26339c5ce3178fd849c642792f",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:30.204214+00:00"
+    },
+    {
+      "id": "cf9a0d550075e4f99036f970",
+      "title": "就业信息网使用指南",
+      "date": "2023-05-10",
+      "url": "https://ssc.dlut.edu.cn/info/1029/1058.htm",
+      "source": "学生服务中心",
+      "channel": "招聘通知",
+      "category": "全校",
+      "sourceIds": [
+        "ssc-jobs"
+      ],
+      "headline": "学生服务中心发布就业信息网使用指南",
+      "summary": "学生服务中心于2023年5月10日在招聘通知栏目发布就业信息网使用指南，面向全校学生。通知正文仅提示点击下方链接查阅该指南，未直接列出操作步骤、适用限制或截止日期，且附件内容未提供；关键内容需查看原文及随附材料。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "430d2f94555cb05b0ac881f3656534a5bbaae909bae21107dd70656c0dfac0fa",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:31.239899+00:00"
+    },
+    {
+      "id": "f73f6fe08dbe07b42468ceaa",
+      "title": "大连理工大学莱斯特国际学院推荐2023年优秀应届本科毕业生免试攻读研究生工作实施办法",
+      "date": "2022-09-18",
+      "url": "https://dli.dlut.edu.cn/info/1271/1071.htm",
+      "source": "莱斯特国际学院",
+      "channel": "教育教学",
+      "category": "教务",
+      "sourceIds": [
+        "dli-teach"
+      ],
+      "headline": "莱斯特国际学院发布2023届推免工作实施办法",
+      "summary": "莱斯特国际学院2022年9月17日制定2023年推免实施办法，适用于纳入国家普通本科招生计划的应届毕业生。要求完成前三学年必修课程、学习成绩排名专业前40%、一考不及格必修课不超2门，且思想品德考核合格。综合成绩为学习成绩95%加素质成绩5%。学院2019级三个专业共分配32个名额，符合条件者需在规定时间向学院提交书面申请及证明材料，具体时间及成绩计算方法见原文附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "e07c75e389390ffd2651af00855ac7be40cb6d6331d56ad898e3c68b01f5d4c9",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:32.992247+00:00"
+    },
+    {
+      "id": "3a2f9b3f955a58054b01e6ad",
+      "title": "大连理工大学莱斯特国际学院推荐2022年优秀应届本科毕业生免试攻读研究生工作实施办法",
+      "date": "2021-09-16",
+      "url": "https://dli.dlut.edu.cn/info/1271/1061.htm",
+      "source": "莱斯特国际学院",
+      "channel": "教育教学",
+      "category": "教务",
+      "sourceIds": [
+        "dli-teach"
+      ],
+      "headline": "莱斯特国际学院发布2022年推免工作实施办法",
+      "summary": "莱斯特国际学院2021年9月16日发布2022年优秀应届本科毕业生免试攻读研究生实施办法，适用纳入国家普通本科招生计划的应届毕业生。推荐条件包括学习成绩排名专业前40%、一考不及格必修课不超过2门、无违纪作弊记录等。学院总推荐名额24人，过程装备与控制工程13人、应用化学11人。综合成绩按学习成绩95%加素质成绩5%计算。符合条件者需在规定时间向学院提出书面申请并提供证明材料，具体时间及成绩计算方法见原文附件。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "af214ed0a7703848b83b85bf017eafa2860c4ae446693ba6e2db93bf15d9a090",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:34.504095+00:00"
+    },
+    {
+      "id": "d274d3e76ce2bc82428581c1",
+      "title": "莱斯特国际学院关于2021届“毕业生最喜爱的老师”评选结果的公示",
+      "date": "2021-06-21",
+      "url": "https://dli.dlut.edu.cn/info/1271/1051.htm",
+      "source": "莱斯特国际学院",
+      "channel": "教育教学",
+      "category": "教务",
+      "sourceIds": [
+        "dli-teach"
+      ],
+      "headline": "莱斯特国际学院公示毕业生最喜爱教师评选结果",
+      "summary": "莱斯特国际学院根据评选通知，经线上投票，公示2021届“毕业生最喜爱的教师”结果：应用化学专业为张金涛、Eric Hope；过程装备与控制工程专业为郭庆杰、LanLan Su；行政教辅人员为赵天蔚。公示时间为2021年6月21日至6月23日17:00。如有异议，请实名到C07-202找韩笑老师复议。适用对象为相关师生，需在截止时间前按方式提出异议。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "797a5c9ec88460df738b6b2b5b0f3e032e925ee48323243d4f2c8afcccc8a75e",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:35.782402+00:00"
+    },
+    {
+      "id": "b367e4575db24e9346e82e53",
+      "title": "通威太阳能（盐城）有限公司2027招聘简章",
+      "date": "",
+      "url": "https://pjcareer.dlut.edu.cn/info/1051/48482.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer-jobs"
+      ],
+      "headline": "通威太阳能盐城公司发布2027招聘简章",
+      "summary": "通威太阳能（盐城）有限公司发布2027招聘简章，面向本科及以上学历应届生招聘工艺、设备、厂务、质量、人力、财务、法务等岗位，共约27人，工作地点在江苏盐城，薪资按岗位为8-23万元。招聘流程为扫码网申、简历筛选、宣讲、笔试、面试、offer发放和签约三方；报名方式为投递邮箱，命名格式为姓名+应聘岗位+学校+专业。具体岗位要求以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "f32ef4d82cf30da4d09e911abf8dd9dad3824d66c5c2c12ee39c1f981a5d62c3",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:37.286894+00:00"
+    },
+    {
+      "id": "efd483ea6b0019b59fd5bacd",
+      "title": "​沈阳兰浩科技有限公司校园2027校园招聘",
+      "date": "",
+      "url": "https://pjcareer.dlut.edu.cn/info/1051/48472.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer-jobs"
+      ],
+      "headline": "沈阳兰浩科技2027校园招聘三岗位",
+      "summary": "沈阳兰浩科技有限公司开展2027校园招聘，面向校园招聘电池材料研发工程师2人、光伏电力工程师2人、财务管理1人，工作内容分别涉及电池材料研发测试、光储充微电网研发设计、财务金融管理等。薪酬均为1万-1.5万/月，含五险一金、绩效奖金、包吃包住、节日福利。要求学习成绩良好、英语六级以上，相关专业优先。简历投递至公司招聘邮箱，请备注学校+校园招聘+岗位，原文未注明报名截止时间。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "b725a13e56730e9d530ba4752b8ec884221cde9ff03eb358b87e4c37216c2377",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:39.000283+00:00"
+    },
+    {
+      "id": "8b656bec344a5f714d3fe703",
+      "title": "中交第一航务工程勘察设计院有限公司2027届校园招聘",
+      "date": "",
+      "url": "https://pjcareer.dlut.edu.cn/info/1051/48462.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer-jobs"
+      ],
+      "headline": "中交一航院2027届校园招聘启动",
+      "summary": "中交第一航务工程勘察设计院有限公司面向2027届毕业生开展校园招聘，岗位含机械工艺设计、新能源技术、水工结构设计、工程测量、地质勘察、工程管理监理、自动控制设计、技术研发岗、电气设计等，学历要求硕士或博士，工程管理、监理本科及以上。要求通过大学英语六级和计算机二级者优先。投递方式：移动端扫描二维码，PC端登录https://zhaopin.ccccltd.cn/，依次进入校园招聘、设计咨询企业、中交第一航务工程勘察设计院有限公司。联系人白老师，电话022-89560068。具体岗位专业及要求以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "2ffa4dee83d532d889a962fb3ed167432ad8ce8c9b54e70b71773d429f549915",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:40.351760+00:00"
+    },
+    {
+      "id": "12f398dd0b342d5c15e57f33",
+      "title": "康比特2027校园招聘简章",
+      "date": "",
+      "url": "https://pjcareer.dlut.edu.cn/info/1051/48452.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer-jobs"
+      ],
+      "headline": "康比特2027届校园招聘管培生项目启动",
+      "summary": "康比特面向2027届本科/硕士毕业生招聘“新星计划”管培生，含渠道销售、大客户销售、电商运营、市场、供应链、设备、生产、质量、人力、财务、经营管理等方向，部分岗位有专业或学历限制。网申2026年9月下旬开放，招满即止；流程为网申、笔试、初试、复试、终试、Offer，2027年3月入职。投递可通过校招官网或BOSS直聘，邮件主题为应聘岗位+学校+姓名。具体岗位要求以原文为准。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "3eeaf7f69dde5a6418156ee8093eab2729c06e20ef5a79023b201475834b39e6",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:41.952478+00:00"
+    },
+    {
+      "id": "e2a7dc1247e377d6218f370b",
+      "title": "辽宁美托科技股份有限公司2027年校园招聘",
+      "date": "",
+      "url": "https://pjcareer.dlut.edu.cn/info/1051/48442.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer-jobs"
+      ],
+      "headline": "辽宁美托科技2027届校园招聘启动",
+      "summary": "辽宁美托科技股份有限公司发布2027年校园招聘，岗位包括机械设计工程师3人、区域销售经理3人、工艺工程师1人、质量工程师1人，工作内容涉及产品设计、客户开发、现场工艺及质量体系维护等。任职多要求本科及以上，机械、材料、市场营销等相关专业优先。原文未注明报名截止时间和具体工作地点，有意者需查阅原文了解投递方式。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "6e5c8f698a6d37ef8800ad530a70beccb6b0612ae6a8bf553b72ebb2bba9042a",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:43.284100+00:00"
+    },
+    {
+      "id": "17eb09d8a82b009204e137b2",
+      "title": "中联重科股份2027年校园招聘",
+      "date": "",
+      "url": "https://pjcareer.dlut.edu.cn/info/1051/48432.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer-jobs"
+      ],
+      "headline": "中联重科2027届校园招聘技术研发岗",
+      "summary": "中联重科面向海内外2027届博士、硕士、本科毕业生招聘技术研发类岗位200人，方向包括中央研究院机械设计、智能控制、人工智能算法、机器人研发及土方、矿机、传动研发等，专业涉及机械、电气、计算机、人工智能等。工作地点长沙、常德、海外等。流程为网申、素质测评、面试、OFFER、三方签约、入职。投递方式及截止时间原文未明确，须查看原通知。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "a573f6bcc034187792913afcd30c25094304639cc75e6cea30628fd2d097a529",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:44.675510+00:00"
+    },
+    {
+      "id": "8fc0e8ac587ac35a3f441bc7",
+      "title": "永卓控股有限公司2027年校园招聘",
+      "date": "",
+      "url": "https://pjcareer.dlut.edu.cn/info/1051/48412.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer-jobs"
+      ],
+      "headline": "永卓控股2027届校园招聘船舶技术岗",
+      "summary": "永卓控股有限公司面向2027年校园招聘船舶技术储备岗，招聘5人，本科或硕士学历，需求专业为船舶与海洋工程、船舶与海洋结构物设计制造、船舶工程等，工作地点在江苏省连云港市。岗位负责船舶技术方案编制、图纸审核、现场技术支持、设备选型、技术资料整理及船检报验等。薪资为本科13万至15万元/年，硕士20万至24万元/年。原通知未注明报名截止时间，具体投递方式等关键内容需阅读原文。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "fd7b6ed8b2a4a9fde94c7b7fcd07ab72e5e9b28e3b97176c689a45b2af015aa5",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:46.090614+00:00"
+    },
+    {
+      "id": "abb4bcc9fbb7a34391baca4e",
+      "title": "广州农村商业银行股份有限公司2027届校园招聘简章",
+      "date": "",
+      "url": "https://pjcareer.dlut.edu.cn/info/1051/48402.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer-jobs"
+      ],
+      "headline": "广州农商银行启动2027届校园招聘",
+      "summary": "广州农商银行面向国内外高校2027届应届毕业生招聘，毕业时间在2026年1月至2027年7月均可报名。招聘英才生A/B计划、IT方向、IT培养生、专业培养生及客服培养生等岗位，要求本科及以上学历，符合亲属回避规定。网申截止时间为2026年10月31日，每人仅可投递1个岗位，可通过微信公众号、官网或宣讲会现场投递。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "76d09a949c119157192236c8ad29f8bd556bce8a9b7047114e65beb96528f593",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:47.508373+00:00"
+    },
+    {
+      "id": "c93edf7a765854399fc13f0c",
+      "title": "北京保诺科技2027校园招聘",
+      "date": "",
+      "url": "https://pjcareer.dlut.edu.cn/info/1051/48492.htm",
+      "source": "盘锦校区就业中心",
+      "channel": "企业招聘",
+      "category": "就业",
+      "sourceIds": [
+        "pjcareer-jobs"
+      ],
+      "headline": "北京保诺科技2027校园招聘通知",
+      "summary": "盘锦校区就业中心发布北京保诺科技2027校园招聘信息，面向学生开展招聘。原文未提供发布日期、报名截止时间、招聘岗位、工作地点、资格条件及应聘方式等具体内容，关键信息需查阅原通知或相关附件。有意应聘者请以官方原文为准，按要求准备并提交材料。",
+      "summaryKind": "AI摘要",
+      "summaryState": "ready",
+      "contentHash": "cce0c5391ab71b68a13375a3825433ae6c5e45a6b04a9d5b462c98806f3acd8e",
+      "summaryModel": "deepseek-flash",
+      "summaryAt": "2026-10-15T11:39:48.554447+00:00"
+    }
+  ],
+  "summaryStatus": {
+    "configured": true,
+    "processing": false,
+    "ready": 191,
+    "pending": 0,
+    "requestsToday": 191,
+    "dailyLimit": 400,
+    "error": ""
+  }
+}

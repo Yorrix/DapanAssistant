@@ -1,0 +1,5 @@
+UI and companion imported from the user-supplied .git.zip on 2026-10-23.
+The original has a populated Git index but no commit references. Only its visual design and Canvas companion were integrated.
+Reference source copies retain original content; current implementations are in app/src/main/java/cn/dapan/assistant.
+The user supplied the archive and authorized integration. Preserve the attached LICENSE and NOTICE.
+No source scripts, Git hooks, repository config, network endpoints or historical app behavior were executed or imported.

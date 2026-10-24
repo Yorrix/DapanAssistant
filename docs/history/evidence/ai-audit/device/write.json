@@ -1,0 +1,291 @@
+{
+  "phase": "write",
+  "package": "cn.dapan.assistant.audit",
+  "model": "sdk_gphone64_x86_64",
+  "sdk": 37,
+  "networkRequests": 0,
+  "checks": [
+    {
+      "name": "Storage namespaces are isolated",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "UTF-8 original and entire text retained",
+      "passed": true,
+      "milliseconds": 7
+    },
+    {
+      "name": "Multi-keyword tail search returns actual offsets",
+      "passed": true,
+      "milliseconds": 268
+    },
+    {
+      "name": "Read beyond initial 30,000 characters",
+      "passed": true,
+      "milliseconds": 44
+    },
+    {
+      "name": "Heading query includes separately cited answer context",
+      "passed": true,
+      "milliseconds": 1
+    },
+    {
+      "name": "Search-files result preserves document ID and answer context",
+      "passed": true,
+      "milliseconds": 2
+    },
+    {
+      "name": "GB18030 text decoding",
+      "passed": true,
+      "milliseconds": 159
+    },
+    {
+      "name": "DOCX extraction and search",
+      "passed": true,
+      "milliseconds": 16
+    },
+    {
+      "name": "PPTX natural slide order and slide-specific evidence",
+      "passed": true,
+      "milliseconds": 28
+    },
+    {
+      "name": "XLSX cells and shared strings remain locatable",
+      "passed": true,
+      "milliseconds": 29
+    },
+    {
+      "name": "PDF Android text extraction and page evidence",
+      "passed": true,
+      "milliseconds": 96
+    },
+    {
+      "name": "Unknown binary retains original without fabricated text",
+      "passed": true,
+      "milliseconds": 10
+    },
+    {
+      "name": "Broken document retains original and reports unreadable state",
+      "passed": true,
+      "milliseconds": 13
+    },
+    {
+      "name": "Rename and remark search keep ID and text version",
+      "passed": true,
+      "milliseconds": 10
+    },
+    {
+      "name": "Type filtering excludes incompatible files",
+      "passed": true,
+      "milliseconds": 3
+    },
+    {
+      "name": "SQL-like query is treated as text",
+      "passed": true,
+      "milliseconds": 8
+    },
+    {
+      "name": "Index limit is explicit and still searches its end",
+      "passed": true,
+      "milliseconds": 129
+    },
+    {
+      "name": "Emoji pagination never starts inside surrogate pair",
+      "passed": true,
+      "milliseconds": 10
+    },
+    {
+      "name": "Result limit and file pagination",
+      "passed": true,
+      "milliseconds": 306
+    },
+    {
+      "name": "Delete removes original and indexed record",
+      "passed": true,
+      "milliseconds": 29
+    },
+    {
+      "name": "Delete refuses paths outside owned documents directory",
+      "passed": true,
+      "milliseconds": 36
+    },
+    {
+      "name": "Same attachment retry preserves ID and creates only one document",
+      "passed": true,
+      "milliseconds": 22
+    },
+    {
+      "name": "Distinct attachment IDs with identical bytes remain separate",
+      "passed": true,
+      "milliseconds": 16
+    },
+    {
+      "name": "Deleted attachment can be saved again",
+      "passed": true,
+      "milliseconds": 14
+    },
+    {
+      "name": "Batch save partial failure names successes and failures",
+      "passed": true,
+      "milliseconds": 24
+    },
+    {
+      "name": "All failed attachments cannot produce successful receipt",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "Concurrent attachment saves produce one persistent document",
+      "passed": true,
+      "milliseconds": 22
+    },
+    {
+      "name": "Existing saved attachment survives source-cache deletion",
+      "passed": true,
+      "milliseconds": 3
+    },
+    {
+      "name": "Chat evidence is hidden from displayed text and present in model context",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "Long chat text never clips attached real object IDs",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "Chat operation receipt survives evidence attachment",
+      "passed": true,
+      "milliseconds": 2
+    },
+    {
+      "name": "Wheel save preserves 1:1:2 weights and selection",
+      "passed": true,
+      "milliseconds": 2
+    },
+    {
+      "name": "Wheel edit replaces same ID without duplicates",
+      "passed": true,
+      "milliseconds": 8
+    },
+    {
+      "name": "Invalid zero-weight wheel does not change persisted data",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "Wheel select and delete maintain valid active wheel",
+      "passed": true,
+      "milliseconds": 6
+    },
+    {
+      "name": "Wheel timing and pointer settings persist exact values",
+      "passed": true,
+      "milliseconds": 3
+    },
+    {
+      "name": "Invalid wheel timing cannot overwrite settings",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "Recording folders support course\/meeting\/other and rename",
+      "passed": true,
+      "milliseconds": 3
+    },
+    {
+      "name": "Recording folder order filters other sessions",
+      "passed": true,
+      "milliseconds": 3
+    },
+    {
+      "name": "Combined transcript labels each recording and keeps order",
+      "passed": true,
+      "milliseconds": 1
+    },
+    {
+      "name": "Summary keeps Markdown and exact clip IDs",
+      "passed": true,
+      "milliseconds": 5
+    },
+    {
+      "name": "Transcript correction updates source and invalidates old summary",
+      "passed": true,
+      "milliseconds": 3
+    },
+    {
+      "name": "Restore previous transcript restores summary signature",
+      "passed": true,
+      "milliseconds": 4
+    },
+    {
+      "name": "Invalid transcript timestamps preserve prior text",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "Recording rename keeps identity and old audio",
+      "passed": true,
+      "milliseconds": 2
+    },
+    {
+      "name": "Recording deletion and folder removal are scoped",
+      "passed": true,
+      "milliseconds": 4
+    },
+    {
+      "name": "Vocabulary stores new unfamiliar words newest first",
+      "passed": true,
+      "milliseconds": 23
+    },
+    {
+      "name": "Vocabulary repeat increments occurrence count without duplicates",
+      "passed": true,
+      "milliseconds": 5
+    },
+    {
+      "name": "Vocabulary level excludes mastered wordlists and basic words",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "Mark known and undo known affect only target word",
+      "passed": true,
+      "milliseconds": 21
+    },
+    {
+      "name": "Vocabulary English and Chinese search",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "Vocabulary preferences persist separately from heard-word data",
+      "passed": true,
+      "milliseconds": 1
+    },
+    {
+      "name": "Banner configuration preserves text, colors, dimensions and motion",
+      "passed": true,
+      "milliseconds": 4
+    },
+    {
+      "name": "Banner malformed\/oversized settings use safe bounds",
+      "passed": true,
+      "milliseconds": 0
+    },
+    {
+      "name": "Campus hotword default includes 玉兰卡 and custom words survive toggle",
+      "passed": true,
+      "milliseconds": 8
+    },
+    {
+      "name": "Invalid hotword list cannot overwrite saved words",
+      "passed": true,
+      "milliseconds": 0
+    }
+  ],
+  "passed": 56,
+  "failed": 0
+}

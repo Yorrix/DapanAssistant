@@ -1,0 +1,8 @@
+[Unit]
+Description=Daily Dapan backup
+[Timer]
+OnCalendar=*-*-* 03:15:00 Asia/Shanghai
+RandomizedDelaySec=5min
+Persistent=true
+[Install]
+WantedBy=timers.target

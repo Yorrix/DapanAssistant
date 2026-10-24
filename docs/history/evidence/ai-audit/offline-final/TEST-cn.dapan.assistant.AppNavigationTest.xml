@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.AppNavigationTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:33:33.127Z" hostname="YORRIX-LEGION" time="0.041">
+  <properties/>
+  <testcase name="returnsToActualEntryPoint" classname="cn.dapan.assistant.AppNavigationTest" time="0.033"/>
+  <testcase name="nestedAiDestinationReturnsToCallingFeature" classname="cn.dapan.assistant.AppNavigationTest" time="0.0"/>
+  <testcase name="openingPreviouslyVisitedPageStillReturnsToImmediateCaller" classname="cn.dapan.assistant.AppNavigationTest" time="0.001"/>
+  <testcase name="toolCategoriesAreAlwaysUniqueAndCommonIncludesSmallTools" classname="cn.dapan.assistant.AppNavigationTest" time="0.002"/>
+  <testcase name="delayedAiNavigationUsesCapturedOrigin" classname="cn.dapan.assistant.AppNavigationTest" time="0.0"/>
+  <testcase name="repeatedOpenDoesNotGrowAndTabSelectionDoesNotTrapBack" classname="cn.dapan.assistant.AppNavigationTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

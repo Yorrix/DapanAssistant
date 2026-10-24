@@ -1,0 +1,14 @@
+[Unit]
+Description=Dapan local database and image backup
+After=dapan-api.service
+[Service]
+Type=oneshot
+User=dapan
+Group=dapan
+ExecStart=/usr/bin/python3 /opt/dapan/backend/deploy/backup.py
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/backups/dapan /opt/dapan/data

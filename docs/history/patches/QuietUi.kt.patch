@@ -1,0 +1,19 @@
+--- before/QuietUi.kt
++++ 0.61.4/QuietUi.kt
+@@ -38,7 +38,7 @@
+ val Muted get()=UiPalette.muted
+ val Hairline get()=UiPalette.line
+ 
+-enum class AppGlyph { Add,Mic,Send,Stop,Today,Calendar,Tools,Settings,Back,Close,File,Next,Refresh,Chat,Search,Pin,Clock,Check,Wallet,Trash,Edit,Walk,Gazette,Wheel,Marquee }
++enum class AppGlyph { Add,Mic,Send,Stop,Today,Calendar,Tools,Settings,Back,Close,File,Next,Refresh,Chat,Search,Pin,Clock,Check,Done,Wallet,Trash,Edit,Walk,Gazette,Wheel,Marquee }
+ @Composable fun LineIcon(glyph:AppGlyph,modifier:Modifier=Modifier,color:Color=Ink){
+  Canvas(modifier.size(23.dp)){
+   scale(size.width/24f,size.height/24f,pivot=Offset.Zero){
+@@ -57,6 +57,7 @@
+     AppGlyph.Pin->{val p=Path();p.moveTo(12f,22f);p.cubicTo(-4f,8f,5f,2f,12f,2f);p.cubicTo(19f,2f,28f,8f,12f,22f);drawPath(p,color,style=stroke);drawCircle(color,2f,Offset(12f,9f),style=stroke)}
+     AppGlyph.Clock->{drawCircle(color,9f,Offset(12f,12f),style=stroke);path(12f,6f,12f,12f,16f,15f)}
+     AppGlyph.Check->{drawRoundRect(color,Offset(3f,3f),Size(18f,18f),CornerRadius(4f),style=stroke);path(7f,12f,11f,16f,17f,8f)}
++    AppGlyph.Done->path(5f,12f,10f,17f,19f,7f)
+     AppGlyph.Wallet->{drawRoundRect(color,Offset(2f,5f),Size(20f,15f),CornerRadius(3f),style=stroke);path(22f,10f,15f,10f,15f,15f,22f,15f);drawCircle(color,1f,Offset(18f,12.5f))}
+     AppGlyph.Add->{line(12f,5f,12f,19f);line(5f,12f,19f,12f)}
+     AppGlyph.Mic->{drawRoundRect(color,Offset(9f,3f),Size(6f,12f),CornerRadius(3f),style=stroke);drawArc(color,0f,180f,false,Offset(6f,8f),Size(12f,11f),style=stroke);line(12f,19f,12f,22f);line(9f,22f,15f,22f)}

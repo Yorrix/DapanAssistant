@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+ <base-config cleartextTrafficPermitted="false" />
+ <!-- The official teaching system serves its timetable over HTTP; SSO still requires HTTPS. -->
+ <domain-config cleartextTrafficPermitted="true">
+  <domain includeSubdomains="false">jxgl.dlut.edu.cn</domain>
+  <!-- The official pages load their CSS and timetable JS from this exact CDN. -->
+  <domain includeSubdomains="false">cdn-dlut.supwisdom.com</domain>
+ </domain-config>
+</network-security-config>

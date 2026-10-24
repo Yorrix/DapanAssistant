@@ -1,0 +1,12 @@
+大盘助手 0.34.1 / versionCode 39
+
+问题：手机已登录但教务页无样式，课表空白。
+网页 DOM 现场证据：教务页样式、eams-ui、require.js、course-table.js 等脚本引用 http://cdn-dlut.supwisdom.com/student/static/。
+旧版网络配置只放行 jxgl.dlut.edu.cn，遗漏学校实际使用的资源域名，因此 Android 会阻止这些 HTTP 资源。
+
+修复：主配置和 debug 配置均补充 cdn-dlut.supwisdom.com 精确域名。主页面导航仍只允许学校教务/SSO，未开放任意 HTTP 或关闭证书校验。
+加入脚本/样式与页面加载错误提示；页面完成回调不再覆盖错误提示。
+
+验证：assembleDebug 成功；检查两种配置默认 HTTP 均保持禁用、学校 CDN 精确放行。
+PYC110 覆盖安装返回 Success。未操作手机 UI；修复后学校课表实际显示和完整导入等待用户验证。
+此次没有修改解析算法，不重复运行上版 66 项通过的规则测试。

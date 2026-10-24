@@ -1,0 +1,34 @@
+文档扫描方案研究 / 2026-10-15
+
+目标：相机持续预览、识别四角、稳定后自动拍摄、连续多页、透视校正和增强、手动补救、PDF/JPEG。扫描核心采用现成项目；不把OCR等同于扫描，不将平面透视校正当成书页曲面去弯。
+本次范围：阅读作者文档及部分源代码；未构建候选、未运行摄像头、未进行真机质量验证，未集成候选。
+
+建议优先研究移植OSS Document Scanner的原生扫描核心。理由是已有完整自动拍摄和批量流程，原生层可见Kotlin实现；代价是它是NativeScript/Svelte完整应用，不是可直接嵌入Compose的SDK。接入仍需要相机与界面适配、C++构建和依赖裁剪。
+
+1. OSS Document Scanner
+项目：https://github.com/ossappscollective/OSS-DocumentScanner
+拍摄文档：https://ossdocumentscanner.akylas.fr/capture
+设置：https://ossdocumentscanner.akylas.fr/settings
+FAQ：https://ossdocumentscanner.akylas.fr/faq
+作者说明包含实时边缘检测、稳定自动拍摄、批量扫描、手动调角、图片增强及PDF/JPEG/PNG导出；处理在设备上，OCR语言模型按需下载。核心路线是本地OpenCV，不是Google ML Kit文档扫描。
+源码核对：https://github.com/ossappscollective/OSS-DocumentScanner/blob/main/plugin-nativeprocessor/platforms/android/java/com/akylas/documentscanner/AutoScanHandler.kt
+该Kotlin类比较相邻四角位移，管理延迟/进度/取消并回调自动扫描；同一文档不立即重复触发。只证明机制存在，不代表在本机准确好用，也不能单凭边角稳定保证文字清晰。
+封装入口：https://github.com/ossappscollective/OSS-DocumentScanner/blob/main/plugin-nativeprocessor/index.android.ts
+可见调用Android原生裁剪、取四角、处理、自动扫描类。可作为提取原生能力的切入点，不能直接把TypeScript文件加入Kotlin工程。
+项目显示MIT；依赖、原生库的许可和声明仍需随实际纳入内容保留。后续需核实相机桥接依赖、移除非扫描所需模块、原生库16KB兼容及ABI。
+
+2. Open Android Doc Scanner
+https://github.com/phillip9933/open-android-doc-scanner
+作者提供Compose ScannerFlow、离线识别、自动多页、PDF/JPEG，最低Android26，原生仅arm64/x86_64，接入形态更贴合本项目。原代码Apache-2.0。
+但作者明确0.7.0为预发布，真实手持和持续arm64验收尚未完成。不能将现成UI和模拟器结果当成成熟手机质量。
+AI模型限制：https://github.com/phillip9933/open-android-doc-scanner/blob/main/docs/LEARNED-DETECTOR-RC8.md
+模型许可适用范围与训练材料来源有作者声明的限制；设备性能与真实场景质量待验证。可作为低接入成本候选，不能直接许诺媲美全能扫描王。当前不优先采用其默认AI路径。
+
+3. Zynkware Document-Scanning-Android-SDK
+https://github.com/zynkware/Document-Scanning-Android-SDK
+README宣称CameraX、tiny OpenCV、自动扫描及裁剪回调。尚未充分核实连续多页体验、许可文件及新Android原生兼容，不作为本次首选。
+
+接入边界建议
+复用已有检测/裁剪/自动拍摄机制；本项目负责紧凑Compose界面、相机生命周期、页面顺序、持久存储和导出。现有ScannerUi使用系统TakePicture且每页需回到App，不满足连续相机体验，需更换拍摄流程。已有documents目录和顺序记录应保留，不能因更换扫描器丢失旧页。
+目标交互：进入即预览，四角框+稳定进度，成功后缩略图入列并继续拍，底部拍摄/页数/完成，手动拍摄兜底，统一复核角点及排序后导出。自动识别失败不反复误拍；书页去弯暂不宣称支持。
+质量边界：白纸白桌、阴影、反光、书页弯曲、连拍重复、文字清晰度仍需真机评价。用户当前不要求测试，本次没有执行。

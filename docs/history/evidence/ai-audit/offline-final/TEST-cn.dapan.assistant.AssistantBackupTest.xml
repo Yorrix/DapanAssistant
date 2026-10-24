@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="cn.dapan.assistant.AssistantBackupTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2026-10-23T16:33:33.341Z" hostname="YORRIX-LEGION" time="0.015">
+  <properties/>
+  <testcase name="searchMaySpecifyOnlyDate" classname="cn.dapan.assistant.AssistantBackupTest" time="0.002"/>
+  <testcase name="rejectsInvalidAmountsAndPreservesExplicitFutureMarks" classname="cn.dapan.assistant.AssistantBackupTest" time="0.002"/>
+  <testcase name="importRetainsCurrentRecordsAndSettings" classname="cn.dapan.assistant.AssistantBackupTest" time="0.003"/>
+  <testcase name="importRejectsDuplicateIdsAndUnknownVersions" classname="cn.dapan.assistant.AssistantBackupTest" time="0.002"/>
+  <testcase name="rejectsUnsupportedActionAndNavigation" classname="cn.dapan.assistant.AssistantBackupTest" time="0.001"/>
+  <testcase name="changingTimePreservesTravelAndDepartureReminder" classname="cn.dapan.assistant.AssistantBackupTest" time="0.001"/>
+  <testcase name="aiCannotChooseStoredEventIdentity" classname="cn.dapan.assistant.AssistantBackupTest" time="0.0"/>
+  <testcase name="importRejectsUnsupportedAttachmentSchemes" classname="cn.dapan.assistant.AssistantBackupTest" time="0.0"/>
+  <testcase name="rejectsAfterStartReminderFromModel" classname="cn.dapan.assistant.AssistantBackupTest" time="0.001"/>
+  <testcase name="notePatchPreservesAttachmentAndIdentity" classname="cn.dapan.assistant.AssistantBackupTest" time="0.001"/>
+  <testcase name="changeCannotModifyIdsOrAttachments" classname="cn.dapan.assistant.AssistantBackupTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
