@@ -40,7 +40,7 @@ object Recordings {
   val file=metadata(c,id);val original=file.readText();val o=JSONObject(original)
   File(directory(c),"$id.previous").writeText(original)
   o.put("lines",JSONArray(lines.map{JSONObject().put("text",it.text).put("start",it.start).put("end",it.end)}))
-  write(file,o);AudioState.revision++
+  o.remove("pendingTranscript");write(file,o);AudioState.revision++
  }
  fun restorePrevious(c:Context,id:String) {
   require(AudioState.clipId!=id&&TranscriptionState.runningId!=id){"请先结束录音或转写"}
@@ -58,6 +58,8 @@ class RecordingService:Service() {
  private val client=OkHttpClient.Builder().readTimeout(0,TimeUnit.MILLISECONDS).pingInterval(20,TimeUnit.SECONDS).build()
  private var finishSent=false
  private var sharedVoice=false
+ private var vocabularyLease:AsrVocabulary.Lease?=null
+ private var pendingTranscript:TranscriptLine?=null
  @Volatile private var remoteTerminal=false
  override fun onBind(intent:Intent?)=null
  override fun onStartCommand(intent:Intent?,flags:Int,startId:Int):Int {
@@ -73,59 +75,63 @@ class RecordingService:Service() {
   if(checkSelfPermission(Manifest.permission.RECORD_AUDIO)!=PackageManager.PERMISSION_GRANTED){stopSelf();return START_NOT_STICKY}
   val key=Secrets(this).get("aliyun")
   voice=intent?.getBooleanExtra("voice",false)==true;session=intent?.getStringExtra("session") ?: "未命名会议"
-  sharedVoice=voice&&SharedSpeech.selected(this)
+  sharedVoice=SharedSpeech.selected(this)
   val channel="dapan-recording";getSystemService(NotificationManager::class.java).createNotificationChannel(NotificationChannel(channel,"录音中",NotificationManager.IMPORTANCE_LOW))
   val stop=PendingIntent.getService(this,0,Intent(this,RecordingService::class.java).setAction("stop"),PendingIntent.FLAG_IMMUTABLE)
-  startForeground(810,NotificationCompat.Builder(this,channel).setSmallIcon(android.R.drawable.ic_btn_speak_now).setContentTitle(if(voice)"大盘正在听" else "正在录音 · ${runCatching{MeetingLibrary(this).title(session)}.getOrDefault(session)}").setContentText(if(sharedVoice)"公用语音 · 单次最多 60 秒"else if(key.isBlank())"本地录音中，结束后可补转写"else"音频发送至阿里云进行实时转写").setOngoing(true).addAction(0,"结束",stop).build())
-  AudioState.running=true;AudioState.ready=false;AudioState.connectionReady=false;AudioState.partial="";AudioState.text="";AudioState.finalLines=emptyList();AudioState.error=null;AudioState.limitReached=false;AudioState.session=session;AudioState.clipId=if(voice)null else clipId
+  startForeground(810,NotificationCompat.Builder(this,channel).setSmallIcon(android.R.drawable.ic_btn_speak_now).setContentTitle(if(voice)"大盘正在听" else "正在录音 · ${runCatching{MeetingLibrary(this).title(session)}.getOrDefault(session)}").setContentText(if(sharedVoice)"公用语音 · 按实际用量计入额度"else if(key.isBlank())"本地录音中，结束后可补转写"else"音频发送至阿里云进行实时转写").setOngoing(true).addAction(0,"结束",stop).build())
+  AudioState.running=true;AudioState.ready=false;AudioState.connectionReady=false;AudioState.partial="";AudioState.text="";AudioState.finalLines=emptyList();AudioState.error=null;AudioState.limitReached=false;AudioState.session=session;ClassroomSession.captureStarted(session);AudioState.clipId=if(voice)null else clipId
   if(!voice){textFile=File(Recordings.directory(this),"$clipId.json");saveMetadata()}
   startCapture()
   if(!capturing)return START_NOT_STICKY
-  if(key.isBlank()&&!sharedVoice){remoteFailed=true;AudioState.error="未配置语音密钥，当前仅保存本地录音。";return START_NOT_STICKY}
+  if(!SharedSpeech.canUse(this)){remoteFailed=true;AudioState.error=SharedSpeech.unavailableMessage(this)+if(!voice)" 当前仅保存本地录音。"else"";if(voice)finishCapture();return START_NOT_STICKY}
   val recordingOptions=RecordingPreferences(this).load()
-  val recognitionLanguage=intent?.getStringExtra("language")?:if(!voice)TranslationLanguages.code(recordingOptions.language)else"zh"
+  val recognitionLanguage=intent?.getStringExtra("language")?:if(!voice)TranslationLanguages.code(recordingOptions.language)else""
   val recognitionContext=intent?.getStringExtra("asr_context")?:if(!voice)recordingOptions.asrContext else""
   val recognitionHotwords=AsrHotwordPreferences(this).active()
-  val request=try{if(sharedVoice)SharedSpeech.request(this)else Request.Builder().url("wss://dashscope.aliyuncs.com/api-ws/v1/inference").header("Authorization","Bearer $key").build()}catch(e:Exception){remoteFailed=true;AudioState.error=SharedSpeech.unavailableMessage(this);finishCapture();return START_NOT_STICKY}
-  socket=client.newWebSocket(request,object:WebSocketListener(){
+  val request=try{SharedSpeech.request(this,sharedVoice,key)}catch(e:Exception){remoteFailed=true;AudioState.error=SharedSpeech.unavailableMessage(this)+if(!voice)" 当前仅保存本地录音。"else"";if(voice)finishCapture();return START_NOT_STICKY}
+  Thread({try {
+   val lease=if(sharedVoice)null else AsrVocabulary.acquire(this@RecordingService,key,recognitionHotwords)
+   synchronized(this@RecordingService){if(destroyed){lease?.close();return@Thread};vocabularyLease=lease}
+   socket=client.newWebSocket(request,object:WebSocketListener(){
    override fun onOpen(ws:WebSocket,response:Response){
-    val parameters=JSONObject().put("format","pcm").put("sample_rate",16000).put("language_hints",JSONArray().put(recognitionLanguage.takeIf{code->TranslationLanguages.values.any{it.code==code}}?:"zh")).put("heartbeat",true)
+    if(destroyed){ws.cancel();return}
+    val parameters=JSONObject().put("format","pcm").put("sample_rate",16000).put("heartbeat",true).also{if(TranslationLanguages.values.any{it.code==recognitionLanguage})it.put("language_hints",JSONArray().put(recognitionLanguage))}
     if(intent?.getBooleanExtra("translation",false)==true)parameters.put("max_sentence_silence",800).put("multi_threshold_mode_enabled",true)
     val input=AsrHints.input(recognitionContext,recognitionHotwords)
-    ws.send(JSONObject().put("header",JSONObject().put("action","run-task").put("task_id",task).put("streaming","duplex")).put("payload",JSONObject().put("task_group","audio").put("task","asr").put("function","recognition").put("model","fun-asr-realtime").put("parameters",parameters).put("input",input)).toString())
+    ws.send(JSONObject().put("header",JSONObject().put("action","run-task").put("task_id",task).put("streaming","duplex")).put("payload",JSONObject().put("task_group","audio").put("task","asr").put("function","recognition").put("model","fun-asr-realtime").put("parameters",parameters).put("input",input).let{AsrVocabulary.attach(it,recognitionHotwords,sharedVoice,lease?.id)}).toString())
    }
    override fun onMessage(ws:WebSocket,text:String){if(destroyed)return;runCatching{val o=JSONObject(text);when(o.getJSONObject("header").optString("event")){
     "task-started"->{remoteReady=true;main.post{if(destroyed)return@post;AudioState.connectionReady=true;if(finished){flushPending();sendFinish()}}}
-    "result-generated"->{val sentence=o.optJSONObject("payload")?.optJSONObject("output")?.optJSONObject("sentence") ?: return;val value=sentence.optString("text");if(value.isBlank())return;main.post{if(destroyed)return@post;val id=sentence.optInt("sentence_id");if(sentence.optBoolean("sentence_end")){AudioState.partial="";lines[id]=TranscriptLine(value,sentence.optLong("begin_time"),sentence.optLong("end_time"));saveMetadata();AudioState.finalLines=lines.values.toList();AudioState.text=lines.values.joinToString(""){it.text}}else {AudioState.partial=value;AudioState.text=lines.values.joinToString(""){it.text}+value}}}
-    "task-finished"->{remoteTerminal=true;main.post{stopSelf()}}
+    "result-generated"->{val sentence=o.optJSONObject("payload")?.optJSONObject("output")?.optJSONObject("sentence") ?: return;val value=sentence.optString("text");if(value.isBlank())return;main.post{if(destroyed)return@post;val id=sentence.optInt("sentence_id");if(sentence.optBoolean("sentence_end")){pendingTranscript=null;AudioState.partial="";lines[id]=TranscriptLine(value,sentence.optLong("begin_time"),sentence.optLong("end_time"));if(intent?.getBooleanExtra("classroom",false)==true)ClassroomSession.receive(session,id,value);saveMetadata();AudioState.finalLines=lines.values.toList();AudioState.text=lines.values.joinToString(""){it.text}}else {pendingTranscript=TranscriptLine(value,sentence.optLong("begin_time"),sentence.optLong("end_time"));AudioState.partial=value;AudioState.text=lines.values.joinToString(""){it.text}+value}}}
+    "task-finished"->{remoteTerminal=true;main.post{if(!destroyed){if(!voice&&capturing){remoteFailed=true;AudioState.error="云端转写已结束，录音继续保存在本机。"}else stopSelf()}}}
     "task-failed"->{remoteTerminal=true;main.post{if(destroyed)return@post;remoteFailed=true;AudioState.error=if(sharedVoice)SharedSpeech.error(this@RecordingService,o.getJSONObject("header"))else if(voice)"语音识别失败，请检查百炼权限、余额与地域"else"转写失败，请检查百炼权限、余额与地域。录音继续保存在本机。";if(voice)finishCapture()}}
    }}}
-   private fun sharedClosed(){if(!sharedVoice||remoteTerminal)return;main.post{if(destroyed||remoteTerminal)return@post;remoteTerminal=true;remoteFailed=true;AudioState.error="公用语音连接已中断，本次没有发送，请重试";finishCapture()}}
+   private fun sharedClosed(){if(!sharedVoice||remoteTerminal)return;main.post{if(destroyed||remoteTerminal)return@post;remoteTerminal=true;remoteFailed=true;AudioState.error=if(voice)"公用语音连接已中断，本次没有发送，请重试"else"公用转写中断，录音继续保存在本机。";if(voice)finishCapture()}}
    override fun onClosing(ws:WebSocket,code:Int,reason:String){if(sharedVoice){sharedClosed();ws.close(code,null)}}
    override fun onClosed(ws:WebSocket,code:Int,reason:String){sharedClosed()}
    override fun onFailure(ws:WebSocket,t:Throwable,response:Response?){main.post{if(destroyed||(sharedVoice&&remoteTerminal))return@post;remoteFailed=true;AudioState.error=if(voice)"语音识别连接中断，请重试"else"实时转写中断，录音仍在继续。结束后可回听本地文件。";if(voice)finishCapture()}}
   })
-  main.postDelayed({if(AudioState.running && !remoteReady){remoteFailed=true;AudioState.error=if(voice)"语音识别连接超时，请检查网络后重试"else"实时转写连接超时，录音仍在继续。";if(voice)finishCapture()}},15000)
+  }catch(_:Exception){main.post{if(!destroyed){remoteFailed=true;AudioState.error="语音连接未能建立，请稍后重试";if(voice)finishCapture()}}}},"dapan-asr-prepare").start()
+  main.postDelayed({if(AudioState.running && !remoteReady){remoteFailed=true;AudioState.error=if(voice)"语音识别连接超时，请检查网络后重试"else"实时转写连接超时，录音仍在继续。";if(voice)finishCapture()}},40000)
   return START_NOT_STICKY
  }
  @Suppress("MissingPermission") private fun startCapture(){
   if(capturing||finished)return
   try {val size=maxOf(AudioRecord.getMinBufferSize(16000,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT)*2,6400);recorder=AudioRecord(MediaRecorder.AudioSource.MIC,16000,AudioFormat.CHANNEL_IN_MONO,AudioFormat.ENCODING_PCM_16BIT,size);check(recorder?.state==AudioRecord.STATE_INITIALIZED);recorder!!.startRecording();capturing=true;AudioState.ready=true
    worker=Thread{var wav:RandomAccessFile?=null;var total=0L
-    try {if(!voice)wav=RandomAccessFile(File(Recordings.directory(this),"$clipId.wav"),"rw");wav?.write(ByteArray(44));val buffer=ByteArray(3200);var checkpoint=0L;while(capturing){val read=recorder?.read(buffer,0,buffer.size) ?: -1;val count=if(sharedVoice&&read>0)minOf(read,(SharedSpeech.MAX_BYTES-total).toInt())else read;if(count>0){wav?.write(buffer,0,count);total+=count
+    try {if(!voice)wav=RandomAccessFile(File(Recordings.directory(this),"$clipId.wav"),"rw");wav?.write(ByteArray(44));val buffer=ByteArray(3200);var checkpoint=0L;while(capturing){val read=recorder?.read(buffer,0,buffer.size) ?: -1;val count=read;if(count>0){wav?.write(buffer,0,count);total+=count
      if(total-checkpoint>32000){wav?.let{writeHeader(it,total);it.seek(total+44)};checkpoint=total}
-     if(!remoteFailed){if(!remoteReady){if(pendingBytes<480000){pending.add(buffer.copyOf(count));pendingBytes+=count}}else{flushPending();pendingBytes=0;if((socket?.queueSize()?:0)<480000)socket?.send(buffer.toByteString(0,count))else{remoteFailed=true;main.post{if(!destroyed){AudioState.error=if(voice)"网络积压，已结束收听，请稍后重试"else"网络积压，已停止转写，录音继续保存在本机。";if(voice)finishCapture()}}}}}
-     if(sharedVoice&&total>=SharedSpeech.MAX_BYTES){main.post{if(!destroyed){AudioState.limitReached=true;finishCapture()}};break}
+     if(!remoteFailed){if(!remoteReady){if(pendingBytes<1280000){pending.add(buffer.copyOf(count));pendingBytes+=count}}else{flushPending();pendingBytes=0;if((socket?.queueSize()?:0)<1920000)socket?.send(buffer.toByteString(0,count))else{remoteFailed=true;main.post{if(!destroyed){AudioState.error=if(voice)"网络积压，已结束收听，请稍后重试"else"网络积压，已停止转写，录音继续保存在本机。";if(voice)finishCapture()}}}}}
     }else if(count<0)break}}
     catch(e:Exception){main.post{AudioState.error="录音写入中断，请检查剩余空间。此前音频已尽量保留。"}}
-    finally{runCatching{wav?.let{writeHeader(it,total);it.close()}};main.post{if(remoteReady&&!remoteFailed){flushPending();sendFinish()}else if(voice&&!remoteFailed)main.postDelayed({if(!remoteReady){AudioState.error="语音服务未连接成功，请检查网络后重试";stopSelf()}},15000)else stopSelf()}}
+    finally{runCatching{wav?.let{writeHeader(it,total);it.close()}};main.post{if(remoteReady&&!remoteFailed){flushPending();sendFinish()}else if(voice&&!remoteFailed)main.postDelayed({if(!remoteReady){AudioState.error="语音服务未连接成功，请检查网络后重试";stopSelf()}},40000)else stopSelf()}}
    }.apply{start()}
   }catch(e:Exception){AudioState.error="无法打开麦克风，请检查权限或其他录音应用";finishCapture()}
  }
- private fun saveMetadata(){val o=JSONObject().put("id",clipId).put("session",session).put("name","录音 ${java.time.Instant.ofEpochMilli(created).atZone(java.time.ZoneId.systemDefault()).toLocalTime().withNano(0)}").put("created",created).put("lines",JSONArray(lines.values.map{JSONObject().put("text",it.text).put("start",it.start).put("end",it.end)}));textFile?.let{val atomic=android.util.AtomicFile(it);val out=atomic.startWrite();try{out.write(o.toString().toByteArray());atomic.finishWrite(out)}catch(e:Exception){atomic.failWrite(out)}};AudioState.revision++}
+ private fun saveMetadata(){val o=JSONObject().put("id",clipId).put("session",session).put("name","录音 ${java.time.Instant.ofEpochMilli(created).atZone(java.time.ZoneId.systemDefault()).toLocalTime().withNano(0)}").put("created",created).put("lines",JSONArray(lines.values.map{JSONObject().put("text",it.text).put("start",it.start).put("end",it.end)}));pendingTranscript?.let{o.put("pendingTranscript",JSONObject().put("text",it.text).put("start",it.start).put("end",it.end).put("complete",false))};textFile?.let{val atomic=android.util.AtomicFile(it);val out=atomic.startWrite();try{out.write(o.toString().toByteArray());atomic.finishWrite(out)}catch(e:Exception){atomic.failWrite(out)}};AudioState.revision++}
  private fun finishCapture(){if(finished)return;finished=true;capturing=false;AudioState.ready=false;runCatching{recorder?.stop()};if(worker==null)stopSelf()}
  private fun flushPending(){while(true){val bytes=pending.poll()?:break;socket?.send(bytes.toByteString())}}
  private fun sendFinish(){if(finishSent||destroyed)return;finishSent=true;socket?.send(JSONObject().put("header",JSONObject().put("action","finish-task").put("task_id",task).put("streaming","duplex")).put("payload",JSONObject().put("input",JSONObject())).toString());main.postDelayed({if(voice&&!destroyed)AudioState.error="识别收尾超时，本次未发送，请重试";stopSelf()},if(sharedVoice)15000 else 6000)}
- override fun onDestroy(){destroyed=true;capturing=false;runCatching{recorder?.stop()};runCatching{worker?.join(1000)};recorder?.release();socket?.cancel();main.removeCallbacksAndMessages(null);client.dispatcher.executorService.shutdown();AudioState.running=false;AudioState.ready=false;AudioState.connectionReady=false;AudioState.partial="";AudioState.clipId=null;AudioState.revision++;super.onDestroy()}
+ override fun onDestroy(){if(!voice&&pendingTranscript!=null)runCatching{saveMetadata()};ClassroomSession.captureStopped(session);synchronized(this){destroyed=true;vocabularyLease?.close();vocabularyLease=null};capturing=false;runCatching{recorder?.stop()};runCatching{worker?.join(1000)};recorder?.release();socket?.cancel();main.removeCallbacksAndMessages(null);client.dispatcher.executorService.shutdown();AudioState.running=false;AudioState.ready=false;AudioState.connectionReady=false;AudioState.partial="";AudioState.clipId=null;AudioState.revision++;super.onDestroy()}
  private fun writeHeader(f:RandomAccessFile,bytes:Long){f.seek(0);fun i(n:Long){f.write(byteArrayOf(n.toByte(),(n shr 8).toByte(),(n shr 16).toByte(),(n shr 24).toByte()))};fun s(n:Int){f.write(byteArrayOf(n.toByte(),(n shr 8).toByte()))};f.writeBytes("RIFF");i(bytes+36);f.writeBytes("WAVEfmt ");i(16);s(1);s(1);i(16000);i(32000);s(2);s(16);f.writeBytes("data");i(bytes)}
 }

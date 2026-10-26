@@ -170,7 +170,7 @@ fun EventEditor(
                                     EditorChoice(kind.editorLabel(), entry.kind == kind, Modifier.weight(1f)) {
                                         if (entry.kind != kind) {
                                             val course = kind == EventKind.TIMED && category == "课程"
-                                            entry = entry.copy(kind = kind, reminderMode = if (course) ReminderMode.DEPARTURE else ReminderMode.OFF)
+                                            entry = entry.copy(kind = kind, deferred = kind == EventKind.TODO && entry.deferred, reminderMode = if (course) ReminderMode.DEPARTURE else ReminderMode.OFF)
                                             travel = if (course) "20" else "0"
                                             if (kind == EventKind.ALL_DAY) changeStart(start.toLocalDate().atStartOfDay())
                                             if (kind == EventKind.TIMED) end = eventEditorTimedEnd(start, end)
@@ -202,9 +202,10 @@ fun EventEditor(
                                 Row(Modifier.fillMaxWidth().heightIn(min = 46.dp), verticalAlignment = Alignment.CenterVertically) {
                                     EditorLabel("优先级")
                                     Spacer(Modifier.weight(1f))
-                                    Row(Modifier.width(174.dp), horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                                        EditorChoice("一般", !entry.urgent, Modifier.weight(1f)) { entry = entry.copy(urgent = false) }
-                                        EditorChoice("紧急", entry.urgent, Modifier.weight(1f)) { entry = entry.copy(urgent = true) }
+                                    Row(Modifier.width(222.dp), horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                                        EditorChoice("一般", !entry.urgent && !entry.deferred, Modifier.weight(1f)) { entry = entry.copy(urgent = false, deferred = false) }
+                                        EditorChoice("紧急", entry.urgent && !entry.deferred, Modifier.weight(1f)) { entry = entry.copy(urgent = true, deferred = false) }
+                                        EditorChoice("搁置", entry.deferred, Modifier.weight(1f)) { entry = entry.copy(urgent = false, deferred = true) }
                                     }
                                 }
                             }

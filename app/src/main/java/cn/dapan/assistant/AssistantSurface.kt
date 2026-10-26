@@ -5,11 +5,11 @@ import org.json.*
 import java.util.UUID
 
 data class SurfaceTool(val operation:String,val description:String,val keys:Set<String>,val writes:Boolean=true,val prepare:(JSONObject)->PreparedTool)
-data class PreparedTool(val title:String,val details:String,val run:suspend ()->String,val guard:()->Unit={},val evidence:()->String={""})
+data class PreparedTool(val title:String,val details:String,val run:suspend ()->String,val guard:()->Unit={},val evidence:()->String={""},val request:String="")
 data class SurfaceBinding(val owner:String,val module:String,val priority:Int,val state:JSONObject,val tools:List<SurfaceTool>)
 object AssistantSurfaces{
  private val bindings=linkedMapOf<String,SurfaceBinding>()
- fun canonical(name:String)=when(name){"取件码"->"快递";"会议摘要","录音摘要"->"会议纪要";"校园热力图","热力图","导航"->"地图";else->name}
+ fun canonical(name:String)=when(name){"tibo重置雷达"->"tibo雷达";"取件码"->"快递";"会议摘要","录音摘要"->"会议纪要";"校园热力图","热力图","导航"->"地图";else->name}
  fun put(b:SurfaceBinding){bindings[b.owner]=b}
  fun remove(owner:String){bindings.remove(owner)}
  fun current(module:String):SurfaceBinding?{val all=bindings.values.filter{it.module==canonical(module)}.sortedBy{it.priority};if(all.isEmpty())return null;val state=JSONObject();all.forEach{b->b.state.keys().forEach{state.put(it,b.state.get(it))}};return SurfaceBinding(all.joinToString{it.owner},canonical(module),all.last().priority,state,all.flatMap{it.tools}.groupBy{it.operation}.map{it.value.last()})}
@@ -23,7 +23,7 @@ object AssistantSurfaces{
   val t=b.tools.singleOrNull{it.operation==op}?:error("这个功能不支持 $op；尚未执行任何操作")
   require(args.keys().asSequence().all{it in t.keys}){"操作包含未支持的参数，未执行"}
   val frozen=identity(b);val plan=t.prepare(args)
-  return t.writes to plan.copy(guard={check(identity(current(module))==frozen){"页面或所选内容已改变，请重新发出指令，避免改错对象"};plan.guard()})
+  return t.writes to plan.copy(request=AssistantOperationMemory.toolRequest(module,op,args,b.state),guard={check(identity(current(module))==frozen){"页面或所选内容已改变，请重新发出指令，避免改错对象"};plan.guard()})
  }
 }
 @Composable fun AssistantSurface(module:String,state:JSONObject,tools:List<SurfaceTool> = emptyList(),priority:Int=0,enabled:Boolean=true){

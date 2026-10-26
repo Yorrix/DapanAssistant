@@ -1,0 +1,12 @@
+{
+  "publishedAt": "2026-10-26T21:50:39.671479+08:00",
+  "version": "1.0.0",
+  "versionCode": 100,
+  "apkUrl": "https://39.105.161.86/updates/dapan-100.apk",
+  "bytes": 27238451,
+  "sha256": "3e3e8aaee1d5db3ae0f90f1766a4a95c353be8bc1177016140c702539d327917",
+  "httpsVerified": true,
+  "fullDownloadVerified": true,
+  "matchesVerifiedSubmission": true,
+  "feedCacheControl": "no-store"
+}

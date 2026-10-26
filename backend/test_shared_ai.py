@@ -60,12 +60,12 @@ def test_disabled_and_expired(shared, monkeypatch):
 def test_payload_caps_and_vision_rejection(shared):
     client, ai, headers, user = shared
     raw = body();raw['messages'][0]['content'] = [{'type': 'image_url', 'image_url': {'url': 'https://example.invalid'}}]
-    assert client.post('/ai/chat/completions', json=raw, headers=headers).json()['detail']['code'] == 'text_only'
+    assert client.post('/ai/chat/completions', json=raw, headers=headers).json()['detail']['code'] == 'invalid_image'
     raw = body();raw['messages'][0]['content'] = 'a' * 200000
     assert client.post('/ai/chat/completions', json=raw, headers=headers).status_code == 413
     raw = body();raw['max_tokens'] = 16000;raw['tools'] = [{'type': 'web_search'}];raw['base_url'] = 'https://evil.invalid'
     _, payload, reserve = ai.payload(raw)
-    assert payload['max_tokens'] == 8192 and payload['model'] == 'deepseek-flash'
+    assert payload['max_tokens'] == 16000 and payload['model'] == 'deepseek-flash'
     assert 'tools' not in payload and 'base_url' not in payload
     assert payload['thinking'] == {'type': 'disabled'} and payload['stream_options']['include_usage']
     assert reserve < LIMITS['day']
@@ -140,11 +140,11 @@ def test_atomic_user_and_global_caps(tmp_path):
     with ThreadPoolExecutor(8) as pool:
         assert sum(pool.map(call, range(20))) == 1
     assert budget.status('user')['day']['used'] == 600000
-    for i in range(29):
+    for i in range(9):
         key = identifier();budget.reserve(key, str(i), 1000000);budget.settle(key)
     with pytest.raises(HTTPException) as exc:
         budget.reserve(identifier(), 'last', 500000)
-    assert exc.value.detail['code'] == 'monthly_limit'
+    assert exc.value.detail['code'] == 'site_daily_limit'
 
 
 def test_period_rollovers_and_weekly_limit(tmp_path):
@@ -165,11 +165,11 @@ def test_concurrency_idempotence_and_stale(tmp_path):
     budget.reserve(key,'u',20000)
     with pytest.raises(HTTPException) as exc:budget.reserve(key,'u',20000)
     assert exc.value.detail['code']=='duplicate'
-    with pytest.raises(HTTPException) as exc:budget.reserve(identifier(),'u',20000)
-    assert exc.value.detail['code']=='busy'
+    second=identifier();budget.reserve(second,'u',20000)
+    budget.settle_amount(second,0)
     now[0]+=301
     status=budget.status('u');assert status['day']['used']==20000 and status['day']['held']==0
-    for i in range(4):budget.reserve(identifier(),str(i),20000)
+    for i in range(64):budget.reserve(identifier(),str(i),20000)
     with pytest.raises(HTTPException) as exc:budget.reserve(identifier(),'another',20000)
     assert exc.value.detail['code']=='busy'
 
@@ -180,7 +180,7 @@ def test_speech_and_text_share_budget_but_may_overlap(tmp_path):
     budget.reserve(speech,'u',20130,kind='asr')
     budget.reserve(text,'u',30000)
     assert budget.status('u')['day']['held']==50130
-    with pytest.raises(HTTPException):budget.reserve(identifier(),'u',20130,kind='asr')
+    other=identifier();budget.reserve(other,'u',20130,kind='asr');budget.settle_amount(other,0)
     budget.settle_amount(speech,3300)
     budget.settle(text,{'prompt_tokens':20,'completion_tokens':10})
     assert budget.status('u')['day']['used']==3420

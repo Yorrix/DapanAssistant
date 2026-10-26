@@ -1,0 +1,26 @@
+大盘助手 · 备用课表浏览器 1.0
+
+这个可选组件使用 Mozilla GeckoView，独立下载和安装，不随大盘助手主安装包附带。它仅用于学校教务登录和读取自己的课表。组件不会向大盘助手回传密码、Cookie 或登录令牌；回传内容为本机确认所需的课表数据。
+
+Mozilla GeckoView
+制品：org.mozilla.geckoview:geckoview:158.0.20261021001945
+许可：Mozilla Public License 2.0（MPL 2.0）。引擎还包含按各自许可分发的第三方代码，请查阅随附的 Mozilla 原始完整许可。
+本组件使用官方发布的二进制引擎，未修改 GeckoView 或 Gecko 源文件。大盘助手的应用代码、网页读取扩展与 Mozilla 引擎分别维护；大盘助手自己的许可不替代或限制第三方组件原有许可授予的权利。
+
+对应版本的 Mozilla 完整源代码：
+https://hg.mozilla.org/releases/mozilla-release/rev/e4ce606692cd81e6898547e2edd7c552fefcbb04
+该精确修订号取自已使用制品的官方 POM，可通过上述源码仓库获取和浏览相应源代码。
+官方制品：
+https://maven.mozilla.org/maven2/org/mozilla/geckoview/geckoview/158.0.20261021001945/geckoview-158.0.20261021001945.aar
+MPL 2.0 正文：
+https://www.mozilla.org/MPL/2.0/
+
+其他依赖
+DEPENDENCIES.txt 记录本次构建解析的依赖坐标及其 POM 声明；清单含 BOM 和元数据节点，并不表示每个条目均有独立二进制打入 APK。AndroidX、Kotlin 等依赖的声明请逐项查看清单。Google Play services 的 FIDO 等客户端依赖声明的是 Android Software Development Kit License，不能将这些依赖一概称为 MPL 或开源软件。
+DEPENDENCY-NOTICES.txt 保留从实际使用制品中提取的原始 LICENSE / NOTICE；Mozilla-Gecko-licenses.html 保留引擎自带的完整原始许可。某些制品未附独立许可文件，或从父 POM 继承声明；这不代表没有许可约束，不应自行猜测。
+
+源码分发目录 timetable-component/third-party/ 还保留原始 POM、逐文件许可、构建信息和依赖制品校验值。可用 scripts/timetable-notices.py 根据已构建版本重新提取这些资料。
+
+分发的组件 APK：dapan-timetable-1-arm64-v8a.apk
+SHA-256：5eea803282d0ae51f9cd9b9600ce0f01da6201697b7040826ee383c473a1d77e
+以上资料根据本次实际构建制品整理，不表示 Mozilla、Google 或其他依赖作者与大盘助手存在合作或认可关系。

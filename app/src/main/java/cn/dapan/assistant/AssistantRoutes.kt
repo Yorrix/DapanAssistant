@@ -117,7 +117,7 @@ internal object AssistantRequestGuard {
   fun independent(a:AssistantAction):Boolean=when(a){
    is AssistantAction.Reply,is AssistantAction.Search,is AssistantAction.Navigate,is AssistantAction.Route,
    is AssistantAction.Event,is AssistantAction.Note,is AssistantAction.Morning,is AssistantAction.MorningRange,is AssistantAction.Focus,
-   is AssistantAction.RenameEvents->true
+   is AssistantAction.RenameEvents,is AssistantAction.CalendarBulk->true
    is AssistantAction.Change->a.targetId.isNotBlank()
    is AssistantAction.Tool->independentTool(a)
    is AssistantAction.Batch->a.actions.all(::independent)

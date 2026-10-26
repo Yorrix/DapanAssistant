@@ -1,5 +1,6 @@
 package cn.dapan.assistant
 
+import android.content.Context
 import okhttp3.*
 import okio.ByteString.Companion.toByteString
 import org.json.*
@@ -11,15 +12,17 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicReference
 
 class ReplayCancelled:Exception("转写已取消，原文字和音频未改变")
-class AsrReplay(private val hotwords:List<String> = emptyList()) {
+class AsrReplay(private val hotwords:List<String> = emptyList(),private val context:Context?=null) {
  @Volatile private var cancelled=false
  @Volatile private var socket:WebSocket?=null
  fun cancel(){cancelled=true;socket?.cancel()}
  private fun checkCancelled(){if(cancelled||Thread.currentThread().isInterrupted)throw ReplayCancelled()}
 
  fun transcribe(file:File,key:String,options:RecordingOptions=RecordingOptions(),progress:(Float)->Unit):List<TranscriptLine> {
-  require(key.isNotBlank()){ "请先填写阿里云百炼 API Key" }
+  val shared=context?.let{SharedSpeech.selected(it)}==true
+  val request=context?.let{SharedSpeech.request(it,shared,key)}?:SharedSpeech.personalRequest(key)
   val range=WavPcm.inspect(file)
+  val lease=if(!shared&&context!=null)AsrVocabulary.acquire(context,key,hotwords)else null
   val results=mutableListOf<TranscriptLine>()
   val client=OkHttpClient.Builder().connectTimeout(15,TimeUnit.SECONDS).readTimeout(0,TimeUnit.MILLISECONDS).pingInterval(20,TimeUnit.SECONDS).build()
   try {
@@ -30,26 +33,26 @@ class AsrReplay(private val hotwords:List<String> = emptyList()) {
      checkCancelled()
      val count=minOf(32000L*600,range.byteCount-consumed)
      input.seek(range.offset+consumed)
-     results+=segment(client,input,key,count,consumed*1000/32000,options){bytes->progress((consumed+bytes).toFloat()/range.byteCount)}
+     results+=segment(client,input,request,shared,lease?.id,count,consumed*1000/32000,options){bytes->progress((consumed+bytes).toFloat()/range.byteCount)}
      consumed+=count
     }
    }
    checkCancelled();require(results.isNotEmpty()){"未识别出有效语音，已保留原转写文字"};return results.sortedBy{it.start}
-  } finally {socket?.cancel();client.dispatcher.executorService.shutdown();client.connectionPool.evictAll()}
+  } finally {lease?.close();socket?.cancel();client.dispatcher.executorService.shutdown();client.connectionPool.evictAll()}
  }
 
- private fun segment(client:OkHttpClient,input:RandomAccessFile,key:String,bytes:Long,offset:Long,options:RecordingOptions,progress:(Long)->Unit):List<TranscriptLine> {
+ private fun segment(client:OkHttpClient,input:RandomAccessFile,request:Request,shared:Boolean,vocabularyId:String?,bytes:Long,offset:Long,options:RecordingOptions,progress:(Long)->Unit):List<TranscriptLine> {
   val id=UUID.randomUUID().toString();val started=CountDownLatch(1);val ended=CountDownLatch(1)
   val error=AtomicReference<Exception?>(null);val sentences=java.util.concurrent.ConcurrentHashMap<Int,TranscriptLine>()
   fun fail(e:Exception){error.compareAndSet(null,e);started.countDown();ended.countDown()}
-  val ws=client.newWebSocket(Request.Builder().url("wss://dashscope.aliyuncs.com/api-ws/v1/inference").header("Authorization","Bearer $key").build(),object:WebSocketListener(){
-   override fun onOpen(webSocket:WebSocket,response:Response){webSocket.send(JSONObject().put("header",header("run-task",id)).put("payload",JSONObject().put("task_group","audio").put("task","asr").put("function","recognition").put("model","fun-asr-realtime").put("parameters",JSONObject().put("format","pcm").put("sample_rate",16000).put("heartbeat",true).put("semantic_punctuation_enabled",true).put("language_hints",JSONArray().put(TranslationLanguages.code(options.language)))).put("input",AsrHints.input(options.asrContext,hotwords))).toString())}
+  val ws=client.newWebSocket(request,object:WebSocketListener(){
+   override fun onOpen(webSocket:WebSocket,response:Response){webSocket.send(JSONObject().put("header",header("run-task",id)).put("payload",JSONObject().put("task_group","audio").put("task","asr").put("function","recognition").put("model","fun-asr-realtime").put("parameters",JSONObject().put("format","pcm").put("sample_rate",16000).put("heartbeat",true).put("semantic_punctuation_enabled",true).put("language_hints",JSONArray().put(TranslationLanguages.code(options.language)))).put("input",AsrHints.input(options.asrContext,hotwords)).let{AsrVocabulary.attach(it,hotwords,shared,vocabularyId)}).toString())}
    override fun onMessage(webSocket:WebSocket,text:String){try{
     val o=JSONObject(text);if(o.getJSONObject("header").optString("task_id")!=id)return
     when(o.getJSONObject("header").optString("event")) {
      "task-started" -> started.countDown()
      "task-finished" -> ended.countDown()
-     "task-failed" -> fail(Exception("阿里云转写未完成，请检查账号权限、余额和网络"))
+     "task-failed" -> fail(Exception(if(shared&&context!=null)SharedSpeech.error(context,o.getJSONObject("header"))else"阿里云转写未完成，请检查账号权限、余额和网络"))
      "result-generated" -> {val sentence=o.optJSONObject("payload")?.optJSONObject("output")?.optJSONObject("sentence")?:return
       if(sentence.optBoolean("sentence_end")&&!sentence.optBoolean("heartbeat")) {
        val value=sentence.optString("text");val begin=sentence.optLong("begin_time",-1);val end=sentence.optLong("end_time",-1)
@@ -63,7 +66,7 @@ class AsrReplay(private val hotwords:List<String> = emptyList()) {
   })
   socket=ws
   try {
-   require(started.await(20,TimeUnit.SECONDS)){"连接语音服务超时"};checkCancelled();error.get()?.let{throw it}
+   require(started.await(40,TimeUnit.SECONDS)){"连接语音服务超时"};checkCancelled();error.get()?.let{throw it}
    val buffer=ByteArray(3200);var sent=0L;var update=0L
    while(sent<bytes){
     checkCancelled();error.get()?.let{throw it}

@@ -47,7 +47,7 @@ import kotlinx.coroutines.withContext
      Text(if(doc.text.isBlank())"识别文字"else"重建",fontSize=12.sp)
     }
    }
-   if(doc.kind==LibraryKind.IMAGE)Text("图片识别使用个人 DeepSeek 额度；重要文字请核对原图。",Modifier.padding(horizontal=14.dp,vertical=2.dp),fontSize=11.sp,color=Muted)
+   if(doc.kind==LibraryKind.IMAGE)Text("图片识别使用当前 AI 模式的额度；重要文字请核对原图。",Modifier.padding(horizontal=14.dp,vertical=2.dp),fontSize=11.sp,color=Muted)
    if(LibrarySearch.isPartial(doc.state))Text("当前仅包含已提取的部分正文。",Modifier.padding(horizontal=14.dp,vertical=2.dp),fontSize=11.sp,color=MaterialTheme.colorScheme.tertiary)
    HorizontalDivider(color=Hairline)
    if(parts==null)LinearProgressIndicator(Modifier.fillMaxWidth())

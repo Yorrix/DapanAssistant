@@ -5,7 +5,6 @@ import org.json.*
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
@@ -48,7 +47,7 @@ import kotlin.math.*
  var granted by remember{mutableStateOf(FocusControl.access(c))}
  var precise by remember{mutableStateOf(Reminders.precise(c))}
  var error by remember{mutableStateOf("")}
- val lifecycle=(c as ComponentActivity).lifecycle
+ val lifecycle=androidx.compose.ui.platform.LocalLifecycleOwner.current.lifecycle
  DisposableEffect(lifecycle){val observer=LifecycleEventObserver{_,event->if(event==Lifecycle.Event.ON_RESUME){granted=FocusControl.access(c);precise=Reminders.precise(c)}};lifecycle.addObserver(observer);onDispose{lifecycle.removeObserver(observer)}}
  AssistantSurface("专注",JSONObject().put("minutes",hours*60+minutes).put("notifications",notifications).put("calls",calls),listOf(surfaceTool("configure","设置时长 minutes=1..480，可选notifications/calls布尔","minutes,notifications,calls"){a->val m=a.optInt("minutes",hours*60+minutes);require(m in 1..480);val n=a.optBoolean("notifications",notifications);val ca=a.optBoolean("calls",calls);prepared("调整专注设置",a){FocusControl.setMinutes(c,m);presetMinutes=m;presetRequest++;hours=m/60;minutes=m%60;notifications=n;calls=ca;FocusControl.option(c,"notifications",n);FocusControl.option(c,"calls",ca);"专注设置已调整，尚未开始计时"}}))
  Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal=16.dp).padding(bottom=LocalFloatingAiHeight.current+10.dp),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(6.dp)){
@@ -123,7 +122,9 @@ import kotlin.math.*
 }
 
 @Composable fun FocusImmersive(s:AppStore,onDone:()->Unit){
- val activity=LocalContext.current as ComponentActivity
+ val context=LocalContext.current
+ val activity=remember(context){context.hostActivity()} ?: return
+ val lifecycle=androidx.compose.ui.platform.LocalLifecycleOwner.current.lifecycle
  var now by remember{mutableLongStateOf(System.currentTimeMillis())}
  val end=s.focusEnd
  val duration=remember(end){FocusControl.duration(activity,end)}
@@ -142,14 +143,14 @@ import kotlin.math.*
    delay(500)
   }
  }
- DisposableEffect(activity){
+ DisposableEffect(activity,lifecycle){
   val controller=WindowCompat.getInsetsController(activity.window,activity.window.decorView)
   controller.systemBarsBehavior=WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
   controller.hide(WindowInsetsCompat.Type.systemBars())
   val observer=LifecycleEventObserver{_,event->if(event==Lifecycle.Event.ON_RESUME)controller.hide(WindowInsetsCompat.Type.systemBars())}
-  activity.lifecycle.addObserver(observer)
+  lifecycle.addObserver(observer)
   onDispose{
-   activity.lifecycle.removeObserver(observer)
+   lifecycle.removeObserver(observer)
    controller.show(WindowInsetsCompat.Type.systemBars())
 
   }

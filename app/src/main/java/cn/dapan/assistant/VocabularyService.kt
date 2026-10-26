@@ -38,6 +38,8 @@ class VocabularyService:Service() {
  private var attempts=0
  private var task=""
  private var key=""
+ private var shared=false
+ private var vocabularyLease:AsrVocabulary.Lease?=null
  private var hints=""
  private var hotwords=emptyList<String>()
  override fun onBind(intent:Intent?)=null
@@ -47,7 +49,8 @@ class VocabularyService:Service() {
   if(AudioState.running||checkSelfPermission(Manifest.permission.RECORD_AUDIO)!=PackageManager.PERMISSION_GRANTED){stopSelf();return START_NOT_STICKY}
   if(!VocabularyDictionary.installed(this)){VocabularyState.error=VocabularyDictionary.MISSING;VocabularyState.status="尚未安装离线词典";stopSelf();return START_NOT_STICKY}
   key=Secrets(this).get("aliyun")
-  if(key.isBlank()){VocabularyState.error="请先配置阿里云百炼 API Key";stopSelf();return START_NOT_STICKY}
+  shared=SharedSpeech.selected(this)
+  if(!SharedSpeech.canUse(this)){VocabularyState.error=SharedSpeech.unavailableMessage(this);stopSelf();return START_NOT_STICKY}
   started=true
   hints=VocabularyPreferences(this).context
   hotwords=AsrHotwordPreferences(this).active()
@@ -108,11 +111,22 @@ class VocabularyService:Service() {
   val epoch=++generation;task=UUID.randomUUID().toString();val taskId=task
   audioConnection=null;connected=false;AudioState.connectionReady=false
   VocabularyState.status=if(attempts==0)"正在连接语音服务…"else"正在重新连接 · 中断期间未识别"
-  socket=client.newWebSocket(Request.Builder().url("wss://dashscope.aliyuncs.com/api-ws/v1/inference").header("Authorization","Bearer $key").build(),object:WebSocketListener(){
+  scope.launch {
+   val lease=if(shared)null else AsrVocabulary.acquire(this@VocabularyService,key,hotwords)
+   try {withContext(Dispatchers.Main){
+    if(destroyed||epoch!=generation||stopping){lease?.close();return@withContext}
+    vocabularyLease?.close();vocabularyLease=lease;connectSocket(epoch,taskId,lease)
+   }}catch(e:CancellationException){lease?.close();throw e}
+  }
+ }
+ private fun connectSocket(epoch:Int,taskId:String,lease:AsrVocabulary.Lease?){
+  val request=runCatching{SharedSpeech.request(this,shared,key)}.getOrElse{fail(SharedSpeech.unavailableMessage(this));return}
+  socket=client.newWebSocket(request,object:WebSocketListener(){
    override fun onOpen(ws:WebSocket,response:Response){
+    if(destroyed||epoch!=generation||stopping){ws.cancel();return}
     // Omit language_hints for mixed Chinese/English automatic recognition.
     val parameters=JSONObject().put("format","pcm").put("sample_rate",16000).put("heartbeat",true).put("max_sentence_silence",800).put("multi_threshold_mode_enabled",true)
-    ws.send(JSONObject().put("header",JSONObject().put("action","run-task").put("task_id",taskId).put("streaming","duplex")).put("payload",JSONObject().put("task_group","audio").put("task","asr").put("function","recognition").put("model","fun-asr-realtime").put("parameters",parameters).put("input",AsrHints.input(hints,hotwords))).toString())
+    ws.send(JSONObject().put("header",JSONObject().put("action","run-task").put("task_id",taskId).put("streaming","duplex")).put("payload",JSONObject().put("task_group","audio").put("task","asr").put("function","recognition").put("model","fun-asr-realtime").put("parameters",parameters).put("input",AsrHints.input(hints,hotwords)).let{AsrVocabulary.attach(it,hotwords,shared,lease?.id)}).toString())
    }
    override fun onMessage(ws:WebSocket,text:String){
     val data=runCatching{JSONObject(text)}.getOrNull()?:return
@@ -130,7 +144,7 @@ class VocabularyService:Service() {
        val header=data.optJSONObject("header")
        if(stopping)finishSaving()
        else if(VocabularyAsrFailure.retryable(header?.optString("error_code").orEmpty(),header?.optString("error_message").orEmpty()))retry(epoch,"语音服务暂时中断")
-       else fail("语音服务拒绝了本次收听，请检查百炼密钥、额度和地域后重试")
+       else fail(if(shared&&header!=null)SharedSpeech.error(this@VocabularyService,header)else"语音服务拒绝了本次收听，请检查百炼密钥、额度和地域后重试")
       }
       "task-finished"->{if(stopping)finishSaving()else retry(epoch,"语音会话结束")}
      }
@@ -139,11 +153,11 @@ class VocabularyService:Service() {
    override fun onFailure(ws:WebSocket,t:Throwable,response:Response?){main.post{if(epoch!=generation||destroyed||stopping)return@post;if(response?.code in listOf(400,401,403))fail("语音服务鉴权失败，请检查百炼密钥和地域")else retry(epoch,"网络中断")}}
    override fun onClosed(ws:WebSocket,code:Int,reason:String){main.post{retry(epoch,"语音连接关闭")}}
   })
-  main.postDelayed({if(epoch==generation&&!connected&&!stopping)retry(epoch,"连接超时")},15000)
+  main.postDelayed({if(epoch==generation&&!connected&&!stopping)retry(epoch,"连接超时")},40000)
  }
  private fun retry(epoch:Int,reason:String){
   if(destroyed||stopping||epoch!=generation)return
-  generation++;audioConnection=null;connected=false;AudioState.connectionReady=false;socket?.cancel()
+  generation++;synchronized(this){vocabularyLease?.close();vocabularyLease=null};audioConnection=null;connected=false;AudioState.connectionReady=false;socket?.cancel()
   if(attempts>=3){fail("连接未恢复，已停止收听。请检查网络后重新开始");return}
   attempts++;VocabularyState.status="$reason · 重连 $attempts/3 · 中断期间未识别"
   main.postDelayed({connect()},1000L shl (attempts-1))
@@ -161,7 +175,7 @@ class VocabularyService:Service() {
   scope.launch{consumer?.join();withContext(Dispatchers.Main){stopSelf()}}
  }
  override fun onDestroy(){
-  destroyed=true;capturing=false;audioConnection=null;connected=false;runCatching{recorder?.stop()};runCatching{mic?.join(400)};recorder?.release();socket?.cancel();sentences.close();scope.cancel();main.removeCallbacksAndMessages(null)
+  synchronized(this){destroyed=true;vocabularyLease?.close();vocabularyLease=null};capturing=false;audioConnection=null;connected=false;runCatching{recorder?.stop()};runCatching{mic?.join(400)};recorder?.release();socket?.cancel();sentences.close();scope.cancel();main.removeCallbacksAndMessages(null)
   if(wake?.isHeld==true)wake?.release();client.dispatcher.executorService.shutdown()
   if(started){VocabularyState.running=false;VocabularyState.status=if(VocabularyState.error==null)"已暂停 · 生词保存在本机"else"收听已停止";VocabularyState.revision++}
   if(started&&AudioState.session==VocabularyState.OWNER){AudioState.running=false;AudioState.ready=false;AudioState.connectionReady=false;AudioState.revision++}

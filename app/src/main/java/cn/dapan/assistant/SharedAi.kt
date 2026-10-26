@@ -12,7 +12,8 @@ import java.util.UUID
 
 data class SharedAiQuota(val used:Long,val held:Long,val limit:Long,val remaining:Long,val resetsAt:String)
 data class SharedAiStatus(val available:Boolean,val reason:String,val message:String,
- val day:SharedAiQuota?,val week:SharedAiQuota?,val siteMonth:SharedAiQuota?,val speechAvailable:Boolean=false)
+ val day:SharedAiQuota?,val week:SharedAiQuota?,val siteMonth:SharedAiQuota?,val speechAvailable:Boolean=false,
+ val month:SharedAiQuota?=null,val siteDay:SharedAiQuota?=null,val siteWeek:SharedAiQuota?=null)
 class SharedAiException(message:String):IllegalStateException(message)
 
 /** Billing source is explicit; quota exhaustion never falls back to a personal key. */
@@ -35,17 +36,15 @@ object SharedAi {
  }
  fun unavailableMessage(context:Context)=if(mode(context)==Mode.SHARED)"请在设置 → 模型与语音中用大工邮箱登录，使用公用 AI。"else"请先在设置中保存自己的 DeepSeek API Key。"
  fun requireTextAvailable(context:Context){if(!canUseText(context))throw SharedAiException(unavailableMessage(context))}
- internal fun sharedRequest(body:JSONObject):Request? {
-  val context=application?:return null
+ internal fun sharedRequest(body:JSONObject):Request? = application?.let{sharedRequest(it,body)}
+ internal fun sharedRequest(context:Context,body:JSONObject):Request? {
   if(mode(context)!=Mode.SHARED)return null
-  requireTextAvailable(context)
+  return publicRequest(context,body)
+ }
+ internal fun publicRequest(context:Context,body:JSONObject):Request {
   val api=CommunityClient(context)
+  if(!api.loggedIn)throw SharedAiException("请先登录大工邮箱，再使用公用 AI。")
   val token=Secrets(context).get("community-session")
-  val messages=body.optJSONArray("messages")
-  if(messages!=null)for(i in 0 until messages.length()){
-   if(messages.optJSONObject(i)?.opt("content") !is String)
-    throw SharedAiException("公用 AI 暂只支持文字。图片识别请在设置中选择自备 API；已识别的资料正文可用公用 AI 查询。")
-  }
   val payload=JSONObject(body.toString()).put("request_id",UUID.randomUUID().toString()).put("stream",true)
   return Request.Builder().url(api.endpoint+"/ai/chat/completions")
    .header("Authorization","Bearer $token").header("Accept","text/event-stream")
@@ -60,7 +59,10 @@ object SharedAi {
  }
  suspend fun status(context:Context):SharedAiStatus {
   val raw=CommunityClient(context).request("/ai/status")
+  return parseStatus(raw)
+ }
+ internal fun parseStatus(raw:JSONObject):SharedAiStatus {
   fun quota(key:String)=raw.optJSONObject(key)?.let{SharedAiQuota(it.optLong("used"),it.optLong("held"),it.optLong("limit"),it.optLong("remaining"),it.optString("resetsAt"))}
-  return SharedAiStatus(raw.optBoolean("available"),raw.optString("reason"),raw.optString("message"),quota("day"),quota("week"),quota("siteMonth"),raw.optBoolean("speechAvailable"))
+  return SharedAiStatus(raw.optBoolean("available"),raw.optString("reason"),raw.optString("message"),quota("day"),quota("week"),quota("siteMonth"),raw.optBoolean("speechAvailable"),quota("month"),quota("siteDay"),quota("siteWeek"))
  }
 }

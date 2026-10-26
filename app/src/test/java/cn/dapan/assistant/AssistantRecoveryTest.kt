@@ -36,7 +36,7 @@ class AssistantRecoveryTest {
  @Test fun repeatedPromisesStopWithHonestUnexecutedStatus()=runBlocking{
   var calls=0
   val result=AssistantReasoning.resolve(request={calls++;JSONObject("""{"action":"chat","reply":"我马上帮你添加日程。"}""")},lookup={""},validate={})
-  assertEquals(3,calls);assertTrue((result as AssistantAction.Reply).text.contains("尚未修改"))
+  assertEquals(2,calls);assertTrue((result as AssistantAction.Reply).text.contains("尚未修改"))
  }
  @Test fun questionsExamplesAndPreviousReceiptsDoNotTriggerPromiseRepair(){
   listOf("你要改成程设吗？","例如你可以说我现在就把课表改成简称。","如果你批准，我会修改。","我无法修改这些资料。","已经修改24项。","我不会删除你的课程。").forEach{assertFalse(it,AssistantReplyGuard.promisesAction(it))}

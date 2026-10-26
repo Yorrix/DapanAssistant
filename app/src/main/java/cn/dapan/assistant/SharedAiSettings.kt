@@ -29,26 +29,29 @@ import java.util.Locale
    FilterChip(mode==SharedAi.Mode.PERSONAL,{SharedAi.setMode(context,SharedAi.Mode.PERSONAL)},label={Text("自备 API")})
   }
   if(mode==SharedAi.Mode.SHARED){
-   Text("基础试用 · 大工邮箱登录，无需密钥。",fontSize=13.sp,fontWeight=FontWeight.Medium)
-   Text("支持日常对话和工具操作，延迟通常比自备 API 高。不提供长时录音等持续语音服务。",fontSize=12.sp,lineHeight=18.sp,color=Muted)
+   Text("大工邮箱登录，无需密钥。",fontSize=13.sp,fontWeight=FontWeight.Medium)
+   Text("对话、图片识别、录音和翻译共用额度，延迟可能比自备 API 高。",fontSize=12.sp,lineHeight=18.sp,color=Muted)
    if(status!=null&&status?.speechAvailable!=true)Text("公用语音暂不可用，可先打字。",fontSize=11.sp,color=Muted)
-   Text("每人每天 ¥1 · 每周 ¥3　／　全站每月 ¥30",fontSize=12.sp,fontWeight=FontWeight.Medium)
+   if(!api.loggedIn){
+    Text("默认每人：日 ¥1 · 周 ¥3 · 月 ¥10",fontSize=11.sp,color=Muted)
+    Text("默认全站：日 ¥10 · 周 ¥30 · 月 ¥100",fontSize=11.sp,color=Muted)
+   }
    Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically){
     Text(if(api.loggedIn)api.user.optString("email")else"与二手信息共用账号",Modifier.weight(1f),fontSize=12.sp,color=Muted)
     TextButton(onClick={if(api.loggedIn){refresh++}else onLogin()},enabled=!api.loggedIn||!loading){Text(if(api.loggedIn&&loading)"读取中…"else if(api.loggedIn)"刷新额度"else"登录 / 注册",fontSize=12.sp)}
    }
    status?.let{s->
     if(api.loggedIn){
-     fun money(v:Long)=String.format(Locale.CHINA,"%.2f",v/1_000_000.0)
      Text(s.message,fontSize=12.sp,color=if(s.available)DutBlue else MaterialTheme.colorScheme.error)
-     s.day?.let{Text("今日剩余 ¥${money(it.remaining)} / 1.00　·　本周 ¥${money(s.week?.remaining?:0)} / 3.00",fontSize=12.sp)}
-     s.siteMonth?.let{Text("全站本月剩余 ¥${money(it.remaining)} / 30.00",fontSize=11.sp,color=Muted)}
+     SharedQuotaRow("个人",listOf("今日" to s.day,"本周" to s.week,"本月" to s.month))
+     SharedQuotaRow("全站",listOf("今日" to s.siteDay,"本周" to s.siteWeek,"本月" to s.siteMonth))
+     Text("剩余 / 上限（元）· 以服务器当前设置为准",fontSize=10.sp,color=Muted)
     }
    }
    TextButton(onClick={details=!details},contentPadding=PaddingValues(0.dp)){Text(if(details)"收起额度与数据说明"else"额度与数据说明",fontSize=11.sp)}
    if(details){
     Text("北京时间每日、周一、每月 1 日恢复。按保守单价计量，处理时预留额度；不足即停止，不会改用个人密钥。",fontSize=11.sp,lineHeight=16.sp,color=Muted)
-    Text("你的对话、语音和本次任务需要的资料，会经过开发者部署的服务器，再转发给 AI 服务商。公用额度不含图片识别。",fontSize=11.sp,lineHeight=16.sp,color=Muted)
+    Text("你的对话、语音、图片和本次任务需要的资料，会经过开发者部署的服务器，再转发给 AI 服务商。个人和全站任一额度用尽后暂停。资料库的公用图片识别会在每张图片发送前说明并由你选择；录音按实际识别用量计费。",fontSize=11.sp,lineHeight=16.sp,color=Muted)
    }
   }else{
    Text("DeepSeek 处理对话，阿里云处理语音。使用你自己的账户额度。",fontSize=12.sp,lineHeight=18.sp,color=Muted)
@@ -64,6 +67,16 @@ import java.util.Locale
    }
   }
   if(message.isNotBlank())Text(message,fontSize=12.sp,color=Muted)
+ }
+}
+
+@Composable private fun SharedQuotaRow(title:String,values:List<Pair<String,SharedAiQuota?>>){
+ Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(6.dp),verticalAlignment=Alignment.CenterVertically){
+  Text(title,Modifier.width(28.dp),fontSize=11.sp,color=Muted)
+  values.forEach{(label,value)->Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(2.dp)){
+   Text(label,fontSize=10.sp,color=Muted)
+   Text(value?.let{String.format(Locale.CHINA,"%.2f / %.2f",it.remaining/1_000_000.0,it.limit/1_000_000.0)}?:"—",fontSize=11.sp,color=Ink)
+  }}
  }
 }
 

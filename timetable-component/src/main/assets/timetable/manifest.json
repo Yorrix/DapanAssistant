@@ -1,0 +1,8 @@
+{
+ "manifest_version":2,
+ "name":"Dapan timetable reader",
+ "version":"1.0",
+ "browser_specific_settings":{"gecko":{"id":"timetable@dapan.local"}},
+ "permissions":["geckoViewAddons","nativeMessaging","nativeMessagingFromContent"],
+ "content_scripts":[{"matches":["http://jxgl.dlut.edu.cn/student/for-std/course-table*","https://jxgl.dlut.edu.cn/student/for-std/course-table*"],"js":["reader.js"],"run_at":"document_end","all_frames":false}]
+}

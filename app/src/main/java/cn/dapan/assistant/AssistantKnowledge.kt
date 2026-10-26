@@ -5,8 +5,9 @@ import org.json.*
 import java.io.File
 
 object AssistantKnowledge{
- suspend fun read(c:Context,store:AppStore,module:String,query:String,id:String="",offset:Int=0,limit:Int=10000):String{
+ suspend fun read(c:Context,store:AppStore,module:String,query:String,id:String="",offset:Int=0,limit:Int=10000,history:List<ChatLine> = emptyList()):String{
   val name=AssistantSurfaces.canonical(module);val root=JSONObject().put("module",module).put("query",query).put("deviceTime",java.time.ZonedDateTime.now().toString())
+  if(name=="操作记录")return AssistantOperationMemory.lookup(history,id,query,offset,limit)
   if(name=="资料库")return LibraryStore(c).use{lib->
    lib.migrate(allowRemoteIndex=false)
    val result=if(id.isNotBlank())lib.find(id)?.let{LibraryRetrieval.document(it,query,offset,limit)}
@@ -16,7 +17,7 @@ object AssistantKnowledge{
   }
   fun match(text:String)=query.isBlank()||text.contains(query,true)
   val rows:List<JSONObject> = when(name){
-   "日历","待办"->store.calendarEntries.filter{(name!="待办"||it.kind==EventKind.TODO)&&(id.isBlank()||it.id==id)&&match(it.title+it.notes+it.location+it.start.toLocalDate())}.map(::entryToJson)
+   "日历","待办"->store.calendarEntries.filter{(name!="待办"||it.kind==EventKind.TODO)&&(id.isBlank()||it.id==id)&&AssistantRecordSearch.matches(it.title+it.notes+it.location+it.start.toLocalDate(),query)}.map(::entryToJson)
    "信息查询","账单","快递"->store.notes.filter{it.module==name&&(id.isBlank()||it.id==id)&&match(it.title+it.detail+it.group)}.map{JSONObject().put("id",it.id).put("title",it.title).put("detail",it.detail).put("group",it.group).put("created",it.created)}
    "晨签"->{root.put("start",store.morningStart).put("end",store.morningEnd).put("time",store.morningTime.toString()).put("notify",store.morningNotify).put("lastCall",store.morningLastCall).put("lastCallTime",store.morningTime.minusMinutes(1).toString()).put("lastCallIssue",MorningLastCall.issue(c));store.checks.map{JSONObject().put("date",it.date.toString()).put("required",it.required).put("passed",it.passed)}}
    "会议纪要","录音"->{
@@ -32,6 +33,8 @@ object AssistantKnowledge{
      }))}
    }
    "官网通知"->{val f=File(c.filesDir,"notice-cache.json");val data=JSONObject(if(f.exists())f.readText()else c.assets.open("notices.json").bufferedReader().use{it.readText()});root.put("followed",JSONArray(NoticeSubscriptions.followed(c).toList())).put("sources",data.optJSONArray("sources")).put("cacheModified",f.lastModified());data.optJSONArray("items").objects().filter{(id.isBlank()||it.optString("id")==id)&&match(it.optString("title")+it.optString("headline")+it.optString("summary"))}.sortedByDescending{it.optString("date")}}
+   "tibo雷达"->{root.put("cached",ResetRadar.cached(c)).put("notification",ResetRadar.enabled(c));emptyList()}
+   "课堂助手"->{ClassroomSession.initialize(c);check(ClassroomSession.ready){"正在读取课堂记录，请稍后重试"};ClassroomSession.lessons.filter{(id.isBlank()||it.id==id)&&match(it.topic+it.raw())}.map{item->JSONObject().put("id",item.id).put("topic",item.topic).put("transcript",item.raw().take(limit)).put("truncated",item.raw().length>limit).put("draftsAreNotSpoken",true).put("mode",ClassroomSession.mode.label).put("prompt",ClassroomSession.prompt).put("automatic",ClassroomSession.automatic).put("drafts",JSONArray(item.drafts.takeLast(3).map{it.text}))}}
    "天气"->{root.put("notifications",JSONArray(WeatherNotice.entries.map{JSONObject().put("period",it.label).put("enabled",WeatherMorning.enabled(c,it)).put("time",WeatherMorning.time(c,it).toString())}));root.put("cachedAt",c.getSharedPreferences("weather-cache",0).getLong("fetched",0)).put("forecast",WeatherData.cached(c));emptyList()}
    "抽签"->{val s=WheelStore(c);root.put("selected",s.selected);s.wheels.filter{(id.isBlank()||it.id==id)&&match(it.name)}.map{JSONObject().put("id",it.id).put("name",it.name).put("options",JSONArray(it.options.map{o->JSONObject().put("id",o.id).put("name",o.name).put("weight",o.weight)}))}}
    "课堂生词"->{root.put("level",VocabularyPreferences(c).level.label).put("listening",VocabularyState.running);VocabularyStore(c).use{it.list(VocabularyPreferences(c).level,query,51)}.map{it.json()}}

@@ -29,10 +29,10 @@ import androidx.compose.ui.unit.*
 
 private fun toolGlyph(name:String)=when(name){
  "晨签","待办"->AppGlyph.Check
- "专注"->AppGlyph.Clock
+ "专注","tibo雷达"->AppGlyph.Clock
  "地图","导航","热力图","校园热力图"->AppGlyph.Pin
  "天气"->AppGlyph.Today
- "录音","录音摘要","课堂生词"->AppGlyph.Mic
+ "录音","录音摘要","课堂生词","课堂助手"->AppGlyph.Mic
  "实时翻译"->AppGlyph.Chat
  "账单","二手信息"->AppGlyph.Wallet
  "官网通知"->AppGlyph.Gazette
@@ -45,8 +45,8 @@ val toolGroups=listOf(
   "常用工具" to listOf("晨签","扫描文件","专注","抽签","手持弹幕"),
   "地图" to listOf("导航","热力图"),
   "生活" to listOf("二手信息","账单","取件码","天气"),
-  "信息查询" to listOf("官网通知","信息查询","资料库"),
-  "录音" to listOf("录音摘要","实时翻译","课堂生词")
+  "信息查询" to listOf("官网通知","信息查询","资料库","tibo雷达"),
+  "录音" to listOf("课堂助手","录音摘要","实时翻译","课堂生词")
  )
 @OptIn(ExperimentalLayoutApi::class)
 @Composable fun ToolsScreen(favorites:ToolFavorites,scroll:ScrollState=rememberScrollState(),open:(String)->Unit){

@@ -20,9 +20,28 @@ CommonMark Java 0.13.0 (core and GFM extensions), BSD 2-Clause License.
 https://github.com/commonmark/commonmark-java
 Full licenses are bundled in app/src/main/assets/markdown-license/.
 
+OpenAI / ChatGPT Blossom mark:
+The OpenAI logo and GPT / ChatGPT marks are property of OpenAI.
+Used only as a service-identification icon for the third-party reset radar.
+No affiliation, sponsorship or endorsement is implied.
+Original monochrome vector geometry and proportions retained in ic_gpt.xml.
+Official asset: https://cdn.openai.com/brand/OpenAI-Logos-2025.zip
+Guidelines: https://openai.com/brand/
+
 Classroom vocabulary:
 ECDICT, MIT License. https://github.com/skywind3000/ECDICT
 Source snapshot 2026-10-23; derived dictionary and inflections are bundled offline.
 Full license: app/src/main/assets/vocabulary/LICENSE.txt.
 Source checksum, vocabulary counts and derivation details: vendor/ecdict/.
 High-school/CET word lists follow community source tags, not an official syllabus.
+
+Optional timetable browser component 1.0:
+Mozilla GeckoView 158.0.20261021001945, Mozilla Public License 2.0,
+with additional dependencies under their own licenses.
+Unmodified Mozilla source revision:
+https://hg.mozilla.org/releases/mozilla-release/rev/e4ce606692cd81e6898547e2edd7c552fefcbb04
+Original engine licenses, dependency notices, POMs and artifact hashes:
+timetable-component/third-party/. See NOTICE.txt there for source availability.
+Readable copies are provided in the main app's optional browser dialog under
+"许可与来源" and app/src/main/assets/timetable-license/.
+The app's own license does not replace or restrict third-party license rights.

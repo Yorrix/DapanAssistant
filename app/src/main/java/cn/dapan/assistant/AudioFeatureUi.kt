@@ -38,7 +38,7 @@ object AsrHints {
 }
 @Composable fun AudioSettingsDialog(title:String,asr:String,onAsr:(String)->Unit,generation:String,onGeneration:(String)->Unit,
  generationLabel:String,generationHint:String,generationLimit:Int,onClose:()->Unit,
- before:@Composable ColumnScope.()->Unit={},after:@Composable ColumnScope.()->Unit={}){
+ before:@Composable ColumnScope.()->Unit={},after:@Composable ColumnScope.()->Unit={},generationControls:@Composable ColumnScope.()->Unit={}){
  Dialog(onDismissRequest=onClose,properties=DialogProperties(usePlatformDefaultWidth=false)){
   Surface(Modifier.fillMaxWidth().padding(horizontal=12.dp).heightIn(max=LocalConfiguration.current.screenHeightDp.dp*.86f),color=CardSurface,shape=AppShape(18.dp)){
    Column(Modifier.imePadding().padding(horizontal=14.dp)){
@@ -46,8 +46,9 @@ object AsrHints {
     Column(Modifier.weight(1f,fill=false).verticalScroll(rememberScrollState()).padding(bottom=12.dp),verticalArrangement=Arrangement.spacedBy(8.dp)){
      before()
      Text("语音识别 · 阿里云",fontSize=13.sp,fontWeight=FontWeight.SemiBold)
-     OutlinedTextField(asr,{onAsr(it.take(400))},Modifier.fillMaxWidth(),label={Text("识别提示词",fontSize=12.sp)},placeholder={Text("如：高等数学、洛必达法则、老师姓名",fontSize=12.sp)},maxLines=4,supportingText={Text("${asr.length}/400 · 与全局热词共用 400 字符，下次收听或转写生效",fontSize=10.sp)},shape=AppShape(10.dp))
+     OutlinedTextField(asr,{onAsr(it.take(400))},Modifier.fillMaxWidth(),label={Text("识别提示词",fontSize=12.sp)},placeholder={Text("如：这节课讨论线性代数的特征值",fontSize=12.sp)},maxLines=4,supportingText={Text("${asr.length}/400 · 下次收听或转写生效；专有名词可加到语音热词",fontSize=10.sp)},shape=AppShape(10.dp))
      Text("$generationLabel · DeepSeek",fontSize=13.sp,fontWeight=FontWeight.SemiBold)
+     generationControls()
      OutlinedTextField(generation,{onGeneration(it.take(generationLimit))},Modifier.fillMaxWidth(),label={Text("${generationLabel}提示词",fontSize=12.sp)},placeholder={Text(generationHint,fontSize=12.sp)},maxLines=5,supportingText={Text("${generation.length}/$generationLimit · 下次生成生效",fontSize=10.sp)},shape=AppShape(10.dp))
      after()
     }

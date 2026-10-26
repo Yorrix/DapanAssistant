@@ -32,7 +32,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.runtime.saveable.rememberSaveable
 
 class MainActivity: ComponentActivity() {
- override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState); if(BuildConfig.DEBUG && intent.getBooleanExtra("localPreview",false)) CommunityClient(this).endpoint="http://127.0.0.1:8765"; if(BuildConfig.DEBUG && intent.getBooleanExtra("cloudPreview",false)) CommunityClient(this).endpoint=CommunityClient.DEFAULT_ENDPOINT; androidx.core.view.WindowCompat.getInsetsController(window,window.decorView).isAppearanceLightStatusBars=true; Reminders.channels(this); NoticeSubscriptions.schedule(this); RetiredFeatures.clean(this); AppAppearance.load(this); setContent { DapanTheme { DapanApp(if(intent.getBooleanExtra("openNotices",false))"官网通知"else if(intent.getBooleanExtra("openMorning",false))"晨签"else if(intent.getBooleanExtra("openWeather",false))"天气"else if(BuildConfig.DEBUG) intent.getStringExtra("previewScreen") ?: "今天" else "今天") } } }
+ override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState); if(BuildConfig.DEBUG && intent.getBooleanExtra("localPreview",false)) CommunityClient(this).endpoint="http://127.0.0.1:8765"; if(BuildConfig.DEBUG && intent.getBooleanExtra("cloudPreview",false)) CommunityClient(this).endpoint=CommunityClient.DEFAULT_ENDPOINT; androidx.core.view.WindowCompat.getInsetsController(window,window.decorView).isAppearanceLightStatusBars=true; AppAppearance.load(this); setContent { DapanTheme { AppEntryGate { DapanApp(if(intent.getStringExtra("destination")=="tibo雷达")"tibo雷达"else if(intent.getBooleanExtra("openNotices",false))"官网通知"else if(intent.getBooleanExtra("openMorning",false))"晨签"else if(intent.getBooleanExtra("openWeather",false))"天气"else if(BuildConfig.DEBUG) intent.getStringExtra("previewScreen") ?: "今天" else "今天") } } } }
 }
 @OptIn(ExperimentalLayoutApi::class)
 @Composable fun DapanApp(initialScreen:String="今天") {
@@ -76,7 +76,7 @@ class MainActivity: ComponentActivity() {
   pending=null;pendingTool=null;pendingLineId=null
  }
  suspend fun runTool(writes:Boolean,plan:PreparedTool,confirmed:Boolean,lineId:String?=null){
-  val card=AssistantOperation(OperationStatus.RUNNING,plan.title,listOf(OperationPreview("操作",plan.title,after=mapOf("内容" to plan.details))))
+  val card=AssistantOperation(OperationStatus.RUNNING,plan.title,listOf(OperationPreview("操作",plan.title,after=mapOf("内容" to plan.details))),toolRequest=plan.request)
   val id=lineId?:chat.operation(card,"正在执行：${plan.title}")
   chat.updateOperation(id,card,"正在执行：${plan.title}")
   var started=false
@@ -102,7 +102,7 @@ class MainActivity: ComponentActivity() {
  suspend fun dispatchTool(a:AssistantAction.Tool,attachments:List<AssistantFile>,origin:String){
   val module=AssistantSurfaces.canonical(a.module)
   val global=AssistantGlobalTools.tools(c,store,attachments,favorites)[module]?.firstOrNull{it.operation==a.operation}
-  val prepared=if(global!=null){require(a.args.keys().asSequence().all{it in global.keys}){"包含不支持的参数"};global.writes to global.prepare(a.args)}else{
+  val prepared=if(global!=null){require(a.args.keys().asSequence().all{it in global.keys}){"包含不支持的参数"};global.writes to global.prepare(a.args).copy(request=AssistantOperationMemory.toolRequest(module,a.operation,a.args))}else{
    require(module in AssistantActions.destinations){"没有这个工具"}
    if(AssistantSurfaces.current(module)==null){go(module,origin);repeat(40){if(AssistantSurfaces.current(module)==null)delay(50)}}
    repeat(100){if(AssistantSurfaces.current(module)?.state?.optBoolean("ready",true)==false)delay(50)}
@@ -117,7 +117,7 @@ class MainActivity: ComponentActivity() {
   }
   check(!prepared.first||policy.access!=AssistantAccess.READ_ONLY){"当前为只读，不能执行修改、录音、计时或发布"}
   abandonPending("新清单已替换旧清单，旧清单未执行")
-  if(prepared.first&&policy.access==AssistantAccess.CONFIRM){pendingTool=prepared;val card=AssistantOperation(OperationStatus.PENDING,prepared.second.title,listOf(OperationPreview("操作",prepared.second.title,after=mapOf("内容" to prepared.second.details))));val text="等待点击执行，尚未操作：${prepared.second.title}\n${prepared.second.details}";pendingLineId=chat.operation(card,text);reply=text}
+  if(prepared.first&&policy.access==AssistantAccess.CONFIRM){pendingTool=prepared;val card=AssistantOperation(OperationStatus.PENDING,prepared.second.title,listOf(OperationPreview("操作",prepared.second.title,after=mapOf("内容" to prepared.second.details))),toolRequest=prepared.second.request);val text="等待点击执行，尚未操作：${prepared.second.title}\n${prepared.second.details}";pendingLineId=chat.operation(card,text);reply=text}
   else runTool(prepared.first,prepared.second,false)
  }
  var mapFrom by rememberSaveable { mutableStateOf("") }; var mapTo by rememberSaveable { mutableStateOf("") }
@@ -159,7 +159,7 @@ class MainActivity: ComponentActivity() {
   is AssistantAction.Tool, is AssistantAction.Lookup -> error("工具动作需经统一调度")
   is AssistantAction.Search -> {
    val notes=if(action.date==null)store.notes.filter{it.module!="待办"&&(it.title+it.detail).contains(action.query,true)}.map{"${it.module} · ${it.title}\n${it.detail}"}else emptyList()
-   val events=store.calendarEntries.filter { e -> (action.query.isBlank()||(e.title+e.location+e.notes).contains(action.query,true)) && (action.date==null||(e.kind!=EventKind.TODO&&e.start.toLocalDate()==action.date)||(e.kind==EventKind.TIMED && e.start<action.date.atStartOfDay()&&e.end>action.date.atStartOfDay())) }.sortedBy{it.start}.map{if(it.kind==EventKind.TODO)"TDL · ${it.title} · ${if(it.urgent)"紧急"else"一般"}${if(it.location.isNotBlank())" · ${it.location}"else""}\n${it.notes}"else"${it.title} · ${it.start} ${it.location}"}
+   val events=store.calendarEntries.filter { e -> (action.query.isBlank()||(e.title+e.location+e.notes).contains(action.query,true)) && (action.date==null||(e.kind!=EventKind.TODO&&e.start.toLocalDate()==action.date)||(e.kind==EventKind.TIMED && e.start<action.date.atStartOfDay()&&e.end>action.date.atStartOfDay())) }.sortedBy{it.start}.map{if(it.kind==EventKind.TODO)"TDL · ${it.title} · ${it.todoPriority}${if(it.location.isNotBlank())" · ${it.location}"else""}\n${it.notes}"else"${it.title} · ${it.start} ${it.location}"}
    reply=(events+notes).take(30).joinToString("\n\n").ifBlank{"没有找到相关记录"};chat.add("assistant",reply!!,includeInModel=false)
   }
   else -> {
@@ -216,9 +216,13 @@ class MainActivity: ComponentActivity() {
   }
   if(attachments.isNotEmpty())recentFiles=(attachments+recentFiles).distinctBy{it.id}.take(12)
   val availableFiles=(attachments+recentFiles).distinctBy{it.id}.filter{java.io.File(it.path).isFile}
-  val local=AssistantActions.destinations.find{it==text.trim().removePrefix("打开").removePrefix("进入")}
+  val local=AssistantIntent.directDestination(text)
   if(local!=null&&attachments.isEmpty()){chat.add("user",text);if(voiceText==null)input=TextFieldValue();dispatch(AssistantAction.Navigate(local));return}
-  val recordContext=AssistantPlanner.context(store);val accessLabel=policy.access.label
+  val requestText=AssistantConversationContext.userRequest(text,history)
+  val timeReferences=AssistantConversationContext.timeReferences(requestText,store.calendarEntries,java.time.LocalDate.now(Billing.zone))
+  val recordContext=JSONObject(AssistantPlanner.context(store)).put("timeReferences",JSONArray(timeReferences.map{ref->
+   JSONObject().put("sourceId",ref.source.id).put("title",ref.source.title).put("start",ref.source.start.toString()).put("end",ref.source.end.toString()).put("referencedTime",ref.time.toString())
+  })).toString();val accessLabel=policy.access.label
   val origin=screen;val originFingerprint=AssistantSurfaces.fingerprint(screen);val originState=AssistantSurfaces.context(screen).toString()
   val surfaceContext=JSONObject().put("current",JSONObject(originState)).put("globalOperations",AssistantGlobalTools.descriptions(c,store,availableFiles,favorites)).put("pageOperations",AssistantCatalogue.json()).put("attachments",JSONArray(availableFiles.map{JSONObject().put("id",it.id).put("name",it.name).put("hint",it.hint)})).toString()
   busy=true;requestGeneration++;val generation=requestGeneration;modelProgress=ModelProgress(status="正在读取输入…")
@@ -229,21 +233,22 @@ class MainActivity: ComponentActivity() {
    try {
     val context=withContext(Dispatchers.IO){AssistantFiles.prepare(c,attachments)}
     stage="model"
-    var lookupEvidence=""
+    var lookupEvidence="";var progressRound=0
     val result=AssistantReasoning.resolve(
-     request={results->withContext(Dispatchers.IO){AiClient.request(secrets.get("deepseek"),secrets.model,text,history=history,attachmentText=context.text,images=context.images,recordContext=recordContext,accessLabel=accessLabel,surfaceContext=surfaceContext,toolResults=results,onProgress={progress->scope.launch{if(generation==requestGeneration&&busy)modelProgress=progress}})}},
-     lookup={action->withContext(Dispatchers.IO){AssistantKnowledge.read(c,store,action.module,action.query,action.id,action.offset,action.limit)}},
-     normalize={action->AssistantIntent.normalize(AssistantRoutes.normalize(action,JSONObject(surfaceContext)),text)},
+     request={results->val round=++progressRound
+      try{withContext(Dispatchers.IO){AiClient.request(secrets.get("deepseek"),secrets.model,text,history=history,attachmentText=context.text,images=context.images,recordContext=recordContext,accessLabel=accessLabel,surfaceContext=surfaceContext,toolResults=results,onProgress={progress->scope.launch{if(generation==requestGeneration&&busy&&round==progressRound)modelProgress=progress}})}}finally{progressRound++}},
+     lookup={action->withContext(Dispatchers.IO){AssistantKnowledge.read(c,store,action.module,action.query,action.id,action.offset,action.limit,history)}},
+     normalize={action->AssistantIntent.referenceReminder(AssistantIntent.normalize(AssistantRoutes.normalize(action,JSONObject(surfaceContext)),text),requestText,store.calendarEntries,java.time.LocalDate.now(Billing.zone))},
      validate={action->
-      AssistantRequestChecks.validate(action,text,history,JSONObject(surfaceContext),accessLabel)
+      AssistantRequestChecks.validate(action,text,history,JSONObject(surfaceContext),accessLabel,records=store.assistantSnapshot())
       if(AssistantRoutes.isRoute(action))AssistantRoutes.validate(action,withContext(Dispatchers.IO){CampusData.cached(c).places.keys})
       when(action){
-      is AssistantAction.Event,is AssistantAction.Note,is AssistantAction.Change,is AssistantAction.Batch,is AssistantAction.RenameEvents,is AssistantAction.Morning,is AssistantAction.MorningRange,is AssistantAction.Focus,is AssistantAction.Route->{val plan=AssistantPlanner.build(store,action);require(plan.unmatched.isEmpty()){"原名称未匹配：${plan.unmatched.joinToString()}。整批尚未执行；请用 calendarTitles 的真实名称，无法唯一匹配则询问，不得删掉未匹配项。"}}
+      is AssistantAction.Event,is AssistantAction.Note,is AssistantAction.Change,is AssistantAction.Batch,is AssistantAction.RenameEvents,is AssistantAction.CalendarBulk,is AssistantAction.Morning,is AssistantAction.MorningRange,is AssistantAction.Focus,is AssistantAction.Route->{val plan=AssistantPlanner.build(store,action);require(plan.unmatched.isEmpty()){"原名称未匹配：${plan.unmatched.joinToString()}。整批尚未执行；请用 calendarTitles 的真实名称，无法唯一匹配则询问，不得删掉未匹配项。"}}
       is AssistantAction.Tool->AssistantToolContract.validate(action,JSONObject(surfaceContext))
       else->Unit
      }},
      onEvidence={lookupEvidence=it},
-     groundingRequest=text,
+     groundingRequest=requestText,
      progress={status->modelProgress=ModelProgress(status=status)}
     )
     AssistantRequestGuard.check(result,origin,navigation.current,originFingerprint,AssistantSurfaces.fingerprint(origin))
@@ -253,14 +258,15 @@ class MainActivity: ComponentActivity() {
     chat.accept(userLine)
     // Attachments stay in the bounded temporary cache until pruning: a confirmed save may run after this request returns.
    }
-   catch(e:CancellationException){restoreDraft(text,attachments);chat.add("assistant","请求已停止。如果操作已经提交，请先查看记录，避免重复执行。");throw e}
+   catch(e:CancellationException){chat.accept(userLine);restoreDraft(text,attachments);chat.add("assistant","请求已停止。如果操作已经提交，请先查看记录，避免重复执行。");throw e}
    catch(e:Exception){
     android.util.Log.w("DapanAssistant","stage=$stage input=${if(voiceText==null)"text"else"voice"} error=${e.javaClass.simpleName} cause=${e.cause?.javaClass?.simpleName.orEmpty()}")
-    if(modelProgress.reply.isNotBlank())chat.add("assistant","${modelProgress.reply}\n\n（回复中断，以上内容未完成）",includeInModel=false)
     reply=if(stage=="dispatch")e.message?:"操作未完成，请先核对记录"else ModelErrors.message(e)
     // Keep the failed intent and local execution result together, so a follow-up is not mistaken for a new request.
     chat.accept(userLine)
-    chat.add("assistant",if(stage=="dispatch")"本机执行反馈：${reply!!}"else"本次请求未进入操作执行阶段：${reply!!}",includeInModel=true);retryRequest=if(stage!="dispatch")text to attachments else null;restoreDraft(text,attachments)
+    val failureLine=chat.add("assistant",if(stage=="dispatch")"本机执行反馈：${reply!!}"else reply!!,includeInModel=true)
+    if(e is AssistantValidationFailure)chat.attachEvidence(failureLine,JSONObject().put("kind","validation_failed").put("executed",false).put("reason",e.detail).toString())
+    retryRequest=if(stage!="dispatch")text to attachments else null;restoreDraft(text,attachments)
    }
    finally{busy=false;modelProgress=ModelProgress()}
   }
@@ -313,7 +319,7 @@ class MainActivity: ComponentActivity() {
  key(screen){pageState.SaveableStateProvider(screen){
  PageEntrance(navigation.returning){
  Column(Modifier.fillMaxSize()) {
-  if(screen !in listOf("专注","设置","工具","扫描文件","日历","抽签","快递","取件码","账单","二手信息","信息查询","官网通知","实时翻译","课堂生词","会议纪要","资料库","登录预览","注册预览","发布预览","详情预览")&&!mapScreen)Row(Modifier.fillMaxWidth().height(48.dp).padding(horizontal=16.dp),verticalAlignment=Alignment.CenterVertically) {
+  if(screen !in listOf("专注","设置","工具","扫描文件","日历","抽签","快递","取件码","账单","二手信息","信息查询","官网通知","实时翻译","课堂生词","课堂助手","tibo雷达","会议纪要","资料库","登录预览","注册预览","发布预览","详情预览")&&!mapScreen)Row(Modifier.fillMaxWidth().height(48.dp).padding(horizontal=16.dp),verticalAlignment=Alignment.CenterVertically) {
    if(screen !in listOf("今天","工具","日历"))QuietIconButton("返回",AppGlyph.Back,{back()})
    Column(Modifier.weight(1f)) {
     if(screen=="今天")HomeDateHeader()
@@ -343,6 +349,8 @@ class MainActivity: ComponentActivity() {
    "录音" -> RecordingHub{go(it)}
    "实时翻译" -> TranslationScreen(secrets,onBack={back()})
    "课堂生词" -> VocabularyScreen(onBack={back()})
+   "课堂助手" -> ClassroomScreen(onBack={back()})
+   "tibo雷达","tibo重置雷达" -> ResetRadarScreen(onBack={back()})
    "会议纪要" -> MeetingsScreen(secrets,onBack={back()})
    "扫描文件" -> ToolsScreen(favorites){go(it)}
    "天气" -> WeatherScreen()
@@ -384,6 +392,7 @@ class MainActivity: ComponentActivity() {
  }
  } }
  if(editHome)HomeLayoutEditor(homeLayout){editHome=false}
+ AppUpdateHost(enabled=!showGuide&&screen!="设置")
  if(showGuide)QuickStartGuide(secrets,policy){destination,example->guidePreferences.edit().putBoolean("seen",true).apply();showGuide=false;if(destination.isNotBlank())go(destination);example?.let{input=TextFieldValue(it,TextRange(it.length));if(AppAppearance.petEnabled)petComposerOpen=true}}
  CourseImportIntroduction(store,enabled=!showGuide&&screen=="今天"&&input.text.isBlank()&&!busy&&!showChat){go("设置")}
  edit?.let { e -> EventEditor(e,store,onDismiss={edit=null},onSave={store.put(it);chat.add("assistant","用户已保存事项：${it.title}"+if(it.kind==EventKind.TODO)"（TDL）"else"，${it.start}");edit=null},onDelete={store.remove(e);edit=null},onMap={location->mapFrom="";mapTo=location;edit=null;go("地图")}) }

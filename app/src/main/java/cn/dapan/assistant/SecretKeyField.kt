@@ -1,12 +1,10 @@
 package cn.dapan.assistant
 
-import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
@@ -21,7 +19,7 @@ import kotlinx.coroutines.*
 @Composable internal fun SecretKeyField(value:String,onValue:(String)->Unit,provider:KeyProvider,label:String,
  modifier:Modifier=Modifier,enabled:Boolean=true,model:String="deepseek-flash",hint:String=""){
  val scope=rememberCoroutineScope()
- val lifecycle=(LocalContext.current as? ComponentActivity)?.lifecycle
+ val lifecycle=androidx.compose.ui.platform.LocalLifecycleOwner.current.lifecycle
  var job by remember{mutableStateOf<Job?>(null)}
  var checking by remember{mutableStateOf(false)}
  var result by remember{mutableStateOf<ConnectivityResult?>(null)}
@@ -30,8 +28,8 @@ import kotlinx.coroutines.*
  LaunchedEffect(value,model,provider,enabled){cancel(false)}
  DisposableEffect(lifecycle){
   val observer=LifecycleEventObserver{_,event->if(event==Lifecycle.Event.ON_STOP&&checking)cancel(true)}
-  lifecycle?.addObserver(observer)
-  onDispose{lifecycle?.removeObserver(observer);job?.cancel()}
+  lifecycle.addObserver(observer)
+  onDispose{lifecycle.removeObserver(observer);job?.cancel()}
  }
  fun test(){
   if(checking||!enabled)return

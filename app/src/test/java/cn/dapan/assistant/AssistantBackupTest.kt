@@ -16,7 +16,7 @@ class AssistantBackupTest {
   listOf("""{"action":"shell","command":"anything"}""","""{"action":"navigate","module":"不存在"}""").forEach{raw->assertThrows(RuntimeException::class.java){AssistantActions.decode(JSONObject(raw))}}
  }
  @Test fun rejectsAfterStartReminderFromModel(){
-  val invalid=e.copy(reminderMode=ReminderMode.ABSOLUTE,absoluteReminder=e.start)
+  val invalid=e.copy(reminderMode=ReminderMode.ABSOLUTE,absoluteReminder=e.start.plusMinutes(1))
   assertThrows(IllegalArgumentException::class.java){AssistantActions.decode(JSONObject().put("action","event").put("entry",entryToJson(invalid)))}
  }
  @Test fun changeCannotModifyIdsOrAttachments(){

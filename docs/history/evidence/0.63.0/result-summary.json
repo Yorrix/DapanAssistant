@@ -1,0 +1,65 @@
+{
+  "version": "0.63.0",
+  "versionCode": 93,
+  "androidUnitTests": {
+    "tests": 1183,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "backendTests": {
+    "passed": 82
+  },
+  "realModelEvaluation": {
+    "syntheticOnly": true,
+    "cases": 12,
+    "passedLatest": 12,
+    "costUpperCny": 0.18901536
+  },
+  "speechProbe": {
+    "realVocabularyCompiled": true,
+    "websocketHandshake": true,
+    "audioBytes": 0,
+    "recognitionAccuracyMeasured": false
+  },
+  "browserComponent": {
+    "file": "dapan-timetable-1-arm64-v8a.apk",
+    "bytes": 95398278,
+    "sha256": "5eea803282d0ae51f9cd9b9600ce0f01da6201697b7040826ee383c473a1d77e",
+    "httpsHead": 200,
+    "realHuaweiTested": false
+  },
+  "admin": {
+    "singleAccount": true,
+    "userConfigured": true,
+    "loggedInUiVerified": true,
+    "bind": "127.0.0.1:18765",
+    "credentialsIncluded": false
+  },
+  "privacy": {
+    "phoneChatExternalUpload": false,
+    "privateAuditFolderExcluded": true,
+    "publicImageUpload": "Per-image explicit confirmation"
+  },
+  "phoneUpdated": false,
+  "changes": [
+    "Multi-turn confirmations and actual-event-relative reminders",
+    "At-start reminder support",
+    "Full-calendar attribute updates with scoped validation",
+    "Preserve cancelled user context and chronological receipts",
+    "Real ASR vocabulary and campus defaults",
+    "Six quota limits and single-admin management",
+    "Public continuous speech and opt-in images",
+    "Quickstart timetable import",
+    "Ignore incomplete timetable courses after acknowledgement",
+    "Optional independently signed timetable browser",
+    "Deferred TDL priority"
+  ],
+  "apk": {
+    "file": "releases\\DapanAssistant-0.63.0.apk",
+    "bytes": 27185203,
+    "sha256": "c843b3d45bd1f6cd6151f57ab1b9ed8b862f96c154b213bfb96e8bf6cd163179",
+    "signerSha256": "e3e25bb5c862ccde09573772268b5e65cdfdc20490ae95829c1e8f1aa5b01048",
+    "embeddedGecko": false
+  }
+}

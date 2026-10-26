@@ -21,7 +21,7 @@ import androidx.compose.ui.window.DialogProperties
  var error by remember{mutableStateOf<String?>(null)}
  var example by rememberSaveable{mutableStateOf<String?>(null)}
  var accountOpen by rememberSaveable{mutableStateOf(false)}
- val titles=listOf("先接通 AI","直接说你想做什么","操作权限，由你决定","换成你喜欢的样子","这些功能，都在这里")
+ val titles=listOf("先接通 AI","把课表带进来","直接说你想做什么","操作权限，由你决定","换成你喜欢的样子","这些功能，都在这里")
  fun move(to:Int){step=to;error=null}
  Dialog(onDismissRequest={onFinish("",null)},properties=DialogProperties(usePlatformDefaultWidth=false)){
   BoxWithConstraints(Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeDrawing).imePadding().padding(12.dp),contentAlignment=Alignment.Center){
@@ -44,7 +44,8 @@ import androidx.compose.ui.window.DialogProperties
         GuideText("统筹课程、日程和生活琐事。大多数时候，把需求告诉大盘就行。")
         SharedAiSettings(secret,onLogin={accountOpen=true})
        }
-       1->{
+       1->CourseImportGuideStep()
+       2->{
         GuideText("在任何页面，都能让 AI 调用工具。直接说需求，不必找按钮，也不用背口令。")
         listOf(
          "午饭18块，记到吃饭里。",
@@ -64,7 +65,7 @@ import androidx.compose.ui.window.DialogProperties
         GuideInstruction(AppGlyph.Chat,"接着聊","AI 问你几点，直接回“晚上八点”。要更正就说“地点改成 A01”。")
         GuideInstruction(AppGlyph.Add,"交给它资料","点 ＋ 添加图片或文件，再说“存到资料库”或“找一下这份文件里的某句话”。")
        }
-       2->{
+       3->{
         GuideText("权限决定 AI 能否改动你的记录，不影响手动操作。")
         listOf(AssistantAccess.CONFIRM,AssistantAccess.FULL,AssistantAccess.READ_ONLY).forEach{mode->
          val description=when(mode){
@@ -85,7 +86,7 @@ import androidx.compose.ui.window.DialogProperties
         GuideInstruction(AppGlyph.Done,"看执行结果","“已执行”才表示完成。支持撤销的操作会提供撤销按钮；有误也可以接着说。")
         Text("点选即生效，随时可到 今天 → 设置 更改。",fontSize=11.sp,color=Muted)
        }
-       3->{
+       4->{
         Text("形状和配色自由搭配，所有组合都支持白天与黑夜。",fontSize=12.sp,lineHeight=18.sp,color=Muted)
         ThemeChooser()
         StyleChooser()
@@ -93,7 +94,7 @@ import androidx.compose.ui.window.DialogProperties
         PetPreference()
         Text(if(AppAppearance.petEnabled)"单击小助手打开 AI 栏，长按说话；移出再松手取消。"else"保持关闭，使用底部 AI 栏；右下角箭头可收起。",fontSize=11.sp,lineHeight=16.sp,color=Muted)
        }
-       4->GuideFeatureOverview{destination->onFinish(destination,null)}
+       5->GuideFeatureOverview{destination->onFinish(destination,null)}
       }
       error?.let{Text(it,fontSize=12.sp,lineHeight=17.sp,color=MaterialTheme.colorScheme.error)}
      }}
@@ -104,7 +105,7 @@ import androidx.compose.ui.window.DialogProperties
       Spacer(Modifier.weight(1f))
       if(step==titles.lastIndex){
        Button(onClick={onFinish("今天",example)},contentPadding=PaddingValues(horizontal=14.dp,vertical=8.dp)){Text(if(example==null)"开始使用"else"填入练习句",fontSize=13.sp)}
-      }else Button(onClick={move(step+1)},contentPadding=PaddingValues(horizontal=16.dp,vertical=8.dp)){Text("下一步",fontSize=13.sp)}
+      }else Button(onClick={move(step+1)},contentPadding=PaddingValues(horizontal=16.dp,vertical=8.dp)){Text(if(step==1)"继续"else"下一步",fontSize=13.sp)}
      }
     }
    }

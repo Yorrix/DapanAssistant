@@ -68,6 +68,7 @@ internal object NoticeSubscriptions {
 class NoticeSyncService:JobService(){
  private val tasks=mutableMapOf<Int,Job>()
  override fun onStartJob(params:JobParameters):Boolean{
+  if(!AppConsent.accepted(applicationContext))return false
   tasks[params.jobId]=CoroutineScope(Dispatchers.Main).launch{
    var retry=false
    try{

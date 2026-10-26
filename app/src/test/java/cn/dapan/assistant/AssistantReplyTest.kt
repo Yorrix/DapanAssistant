@@ -5,6 +5,18 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class AssistantReplyTest {
+ @Test fun exactFormatMetadataDoesNotNeedAnotherModelCall()=runBlocking{
+  listOf("""{"type":"json_object","content":{"action":"focus","minutes":25}}""","""{"type":"json_object","action":"focus","minutes":25}""").forEach{raw->
+   var calls=0
+   val reply=StructuredReplies.request{calls++;raw}
+   assertEquals(1,calls);assertEquals(25,(AssistantActions.decode(reply) as AssistantAction.Focus).minutes)
+  }
+ }
+ @Test fun conflictingOrIncompleteWrappersRemainRejected(){
+  listOf("""{"type":"json_object","action":"focus","minutes":25,"content":{"action":"focus","minutes":50}}""","""{"type":"json_object","content":{"action":"focus"}}""","""{"type":"unknown","action":"focus","minutes":25}""").forEach{raw->
+   assertThrows(Exception::class.java){AssistantActions.decode(StructuredReplies.parse(raw))}
+  }
+ }
  @Test fun whitespaceFirstReplyRecoversBeforeAnyActionIsReturned()=runBlocking {
   var calls=0
   val result=StructuredReplies.request{calls++;if(it==0)"\n".repeat(12)else "{\"action\":\"chat\",\"reply\":\"请问是哪一天？\"}"}

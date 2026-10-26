@@ -17,10 +17,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -52,6 +58,19 @@ class TimetableImportActivity:ComponentActivity() {
  private var reading by mutableStateOf(false)
  private var preview by mutableStateOf<TeachingImport?>(null)
  private var host by mutableStateOf("学校统一认证")
+ private var showBackup by mutableStateOf(false)
+ private val backup=registerForActivityResult(ActivityResultContracts.StartActivityForResult()){result->
+  if(result.resultCode==RESULT_OK){
+   val uri=result.data?.data
+   if(uri==null){message="备用浏览器没有返回课表，请重新读取。"}
+   else lifecycleScope.launch{
+    reading=true
+    runCatching{withContext(Dispatchers.IO){TimetableBrowserComponent.readResult(this@TimetableImportActivity,uri)}}
+     .onSuccess{preview=it;message="课表已读取，请确认后导入。"}.onFailure{message=it.message?.take(180)?:"课表读取失败，请重试"}
+    reading=false
+   }
+  }
+ }
  override fun onCreate(savedInstanceState:Bundle?) {
   super.onCreate(savedInstanceState);enableEdgeToEdge();AppAppearance.load(this)
   setContent { DapanTheme {
@@ -60,7 +79,7 @@ class TimetableImportActivity:ComponentActivity() {
      Row(Modifier.fillMaxWidth().height(44.dp).padding(horizontal=8.dp),verticalAlignment=Alignment.CenterVertically){
       TextButton(onClick={if(preview!=null)preview=null else finish()}){Text("返回")}
       Text(if(preview==null)"导入课表"else"确认课表",Modifier.weight(1f),fontSize=17.sp,fontWeight=FontWeight.SemiBold)
-      if(preview==null){TextButton(onClick={openCoursePage()},enabled=browserReady){Text("课表")};TextButton(onClick={readPage()},enabled=browserReady&&!reading&&!loading&&pageIssue==null){Text(if(reading)"读取中"else"读取")}}
+      if(preview==null){TextButton(onClick={showBackup=true},contentPadding=PaddingValues(horizontal=5.dp)){Text("兼容",fontSize=12.sp)};TextButton(onClick={openCoursePage()},enabled=browserReady,contentPadding=PaddingValues(horizontal=5.dp)){Text("课表")};TextButton(onClick={readPage()},enabled=browserReady&&!reading&&!loading&&pageIssue==null,contentPadding=PaddingValues(horizontal=5.dp)){Text(if(reading)"读取中"else"读取")}}
      }
      val p=preview
      if(p!=null) TeachingPreview(p,AppStore.get(this@TimetableImportActivity),onBack={preview=null},onFinish={finish()})
@@ -78,13 +97,14 @@ class TimetableImportActivity:ComponentActivity() {
          modifier=Modifier.weight(1f).fillMaxWidth())
        }
       }else{
-       TimetableBrowserError(failure,providerDescription,onRetry={retryBrowser()},onSettings={openComponentSettings()},modifier=Modifier.weight(1f).fillMaxWidth())
+       TimetableBrowserError(failure,providerDescription,onRetry={retryBrowser()},onSettings={openComponentSettings()},onBackup={showBackup=true},modifier=Modifier.weight(1f).fillMaxWidth())
       }
       Text("登录信息仅交给学校；课表在本机解析，不上传给 AI。",Modifier.padding(horizontal=14.dp,vertical=5.dp),fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
      }
     }
    }
-   BackHandler {
+   if(showBackup)TimetableBrowserDownload(onClose={showBackup=false},onOpen={invalidateRead();backup.launch(TimetableBrowserComponent.launch(this@TimetableImportActivity))})
+   BackHandler(enabled=!showBackup) {
     if(preview!=null)preview=null
     else if(browserFailure!=null)finish()
     else {val v=web;if(v!=null&&runCatching{v.canGoBack()}.getOrDefault(false))withBrowser{it.goBack()}else finish()}
@@ -145,7 +165,8 @@ class TimetableImportActivity:ComponentActivity() {
    setSupportZoom(true);builtInZoomControls=true;displayZoomControls=false;useWideViewPort=true;loadWithOverviewMode=true
    setSupportMultipleWindows(false)
    // The school uses a desktop table even on phones; keep a stable, zoomable layout.
-   userAgentString=userAgentString.replace("; wv","").replace(" Mobile "," ")
+   val chrome=Regex("Chrome/[0-9.]+").find(userAgentString)?.value
+   if(chrome!=null)userAgentString="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) $chrome Safari/537.36"
   }
   CookieManager.getInstance().setAcceptThirdPartyCookies(v,false)
   v.webChromeClient=WebChromeClient()
@@ -215,7 +236,7 @@ class TimetableImportActivity:ComponentActivity() {
   val path=request.url.path.orEmpty()
   val scriptOrStyle=request.url.host in setOf("jxgl.dlut.edu.cn","cdn-dlut.supwisdom.com")&&(path.endsWith(".js")||path.endsWith(".css"))
   if(!request.isForMainFrame&&!scriptOrStyle)return
-  pageIssue=if(request.isForMainFrame)"学校页面暂时无法连接，请点‘课表’重试。"else"学校的课表脚本或样式加载失败，请点‘课表’重试。"
+  pageIssue=if(request.isForMainFrame)"学校页面暂时无法连接。可重试，或点右上角‘兼容’使用备用浏览器。"else"学校脚本或样式未加载。可重试，或点右上角‘兼容’切换浏览器。"
   message=pageIssue!!;loading=false;invalidateRead()
  }
  private fun snapshot(done:(Result<JSONObject>)->Unit){
@@ -269,7 +290,7 @@ private enum class TimetableBrowserFailure(val heading:String,val detail:String)
  RENDERER_RELEASED("学校页面已释放","系统回收了网页进程。点重试重新打开学校页面，必要时重新登录。")
 }
 
-@Composable private fun TimetableBrowserError(failure:TimetableBrowserFailure,provider:String?,onRetry:()->Unit,onSettings:()->Unit,modifier:Modifier=Modifier){
+@Composable private fun TimetableBrowserError(failure:TimetableBrowserFailure,provider:String?,onRetry:()->Unit,onSettings:()->Unit,onBackup:()->Unit,modifier:Modifier=Modifier){
  Box(modifier){
   Column(Modifier.align(Alignment.TopCenter).widthIn(max=480.dp).fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal=18.dp,vertical=18.dp),verticalArrangement=Arrangement.spacedBy(8.dp)){
    Text(failure.heading,fontSize=17.sp,fontWeight=FontWeight.SemiBold)
@@ -278,6 +299,7 @@ private enum class TimetableBrowserFailure(val heading:String,val detail:String)
    Row(horizontalArrangement=Arrangement.spacedBy(8.dp)){
     Button(onClick=onRetry,contentPadding=PaddingValues(horizontal=18.dp,vertical=6.dp)){Text("重试")}
     TextButton(onClick=onSettings){Text("组件设置")}
+    TextButton(onClick=onBackup){Text("备用浏览器")}
    }
   }
  }
@@ -286,8 +308,9 @@ private enum class TimetableBrowserFailure(val heading:String,val detail:String)
 @Composable private fun TeachingPreview(p:TeachingImport,s:AppStore,onBack:()->Unit,onFinish:()->Unit){
  var futureOnly by remember(p){mutableStateOf(true)}
  var remind by remember(p){mutableStateOf(true)}
- var selected by remember(p){mutableStateOf(p.courses.filter{it.title !in p.unscheduled}.map{it.code}.toSet())}
- var expanded by remember(p){mutableStateOf<String?>(null)}
+ var selected by remember(p){mutableStateOf(p.courses.filterIndexed{index,_->p.issues.none{it.index==index}}.map{it.code}.toSet())}
+ var ignored by remember(p){mutableStateOf(emptySet<Int>())}
+ var expanded by remember(p){mutableStateOf<Int?>(null)}
  var result by remember{mutableStateOf<String?>(null)}
  val values=p.entries.filter{e->selected.any{e.notes.contains("课程编号：$it\n")}&&(!futureOnly||e.start.toLocalDate()>=LocalDate.now())}.map{if(remind)it else it.copy(reminderMode=ReminderMode.OFF)}
  val merge=TimetableImport.merge(values,s.entries)
@@ -296,14 +319,20 @@ private enum class TimetableBrowserFailure(val heading:String,val detail:String)
   Text("第 1 周始于 ${p.term.monday} · 时间来自学校课表",fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
   Row(verticalAlignment=Alignment.CenterVertically){Checkbox(futureOnly,{futureOnly=it},Modifier.size(34.dp));Text("只导入今天起的课程",fontSize=12.sp);Spacer(Modifier.weight(1f));Checkbox(remind,{remind=it},Modifier.size(34.dp));Text("出发提醒",fontSize=12.sp)}
   Text("路程 20 分钟${if(remind)"，出发时提醒"else"，不提醒"}；导入后可逐项修改。",fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
+  if(p.issues.isNotEmpty())Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically){
+   Text("${p.issues.size} 门暂无完整时间，确认忽略后导入其余课程。",Modifier.weight(1f),fontSize=11.sp,color=MaterialTheme.colorScheme.error)
+   TextButton(onClick={ignored=p.issues.map{it.index}.toSet()}){Text("忽略这些",fontSize=12.sp)}
+  }
   LazyColumn(Modifier.weight(1f).fillMaxWidth()){
-   items(p.courses,key={it.code}){c->
+   itemsIndexed(p.courses,key={index,c->"$index:${c.code}"}){index,c->
+    val issue=p.issues.firstOrNull{it.index==index}
     val entries=p.entries.filter{it.notes.contains("课程编号：${c.code}\n")};val absent=entries.isEmpty()
-    Row(Modifier.fillMaxWidth().clickable{expanded=if(expanded==c.code)null else c.code}.padding(vertical=6.dp),verticalAlignment=Alignment.CenterVertically){
+    Row(Modifier.fillMaxWidth().clickable{expanded=if(expanded==index)null else index}.padding(vertical=6.dp),verticalAlignment=Alignment.CenterVertically){
      if(!absent)Checkbox(c.code in selected,{selected=if(it)selected+c.code else selected-c.code},Modifier.size(34.dp))
-     Column(Modifier.weight(1f)){Text(c.title,fontSize=14.sp,fontWeight=FontWeight.Medium);Text(if(absent)"学校标记不排课，不生成日程"else"学期共 ${entries.size} 次 · 点开核对时间与地点",fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)}
+     Column(Modifier.weight(1f)){Text(c.title.ifBlank{"第 ${index+1} 门课程"},fontSize=14.sp,fontWeight=FontWeight.Medium);Text(issue?.reason?:if(absent)"暂无可导入时间"else"学期共 ${entries.size} 次 · 点开核对时间与地点",fontSize=11.sp,color=if(issue!=null&&index !in ignored)MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)}
+     if(issue!=null)TextButton(onClick={ignored=if(index in ignored)ignored-index else ignored+index}){Text(if(index in ignored)"已忽略"else"忽略",fontSize=12.sp)}
     }
-    if(expanded==c.code){
+    if(expanded==index){
      Text(c.schedule,Modifier.padding(bottom=4.dp),fontSize=11.sp)
      entries.take(4).forEach{Text("${it.start.toLocalDate()}  ${it.start.toLocalTime()}–${it.end.toLocalTime()}  ${it.location}",fontSize=11.sp)}
      if(entries.size>4)Text("另有 ${entries.size-4} 次，按上方周次展开",fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
@@ -314,7 +343,11 @@ private enum class TimetableBrowserFailure(val heading:String,val detail:String)
   Text("新增 ${merge.fresh.size} 次 · 已有 ${merge.unchanged} 次 · 差异 ${merge.changed.size} 次",fontSize=13.sp,fontWeight=FontWeight.Medium)
   if(merge.changed.isNotEmpty())Text("有差异的已有日程将保留，不自动覆盖。",fontSize=11.sp,color=MaterialTheme.colorScheme.error)
   Text("按教务周次导入；调课或教室更新后请重新核对。",fontSize=11.sp,color=MaterialTheme.colorScheme.onSurfaceVariant)
-  Button(onClick={runCatching{s.importTeaching(values)}.onSuccess{result=it}.onFailure{result=it.message?:"未能保存，请重试"}},enabled=merge.fresh.isNotEmpty(),modifier=Modifier.fillMaxWidth().padding(vertical=6.dp)){Text("确认导入 ${merge.fresh.size} 次")}
+  if(p.entries.isEmpty())Text("本学期暂没有可导入的完整课程，不会创建空日程。",fontSize=12.sp,color=MaterialTheme.colorScheme.error)
+  Button(onClick={runCatching{
+   require(p.issues.all{it.index in ignored}&&values.isNotEmpty()){"请先确认忽略未排课条目"}
+   s.importTeaching(values)+(if(ignored.isNotEmpty())"\n已按你的选择忽略 ${ignored.size} 门课程。"else"")
+  }.onSuccess{result=it}.onFailure{result=it.message?:"未能保存，请重试"}},enabled=merge.fresh.isNotEmpty()&&p.issues.all{it.index in ignored},modifier=Modifier.fillMaxWidth().padding(vertical=6.dp)){Text("确认导入 ${merge.fresh.size} 次")}
  }
  result?.let{msg->AlertDialog(onDismissRequest={result=null},title={Text("课表导入")},text={Text("$msg\n\n以后可从 今天 → 右上角设置 → 导入课表 再次进入。")},confirmButton={TextButton(onClick=onFinish){Text("完成")}},dismissButton={TextButton(onClick={result=null;onBack()}){Text("查看教务")}})}
 }

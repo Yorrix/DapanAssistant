@@ -79,7 +79,7 @@ import java.util.UUID
   }
  }
  LaunchedEffect(controller.active,controller.ending,recording,controller.outside,controller.cancelled,controller.limitReached,AudioState.text,AudioState.session){
-  controller.feedback=if(!controller.active||controller.cancelled)null else if(controller.ending)"正在整理识别结果…"else if(controller.outside)"松开取消 · 移回继续"else if(controller.limitReached)"已录满 60 秒，松开发送，上滑取消\n"+AudioState.text else if(AudioState.session==session&&AudioState.text.isNotBlank())AudioState.text else if(recording)if(controller.shared)"公用语音最多 60 秒 · 松开发送，上滑取消"else"正在听 · 松开发送，上滑取消"else"正在打开麦克风…"
+  controller.feedback=if(!controller.active||controller.cancelled)null else if(controller.ending)"正在整理识别结果…"else if(controller.outside)"松开取消 · 移回继续"else if(AudioState.session==session&&AudioState.text.isNotBlank())AudioState.text else if(recording)"正在听 · 松开发送，上滑取消"else"正在打开麦克风…"
  }
  fun stop(cancel:Boolean=false){
   if(controller.active&&(cancel||!controller.ending)){controller.cancelled=cancel;controller.ending=true;haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)

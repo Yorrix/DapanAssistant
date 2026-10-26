@@ -53,9 +53,11 @@ data class LibraryAttachmentSaveReport(val saved:List<LibrarySavedAttachment>,va
 }
 object LibraryIndexState{
  const val WAITING="等待文字识别"
- const val NO_KEY="等待配置 DeepSeek 密钥"
+ const val NO_KEY="等待登录公用 AI 或配置自备 API"
+ const val PUBLIC_CONSENT="待选择公用图片识别 · 打开文字索引后确认"
  const val RUNNING="正在识别文字"
- fun resumable(state:String)=state in setOf(WAITING,NO_KEY,RUNNING)
+ fun needsAiSetup(state:String)=state==NO_KEY||state=="等待配置 DeepSeek 密钥"
+ fun resumable(state:String)=state in setOf(WAITING,RUNNING)||needsAiSetup(state)
 }
 class LibraryStore(private val c:Context):SQLiteOpenHelper(c,"library-v1.db",null,2){
  override fun onCreate(db:SQLiteDatabase){db.execSQL("CREATE TABLE documents(id TEXT PRIMARY KEY,name TEXT NOT NULL,mime TEXT NOT NULL,path TEXT NOT NULL UNIQUE,size INTEGER,created INTEGER,remark TEXT,body TEXT,state TEXT,source TEXT,content_hash TEXT NOT NULL DEFAULT '',text_version TEXT NOT NULL DEFAULT '')")}
@@ -133,11 +135,11 @@ class LibraryStore(private val c:Context):SQLiteOpenHelper(c,"library-v1.db",nul
   writableDatabase.insertOrThrow("documents",null,values)
  }
  /** The original has been saved before the remote image request is queued. */
- fun index(id:String,force:Boolean=false){
+ fun index(id:String,force:Boolean=false,publicImageConsent:Boolean=false){
   val doc=find(id)?:error("文件已不存在")
   if(doc.kind==LibraryKind.IMAGE){
    if(!force&&doc.text.isNotBlank())return
-   if(force||LibraryIndexState.resumable(doc.state)){setIndexState(id,LibraryIndexState.WAITING);LibraryImageIndexQueue.enqueue(c,id,force)}
+   if(force||LibraryIndexState.resumable(doc.state)){setIndexState(id,LibraryIndexState.WAITING);LibraryImageIndexQueue.enqueue(c,id,force,publicImageConsent)}
    return
   }
   val result=runCatching{AssistantFiles.extractText(File(doc.path),doc.name,doc.mime)}.getOrElse{"" to "正文暂不可读，可搜名称和备注"}
@@ -179,7 +181,7 @@ class LibraryStore(private val c:Context):SQLiteOpenHelper(c,"library-v1.db",nul
 private object LibraryImageIndexQueue{
  private val scope=CoroutineScope(SupervisorJob()+Dispatchers.IO)
  private val serial=Mutex();private val active=mutableSetOf<String>()
- fun enqueue(context:Context,id:String,force:Boolean=false){
+ fun enqueue(context:Context,id:String,force:Boolean=false,publicImageConsent:Boolean=false){
   synchronized(active){if(!active.add(id))return}
   val app=context.applicationContext
   scope.launch{
@@ -189,8 +191,9 @@ private object LibraryImageIndexQueue{
     val hash=lib.imageHash(doc);val cached=if(force)null else lib.sameImage(hash,id)
     if(cached!=null){lib.applyIndex(id,cached.text,cached.state);return@use}
     if(!ImageTextIndexer.available(app)){lib.setIndexState(id,LibraryIndexState.NO_KEY);return@use}
+    if(SharedAi.mode(app)==SharedAi.Mode.SHARED&&!publicImageConsent){lib.setIndexState(id,LibraryIndexState.PUBLIC_CONSENT);return@use}
     lib.setIndexState(id,LibraryIndexState.RUNNING);withContext(Dispatchers.Main){LibraryChanges.revision++}
-    val result=runInterruptible{ImageTextIndexer.extract(app,File(doc.path))}
+    val result=runInterruptible{ImageTextIndexer.extract(app,File(doc.path),publicImageConsent)}
     if(result.status=="missing_key")lib.setIndexState(id,LibraryIndexState.NO_KEY)
     else if(result.text.isNotBlank())lib.applyIndex(id,result.text,result.state)
     else if(doc.text.isNotBlank())lib.setIndexState(id,"${result.state} · 保留上次识别文字")

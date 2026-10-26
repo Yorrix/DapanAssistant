@@ -11,7 +11,7 @@ $ErrorActionPreference='Stop'
 if(!$JavaHome -or !(Test-Path -LiteralPath (Join-Path $JavaHome 'bin/java.exe'))){throw 'Set JAVA_HOME or pass -JavaHome to your Android Studio JDK.'}
 if(!$AndroidSdk){$AndroidSdk=$env:ANDROID_SDK_ROOT}
 if(!$AndroidSdk -or !(Test-Path -LiteralPath $AndroidSdk)){throw 'Set ANDROID_HOME or pass -AndroidSdk.'}
-if(!$BuildRoot){$BuildRoot=Join-Path ([IO.Path]::GetTempPath()) 'dapan-assistant-build-0.61.4'}
+if(!$BuildRoot){$BuildRoot=Join-Path ([IO.Path]::GetTempPath()) 'dapan-assistant-build-1.0.0'}
 $BuildRoot=[IO.Path]::GetFullPath($BuildRoot)
 $env:JAVA_HOME=$JavaHome
 $env:ANDROID_HOME=$AndroidSdk

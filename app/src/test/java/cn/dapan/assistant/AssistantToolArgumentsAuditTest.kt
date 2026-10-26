@@ -127,6 +127,8 @@ class AssistantToolArgumentsAuditTest {
  @Test fun everyGeneratedPageOperationHasAUsableArgumentShape(){
   // A fixture per operation catches new catalogue fields accidentally treated as required.
   val fixtures=mapOf(
+   "课堂助手/configure" to """{"mode":"讨论发言","level":4}""", "课堂助手/add" to """{"text":"同学观点"}""",
+   "tibo雷达/notification" to """{"enabled":false}""",
    "今天/widgets" to """{"enabled":[]}""",
    "账单/month" to """{"month":"2026-10"}""", "晨签/month" to """{"month":"2026-10"}""",
    "天气/notification" to """{"enabled":false}""",

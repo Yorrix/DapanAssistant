@@ -6,16 +6,16 @@ Original project code and materials are provided under the PolyForm
 Noncommercial License 1.0.0. See LICENSE. Copyright is retained by its
 respective owners; this license does not transfer ownership.
 
-For commercial licensing, contact Yorrix:
-https://github.com/Yorrix
+For commercial licensing, contact Yorrix via the project repository:
+https://github.com/Yorrix/DUTP_Assistant
 
 Third-party software, assets, data, and notices retain their own licenses
 and copyright ownership. This project's license does not replace those
 licenses or restrict rights independently granted by their owners.
-See THIRD_PARTY_NOTICES.txt,
+See THIRD_PARTY_NOTICES.txt (under DapanAssistant/ at repository root),
 vendor/sdk-0.7.0/LICENSE, NOTICE, THIRD-PARTY-NOTICES.md and third-party/,
 and app/src/main/assets/markdown-license/ for the corresponding notices.
-All component paths above are relative to this repository root.
+The latter component paths are relative to DapanAssistant/.
 OpenStreetMap data remains under ODbL 1.0; Open-Meteo data remains under
 CC BY 4.0. School names, logos, and third-party publications are not
 relicensed by this notice.

@@ -9,7 +9,7 @@ from fastapi import HTTPException
 from fastapi.testclient import TestClient
 
 from app import create_app
-from shared_speech import (MAX_BYTES, RESERVATION, SharedSpeech, SpeechError,
+from shared_speech import (RESERVATION, SharedSpeech, SpeechError,
                            install_shared_speech, settle_cost, start_payload)
 
 
@@ -158,31 +158,32 @@ def test_invalid_frame_stops_without_forwarding(relay):
     assert ai.budget.status(user['id'])['day']['used'] == 0
 
 
-def test_hard_audio_cap_and_settlement(relay):
+def test_continuous_speech_beyond_old_limit(relay):
     client, ai, speech, supplier, headers, user = relay
+    supplier.usage=125
+    request=start()
     with client.websocket_connect('/ai/speech', headers=headers) as ws:
-        ws.send_json(start());ws.receive_json()
-        for _ in range(MAX_BYTES // 16000):
+        ws.send_json(request);ws.receive_json()
+        for _ in range(250):
             ws.send_bytes(bytes(16000))
-        ws.send_bytes(bytes(2))
-        assert ws.receive_json()['header']['error_code'] == 'limit'
-    assert supplier.bytes == MAX_BYTES
-    balance = ai.budget.status(user['id'])['day']
-    assert balance['used'] == 19800 and balance['held'] == 0
+        ws.send_json(finish(request['header']['task_id']))
+        assert ws.receive_json()['header']['event']=='result-generated'
+        assert ws.receive_json()['header']['event']=='task-finished'
+    assert supplier.bytes==125*32000
+    balance=ai.budget.status(user['id'])['day']
+    assert balance['used']==125*330 and balance['held']==0
 
 
-def test_shared_pool_and_same_kind_concurrency(relay):
+def test_shared_pool_allows_independent_calls(relay):
     client, ai, speech, supplier, headers, user = relay
-    text_id = identifier()
-    ai.budget.reserve(text_id, user['id'], 1000, kind='text')
-    with client.websocket_connect('/ai/speech', headers=headers) as ws:
-        ws.send_json(start());assert ws.receive_json()['header']['event'] == 'task-started'
-        with client.websocket_connect('/ai/speech', headers=headers) as another:
-            another.send_json(start())
-            assert another.receive_json()['header']['error_code'] == 'busy'
-        assert ai.budget.status(user['id'])['day']['held'] == 1000 + RESERVATION
-    ai.budget.settle_amount(text_id, 100)
-    assert ai.budget.status(user['id'])['day']['used'] == 100
+    text_id,another=identifier(),identifier()
+    ai.budget.reserve(text_id,user['id'],1000,kind='text')
+    ai.budget.reserve(another,user['id'],1000,kind='text')
+    with client.websocket_connect('/ai/speech',headers=headers) as ws:
+        ws.send_json(start());assert ws.receive_json()['header']['event']=='task-started'
+        assert ai.budget.status(user['id'])['day']['held']==2000+RESERVATION
+    ai.budget.settle_amount(text_id,100);ai.budget.settle_amount(another,100)
+    assert ai.budget.status(user['id'])['day']['used']==200
 
 
 def test_quota_rejects_before_supplier_connection(relay):

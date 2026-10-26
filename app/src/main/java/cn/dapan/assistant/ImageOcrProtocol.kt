@@ -2,6 +2,7 @@ package cn.dapan.assistant
 
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.BufferedReader
 
 data class ImageTextIndexResult(val text:String,val state:String,val status:String="ready")
 
@@ -39,6 +40,36 @@ internal object ImageOcrProtocol {
    finish=="length"->ImageTextIndexResult(clean,"部分文字 · OCR 输出达到上限，请核对原图","partial")
    else->ImageTextIndexResult(clean,"图片文字已识别 · DeepSeek OCR，请核对原图","ready")
   }
+ }
+ /** The public relay streams OCR too; never publish text from a broken stream. */
+ fun readStream(reader:BufferedReader):ImageTextIndexResult {
+  val text=StringBuilder();val data=StringBuilder();var finish="";var done=false;var received=0
+  fun consume(){
+   if(data.isEmpty())return
+   val event=data.toString();data.setLength(0)
+   if(event.trim()=="[DONE]"){done=true;return}
+   val frame=JSONObject(event)
+   if(frame.has("dapan_error"))throw SharedAiException(frame.optJSONObject("dapan_error")?.optString("message")?.take(300)?:"公用图片识别中断，请重试")
+   require(!frame.has("error")){"识别服务返回错误"}
+   val choice=frame.optJSONArray("choices")?.optJSONObject(0)?:return
+   val reason=choice.opt("finish_reason")
+   if(reason is String&&reason.isNotBlank()){
+    require(reason=="stop"||reason=="length"){"识别输出不完整"};finish=reason
+   }
+   val part=choice.optJSONObject("delta")?.opt("content")
+   if(part is String){text.append(part);require(text.length<=1_048_576){"识别返回内容过长"}}
+  }
+  while(!done){
+   if(Thread.currentThread().isInterrupted)throw java.io.InterruptedIOException("文字识别已取消")
+   val line=reader.readLine()?:break
+   received+=line.length;require(received<=2_097_152){"识别返回内容过长"}
+   if(line.isEmpty())consume()
+   else if(line.startsWith("data:")){if(data.isNotEmpty())data.append('\n');data.append(line.substring(5).removePrefix(" "))}
+  }
+  if(!done&&data.isNotEmpty())consume()
+  require(done&&finish.isNotBlank()){ "识别传输中断，请重试" }
+  return parse(JSONObject().put("choices",JSONArray().put(JSONObject().put("finish_reason",finish)
+   .put("message",JSONObject().put("content",text.toString())))).toString())
  }
  fun httpFailure(code:Int)=when(code){
   401,403->"DeepSeek 密钥无效或无权访问，请检查配置"

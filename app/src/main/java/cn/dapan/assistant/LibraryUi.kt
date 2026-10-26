@@ -28,6 +28,7 @@ import java.io.File
  var busy by remember{mutableStateOf(false)};var loading by remember{mutableStateOf(true)};var migrated by remember{mutableStateOf(false)}
  var error by remember{mutableStateOf("")};var rename by remember{mutableStateOf(false)};var deleting by remember{mutableStateOf(false)};var exporting by remember{mutableStateOf<LibraryDocument?>(null)}
  var reading by remember{mutableStateOf(false)}
+ var publicOcr by remember{mutableStateOf<LibraryDocument?>(null)}
  var evidence by remember{mutableStateOf(emptyMap<String,LibraryTextMatch>())}
  fun task(work:suspend ()->Unit){if(busy)return;scope.launch{busy=true;error="";try{work()}catch(e:CancellationException){throw e}catch(e:Exception){error=e.message?:"操作未完成"}finally{busy=false}}}
  fun choose(d:LibraryDocument){focus.clearFocus();reading=false;selected=d}
@@ -72,7 +73,7 @@ import java.io.File
    Text(if(loading)"正在读取…"else"${docs.size}${if(docs.size==100)"+"else""} 个文件",fontSize=11.sp,color=Muted)
    if(docs.size==100)Text(" · 可按类型或关键词继续查找",fontSize=11.sp,color=Muted)
   }
-  if(kind==LibraryKind.IMAGE||docs.any{it.kind==LibraryKind.IMAGE&&LibraryIndexState.resumable(it.state)})Text("新图片自动发往 DeepSeek 识字，使用个人密钥额度；原图保留。",Modifier.padding(horizontal=14.dp,vertical=3.dp),fontSize=11.sp,lineHeight=15.sp,color=Muted)
+  if(kind==LibraryKind.IMAGE||docs.any{it.kind==LibraryKind.IMAGE&&LibraryIndexState.resumable(it.state)})Text(if(SharedAi.mode(c)==SharedAi.Mode.SHARED)"公用图片识别需逐张确认；打开图片的文字索引后选择识别。"else"新图片自动发往 DeepSeek 识字，使用个人 API 额度；原图保留。",Modifier.padding(horizontal=14.dp,vertical=3.dp),fontSize=11.sp,lineHeight=15.sp,color=Muted)
   if(docs.isEmpty()&&!loading)Box(Modifier.weight(1f).fillMaxWidth().padding(16.dp)){
    Text(if(query.isBlank()&&kind==LibraryKind.ALL)"点右上角＋收纳文件，之后随时搜索或让 AI 帮你找。"else"没有匹配的文件，试试其他类型或关键词。",fontSize=13.sp,color=Muted)
   }else if(grid){
@@ -116,9 +117,10 @@ import java.io.File
     Row{TextButton(onClick={rename=true}){Text("编辑")};TextButton(onClick={exportFile(d)},enabled=!busy){Text("导出")};TextButton(onClick={deleting=true},enabled=!busy){Text("删除")}}
    }
   },confirmButton={TextButton(onClick={openExternal(d)}){Text("打开文件")}},dismissButton={TextButton(onClick={selected=null}){Text("关闭")}})
-  if(reading)LibraryTextViewer(d,query,onClose={reading=false},onRetry={task{
-   withContext(Dispatchers.IO){store.index(d.id,force=true)};LibraryChanges.revision++
-  }},retryEnabled=!busy&&!LibraryIndexState.resumable(d.state))
+  if(reading)LibraryTextViewer(d,query,onClose={reading=false},onRetry={
+   if(d.kind==LibraryKind.IMAGE&&SharedAi.mode(c)==SharedAi.Mode.SHARED)publicOcr=d
+   else task{withContext(Dispatchers.IO){store.index(d.id,force=true)};LibraryChanges.revision++}
+  },retryEnabled=!busy&&(!LibraryIndexState.resumable(d.state)||LibraryIndexState.needsAiSetup(d.state)))
   if(rename){
    var name by remember(d.id){mutableStateOf(d.name)};var remark by remember(d.id){mutableStateOf(d.remark)}
    AlertDialog(onDismissRequest={rename=false},title={Text("名称与备注")},text={Column{
@@ -128,4 +130,8 @@ import java.io.File
   }
   if(deleting)AlertDialog(onDismissRequest={deleting=false},title={Text("删除库中副本？")},text={Text("${d.name}\n导入前的外部原文件不受影响。")},confirmButton={TextButton(enabled=!busy,onClick={task{withContext(Dispatchers.IO){store.delete(d.id)};selected=null;deleting=false;LibraryChanges.revision++}}){Text("删除")}},dismissButton={TextButton(onClick={deleting=false}){Text("取消")}})
  }
+ publicOcr?.let{d->AlertDialog(onDismissRequest={publicOcr=null},title={Text("用公用 AI 识别这张图片？",fontSize=17.sp)},
+  text={Text("${d.name}\n\n这张图片将经过开发者部署的服务器，再发送给 DeepSeek 识别文字，消耗公用额度。仅处理这张图片，其他图片不会自动上传。",fontSize=13.sp,lineHeight=19.sp)},
+  confirmButton={TextButton(enabled=!busy,onClick={publicOcr=null;task{withContext(Dispatchers.IO){store.index(d.id,force=true,publicImageConsent=true)};LibraryChanges.revision++}}){Text("识别这张图片")}},
+  dismissButton={TextButton(onClick={publicOcr=null}){Text("取消")}})}
 }

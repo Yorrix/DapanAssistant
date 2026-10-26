@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src chrome:; object-src 'none'" />
+    <meta charset="UTF-8">
+    <meta name="color-scheme" content="light dark">
+    <meta name="viewport" content="width=device-width; user-scalable=false;">
+    <title>Build Configuration</title>
+    <link rel="stylesheet" href="chrome://global/skin/in-content/info-pages.css" type="text/css">
+    <link rel="stylesheet" href="chrome://global/content/buildconfig.css" type="text/css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Build Configuration</h1>
+      <p>Please be aware that this page doesn't reflect all the options used to build Firefox.</p>
+      <h2>Source</h2>
+      <p>Built from <a href="https://hg.mozilla.org/releases/mozilla-release/rev/e4ce606692cd81e6898547e2edd7c552fefcbb04">https://hg.mozilla.org/releases/mozilla-release/rev/e4ce606692cd81e6898547e2edd7c552fefcbb04</a></p>
+      <h2>Build platform</h2>
+      <table class="build-platform-table">
+        <tbody>
+          <tr>
+            <th>target</th>
+          </tr>
+          <tr>
+            <td>arm64-v8a</td><td>armeabi-v7a</td><td>x86_64</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>Configure options</h2>
+      <p>MOZ_AUTOMATION=1 --enable-project=mobile/android --target=arm-linux-androideabi MOZILLA_OFFICIAL=1 --enable-update-channel=release MOZBUILD_STATE_PATH=/builds/worker/.mozbuild --disable-compile-environment MOZ_FETCHES_DIR=/builds/worker/fetches --enable-geckoview-lite MOZ_SOURCE_REPO=https://hg.mozilla.org/releases/mozilla-release MOZ_SOURCE_CHANGESET=e4ce606692cd81e6898547e2edd7c552fefcbb04 --enable-js-shell --enable-rust-simd --with-mozilla-api-keyfile=/builds/mozilla-fennec-geoloc-api.key --with-google-safebrowsing-api-keyfile=/builds/sb-gapi.data MOZ_REQUIRE_SIGNING= --enable-official-branding MOZ_SIMPLE_PACKAGE_NAME=target MOZ_PACKAGE_JSSHELL=1 --with-gradle=/builds/worker/fetches/android-gradle-dependencies/gradle-dist/bin/gradle GRADLE_MAVEN_REPOSITORIES=file:///builds/worker/fetches/android-gradle-dependencies/mozilla,file:///builds/worker/fetches/android-gradle-dependencies/google,file:///builds/worker/fetches/android-gradle-dependencies/central,file:///builds/worker/fetches/android-gradle-dependencies/gradle-plugins MOZ_ANDROID_FAT_AAR_ARCHITECTURES=armeabi-v7a,arm64-v8a,x86_64 JS_BINARY=/builds/worker/checkouts/gecko/mobile/android/config/js_wrapper.sh</p>
+    </div>
+  </body>
+</html>

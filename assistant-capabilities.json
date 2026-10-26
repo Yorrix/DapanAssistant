@@ -1,4 +1,63 @@
 {
+  "课堂助手": [
+    {
+      "op": "configure",
+      "description": "mode选择提示词预设：讨论发言/思政课堂/通用课堂/自定义；prompt修改后自动成为自定义，不覆盖预设；topic主题，level=1..7；automatic开启或关闭意图检测自动生成，各项可单独修改",
+      "fields": [
+        "mode",
+        "topic",
+        "prompt",
+        "level",
+        "automatic"
+      ],
+      "writes": true
+    },
+    {
+      "op": "generate",
+      "description": "根据当前讨论记录准备一段发言；question可补充本次问题或想强调的观点，生成草稿不代表已经发言",
+      "fields": [
+        "question"
+      ],
+      "writes": true
+    },
+    {
+      "op": "add",
+      "description": "补充真实课堂文字记录，text内容，speaker可选发言人；不得把AI草稿直接当成已说过的话",
+      "fields": [
+        "text",
+        "speaker"
+      ],
+      "writes": true
+    },
+    {
+      "op": "start",
+      "description": "持续收听课堂并记录转写，需要麦克风权限及当前选用的语音服务",
+      "fields": [],
+      "writes": true
+    },
+    {
+      "op": "stop",
+      "description": "停止课堂收听，保留已有转写和草稿",
+      "fields": [],
+      "writes": true
+    }
+  ],
+  "tibo雷达": [
+    {
+      "op": "refresh",
+      "description": "同步 tibo 的重置记录和预告",
+      "fields": [],
+      "writes": false
+    },
+    {
+      "op": "notification",
+      "description": "启用或关闭新公告通知，首次启用只建立基线，不提醒历史公告",
+      "fields": [
+        "enabled"
+      ],
+      "writes": true
+    }
+  ],
   "今天": [
     {
       "op": "widgets",
@@ -238,7 +297,7 @@
     },
     {
       "op": "start",
-      "description": "开始实时收听并翻译，需要麦克风权限及两种密钥",
+      "description": "开始实时收听并翻译，需要麦克风权限及当前配置的语音、文字 AI",
       "fields": [],
       "writes": true
     },

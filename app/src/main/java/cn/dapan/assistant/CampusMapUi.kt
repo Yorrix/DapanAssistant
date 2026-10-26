@@ -8,7 +8,6 @@ import android.hardware.*
 import android.location.*
 import android.os.SystemClock
 import android.view.Surface as AndroidSurface
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.*
@@ -74,7 +73,7 @@ private fun usable(l:Location?,now:Long)=l!=null&&l.hasAccuracy()&&l.accuracy in
  fun requestLocation(){permission.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION))}
  LaunchedEffect(Unit){if(c.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED&&c.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED)requestLocation()}
  LaunchedEffect(Unit){while(true){now=SystemClock.elapsedRealtime();delay(3000)}}
- val lifecycle=(c as ComponentActivity).lifecycle
+ val lifecycle=androidx.compose.ui.platform.LocalLifecycleOwner.current.lifecycle
  // Subscribe in BOTH orientation modes, only while this screen is in the foreground.
  DisposableEffect(lifecycle,permissionTick){
   val lm=c.getSystemService(LocationManager::class.java);val sm=c.getSystemService(SensorManager::class.java)
@@ -92,7 +91,7 @@ private fun usable(l:Location?,now:Long)=l!=null&&l.hasAccuracy()&&l.accuracy in
    override fun onAccuracyChanged(sensor:Sensor?,accuracy:Int){headingReliable=accuracy!=SensorManager.SENSOR_STATUS_UNRELIABLE}
    override fun onSensorChanged(event:SensorEvent){
     val raw=FloatArray(9);val remapped=FloatArray(9);SensorManager.getRotationMatrixFromVector(raw,event.values)
-    @Suppress("DEPRECATION") val rotation=c.windowManager.defaultDisplay.rotation
+    @Suppress("DEPRECATION") val rotation=(c.getSystemService(android.content.Context.WINDOW_SERVICE) as android.view.WindowManager).defaultDisplay.rotation
     val axes=when(rotation){AndroidSurface.ROTATION_90->SensorManager.AXIS_Y to SensorManager.AXIS_MINUS_X;AndroidSurface.ROTATION_180->SensorManager.AXIS_MINUS_X to SensorManager.AXIS_MINUS_Y;AndroidSurface.ROTATION_270->SensorManager.AXIS_MINUS_Y to SensorManager.AXIS_X;else->SensorManager.AXIS_X to SensorManager.AXIS_Y}
     SensorManager.remapCoordinateSystem(raw,axes.first,axes.second,remapped)
     val angles=FloatArray(3);SensorManager.getOrientation(remapped,angles)
@@ -173,7 +172,7 @@ private fun usable(l:Location?,now:Long)=l!=null&&l.hasAccuracy()&&l.accuracy in
   surfaceTool("view","orientation=固定/跟随，focus=自己/全校，zoom=0.65..7；地图始终平滑转向","orientation,focus,zoom",false){a->val o=a.optString("orientation",if(headingMode)"跟随"else"固定");require(o in listOf("固定","跟随"));val f=a.optString("focus","");require(f in listOf("","自己","全校"));val z=a.optDouble("zoom",scale.toDouble()).toFloat();require(z in .65f..7f);if(f=="自己")require(valid){"当前没有可用的校园定位"};prepared("调整地图视角",a){headingMode=o=="跟随";scale=z;if(f.isNotBlank()){follow=f=="自己";pan=Offset.Zero;if(f=="全校")scale=1f};"地图视角已调整"}},
   surfaceTool("route_select","切换已计算出的路线；index从1开始，1为最短参考路线，2为备选；省略则切换下一条，只有一条时不能切换","index",false){a->require(routes.size>1){"当前没有可切换的备选路线"};val index=a.optInt("index",(routeIndex+1)%routes.size+1)-1;require(index in routes.indices){"该路线不存在"};val snapshot=routes;prepared("切换参考路线",a){check(routes==snapshot){"路线已重新计算，请重试"};routeIndex=index;"已切换到${if(index==0)"最短路线"else"备选路线"}，约 ${routes[index].meters.roundToInt()} 米"}}
  ))
- BoxWithConstraints(Modifier.fillMaxSize().background(ground)){
+ Box(Modifier.fillMaxSize().background(ground)){
   val density=androidx.compose.ui.platform.LocalDensity.current
   val topReserve=with(density){130.dp.toPx()}
   val bottomReserve=with(density){65.dp.toPx()}
@@ -224,7 +223,7 @@ private fun usable(l:Location?,now:Long)=l!=null&&l.hasAccuracy()&&l.accuracy in
    }
    if(!heatMode)listOf(from to routeStart,to to routeEnd).forEachIndexed{i,(_,n)->if(n!=null){val point=screen(n);drawCircle(if(i==0)Color(0xFF26A888)else routeColor,7.dp.toPx(),point);drawCircle(Color.White,7.dp.toPx(),point,style=Stroke(2.dp.toPx()))}}
    // Reserve A01 as a group before other labels, above endpoint markers.
-   val paint=android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG).apply{textSize=11.sp.toPx();textAlign=android.graphics.Paint.Align.CENTER;typeface=android.graphics.Typeface.create("sans-serif-medium",0)}
+   val paint=android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG).apply{textSize=11.sp.toPx();textAlign=android.graphics.Paint.Align.CENTER;typeface=android.graphics.Typeface.create("sans-serif-medium",android.graphics.Typeface.NORMAL)}
    val occupied=mutableListOf<Rect>()
    fun drawLabel(label:String,point:Offset){
     paint.style=android.graphics.Paint.Style.STROKE;paint.strokeWidth=3.dp.toPx();paint.color=ground.toArgb();drawContext.canvas.nativeCanvas.drawText(label,point.x,point.y+4.dp.toPx(),paint)

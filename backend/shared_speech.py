@@ -1,8 +1,4 @@
-"""Bounded, authenticated push-to-talk relay; credentials and billing stay here.
-
-Only 16 kHz mono PCM is accepted. Long recording, replay, and translation are
-deliberately not routed through this allowance. No audio/transcripts are stored.
-"""
+"""Authenticated continuous PCM relay with prepaid rolling usage; no stored audio."""
 from __future__ import annotations
 
 import asyncio
@@ -16,17 +12,15 @@ import uuid
 from fastapi import HTTPException, WebSocket, WebSocketDisconnect
 from shared_ai import MESSAGES
 
-MAX_SECONDS = 60
 BYTES_PER_SECOND = 32_000
-MAX_BYTES = MAX_SECONDS * BYTES_PER_SECOND
 MAX_FRAME = 16_384
 MICRO_CNY_PER_SECOND = 330
-RESERVATION = (MAX_SECONDS + 1) * MICRO_CNY_PER_SECOND
+RESERVATION_SECONDS = 10
+RESERVATION = RESERVATION_SECONDS * MICRO_CNY_PER_SECOND
 UPSTREAM = 'wss://dashscope.aliyuncs.com/api-ws/v1/inference'
 ERRORS = {
     'disabled': '公用语音暂未开通，请稍后再试，或切换到自备 API。',
     'invalid': '语音请求无效，请重新按住说话。',
-    'limit': '公用语音每次最多 60 秒，请缩短后重试。',
     'idle': '语音连接已超时，请重新按住说话。',
     'upstream': '公用语音暂时不可用，本次没有发送，请稍后再试。',
     'interrupted': '语音连接中断，本次没有发送，请重试。',
@@ -48,6 +42,30 @@ def start_payload(raw):
         if header['task_id'] != identifier:
             raise ValueError()
         source = raw.get('payload', {})
+        supplied = source.get('parameters', {})
+        languages = supplied.get('language_hints', [])
+        supported = {'zh','en','ja','ko','vi','th','id','ms','tl','hi','ar','fr','de','es','pt','ru','it','nl','sv','da','fi','no','el','pl','cs','hu','ro','bg','hr','sk'}
+        if not isinstance(languages, list) or len(languages) > 1 or any(x not in supported for x in languages):
+            raise ValueError()
+        parameters = {'format': 'pcm', 'sample_rate': 16000, 'heartbeat': True}
+        if languages:
+            parameters['language_hints'] = list(dict.fromkeys(languages))
+        for name in ('semantic_punctuation_enabled', 'multi_threshold_mode_enabled'):
+            if name in supplied:
+                if type(supplied[name]) is not bool:
+                    raise ValueError()
+                parameters[name] = supplied[name]
+        if 'max_sentence_silence' in supplied:
+            silence = supplied['max_sentence_silence']
+            if type(silence) is not int or not 200 <= silence <= 6000:
+                raise ValueError()
+            parameters['max_sentence_silence'] = silence
+        words = source.get('dapan_hotwords', [])
+        if not isinstance(words, list) or len(words) > 60 or any(
+            not isinstance(w, str) or not w.strip() or len(w) > 80 or
+            (not w.isascii() and len(w) > 15) or (w.isascii() and len(w.split()) > 7) for w in words
+        ) or len('、'.join(words)) > 220:
+            raise ValueError()
         context = source.get('input', {}).get('context', [])
         if not isinstance(context, list) or len(context) > 1:
             raise ValueError()
@@ -63,9 +81,8 @@ def start_payload(raw):
         return identifier, {
             'header': {'action': 'run-task', 'task_id': identifier, 'streaming': 'duplex'},
             'payload': {'task_group': 'audio', 'task': 'asr', 'function': 'recognition',
-                        'model': 'fun-asr-realtime', 'parameters': {
-                            'format': 'pcm', 'sample_rate': 16000,
-                            'language_hints': ['zh'], 'heartbeat': True}, 'input': input_value}}
+                        'model': 'fun-asr-realtime', 'parameters': parameters,
+                        'dapan_hotwords': list(dict.fromkeys(w.strip() for w in words)), 'input': input_value}}
     except (KeyError, ValueError, TypeError, AttributeError):
         raise SpeechError('invalid') from None
 
@@ -85,9 +102,11 @@ class SharedSpeech:
     def __init__(self, ai, connector=None):
         self.ai = ai
         self.connector = connector
-        self.session_timeout = 85
+        self.session_timeout = None
         self.audio_idle_timeout = 15
         self.finish_timeout = 12
+        from speech_vocabulary import SpeechVocabulary
+        self.vocabulary = SpeechVocabulary(ai.budget)
 
     @property
     def enabled(self):
@@ -109,6 +128,8 @@ class SharedSpeech:
         forwarded = 0
         provider_seconds = 0
         uncertain = False
+        vocabulary_id = None
+        reserved_cost = RESERVATION
         finished = asyncio.Event()
 
         def settle():
@@ -122,7 +143,7 @@ class SharedSpeech:
             user = self.ai.user(ws.headers.get('authorization'))
             if not self.enabled:
                 raise SpeechError('disabled')
-            self.ai.service.rate('shared-speech:' + user['id'], 15, 60)
+            self.ai.service.rate('shared-speech:' + user['id'], 60, 60)
             first = await asyncio.wait_for(ws.receive(), 5)
             text = first.get('text', '')
             if first.get('type') == 'websocket.disconnect':
@@ -132,6 +153,9 @@ class SharedSpeech:
             identifier, body = start_payload(json.loads(text))
             self.ai.budget.reserve(identifier, user['id'], RESERVATION, kind='asr')
             reserved = True
+            vocabulary_id = await self.vocabulary.acquire(body['payload'].pop('dapan_hotwords', []))
+            if vocabulary_id:
+                body['payload']['parameters']['vocabulary_id'] = vocabulary_id
             async with asyncio.timeout(self.session_timeout):
                 async with self.connect() as upstream:
                     await upstream.send(json.dumps(body, ensure_ascii=False))
@@ -142,7 +166,7 @@ class SharedSpeech:
                     await ws.send_json(event(identifier, 'task-started'))
 
                     async def send_audio():
-                        nonlocal forwarded
+                        nonlocal forwarded, reserved_cost
                         while True:
                             message = await asyncio.wait_for(ws.receive(), self.audio_idle_timeout)
                             if message['type'] == 'websocket.disconnect':
@@ -151,8 +175,18 @@ class SharedSpeech:
                             if pcm is not None:
                                 if not pcm or len(pcm) > MAX_FRAME or len(pcm) % 2:
                                     raise SpeechError('invalid')
-                                if forwarded + len(pcm) > MAX_BYTES:
-                                    raise SpeechError('limit')
+                                needed = (math.ceil((forwarded + len(pcm)) / BYTES_PER_SECOND) + 1) * MICRO_CNY_PER_SECOND
+                                if needed > reserved_cost:
+                                    larger = max(needed, reserved_cost + RESERVATION)
+                                    try:
+                                        self.ai.budget.extend(identifier, larger)
+                                        reserved_cost = larger
+                                    except HTTPException as exc:
+                                        if exc.status_code != 429:
+                                            raise
+                                        # Spend the usable remainder instead of requiring another full block.
+                                        self.ai.budget.extend(identifier, needed)
+                                        reserved_cost = needed
                                 # Count before sending: a send failure may still have delivered bytes.
                                 forwarded += len(pcm)
                                 await upstream.send(pcm)
@@ -181,7 +215,7 @@ class SharedSpeech:
                             if isinstance(usage, dict):
                                 seconds = usage.get('duration')
                                 if isinstance(seconds, int) and not isinstance(seconds, bool) and seconds >= 0:
-                                    if seconds > MAX_SECONDS + 1:
+                                    if seconds > math.ceil(forwarded / BYTES_PER_SECOND) + 1:
                                         # Never silently hide an unexpected supplier charge.
                                         provider_seconds = seconds
                                         uncertain = True
@@ -189,7 +223,12 @@ class SharedSpeech:
                                     provider_seconds = max(provider_seconds, seconds)
                             if kind == 'result-generated':
                                 sentence = data.get('payload', {}).get('output', {}).get('sentence')
-                                if not isinstance(sentence, dict) or sentence.get('heartbeat'):
+                                if not isinstance(sentence, dict):
+                                    continue
+                                if sentence.get('heartbeat'):
+                                    # A silent classroom still needs downstream traffic through the reverse proxy.
+                                    await ws.send_json({'header': {'task_id': identifier, 'event': kind},
+                                                       'payload': {'output': {'sentence': {'heartbeat': True}}}})
                                     continue
                                 # Strip provider metadata and enforce a bounded result surface.
                                 clean = {k: sentence[k] for k in ('text', 'sentence_id', 'sentence_end', 'begin_time', 'end_time') if k in sentence}
@@ -236,6 +275,8 @@ class SharedSpeech:
                 await ws.send_json(event(identifier, 'task-failed', error_code=code, error_message=message))
         finally:
             settle()
+            if vocabulary_id:
+                self.vocabulary.release(vocabulary_id)
             with contextlib.suppress(Exception):
                 await ws.close()
 

@@ -154,9 +154,10 @@ class ReminderReceiver: BroadcastReceiver() {
  }
 }
 class RestoreReceiver: BroadcastReceiver() { override fun onReceive(c: Context,i: Intent) {
+ if(!AppConsent.accepted(c))return
  if(i.action !in setOf(Intent.ACTION_BOOT_COMPLETED,Intent.ACTION_TIME_CHANGED,Intent.ACTION_TIMEZONE_CHANGED,Intent.ACTION_MY_PACKAGE_REPLACED,AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED))return
  ReminderTrace.log(c,"恢复提醒 · ${i.action?.substringAfterLast('.')}")
- RetiredFeatures.clean(c);NoticeSubscriptions.schedule(c)
+ RetiredFeatures.clean(c);NoticeSubscriptions.schedule(c);ResetRadar.schedule(c)
  runCatching{Reminders.reschedule(c)}.onFailure{ReminderTrace.log(c,"恢复失败：${it.javaClass.simpleName}")}
 } }
 object Holidays {

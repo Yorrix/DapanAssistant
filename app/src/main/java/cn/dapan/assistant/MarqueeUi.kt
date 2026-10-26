@@ -161,7 +161,7 @@ class MarqueeDisplayActivity:ComponentActivity(){
 }
 
 @Composable private fun BannerCanvas(options:BannerOptions,modifier:Modifier,preview:Boolean=false){
- val lifecycle=(LocalContext.current as ComponentActivity).lifecycle
+ val lifecycle=androidx.compose.ui.platform.LocalLifecycleOwner.current.lifecycle
  val elapsed=remember{mutableFloatStateOf(0f)}
  LaunchedEffect(options){
   elapsed.floatValue=0f

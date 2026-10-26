@@ -8,7 +8,7 @@ sealed interface AssistantAction {
  data class Lookup(val module:String,val query:String,val id:String="",val offset:Int=0,val limit:Int=10000):AssistantAction
  data class Reply(val text:String):AssistantAction
  data class Navigate(val module:String):AssistantAction
- data class Event(val value:CalendarEntry):AssistantAction
+ data class Event(val value:CalendarEntry,val timeReference:AssistantTimeReference?=null):AssistantAction
  data class Note(val value:NoteItem):AssistantAction
  data class Search(val query:String,val date:LocalDate?):AssistantAction
  data class Route(val from:String,val to:String):AssistantAction
@@ -18,13 +18,14 @@ sealed interface AssistantAction {
  data class Change(val operation:String,val module:String,val target:String,val patch:JSONObject,val targetId:String=""):AssistantAction
  data class Batch(val actions:List<AssistantAction>):AssistantAction
  data class RenameEvents(val names:List<Pair<String,String>>,val from:LocalDate?=null,val through:LocalDate?=null):AssistantAction
+ data class CalendarBulk(val operation:String,val titles:List<String>,val from:LocalDate?,val through:LocalDate?,val weekdays:Set<Int>,val patch:JSONObject,val shiftMinutes:Int=0):AssistantAction
 }
 
 object AssistantActions {
- val destinations=setOf("官网通知","二手信息","今天","日历","待办","晨签","信息查询","录音","校园热力图","热力图","导航","实时翻译","课堂生词","会议纪要","账单","快递","取件码","扫描文件","资料库","天气","抽签","手持弹幕","专注","地图","设置","工具","录音摘要","会议摘要")
+ val destinations=setOf("课堂助手","tibo雷达","tibo重置雷达","官网通知","二手信息","今天","日历","待办","晨签","信息查询","录音","校园热力图","热力图","导航","实时翻译","课堂生词","会议纪要","账单","快递","取件码","扫描文件","资料库","天气","抽签","手持弹幕","专注","地图","设置","工具","录音摘要","会议摘要")
  private val eventStrings=setOf("id","title","kind","start","end","reminder","absolute","category","location","notes")
  private val eventIntegers=setOf("travel","before")
- private val eventBooleans=setOf("completed","urgent")
+ private val eventBooleans=setOf("completed","urgent","deferred")
  private fun JSONObject.onlyFields(allowed:Set<String>){
   val extra=keys().asSequence().filter{it !in allowed}.toList()
   require(extra.isEmpty()){"包含不支持的参数 ${extra.joinToString()}；请保留用户要求并改用正确字段，不得忽略"}
@@ -51,11 +52,12 @@ object AssistantActions {
    "batch"->setOf("actions")
    "tool"->setOf("module","op","args")
    "rename_events"->setOf("scope","from","through","names")
+   "calendar_bulk"->setOf("op","scope","from","through","titles","weekdays","patch","shiftMinutes")
    "lookup"->setOf("module","query","id","offset","limit")
    "chat"->setOf("reply")
    "navigate"->setOf("module")
-   "event"->setOf("entry")
-   "note"->setOf("module","title","detail","group","date","location","category","urgent")
+   "event"->setOf("entry","timeReference")
+   "note"->setOf("module","title","detail","group","date","location","category","urgent","deferred")
    "search"->setOf("query","date")
    "route"->setOf("from","to")
    "morning"->setOf("date","passed","required")
@@ -65,7 +67,7 @@ object AssistantActions {
    else->return
   }
   o.onlyFields(fields+"action")
-  o.fieldTypes(fields intersect setOf("module","op","scope","from","through","query","id","reply","title","detail","group","date","location","category","to","target","targetId","dayScope"),fields intersect setOf("offset","limit","minutes"),fields intersect setOf("urgent","passed","required","setStart"))
+  o.fieldTypes(fields intersect setOf("module","op","scope","from","through","query","id","reply","title","detail","group","date","location","category","to","target","targetId","dayScope"),fields intersect setOf("offset","limit","minutes"),fields intersect setOf("urgent","deferred","passed","required","setStart"))
  }
  private fun JSONObject.requiredText(key:String,max:Int=2000):String {
   val value=getString(key).trim()
@@ -79,7 +81,7 @@ object AssistantActions {
   "batch" -> {
    require(allowBatch){"不支持嵌套批量操作"}
    val rows=o.getJSONArray("actions");require(rows.length() in 1..64){"一批支持 1～64 项操作，请缩小日期范围"}
-   AssistantAction.Batch(rows.objects().map{decodeOne(it,false).also{action->require(action is AssistantAction.Event||action is AssistantAction.Note||action is AssistantAction.Change||action is AssistantAction.Morning||action is AssistantAction.MorningRange||action is AssistantAction.Focus||action is AssistantAction.RenameEvents){"批量清单只能包含数据修改"}}})
+   AssistantAction.Batch(rows.objects().map{decodeOne(it,false).also{action->require(action is AssistantAction.Event||action is AssistantAction.Note||action is AssistantAction.Change||action is AssistantAction.Morning||action is AssistantAction.MorningRange||action is AssistantAction.Focus||action is AssistantAction.RenameEvents||action is AssistantAction.CalendarBulk){"批量清单只能包含数据修改"}}})
   }
   "tool" -> {
    require(o.keys().asSequence().all{it in setOf("action","module","op","args")}){"tool 参数必须放在 args 对象中，不能使用 fields 或把参数放在顶层"}
@@ -97,19 +99,44 @@ object AssistantActions {
    require(names.map{it.first}.distinct().size==names.size){"同一个原名称只能指定一个新名称"}
    AssistantAction.RenameEvents(names,from,through)
   }
+  "calendar_bulk" -> {
+   val scope=o.requiredText("scope",20);require(scope in setOf("all","date_range")){"批量范围须为all或date_range"}
+   val from=if(scope=="date_range")LocalDate.parse(o.requiredText("from",10))else null
+   val through=if(scope=="date_range")LocalDate.parse(o.requiredText("through",10))else null
+   require(from==null||through!!>=from){"结束日期不能早于开始日期"}
+   require(scope!="all"||!o.has("from")&&!o.has("through")){"全部范围不能混入日期范围"}
+   val titles=o.getJSONArray("titles").let{array->(0 until array.length()).map{require(array.get(it) is String);array.getString(it).trim().also{title->require(title.isNotBlank()&&title.length<=200)}}}
+   require(titles.size in 1..32&&titles.distinct().size==titles.size){"批量操作须指定1～32个真实名称，不能重复"}
+   val days=o.optJSONArray("weekdays")?.let{array->(0 until array.length()).map{JSONObject().put("day",array.get(it)).integer("day").also{day->require(day in 1..7){"星期须为1～7"}}}}.orEmpty()
+   require(!o.has("weekdays")||o.optJSONArray("weekdays")!=null){"weekdays须为数组"}
+   val patch=o.optJSONObject("patch")?:JSONObject();require(!o.has("patch")||o.optJSONObject("patch")!=null)
+   patch.onlyFields(setOf("title","location","notes","category","travel","reminder","before"));patch.fieldTypes(eventStrings,eventIntegers)
+   val shift=if(o.has("shiftMinutes"))o.integer("shiftMinutes")else 0;require(shift in -1440..1440)
+   val op=o.requiredText("op",20);require(op in setOf("update","delete"))
+   require(if(op=="delete")patch.length()==0&&shift==0 else patch.length()>0||shift!=0){"批量修改须有变更；删除不能混入修改"}
+   AssistantAction.CalendarBulk(op,titles,from,through,days.toSet(),patch,shift)
+  }
   "lookup" -> AssistantAction.Lookup(o.requiredText("module",30).also{require(!RetiredFeatures.removed(it)){"这个功能已移除"}},o.optString("query").take(400),o.optString("id").take(100),o.optInt("offset",0).coerceIn(0,200000),o.optInt("limit",10000).coerceIn(500,16000))
   "chat" -> AssistantAction.Reply(o.requiredText("reply",16000))
   "navigate" -> AssistantAction.Navigate(o.requiredText("module",20).also{require(it in destinations){"这个工具尚未接通"}}.let{if(it in setOf("录音摘要","会议摘要"))"会议纪要"else it})
-  "event" -> AssistantAction.Event(entryFromJson(o.getJSONObject("entry").also(::validateEntry)).copy(id=java.util.UUID.randomUUID().toString()).normalized().also{require(it.error()==null){it.error()!!}})
+  "event" -> {
+   val reference=if(o.has("timeReference"))AssistantTimeReference.decode(o.getJSONObject("timeReference"))else null
+   val value=entryFromJson(o.getJSONObject("entry").also(::validateEntry)).copy(id=java.util.UUID.randomUUID().toString()).normalized()
+   // Referenced reminders are computed locally next; do not force a model retry
+   // merely because it supplied DEPARTURE with no *second* journey for the reminder.
+   val check=if(reference!=null)value.copy(reminderMode=ReminderMode.OFF,absoluteReminder=null)else value
+   require(check.error()==null){check.error()!!}
+   AssistantAction.Event(value,reference)
+  }
   "note" -> {
    val module=o.requiredText("module",20);require(module in listOf("待办","账单","快递","信息查询")){"不能向这个模块添加记录"}
-   require(module=="待办"||listOf("location","category","urgent").none(o::has)){"只有待办接受 location/category/urgent；信息查询的地点等资料请写入 detail，不能丢弃字段"}
+   require(module=="待办"||listOf("location","category","urgent","deferred").none(o::has)){"只有待办接受 location/category/urgent/deferred；信息查询的地点等资料请写入 detail，不能丢弃字段"}
    require(module=="账单"||!o.has("date")){"只有账单接受记账 date；待办或信息查询不能忽略日期，请选择合适的事项类型"}
    val detail=o.optString("detail");if(module=="账单")require(Billing.amount(detail)?.signum()?.let{it!=0}==true){"金额需大于0，最多两位小数，且不超过999999999.99"}
    val created=if(module=="账单"&&o.optString("date").isNotBlank())LocalDate.parse(o.getString("date")).atTime(12,0).atZone(Billing.zone).toInstant().toEpochMilli()else System.currentTimeMillis()
    val note=NoteItem(module=module,title=o.requiredText("title",200),detail=detail.take(20000),group=o.optString("group","一般").take(100),created=created)
    // Older model replies still use note for TDL; keep its structured location when upgrading.
-   if(module=="待办")AssistantAction.Event(note.asTodo().copy(location=o.optString("location"),category=o.optString("category"),urgent=o.optBoolean("urgent",note.group=="紧急")))
+   if(module=="待办")AssistantAction.Event(note.asTodo().copy(location=o.optString("location"),category=o.optString("category"),urgent=o.optBoolean("urgent",note.group=="紧急"),deferred=o.optBoolean("deferred",note.group=="搁置")).normalized())
    else AssistantAction.Note(note)
   }
   "search" -> {val query=o.optString("query").trim();val date=o.optString("date").takeIf{it.isNotBlank()}?.let(LocalDate::parse);require(query.isNotBlank()||date!=null){"请说明要查找什么，或指定日期"};AssistantAction.Search(query,date)}
@@ -122,7 +149,7 @@ object AssistantActions {
    require(!o.has("patch")||o.optJSONObject("patch")!=null){"patch 必须是 JSON 对象，不能忽略修改内容"}
    val patch=o.optJSONObject("patch")?:JSONObject()
    require(o.getString("action")=="update"||patch.length()==0){"delete/complete 不能同时带修改字段；完成并修改请用 update，合并 completed/done 与其它字段"}
-   require(patch.keys().asSequence().all{it in setOf("title","kind","start","end","travel","reminder","before","absolute","category","location","notes","detail","group","urgent","completed","done","date")}){"助手返回了不支持修改的字段"}
+   require(patch.keys().asSequence().all{it in setOf("title","kind","start","end","travel","reminder","before","absolute","category","location","notes","detail","group","urgent","deferred","completed","done","date")}){"助手返回了不支持修改的字段"}
    patch.fieldTypes((eventStrings-"id")+setOf("detail","group","date"),eventIntegers,eventBooleans+"done")
    val id=o.optString("targetId").take(100);val target=o.optString("target").trim().take(200);require(id.isNotBlank()||target.isNotBlank()){"请指定要修改的记录"}
    AssistantAction.Change(o.getString("action"),module,target,patch,id)
@@ -131,9 +158,9 @@ object AssistantActions {
   }
  }
  fun todoPatch(patch:JSONObject):JSONObject {
-  require(patch.keys().asSequence().all{it in setOf("title","location","notes","detail","group","urgent","category","completed")}){"TDL 只支持名称、地点、备注、分类、优先级和完成状态"}
+  require(patch.keys().asSequence().all{it in setOf("title","location","notes","detail","group","urgent","deferred","category","completed")}){"TDL 只支持名称、地点、备注、分类、优先级和完成状态"}
   return JSONObject().also{result->patch.keys().forEach{key->when(key){
-   "group"->result.put("urgent",patch.getString(key)=="紧急")
+   "group"->{ val value=patch.getString(key);require(value in setOf("一般","紧急","搁置")){"TDL优先级为一般、紧急或搁置"};result.put("urgent",value=="紧急").put("deferred",value=="搁置") }
    "detail"->result.put("notes",patch.getString(key))
    else->result.put(key,patch.get(key))
   }}}
@@ -145,7 +172,11 @@ object AssistantActions {
   require(!patch.has("done")){"日历完成状态请使用 completed"}
   require(!patch.has("completed")||old.kind in listOf(EventKind.TODO,EventKind.DEADLINE)){"只有 DDL / TDL 可以设置完成状态"}
   if(patch.has("completed"))patch.getBoolean("completed")
+  require(!patch.has("deferred")||old.kind==EventKind.TODO){"只有TDL可以搁置"}
+  require(!(patch.optBoolean("urgent")&&patch.optBoolean("deferred"))){"TDL不能同时紧急和搁置"}
   val merged=entryToJson(old)
+  if(patch.optBoolean("urgent"))merged.put("deferred",false)
+  if(patch.optBoolean("deferred"))merged.put("urgent",false)
   patch.keys().forEach{key->require(key !in listOf("detail","group","date"));merged.put(key,patch.get(key))}
   return entryFromJson(merged).normalized().also{require(it.error()==null){it.error()!!}}
  }

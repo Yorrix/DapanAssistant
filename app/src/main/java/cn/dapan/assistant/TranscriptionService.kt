@@ -35,7 +35,7 @@ class TranscriptionService:Service() {
   activeId=clip.id;TranscriptionState.runningId=clip.id;TranscriptionState.progress=0f;TranscriptionState.message=null
   val key=Secrets(this).get("aliyun")
   val options=RecordingPreferences(this).load()
-  val engine=AsrReplay(AsrHotwordPreferences(this).active());replay=engine
+  val engine=AsrReplay(AsrHotwordPreferences(this).active(),applicationContext);replay=engine
   worker=Thread({
    try {
     val lines=engine.transcribe(clip.audio,key,options){fraction->handler.post{if(!cancelled){TranscriptionState.progress=fraction;getSystemService(NotificationManager::class.java).notify(811,notification((fraction*100).toInt()))}}}

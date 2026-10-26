@@ -35,4 +35,22 @@ class ImageOcrProtocolTest {
   assertTrue(ImageOcrProtocol.httpFailure(402).contains("余额不足"))
   assertTrue(ImageOcrProtocol.httpFailure(429).contains("稍后重试"))
  }
+ private fun stream(text:String,finish:String="stop",done:Boolean=true):String{
+  val json=JSONObject().put("text",text).toString()
+  val split=json.length/2
+  fun frame(part:String,reason:String?=null)="data: "+JSONObject().put("choices",JSONArray().put(JSONObject()
+   .put("delta",JSONObject().put("content",part)).put("finish_reason",reason?:JSONObject.NULL))).toString()+"\n\n"
+  return ": connected\n\n"+frame(json.take(split))+frame(json.drop(split),finish)+if(done)"data: [DONE]\n\n"else""
+ }
+ @Test fun sharedStreamPreservesTextAndRequiresAnActualCompletion(){
+  val text="课程时间 08:00\n地点 A01-N303"
+  assertEquals(text,ImageOcrProtocol.readStream(stream(text).reader().buffered()).text)
+  assertThrows(IllegalArgumentException::class.java){ImageOcrProtocol.readStream(stream(text,done=false).reader().buffered())}
+  assertEquals("partial",ImageOcrProtocol.readStream(stream(text,finish="length").reader().buffered()).status)
+ }
+ @Test fun sharedQuotaFailureMustNotBeSavedAsRecognizedText(){
+  val raw="data: "+JSONObject().put("dapan_error",JSONObject().put("message","本周额度不足")).toString()+"\n\n"
+  val e=assertThrows(SharedAiException::class.java){ImageOcrProtocol.readStream(raw.reader().buffered())}
+  assertEquals("本周额度不足",e.message)
+ }
 }

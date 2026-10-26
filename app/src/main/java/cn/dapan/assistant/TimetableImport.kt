@@ -8,7 +8,8 @@ import java.util.UUID
 data class TeachingSlot(val start:LocalTime,val end:LocalTime)
 data class TeachingTerm(val id:String,val name:String,val monday:LocalDate,val slots:List<TeachingSlot>)
 data class TeachingCourse(val code:String,val title:String,val schedule:String)
-data class TeachingImport(val term:TeachingTerm,val courses:List<TeachingCourse>,val entries:List<CalendarEntry>,val unscheduled:List<String>)
+data class TeachingImportIssue(val index:Int,val code:String,val title:String,val reason:String)
+data class TeachingImport(val term:TeachingTerm,val courses:List<TeachingCourse>,val entries:List<CalendarEntry>,val unscheduled:List<String>,val issues:List<TeachingImportIssue> = emptyList())
 data class TeachingMerge(val fresh:List<CalendarEntry>,val unchanged:Int,val changed:List<CalendarEntry>)
 
 /** Reads the student's rendered teaching-system pages, never a fixed account or hidden API. */
@@ -52,12 +53,27 @@ object TimetableImport {
  }
  fun read(term:TeachingTerm,o:JSONObject):TeachingImport {
   require(o.optString("kind")=="courses"&&o.optString("semester")==term.id){"学期已改变，请返回课表重新读取"}
-  val courses=o.getJSONArray("courses").objects().map{TeachingCourse(it.getString("code"),it.getString("title"),it.getString("schedule"))}
-  require(courses.size in 1..150 && courses.map{it.code}.distinct().size==courses.size){"课程列表为空或存在重复，请检查学校页面"}
-  val pending=mutableListOf<String>();val result=mutableListOf<CalendarEntry>()
-  courses.forEach{c->
+  val rows=o.optJSONArray("courses")?:error("学校未返回课程列表，请等待页面加载后重试")
+  require(rows.length() in 1..150){"课程列表为空或数量异常，请检查学校页面"}
+  val courses=(0 until rows.length()).map{i->val row=rows.optJSONObject(i);TeachingCourse(row?.optString("code").orEmpty(),row?.optString("title").orEmpty(),row?.optString("schedule").orEmpty())}
+  val duplicates=courses.groupingBy{it.code}.eachCount().filterValues{it>1}.keys
+  val pending=mutableListOf<String>();val result=mutableListOf<CalendarEntry>();val issues=mutableListOf<TeachingImportIssue>()
+  courses.forEachIndexed{index,c->
+   val reason=when{
+    c.code in duplicates->"学校返回了重复的课程编号，请核对后再导入这门课"
+    c.schedule.trim()=="不排课"->{pending+=c.title;"学校标记不排课，暂无可导入的时间"}
+    c.schedule.isBlank()||c.schedule.trim() in setOf("待安排","未排课","暂无","无","--","-","未安排","待定")->"学校尚未安排上课时间"
+    else->null
+   }
+   if(reason!=null)issues+=TeachingImportIssue(index,c.code,c.title.ifBlank{"第 ${index+1} 门课程"},reason)
+   else runCatching{readCourse(term,c)}.onSuccess{result+=it}.onFailure{issues+=TeachingImportIssue(index,c.code,c.title.ifBlank{"第 ${index+1} 门课程"},it.message?.take(180)?:"课程信息不完整")}
+  }
+  require(result.size<=5000){"课次数量异常，暂不导入"}
+  return TeachingImport(term,courses,result.sortedBy{it.start},pending,issues)
+ }
+ private fun readCourse(term:TeachingTerm,c:TeachingCourse):List<CalendarEntry>{
+   val result=mutableListOf<CalendarEntry>()
    require(c.code.matches(Regex("[A-Za-z0-9._-]{1,80}"))&&c.title.isNotBlank()&&c.title.length<=200&&c.schedule.length<=24000){"课程格式异常"}
-   if(c.schedule.trim()=="不排课"){pending+=c.title;return@forEach}
    val lines=c.schedule.split(Regex("[;；\\n]+")).map{it.trim()}.filter{it.isNotEmpty()}
    require(lines.isNotEmpty()){"${c.title} 缺少排课信息"}
    lines.forEach{line->
@@ -77,11 +93,9 @@ object TimetableImport {
       notes="教务课表 · ${term.name}\n课程编号：${c.code}\n第${week}周 · 第${first}–${last}节\n$tail")
     }
    }
-  }
-  require(result.size<=5000){"课次数量异常，暂不导入"}
   val grouped=result.groupBy{it.id}
   require(grouped.values.all{it.distinct().size==1}){"同一课程同一时段出现不同教室或教师，请在学校页面核对分组后再导入"}
-  return TeachingImport(term,courses,grouped.values.map{it.first()}.sortedBy{it.start},pending)
+  return grouped.values.map{it.first()}
  }
  fun merge(values:List<CalendarEntry>,existing:List<CalendarEntry>):TeachingMerge {
   val byId=existing.associateBy{it.id};val fresh=mutableListOf<CalendarEntry>();val changed=mutableListOf<CalendarEntry>();var unchanged=0

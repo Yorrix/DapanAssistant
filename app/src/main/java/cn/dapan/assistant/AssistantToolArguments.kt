@@ -11,6 +11,7 @@ import java.time.YearMonth
  * current selection, permissions and runtime availability stay with the handlers. */
 internal object AssistantToolArguments {
  private val required=mapOf(
+  "课堂助手/add" to "text", "tibo雷达/notification" to "enabled",
   "资料库/save_attachments" to "ids", "资料库/edit" to "id", "资料库/delete" to "id", "资料库/open" to "id", "资料库/reindex" to "id", "资料库/select" to "id",
   "抽签/select" to "id", "抽签/delete" to "id",
   "工具/favorite" to "name,enabled", "日历/category_add" to "name", "日历/category_delete" to "name",
@@ -22,7 +23,7 @@ internal object AssistantToolArguments {
   "会议纪要/restore_text" to "clipId", "会议纪要/export" to "format", "会议纪要/delete_folder" to "folderId", "会议纪要/delete_clip" to "clipId",
   "二手信息/detail" to "id", "二手信息/status" to "id,status", "二手信息/delete" to "id", "二手信息/compose" to "kind,title"
  )
- private val booleanKeys=setOf("enabled","notify","lastCall","pointer","spinAfter","expanded","summary","original","known","all","mine","publish","consent","notifications","calls","landscape","moving","blink","bold","autoHide")
+ private val booleanKeys=setOf("enabled","automatic","notify","lastCall","pointer","spinAfter","expanded","summary","original","known","all","mine","publish","consent","notifications","calls","landscape","moving","blink","bold","autoHide")
  private val numberKeys=setOf("minutes","size","speed","shake","zoom","index","customMs","startMs","atMs")
  private val arrayKeys=setOf("ids","clipIds","sources","order","options")
 
@@ -39,7 +40,7 @@ internal object AssistantToolArguments {
     key in arrayKeys||module=="今天"&&key=="enabled"->require(value is JSONArray){"$key 必须是数组"}
     key=="contacts"->require(value is JSONObject){"contacts 必须是联系方式对象"}
     key in booleanKeys->require(value is Boolean){"$key 必须是 true 或 false"}
-    key in numberKeys->require(value is Number&&value.toDouble().isFinite()){"$key 必须是有限数字"}
+    key in numberKeys||module=="课堂助手"&&key=="level"->require(value is Number&&value.toDouble().isFinite()){"$key 必须是有限数字"}
     else->require(value is String){"$key 必须是文字"}
    }
   }
@@ -94,6 +95,7 @@ internal object AssistantToolArguments {
     args.language("from");args.language("to");args.number("size",16.0,26.0);args.nonBlank("text",6000)
     if(args.has("from")&&args.has("to"))require(args.getString("from")!=args.getString("to")){"输入与输出语言不能相同"}
    }
+   "课堂助手"->{args.choice("mode","讨论发言","思政课堂","通用课堂","自定义");args.number("level",1.0,7.0,integer=true);args.maxText("topic",2000);args.maxText("question",2000);args.maxText("prompt",4000);args.nonBlank("text",12000);args.nonBlank("speaker",30)}
    "课堂生词"->{args.choice("level","基础","高中","四级","六级");args.nonBlank("word",80)}
    "地图"->when(op){
     "heat_view"->{args.choice("mode","导航","热力图");args.choice("range","今天","近7天","近30天","近半年","自定义");args.date("start");args.date("end");args.orderedDates()}

@@ -9,12 +9,13 @@ from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from pathlib import Path
 
 root=Path(__file__).resolve().parents[1];out=root/'validation/ai-audit';out.mkdir(parents=True,exist_ok=True)
-parser=argparse.ArgumentParser();parser.add_argument('--round',default='live-1');parser.add_argument('--filter',default='');parser.add_argument('--budget',type=float,default=1.0);parser.add_argument('--max-output',type=int,default=4500);args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--round',default='live-1');parser.add_argument('--filter',default='');parser.add_argument('--budget',type=float,default=1.0);parser.add_argument('--max-output',type=int,default=4500);parser.add_argument('--cases');parser.add_argument('--output-dir');parser.add_argument('--build-root',default=str(root/'.build/eval'));args=parser.parse_args()
+if args.output_dir:out=Path(args.output_dir).resolve();out.mkdir(parents=True,exist_ok=True)
 assert 256<=args.max_output<=4500
 ledger_path=out/'usage.json';ledger=json.loads(ledger_path.read_text()) if ledger_path.exists() else {'cost_upper_cny':0,'calls':[]}
 lock=threading.Lock();token=secrets.token_urlsafe(32)
 key=os.environ.get('DEEPSEEK_API_KEY','').strip()
-if not key.startswith('sk-'):raise RuntimeError('Set DEEPSEEK_API_KEY locally for the opt-in paid evaluation')
+if not key.startswith('sk-'):raise RuntimeError('Set DEEPSEEK_API_KEY for the opt-in paid evaluation')
 
 source=(root/'app/src/main/java/cn/dapan/assistant/AssistantGlobalTools.kt').read_text(encoding='utf-8')
 globals={};parts=list(re.finditer(r'"([^"\n]+)" to listOf\(',source))
@@ -67,11 +68,11 @@ class Handler(BaseHTTPRequestHandler):
    self.send_error(502,'Upstream request failed')
 
 server=ThreadingHTTPServer(('127.0.0.1',0),Handler);threading.Thread(target=server.serve_forever,daemon=True).start()
-env=os.environ.copy();env.update(DAPAN_EVAL_URL=f'http://127.0.0.1:{server.server_port}/',DAPAN_EVAL_TOKEN=token,DAPAN_EVAL_CASES=str(out/'cases.jsonl'),DAPAN_EVAL_GLOBALS=str(out/'global-operations.json'),DAPAN_EVAL_RESULTS=str(out/(args.round+'.jsonl')),DAPAN_EVAL_FILTER=args.filter)
+env=os.environ.copy();env.update(DAPAN_EVAL_URL=f'http://127.0.0.1:{server.server_port}/',DAPAN_EVAL_TOKEN=token,DAPAN_EVAL_CASES=str(Path(args.cases).resolve() if args.cases else out/'cases.jsonl'),DAPAN_EVAL_GLOBALS=str(out/'global-operations.json'),DAPAN_EVAL_RESULTS=str(out/(args.round+'.jsonl')),DAPAN_EVAL_FILTER=args.filter)
 env['DAPAN_EVAL_MAX_OUTPUT']=str(args.max_output)
 try:
  with (out/(args.round+'.log')).open('w',encoding='utf-8') as log:
-  result=subprocess.run(['cmd.exe','/d','/c','gradlew.bat',':app:testDebugUnitTest','--tests','cn.dapan.assistant.AssistantLiveEvaluationTest','--rerun','-PdapanBuildRoot='+str(Path(os.environ.get('DAPAN_EVAL_BUILD_ROOT', str(root/'.build/eval'))).resolve()),'--offline','--console=plain','--no-daemon'],cwd=root,env=env,stdout=log,stderr=subprocess.STDOUT)
+  result=subprocess.run(['cmd.exe','/d','/c','gradlew.bat',':app:testDebugUnitTest','--tests','cn.dapan.assistant.AssistantLiveEvaluationTest','--rerun','-PdapanBuildRoot='+args.build_root,'--offline','--console=plain','--no-daemon'],cwd=root,env=env,stdout=log,stderr=subprocess.STDOUT)
  print(json.dumps({'round':args.round,'exit':result.returncode,'calls':len(ledger['calls']),'cost_upper_cny':round(ledger['cost_upper_cny'],6)}))
 finally:
  server.shutdown();server.server_close();key='';env.pop('DAPAN_EVAL_TOKEN',None)

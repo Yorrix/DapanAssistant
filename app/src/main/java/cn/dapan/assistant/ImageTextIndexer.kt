@@ -43,19 +43,35 @@ object ImageTextIndexer {
  private val client=OkHttpClient.Builder().connectTimeout(15,TimeUnit.SECONDS)
   .writeTimeout(45,TimeUnit.SECONDS).readTimeout(120,TimeUnit.SECONDS).callTimeout(180,TimeUnit.SECONDS)
   .retryOnConnectionFailure(false).followRedirects(false).followSslRedirects(false).build()
- fun available(context:Context)=Secrets(context).get("deepseek").isNotBlank()
- fun extract(context:Context,file:File):ImageTextIndexResult {
-  val key=Secrets(context).get("deepseek")
-  if(key.isBlank())return ImageTextIndexResult("","待识别 · 请配置 DeepSeek","missing_key")
+ fun available(context:Context)=SharedAi.canUseText(context)
+ fun extract(context:Context,file:File,publicImageConsent:Boolean=false):ImageTextIndexResult {
+  if(!available(context))return ImageTextIndexResult("","待识别 · 请登录公用 AI 或配置自备 API","missing_key")
   return try{
    interrupted()
-   val payload=ImageOcrProtocol.request(imageParts(context,file)).toString()
-   val request=Request.Builder().url("https://api.deepseek.com/chat/completions")
-    .header("Authorization","Bearer $key").post(imageOcrRequestBody(payload)).build()
+   val selectedMode=SharedAi.mode(context)
+   // Importing a file is not consent to relay its image. The user must choose this
+   // particular public recognition in the library's disclosure dialog first.
+   if(selectedMode==SharedAi.Mode.SHARED&&!publicImageConsent)
+    return ImageTextIndexResult("",LibraryIndexState.PUBLIC_CONSENT,"consent_required")
+   val payload=ImageOcrProtocol.request(imageParts(context,file))
+   val shared=if(selectedMode==SharedAi.Mode.SHARED)SharedAi.publicRequest(context,payload)else null
+   val request=if(shared!=null){
+    val buffer=okio.Buffer();shared.body!!.writeTo(buffer)
+    shared.newBuilder().post(imageOcrRequestBody(buffer.readUtf8())).build()
+   }else{
+    val key=Secrets(context).get("deepseek")
+    require(key.isNotBlank()){"请先配置 DeepSeek API Key"}
+    Request.Builder().url("https://api.deepseek.com/chat/completions")
+     .header("Authorization","Bearer $key").post(imageOcrRequestBody(payload.toString())).build()
+   }
    val call=client.newCall(request)
    ComponentCancellation.watch(call::cancel){call.execute().use{response->
-    if(!response.isSuccessful)return@use ImageTextIndexResult("","识别失败 · ${ImageOcrProtocol.httpFailure(response.code)}","failed")
+    if(!response.isSuccessful){
+     if(shared!=null)throw SharedAi.httpError(response.code,response.peekBody(8192).string())
+     return@use ImageTextIndexResult("","识别失败 · ${ImageOcrProtocol.httpFailure(response.code)}","failed")
+    }
     val body=response.body?:error("识别服务未返回内容")
+    if(shared!=null)return@use body.charStream().buffered().use{ImageOcrProtocol.readStream(it)}
     // Never retain an unbounded response or expose an upstream error containing request data.
     val bytes=body.byteStream().use{input->ByteArrayOutputStream().use{output->
      val buffer=ByteArray(8192)
@@ -68,6 +84,7 @@ object ImageTextIndexer {
   }catch(e:Exception){
    if(Thread.currentThread().isInterrupted)throw InterruptedIOException("文字识别已取消").apply{initCause(e)}
    val reason=when(e){
+    is SharedAiException->e.message?:"公用 AI 暂时无法识别图片"
     is ImageOcrInputFailure->e.message?:"图片暂时无法识别，请换一张图片"
     is SocketTimeoutException,is InterruptedIOException->"识别超时，可稍后重试"
     is org.json.JSONException->"识别返回不完整，请重试"

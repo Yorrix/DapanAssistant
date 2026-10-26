@@ -38,7 +38,7 @@ class TranslationHistory(c:Context){
 }
 @Composable fun RecordingHub(open:(String)->Unit){
  Column(Modifier.fillMaxSize().padding(horizontal=12.dp),verticalArrangement=Arrangement.spacedBy(0.dp)){
-  listOf("会议纪要" to "录音、转写与总结","实时翻译" to "连续收听，逐句翻译","课堂生词" to "听课时只看生词、释义和音标").forEach{(name,detail)->
+  listOf("课堂助手" to "听课记录、讨论发言与课堂问答","会议纪要" to "录音、转写与总结","实时翻译" to "连续收听，逐句翻译","课堂生词" to "听课时只看生词、释义和音标").forEach{(name,detail)->
    Row(Modifier.fillMaxWidth().clickable{open(name)}.padding(vertical=12.dp),verticalAlignment=androidx.compose.ui.Alignment.CenterVertically){Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(5.dp)){Text(if(name=="会议纪要")"录音摘要"else name,fontSize=16.sp,fontWeight=FontWeight.Medium);Text(detail,fontSize=13.sp,color=Muted)};LineIcon(AppGlyph.Next,Modifier.size(18.dp),Muted)}
    HorizontalDivider(color=Hairline,thickness=.5.dp)
   }
@@ -104,7 +104,7 @@ class TranslationHistory(c:Context){
   if(listening){stop();return}
   if(AudioState.running){message="麦克风正在用于其他录音，请先结束";return}
   if(from==to){message="请选择不同的两种语言";return}
-  if(secrets.get("aliyun").isBlank()){message="收听需要自己的阿里云百炼密钥；打字翻译可以使用公用 AI。";return};if(!SharedAi.canUseText(c)){message=SharedAi.unavailableMessage(c);return}
+  if(!SharedSpeech.canUse(c)){message=SharedSpeech.unavailableMessage(c);return};if(!SharedAi.canUseText(c)){message=SharedAi.unavailableMessage(c);return}
   if(c.checkSelfPermission(Manifest.permission.RECORD_AUDIO)!=PackageManager.PERMISSION_GRANTED){permission.launch(Manifest.permission.RECORD_AUDIO);return}
   tts.stop();cursor.reset();draftId=UUID.randomUUID().toString();owner="translation-"+UUID.randomUUID();captureFrom=from;captureTo=to;captureSpeaker="讲话"
   try{ContextCompat.startForegroundService(c,Intent(c,RecordingService::class.java).putExtra("voice",true).putExtra("session",owner).putExtra("language",TranslationLanguages.code(captureFrom)).putExtra("translation",true).putExtra("asr_context",asrContext))}catch(e:Exception){message="麦克风启动失败，请重试"}
@@ -119,7 +119,7 @@ class TranslationHistory(c:Context){
  AssistantSurface("实时翻译",JSONObject().put("ready",historyReady).put("from",from).put("to",to).put("listening",listening).put("asrContext",asrContext).put("translationHint",translationHint).put("recent",JSONArray(turns.takeLast(8).map{JSONObject().put("id",it.id).put("text",it.text).put("translated",it.translated)})),listOf(
   surfaceTool("configure","from/to语言名称，asrContext术语背景，translationHint翻译偏好，original布尔，size16..26","from,to,asrContext,translationHint,original,size"){a->require(!listening){"请先停止收听再切换语言"};val f=a.optString("from",from);val t=a.optString("to",to);require(f in TranslationLanguages.names&&t in TranslationLanguages.names&&f!=t);val z=a.optDouble("size",textSize.toDouble()).toFloat();require(z in 16f..26f);prepared("调整实时翻译",a){from=f;to=t;asrContext=a.optString("asrContext",asrContext).take(400);translationHint=a.optString("translationHint",translationHint).take(600);showOriginal=a.optBoolean("original",showOriginal);textSize=z;prefs.edit().putString("live-from",f).putString("live-to",t).putString("asr-context",asrContext).putString("translation-hint",translationHint).putBoolean("original",showOriginal).putFloat("text-size",textSize).apply();"翻译设置已保存"}},
   surfaceTool("translate","把text加入实时翻译记录并生成译文，可能产生DeepSeek用量","text"){a->val text=a.text("text",6000);SharedAi.requireTextAvailable(c);prepared("翻译这段文字",a){enqueue(text,from,to,"输入");"已加入翻译队列，译文将在本页显示"}},
-  surfaceTool("start","开始实时收听并翻译，需要麦克风权限、个人语音密钥及可用的文字AI","",true){a->require(!AudioState.running);require(secrets.get("aliyun").isNotBlank()){ "请先配置阿里云语音密钥" };SharedAi.requireTextAvailable(c);prepared("开始实时翻译",a){start();if(c.checkSelfPermission(Manifest.permission.RECORD_AUDIO)!=PackageManager.PERMISSION_GRANTED)"已请求麦克风权限，授权后请再次开始"else"已提交实时翻译启动请求"}},
+  surfaceTool("start","开始实时收听并翻译，需要麦克风权限及当前配置的语音、文字 AI","",true){a->require(!AudioState.running);require(SharedSpeech.canUse(c)){SharedSpeech.unavailableMessage(c)};SharedAi.requireTextAvailable(c);prepared("开始实时翻译",a){start();if(c.checkSelfPermission(Manifest.permission.RECORD_AUDIO)!=PackageManager.PERMISSION_GRANTED)"已请求麦克风权限，授权后请再次开始"else"已提交实时翻译启动请求"}},
   surfaceTool("stop","停止本页实时收听","",true){a->require(listening){"当前未在翻译收听"};prepared("停止实时翻译",a){stop();"已请求停止收听，正在完成已识别的文字"}},
   surfaceTool("clear","清空实时翻译历史，需先停止录音并等待翻译完成","",true){a->require(historyReady&&!listening&&turns.none{it.pending});prepared("清空翻译历史",a){withContext(Dispatchers.IO){history.save(emptyList())};turns=emptyList();"翻译历史已清空"}}
  ))

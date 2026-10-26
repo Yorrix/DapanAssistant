@@ -52,14 +52,14 @@ data class AssistantUndo(val before:AssistantSnapshot,val after:AssistantSnapsho
  }
 }
 
-data class AssistantOperation(val status:OperationStatus,val summary:String,val items:List<OperationPreview>,val detail:String="",val undo:AssistantUndo?=null){
- fun json()=JSONObject().put("status",status.name).put("summary",summary).put("detail",detail).put("undo",undo?.json()).put("items",JSONArray(items.map{JSONObject().put("verb",it.verb).put("title",it.title).put("before",JSONObject(it.before)).put("after",JSONObject(it.after)).put("context",it.context).put("count",it.count)}))
+data class AssistantOperation(val status:OperationStatus,val summary:String,val items:List<OperationPreview>,val detail:String="",val undo:AssistantUndo?=null,val memory:String="",val toolRequest:String=""){
+ fun json()=JSONObject().put("status",status.name).put("summary",summary).put("detail",detail).put("undo",undo?.json()).put("memory",memory).put("toolRequest",toolRequest).put("items",JSONArray(items.map{JSONObject().put("verb",it.verb).put("title",it.title).put("before",JSONObject(it.before)).put("after",JSONObject(it.after)).put("context",it.context).put("count",it.count)}))
  companion object{
-  fun fromPlan(plan:AssistantPlan,status:OperationStatus,undo:AssistantUndo?=null)=AssistantOperation(status,plan.summary,plan.items,if(plan.unmatched.isEmpty())""else"未匹配，不会修改：${plan.unmatched.joinToString("、")}",undo)
+  fun fromPlan(plan:AssistantPlan,status:OperationStatus,undo:AssistantUndo?=null)=AssistantOperation(status,plan.summary,plan.items,if(plan.unmatched.isEmpty())""else"未匹配，不会修改：${plan.unmatched.joinToString("、")}",undo,AssistantOperationMemory.capture(plan.before,plan.after))
   fun fromJson(o:JSONObject):AssistantOperation{
    fun fields(o:JSONObject)=o.keys().asSequence().associateWith{o.getString(it)}
    val status=OperationStatus.valueOf(o.getString("status"))
-   return AssistantOperation(if(status in setOf(OperationStatus.PENDING,OperationStatus.RUNNING))OperationStatus.EXPIRED else status,o.getString("summary"),o.getJSONArray("items").objects().map{OperationPreview(it.getString("verb"),it.getString("title"),fields(it.getJSONObject("before")),fields(it.getJSONObject("after")),it.getString("context"),it.optInt("count",1))},if(status==OperationStatus.RUNNING)"执行过程曾中断，请先核对实际记录。"else if(status==OperationStatus.PENDING)"应用已重新打开，请重新发出指令生成清单。"else o.optString("detail"),o.optJSONObject("undo")?.let(AssistantUndo::fromJson))
+   return AssistantOperation(if(status in setOf(OperationStatus.PENDING,OperationStatus.RUNNING))OperationStatus.EXPIRED else status,o.getString("summary"),o.getJSONArray("items").objects().map{OperationPreview(it.getString("verb"),it.getString("title"),fields(it.getJSONObject("before")),fields(it.getJSONObject("after")),it.getString("context"),it.optInt("count",1))},if(status==OperationStatus.RUNNING)"执行过程曾中断，请先核对实际记录。"else if(status==OperationStatus.PENDING)"应用已重新打开，请重新发出指令生成清单。"else o.optString("detail"),o.optJSONObject("undo")?.let(AssistantUndo::fromJson),o.optString("memory"),o.optString("toolRequest"))
   }
  }
 }

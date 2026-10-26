@@ -1,0 +1,88 @@
+{
+  "version": "0.64.0",
+  "versionCode": 97,
+  "androidUnitTests": {
+    "tests": 1218,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "backendTestsPassed": 82,
+  "runtimeSourceFilesCompared": 350,
+  "runtimeSourceMatches": true,
+  "apkBuiltDirectlyFromSubmittedSource": true,
+  "signedApkContentMatchesUnsignedBuild": true,
+  "apkEntriesCompared": 464,
+  "apk": {
+    "bytes": 27222067,
+    "sha256": "413b65c9f1b5a2fdb343197c41e93db70964c18ad5413cb2d101193c67b19548",
+    "sameSignerAsPreviousRelease": true
+  },
+  "realModelEvaluation": {
+    "syntheticOnly": true,
+    "cases": 3,
+    "passed": 3,
+    "eventCasesEachOneModelReply": true,
+    "missingCourseUsesReadOnlyLookup": true
+  },
+  "permissionUi": {
+    "declarationBeforeMainApp": true,
+    "notificationPromptVerified": true,
+    "microphonePromptVerified": true,
+    "locationApproximateSelectionVerified": true,
+    "cameraDenialVerified": true,
+    "permissionGuideCanBeSkipped": true
+  },
+  "update": {
+    "publicDownload": {
+      "versionCode": 97,
+      "apkUrl": "https://39.105.161.86/updates/dapan-97.apk",
+      "bytes": 27222067,
+      "sha256": "413b65c9f1b5a2fdb343197c41e93db70964c18ad5413cb2d101193c67b19548",
+      "httpsVerified": true,
+      "fullDownloadVerified": true,
+      "feedCacheControl": "no-store"
+    },
+    "emulatorInstall": {
+      "versionCode": 97,
+      "versionName": "0.64.0",
+      "systemInstallerVerified": true,
+      "retainedConsentAndPermissionState": true,
+      "physicalPhoneChanged": false,
+      "emulator": "emulator-5554",
+      "permissionStateAfterUpdate": {
+        "notifications": true,
+        "microphone": true,
+        "approximateLocation": true,
+        "camera": false
+      },
+      "homeScreenVerifiedAfterRestart": true
+    },
+    "cacheRecovery": true,
+    "cancelAndRetry": true,
+    "minimumVersionAndSignatureGuardsUnitTested": true
+  },
+  "document": {
+    "pages": 1,
+    "charactersWithoutWhitespace": 975,
+    "renderReviewed": true,
+    "autoUpdateMentioned": true,
+    "appFirstQuickstartMentioned": true
+  },
+  "video": {
+    "seconds": 265.1333333333333,
+    "recordedVersion": "0.61.4",
+    "unchanged": true,
+    "subtitlesBurnedIn": true
+  },
+  "physicalPhoneUpdatedThisTurn": false,
+  "phoneChatIncluded": false,
+  "realCredentialsIncluded": false,
+  "submissionUploaded": false,
+  "githubPushed": false,
+  "limitations": [
+    "Not all device vendors or natural-language inputs can be exhaustively verified",
+    "Huawei fallback browser and long-term background delivery were not revalidated on physical Huawei hardware",
+    "Paid broad model suite remains opt-in; three focused synthetic cases were run separately"
+  ]
+}

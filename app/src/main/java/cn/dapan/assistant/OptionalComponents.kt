@@ -49,7 +49,7 @@ internal object OptionalComponents {
  private val locks=java.util.concurrent.ConcurrentHashMap<String,ReentrantLock>()
  fun dictionarySpec()=ComponentCatalog.dictionary
  fun download(context:Context,spec:ComponentSpec,onProgress:(Long,Long)->Unit):File {
-  require(spec==ComponentCatalog.scannerModel||spec==dictionarySpec()){"组件清单不受支持，请更新应用"}
+  require(spec==ComponentCatalog.scannerModel||spec==dictionarySpec()||spec==TimetableComponentCatalog.browser){"组件清单不受支持，请更新应用"}
   ComponentFiles.validateSpec(spec)
   return ComponentCancellation.locked(locks.getOrPut(spec.id){ReentrantLock()}){
    val directory=File(context.cacheDir,"components")
@@ -84,7 +84,7 @@ internal object OptionalComponents {
  }
  fun clearCachedDownloads(context:Context){
   val dir=File(context.cacheDir,"components")
-  val specs=listOf(ComponentCatalog.scannerModel,dictionarySpec())
+  val specs=listOf(ComponentCatalog.scannerModel,dictionarySpec(),TimetableComponentCatalog.browser)
   dir.listFiles()?.filter{it.isFile&&(it.name.endsWith(".apk")||it.name.endsWith(".gz")||it.name.endsWith(".ort")||it.name.endsWith(".part"))}?.forEach{file->
    val spec=specs.firstOrNull{file.name==it.fileName||file.name=="${it.fileName}.part"}
    if(spec==null)file.delete()

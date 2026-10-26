@@ -4,8 +4,16 @@ import kotlinx.coroutines.CancellationException
 import org.json.JSONArray
 import org.json.JSONObject
 
+internal class AssistantValidationFailure(val detail:String,cause:Throwable):IllegalArgumentException(
+ "这次操作仍有信息冲突，尚未执行。你的要求已保留，可以重试。",cause)
+
 /** Read/validate only. Execution stays outside this loop, so retries cannot double-write. */
 internal object AssistantReasoning {
+ private fun canonical(value:Any?):Any?=when(value){
+  is JSONObject->JSONArray(value.keys().asSequence().toList().sorted().map{key->JSONArray().put(key).put(canonical(value.get(key)))})
+  is JSONArray->JSONArray((0 until value.length()).map{canonical(value.get(it))})
+  else->value
+ }
  suspend fun resolve(
   request:suspend(String)->JSONObject,
   lookup:suspend(AssistantAction.Lookup)->String,
@@ -20,25 +28,40 @@ internal object AssistantReasoning {
   var repairs=0
   var promiseRepairs=0
   var repeatedLookups=0
+  val rejected=mutableSetOf<String>()
+  val promises=mutableSetOf<String>()
   repeat(8){
    val raw=request(JSONArray(observations).toString())
    var action=try{
-    normalize(AssistantActions.decode(raw)).also{if(it !is AssistantAction.Lookup)validate(it)}
+    var decoded=AssistantSpokenIntent.clarify(AssistantActions.decode(raw),groundingRequest)
+    decoded=normalize(decoded)
+    if(AssistantGrounding.libraryQuestionOnly(groundingRequest)&&decoded !is AssistantAction.Reply&&decoded !is AssistantAction.Lookup&&decoded !is AssistantAction.Search){
+     val read=observations.any{it.optString("kind")=="lookup"&&AssistantSurfaces.canonical(it.optString("module"))=="资料库"}
+     require(!read){"用户是在查阅资料并提问，没有要求保存、记笔记或打开页面。已有资料查询结果，请据正文用chat回答并注明引用；缺上下文继续lookup，不能生成新增记录或save_attachments。"}
+     observations+=JSONObject().put("kind","answer_required").put("executed",false).put("instruction","这次只查阅资料并回答，不保存附件、不新增信息查询条目、不只打开文件；请用真实正文回答。")
+     decoded=AssistantAction.Lookup("资料库","")
+    }
+    decoded.also{if(it !is AssistantAction.Lookup)validate(it)}
    }catch(e:Exception){
     if(e is CancellationException)throw e
     if(e !is IllegalArgumentException&&e !is IllegalStateException&&e !is org.json.JSONException&&e !is java.time.DateTimeException)throw e
-    if(repairs++>=2)throw IllegalArgumentException("操作信息仍不完整，尚未执行：${e.message}",e)
+    if(!rejected.add(canonical(raw).toString())||repairs++>=2)throw AssistantValidationFailure(e.message.orEmpty(),e)
     progress("正在核对操作信息…")
     observations+=JSONObject().put("kind","validation_error").put("executed",false).put("proposal",raw)
-     .put("reason",e.message).put("instruction","仅修复参数或查找真实对象，不改变用户意图、范围和数量；仍缺信息时直接询问。")
+     .put("reason",e.message).put("instruction","沿用当前任务的完整澄清链，用户对最近方案的确认有效。只修复参数或查找真实对象，不改变范围和数量，不为绕过校验偷偷挪时间。确实缺信息只问缺失项，不能再次询问已获确认的内容，不向用户转述内部校验指令。")
     return@repeat
    }
    // A document question cannot be dismissed based only on the visible screen or temporary
    // attachment list. Read the local library once before accepting a text-only answer.
-   val requiredLookup=if(action is AssistantAction.Reply)AssistantGrounding.lookupFor(groundingRequest)else null
+   val libraryQuestion=action is AssistantAction.Tool&&AssistantSurfaces.canonical(action.module)=="资料库"&&action.operation in setOf("open","select","search")&&AssistantGrounding.needsLibrary(groundingRequest)&&!Regex("打开|导出|分享|选中").containsMatchIn(groundingRequest)
+   val requiredLookup=if(action is AssistantAction.Reply||action is AssistantAction.Search||libraryQuestion)AssistantGrounding.lookupFor(groundingRequest)else null
+   if(libraryQuestion){
+    observations+=JSONObject().put("kind","answer_required").put("executed",false).put("instruction","用户要你读取资料并回答问题，不是只打开文件。请用lookup读取真实正文，随后用chat给出答案及引用；如果已有足够原文就直接回答，不要无故询问是否继续读。")
+   }
    if(requiredLookup!=null&&observations.none{it.optString("kind")=="lookup"&&AssistantSurfaces.canonical(it.optString("module"))==requiredLookup.module})action=requiredLookup
+   else if(libraryQuestion){progress("正在根据原文整理回答…");return@repeat}
    if(action is AssistantAction.Reply&&AssistantReplyGuard.promisesAction(action.text)){
-    if(promiseRepairs++>=2)return AssistantAction.Reply("操作指令未能生成，尚未修改任何数据。你刚才的要求已保留，可以重试。")
+    if(!promises.add(canonical(raw).toString())||promiseRepairs++>=2)return AssistantAction.Reply("操作指令未能生成，尚未修改任何数据。你刚才的要求已保留，可以重试。")
     progress("正在生成可执行操作…")
     observations+=JSONObject().put("kind","action_missing").put("executed",false).put("proposal",raw)
      .put("instruction","这段回答承诺执行修改，但没有提交操作。按用户原要求及最新纠正返回真实结构化操作，沿用原范围和数量；不要再次要求已经给过的批准。确实缺少必填信息时只问缺失项。禁止把承诺当成执行结果。")
@@ -73,7 +96,17 @@ internal object AssistantReasoning {
 }
 
 internal object AssistantGrounding {
+ fun libraryQuestionOnly(text:String):Boolean {
+  if(!needsLibrary(text))return false
+  val write=Regex("保存|存进|存到|存下|存起来|收进|归档|打开|导出|分享|选中|删除|删掉|移除|修改|改成|更改|新增|建立|记下|记住|记录")
+  return write.findAll(text).none{m->
+   val prefix=text.substring(0,m.range.first).substringAfterLast('，').substringAfterLast('。').takeLast(12)
+   !Regex("不要|不用|别|无需|先不|不再").containsMatchIn(prefix)
+  }
+ }
  fun lookupFor(text:String):AssistantAction.Lookup?=when{
+  Regex("提醒|叫我|通知我").containsMatchIn(text)&&AssistantConversationContext.referenceTitle(text)!=null->AssistantAction.Lookup("日历",AssistantConversationContext.referenceTitle(text)!!)
+  Regex("刚才.{0,8}(?:操作|改了什么|做了什么|干了什么)|上一(?:次|步).{0,3}(?:操作|修改)").containsMatchIn(text)->AssistantAction.Lookup("操作记录","")
   needsLibrary(text)->AssistantAction.Lookup("资料库","")
   text.contains("弹幕")&&Regex("显示|展示|打开|播放").containsMatchIn(text)&&!Regex("教我|怎么|不要|别显示|别打开|不显示").containsMatchIn(text)->AssistantAction.Lookup("手持弹幕","")
   Regex("轮盘|转盘").containsMatchIn(text)&&Regex("改名|重命名|删除|删掉|选择|选中").containsMatchIn(text)&&!Regex("教我|不要|别删|不改|怎么").containsMatchIn(text)->AssistantAction.Lookup("抽签","")

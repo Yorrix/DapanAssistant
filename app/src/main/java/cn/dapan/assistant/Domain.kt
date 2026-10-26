@@ -12,12 +12,13 @@ data class CalendarEntry(
  val reminderMode: ReminderMode = ReminderMode.OFF, val beforeMinutes: Int = 10,
  val absoluteReminder: LocalDateTime? = null, val category: String = "",
  val location: String = "", val notes: String = "", val completed: Boolean = false,
- val urgent: Boolean = false
+ val urgent: Boolean = false, val deferred: Boolean = false
 ) {
+ val todoPriority: String get() = if(deferred) "搁置" else if(urgent) "紧急" else "一般"
  fun normalized():CalendarEntry = when(kind) {
   EventKind.ALL_DAY -> copy(start=start.toLocalDate().atStartOfDay(),end=start.toLocalDate().plusDays(1).atStartOfDay(),travelMinutes=0)
   EventKind.DEADLINE -> copy(end=start,travelMinutes=0)
-  EventKind.TODO -> copy(end=start,travelMinutes=0,reminderMode=ReminderMode.OFF,absoluteReminder=null)
+  EventKind.TODO -> copy(end=start,travelMinutes=0,reminderMode=ReminderMode.OFF,absoluteReminder=null,urgent=urgent&&!deferred)
   else -> this
  }
  fun reminderTime(): LocalDateTime? = if(kind==EventKind.TODO) null else when(reminderMode) {
@@ -29,6 +30,7 @@ data class CalendarEntry(
  val crossesDay: Boolean get() = kind==EventKind.TIMED && start.toLocalDate()!=end.toLocalDate()
  fun error(): String? = when {
   title.isBlank() -> "请填写名称"
+  deferred && kind != EventKind.TODO -> "只有 TDL 可以搁置"
   kind == EventKind.TODO && reminderMode != ReminderMode.OFF -> "TDL 不设置时间提醒"
   crossesDay -> "日程不能跨天，请将开始和结束时间设在同一天"
   kind == EventKind.TIMED && !end.isAfter(start) -> "结束时间必须晚于开始时间"
@@ -37,13 +39,13 @@ data class CalendarEntry(
   reminderMode == ReminderMode.DEPARTURE && (kind != EventKind.TIMED || travelMinutes <= 0) -> "出发提醒需要设置路程时间"
   reminderMode == ReminderMode.BEFORE && beforeMinutes <= 0 -> "提前时间必须大于 0"
   reminderMode == ReminderMode.ABSOLUTE && absoluteReminder == null -> "请选择提醒时间"
-  reminderTime()?.let { !it.isBefore(start) } == true -> "提醒必须早于事项开始时间"
+  reminderTime()?.let { it.isAfter(start) } == true -> "提醒不能晚于事项开始时间；可以在开始时提醒"
   else -> null
  }
 }
 fun NoteItem.asTodo() = CalendarEntry(id=id,title=title,kind=EventKind.TODO,
  start=LocalDateTime.ofInstant(Instant.ofEpochMilli(created),ZoneId.systemDefault()),
- notes=detail,completed=done,urgent=group=="紧急").normalized()
+ notes=detail,completed=done,urgent=group=="紧急",deferred=group=="搁置").normalized()
 data class DaySpan(val startMinute:Float,val endMinute:Float)
 data class EventDaySlices(val body:DaySpan?,val travel:DaySpan?)
 object CalendarSlices {

@@ -1,0 +1,10 @@
+[Unit]
+Description=Refresh TIBO public status
+
+[Timer]
+OnBootSec=30s
+OnUnitActiveSec=3min
+RandomizedDelaySec=10
+
+[Install]
+WantedBy=timers.target

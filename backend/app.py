@@ -169,10 +169,11 @@ def create_app(data_dir=None,mode=None,sender=None):
  async def cap_body(request,call_next):
   # Bound the actual streamed body, not just a client supplied Content-Length.
   if request.method in {'POST','PUT','PATCH'}:
+   limit=(32 if request.url.path=='/ai/chat/completions' else 3)*1024*1024
    body=bytearray()
    async for chunk in request.stream():
     body.extend(chunk)
-    if len(body)>3*1024*1024:
+    if len(body)>limit:
      from fastapi.responses import JSONResponse
      return JSONResponse({'detail':'请求过大'},status_code=413)
    request._body=bytes(body)
@@ -180,6 +181,10 @@ def create_app(data_dir=None,mode=None,sender=None):
  def ip(request):return request.client.host if request.client else 'unknown'
  @app.get('/health')
  def health():return {'ok':True,'demo':service.mode=='demo','emailConfigured':service.sender is not None or all(os.environ.get(k) for k in ('SMTP_HOST','SMTP_USER','SMTP_PASSWORD','SMTP_FROM'))}
+ @app.get('/reset-radar')
+ def reset_radar():
+  from reset_radar import cached
+  return cached(service.root/'reset-radar.json')
  @app.get('/notices')
  def notices():
   file=service.root/'notices.json'

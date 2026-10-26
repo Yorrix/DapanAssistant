@@ -1,0 +1,122 @@
+课表兼容组件 1.0 · 依赖清单
+
+来源：该版本 releaseRuntimeClasspath 与本机已解析的官方 Maven 制品。
+清单含 BOM/元数据节点，不能据此声称每个坐标都在 APK 中有独立二进制文件。
+声明为空时请看保留的原始 NOTICE、父 POM 或下方项目许可说明。
+
+androidx.activity:activity:1.0.0
+  The Apache Software License, Version 2.0
+androidx.annotation:annotation:1.10.0
+  The Apache Software License, Version 2.0
+androidx.annotation:annotation-experimental:1.6.0
+  The Apache Software License, Version 2.0
+androidx.annotation:annotation-jvm:1.10.0
+  The Apache Software License, Version 2.0
+androidx.arch.core:core-common:2.2.0
+  The Apache Software License, Version 2.0
+androidx.arch.core:core-runtime:2.2.0
+  The Apache Software License, Version 2.0
+androidx.collection:collection:1.6.0
+  The Apache Software License, Version 2.0
+androidx.collection:collection-jvm:1.6.0
+  The Apache Software License, Version 2.0
+androidx.concurrent:concurrent-futures:1.2.0
+  The Apache Software License, Version 2.0
+androidx.core:core:1.19.0
+  The Apache Software License, Version 2.0
+androidx.core:core-ktx:1.19.0
+  The Apache Software License, Version 2.0
+androidx.core:core-viewtree:1.0.0
+  The Apache Software License, Version 2.0
+androidx.customview:customview:1.0.0
+  The Apache Software License, Version 2.0
+androidx.exifinterface:exifinterface:1.3.6
+  The Apache Software License, Version 2.0
+androidx.fragment:fragment:1.1.0
+  The Apache Software License, Version 2.0
+androidx.interpolator:interpolator:1.0.0
+  The Apache Software License, Version 2.0
+androidx.lifecycle:lifecycle-common:2.11.0
+  The Apache Software License, Version 2.0
+androidx.lifecycle:lifecycle-common-jvm:2.11.0
+  The Apache Software License, Version 2.0
+androidx.lifecycle:lifecycle-livedata:2.11.0
+  The Apache Software License, Version 2.0
+androidx.lifecycle:lifecycle-livedata-core:2.11.0
+  The Apache Software License, Version 2.0
+androidx.lifecycle:lifecycle-livedata-core-ktx:2.11.0
+  The Apache Software License, Version 2.0
+androidx.lifecycle:lifecycle-process:2.11.0
+  The Apache Software License, Version 2.0
+androidx.lifecycle:lifecycle-runtime:2.11.0
+  The Apache Software License, Version 2.0
+androidx.lifecycle:lifecycle-runtime-android:2.11.0
+  The Apache Software License, Version 2.0
+androidx.lifecycle:lifecycle-viewmodel:2.11.0
+  The Apache Software License, Version 2.0
+androidx.lifecycle:lifecycle-viewmodel-android:2.11.0
+  The Apache Software License, Version 2.0
+androidx.loader:loader:1.0.0
+  The Apache Software License, Version 2.0
+androidx.media3:media3-common:1.11.1
+  The Apache Software License, Version 2.0
+androidx.media3:media3-container:1.11.1
+  The Apache Software License, Version 2.0
+androidx.media3:media3-database:1.11.1
+  The Apache Software License, Version 2.0
+androidx.media3:media3-datasource:1.11.1
+  The Apache Software License, Version 2.0
+androidx.media3:media3-decoder:1.11.1
+  The Apache Software License, Version 2.0
+androidx.media3:media3-exoplayer:1.11.1
+  The Apache Software License, Version 2.0
+androidx.media3:media3-exoplayer-hls:1.11.1
+  The Apache Software License, Version 2.0
+androidx.media3:media3-extractor:1.11.1
+  The Apache Software License, Version 2.0
+androidx.profileinstaller:profileinstaller:1.4.0
+  The Apache Software License, Version 2.0
+androidx.savedstate:savedstate:1.0.0
+  The Apache Software License, Version 2.0
+androidx.startup:startup-runtime:1.1.1
+  The Apache Software License, Version 2.0
+androidx.tracing:tracing:1.2.0
+  The Apache Software License, Version 2.0
+androidx.versionedparcelable:versionedparcelable:1.1.1
+  The Apache Software License, Version 2.0
+androidx.viewpager:viewpager:1.0.0
+  The Apache Software License, Version 2.0
+com.google.android.gms:play-services-base:18.7.2
+  Android Software Development Kit License
+com.google.android.gms:play-services-basement:18.9.0
+  Android Software Development Kit License
+com.google.android.gms:play-services-fido:21.3.1
+  Android Software Development Kit License
+com.google.android.gms:play-services-tasks:18.3.2
+  Android Software Development Kit License
+com.google.guava:failureaccess:1.0.2
+  参见原始许可/父 POM
+com.google.guava:guava:33.3.1-android
+  参见原始许可/父 POM
+com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava
+  参见原始许可/父 POM
+org.jetbrains:annotations:23.0.0
+  The Apache Software License, Version 2.0
+org.jetbrains.kotlin:kotlin-stdlib:2.4.20
+  Apache-2.0
+org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.0
+  The Apache License, Version 2.0
+org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0
+  The Apache Software License, Version 2.0
+org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.9.0
+  The Apache Software License, Version 2.0
+org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0
+  The Apache Software License, Version 2.0
+org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0
+  The Apache Software License, Version 2.0
+org.jspecify:jspecify:1.0.0
+  The Apache License, Version 2.0
+org.mozilla.geckoview:geckoview:158.0.20261021001945
+  The Mozilla Public License, v. 2.0
+org.yaml:snakeyaml:2.2
+  Apache License, Version 2.0

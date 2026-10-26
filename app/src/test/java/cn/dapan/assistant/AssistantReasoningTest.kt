@@ -42,12 +42,12 @@ class AssistantReasoningTest {
   },lookup={offsets+=it.offset;"""{"text":"原文"}"""},validate={})
   assertEquals(listOf(0,10000),offsets);assertTrue(result is AssistantAction.Reply)
  }
- @Test fun invalidAttemptsStopAfterTwoRepairs()=runBlocking{
+ @Test fun identicalInvalidProposalStopsAfterOneRepair()=runBlocking{
   var calls=0
   try{
    AssistantReasoning.resolve(request={calls++;JSONObject("""{"action":"focus","minutes":900}""")},lookup={""},validate={})
    fail("must not execute")
-  }catch(_:IllegalArgumentException){assertEquals(3,calls)}
+  }catch(_:IllegalArgumentException){assertEquals(2,calls)}
  }
  @Test fun networkFailureIsNotRetried()=runBlocking{
   var calls=0

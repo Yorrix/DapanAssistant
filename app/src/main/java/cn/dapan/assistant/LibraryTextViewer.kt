@@ -41,11 +41,11 @@ import kotlinx.coroutines.*
     TextButton(onClick=onRetry,enabled=retryEnabled){Text(if(doc.text.isBlank())"识别文字"else"重新提取",fontSize=12.sp)}
    }
    Text(doc.state,Modifier.padding(horizontal=14.dp,vertical=3.dp),fontSize=11.sp,lineHeight=16.sp,color=Muted)
-   if(doc.kind==LibraryKind.IMAGE)Text("图片发送至 DeepSeek，使用个人密钥额度。识别可能有误，请核对原图。",Modifier.padding(horizontal=14.dp),fontSize=11.sp,lineHeight=16.sp,color=Muted)
+   if(doc.kind==LibraryKind.IMAGE)Text(if(doc.state==LibraryIndexState.PUBLIC_CONSENT)"尚未发送这张图片。点右上角“识别文字”，查看说明后选择是否使用公用识别。"else"由 DeepSeek 识别，使用当前 AI 模式的额度。识别可能有误，请核对原图。",Modifier.padding(horizontal=14.dp),fontSize=11.sp,lineHeight=16.sp,color=Muted)
    CompactSearchField(query,{query=it},"在这份资料的文字中查找",Modifier.padding(horizontal=12.dp,vertical=6.dp))
    if(loading)LinearProgressIndicator(Modifier.fillMaxWidth().height(2.dp))
    when{
-    doc.text.isBlank()->Text(if(doc.state==LibraryIndexState.NO_KEY)"请先在 今天 → 设置 → 模型与语音 配置 DeepSeek，返回资料库后继续识别。"else"当前还没有可检索文字。原文件仍在，可返回查看或稍后重试。",Modifier.padding(14.dp),fontSize=13.sp,lineHeight=20.sp,color=Muted)
+    doc.text.isBlank()->Text(if(LibraryIndexState.needsAiSetup(doc.state))"请先在 今天 → 设置 → 模型与语音 登录公用 AI，或配置自备 API，返回后继续识别。"else"当前还没有可检索文字。原文件仍在，可返回查看或稍后重试。",Modifier.padding(14.dp),fontSize=13.sp,lineHeight=20.sp,color=Muted)
     query.isNotBlank()&&matches.isEmpty()&&!loading->Text("可用索引中未找到这些关键词，试试更短的关键词；部分索引或识别错误也可能导致未命中。",Modifier.padding(14.dp),fontSize=13.sp,color=Muted)
     else->LazyColumn(state=list,modifier=Modifier.weight(1f),contentPadding=PaddingValues(14.dp),verticalArrangement=Arrangement.spacedBy(10.dp)){
      if(query.isNotBlank()){

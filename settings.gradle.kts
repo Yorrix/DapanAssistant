@@ -2,9 +2,11 @@ pluginManagement {
  repositories { google(); mavenCentral(); gradlePluginPortal() }
  resolutionStrategy { eachPlugin { if (requested.id.id == "com.android.library") useModule("com.android.tools.build:gradle:${requested.version ?: "9.4.1"}") } }
 }
-dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { maven { url = uri("vendor/sdk-0.7.0/maven"); content { includeGroup("dev.offlinescan") } }; google(); mavenCentral() } }
+dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { maven { url = uri("vendor/sdk-0.7.0/maven"); content { includeGroup("dev.offlinescan") } }; maven { url = uri("https://maven.mozilla.org/maven2/"); content { includeGroup("org.mozilla.geckoview") } }; google(); mavenCentral() } }
 rootProject.name = "DapanAssistant"
 include(":app")
+// Separate install-on-demand fallback. The main APK has no GeckoView dependency.
+include(":timetable-component")
 // Scanner runs inside the app. Only its model data is downloaded on demand.
 include(":scanner-processing-opencv")
 project(":scanner-processing-opencv").projectDir = file("vendor/open-android-doc-scanner-0.7.0/scanner-processing-opencv")

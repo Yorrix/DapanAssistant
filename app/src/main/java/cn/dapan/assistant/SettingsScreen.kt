@@ -60,7 +60,13 @@ import kotlinx.coroutines.*
       SettingsDivider()
       SettingsRow("服务连接","",AppGlyph.Settings){page="服务连接"}
      }
-     SettingsSection("帮助"){SettingsRow("快速入门","",AppGlyph.Next,onGuide)}
+     SettingsSection("帮助"){
+      SettingsRow("快速入门","",AppGlyph.Next,onGuide)
+      SettingsDivider()
+      SettingsRow("权限与声明","",AppGlyph.File){page="权限与声明"}
+      SettingsDivider()
+      SettingsRow("应用更新",BuildConfig.VERSION_NAME,AppGlyph.Next){page="应用更新"}
+     }
     }
     "模型与语音"->{
      SharedAiSettings(secret,onLogin={accountOpen=true})
@@ -87,6 +93,8 @@ import kotlinx.coroutines.*
      DataClearControls(store,clearEnabled,onClear)
      DemoDataControls(store)
     }
+    "权限与声明"->{AppPermissions();SettingsSection("使用与数据声明"){Column(Modifier.padding(12.dp)){UsageDeclaration()}}}
+    "应用更新"->AppUpdateSettings()
     "服务连接"->CommunitySettings()
     "按需组件"->ComponentSettings()
    }
@@ -94,7 +102,7 @@ import kotlinx.coroutines.*
  }
  if(hotwordsOpen)HotwordSettingsDialog{hotwordsOpen=false}
  if(accountOpen)SharedAiLoginDialog(onDismiss={accountOpen=false})
- if(privacy)AlertDialog(onDismissRequest={privacy=false},title={Text("数据如何使用")},text={Text("公用 AI：供基础试用。使用校园账号登录，对话、语音及本次任务需要的资料会经过开发者部署的服务器，再转发给 AI 服务商。延迟通常比自备 API 高；达到个人或全站额度后暂停，不会自动使用个人密钥。\n\n自备 API：DeepSeek 和阿里云密钥加密保存在本机，直接调用服务商，费用由你的账户承担。长时录音、收听翻译和课堂生词使用个人阿里云账户，公用额度不覆盖这些服务。\n\n调用 AI 时会发送相关对话、当前页面和事项索引；查询时还可能发送匹配的资料、通知或录音转写。图片识别使用个人 API。\n\n密钥测试只验证连通性，不生成、不录音。",fontSize=13.sp,lineHeight=20.sp)},confirmButton={TextButton(onClick={privacy=false}){Text("关闭")}})
+ if(privacy)AlertDialog(onDismissRequest={privacy=false},title={Text("数据如何使用")},text={Text("公用 AI：使用校园账号登录，对话、语音、图片及本次任务需要的资料会经过开发者部署的服务器，再转发给 AI 服务商。按个人与全站的日、周、月额度计量，任一额度用尽后暂停。延迟可能比自备 API 高，不会自动使用个人密钥。\n\n自备 API：DeepSeek 和阿里云密钥加密保存在本机，直接调用服务商，费用由你的账户承担，不占公用额度。\n\n调用 AI 时会发送相关对话、当前页面和事项索引；查询时还可能发送匹配的资料、通知或录音转写。对话、图片识别和持续语音均使用你选择的公用或自备模式。\n\n密钥测试只验证连通性，不生成、不录音。",fontSize=13.sp,lineHeight=20.sp)},confirmButton={TextButton(onClick={privacy=false}){Text("关闭")}})
  error?.let{AlertDialog(onDismissRequest={error=null},text={Text(it)},confirmButton={TextButton(onClick={error=null}){Text("关闭")}})}
 }
 

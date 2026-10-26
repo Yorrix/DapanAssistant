@@ -48,4 +48,17 @@ class AssistantIntentTest {
   val note=AssistantAction.Note(NoteItem(module="待办",title="携带玉兰卡",detail="穿运动鞋"))
   assertEquals(schedule,AssistantIntent.normalize(AssistantAction.Batch(listOf(schedule,note)),"体测携带玉兰卡，穿运动鞋"))
  }
+ @Test fun singleReminderDoesNotAlsoCreateDuplicateTodo(){
+  val reminder=AssistantAction.Event(event("").value.copy(title="交申请提醒",reminderMode=ReminderMode.ABSOLUTE,absoluteReminder=event().value.start))
+  val batch=AssistantAction.Batch(listOf(todo("交申请"),reminder))
+  assertEquals(reminder,AssistantIntent.normalize(batch,"今天沟通结束后提醒我交申请"))
+  assertSame(batch,AssistantIntent.normalize(batch,"今天沟通结束后提醒我交申请，并单独建一个待办"))
+  val detailed=AssistantAction.Batch(listOf(todo("交申请","还需打印两份"),reminder))
+  assertSame(detailed,AssistantIntent.normalize(detailed,"今天沟通结束后提醒我交申请"))
+ }
+ @Test fun noOpRenameCannotSubstituteForARequestedLocationChange(){
+  assertThrows(IllegalArgumentException::class.java){AssistantIntent.normalize(AssistantAction.RenameEvents(listOf("成设" to "成设")),"把所有成设的地点都改成A01-N303")}
+  val rename=AssistantAction.RenameEvents(listOf("成设" to "程设","体育" to "体育"))
+  assertSame(rename,AssistantIntent.normalize(rename,"成设改程设，体育不用变"))
+ }
 }

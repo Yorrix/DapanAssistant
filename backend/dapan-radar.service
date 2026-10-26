@@ -1,0 +1,12 @@
+[Unit]
+Description=Dapan TIBO public status sync
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=dapan
+WorkingDirectory=/opt/dapan/backend
+ExecStart=/opt/dapan/venv/bin/python /opt/dapan/backend/reset_radar.py
+TimeoutStartSec=45
+NoNewPrivileges=true
+PrivateTmp=true

@@ -6,7 +6,7 @@ class RulesTest {
  private val start=LocalDateTime.of(2026,10,14,8,0)
  @Test fun travelDoesNotForceReminder(){val e=CalendarEntry(title="上课",start=start,travelMinutes=20);assertNull(e.reminderTime());assertNull(e.error())}
  @Test fun departureUsesTravel(){val e=CalendarEntry(title="上课",start=start,travelMinutes=20,reminderMode=ReminderMode.DEPARTURE);assertEquals(start.minusMinutes(20),e.reminderTime())}
- @Test fun rejectsReminderAtOrAfterStart(){listOf(start,start.plusMinutes(1)).forEach{assertNotNull(CalendarEntry(title="课",start=start,reminderMode=ReminderMode.ABSOLUTE,absoluteReminder=it).error())}}
+ @Test fun rejectsReminderAfterStart(){listOf(start.plusMinutes(1)).forEach{assertNotNull(CalendarEntry(title="课",start=start,reminderMode=ReminderMode.ABSOLUTE,absoluteReminder=it).error())}}
  @Test fun deadlineNeedsNoDuration(){assertNull(CalendarEntry(title="交作业",kind=EventKind.DEADLINE,start=start,end=start).error());assertNotNull(CalendarEntry(title="上课",start=start,end=start).error())}
  @Test fun missingCheckMeansFailedAndHolidayExcluded(){val monday=LocalDate.of(2026,10,12);val stats=Rules.morning(monday,monday.plusDays(2),listOf(CheckDay(monday,passed=true)),mapOf(monday.plusDays(1) to false));assertEquals(2,stats.required);assertEquals(1,stats.missed);assertEquals(.5,stats.rate!!,0.0)}
  @Test fun manualOverrideWins(){val day=LocalDate.of(2026,10,10);val stats=Rules.morning(day,day,listOf(CheckDay(day,false,false)),mapOf(day to true));assertEquals(0,stats.required);assertNull(stats.rate)}

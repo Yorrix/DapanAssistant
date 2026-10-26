@@ -1,1 +1,1 @@
-<paths xmlns:android="http://schemas.android.com/apk/res/android"><files-path name="documents" path="documents/"/><cache-path name="camera" path="camera/"/></paths>
+<paths xmlns:android="http://schemas.android.com/apk/res/android"><files-path name="documents" path="documents/"/><cache-path name="camera" path="camera/"/><cache-path name="components" path="components/"/><cache-path name="updates" path="updates/"/></paths>

@@ -45,11 +45,14 @@ def test_school_domains_are_exact(setup):
   assert c.post('/auth/code',json={'email':email}).status_code==422
  assert c.post('/auth/code',json={'email':'teacher@dlut.edu.cn'}).status_code==200
 
-def test_removed_radar_is_not_served_even_if_an_old_cache_remains(setup):
+def test_restored_radar_rejects_obsolete_cache_without_server_error(setup):
  c,s,_=setup
  (s.root/'reset-radar.json').write_text('{"version":1,"items":[]}',encoding='utf-8')
- assert c.get('/reset-radar').status_code==404
- assert '/reset-radar' not in c.get('/openapi.json').json()['paths']
+ response=c.get('/reset-radar')
+ assert response.status_code==200
+ assert response.json()['stale'] is True
+ assert response.json()['data'] is None
+ assert '/reset-radar' in c.get('/openapi.json').json()['paths']
  assert c.get('/health').json()['ok'] is True
 
 def test_registration_code_is_single_use_and_password_login(setup):

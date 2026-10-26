@@ -27,6 +27,10 @@ object LibraryRetrieval {
    .put("hint","没有可读取的正文，不能据名称或备注编造文件内容。索引状态见 file.indexState；查询不会自动重新识别。")
   if(query.isNotBlank()){
    val match=LibrarySearch.match(doc.name,doc.remark,doc.text,query,doc.textFormat,maxEvidence=8)
+   if(match.evidence.isEmpty()&&doc.text.length<=minOf(limit.coerceAtLeast(1),10000)){
+    return document(doc,"",0,limit).put("query",query).put("keywordMatched",false)
+     .put("hint","关键词没有逐字命中；这份资料较短，已直接提供全部可用索引文字及位置。请据正文回答，不必让用户确认继续阅读；没有提及的内容不得编造。partialIndex=true时仍不等于完整原文件。")
+   }
    return root.put("mode","search_in_file").put("matchedTerms",JSONArray(match.matchedTerms))
     .put("evidence",JSONArray(match.evidence.map{evidence(doc,it)}))
     .put("hint","已检索整个可用索引，返回相关片段而非完整文件。需要前后文时，使用同一 id、空 query 和片段 startOffset 分页读取；换词可继续检索。引用必须来自 quote，标明 citation。")
@@ -41,9 +45,12 @@ object LibraryRetrieval {
  }
  fun search(results:List<LibrarySearchResult>,query:String,offset:Int=0):JSONObject{
   val start=offset.coerceAtLeast(0).coerceAtMost(results.size);val page=results.drop(start).take(12)
-  val items=page.map{result->result.document.json().put("remark",result.document.remark.take(600))
+  val items=page.mapIndexed{index,result->result.document.json().put("remark",result.document.remark.take(600))
    .put("matchedTerms",JSONArray(result.match.matchedTerms)).put("relevance",result.match.score)
-   .put("evidence",JSONArray(result.match.evidence.map{evidence(result.document,it)}))}
+   .put("evidence",JSONArray(result.match.evidence.map{evidence(result.document,it)})).also{item->
+    // Short instructions are cheaper and clearer to read once than to search repeatedly.
+    if(index<3&&result.document.text.isNotBlank()&&result.document.text.length<=4000)item.put("preview",document(result.document,"",0,4000))
+   }}
   val hasMore=start+page.size<results.size
   return JSONObject().put("module","资料库").put("query",query).put("mode","search_files").put("items",JSONArray(items))
    .put("returned",items.size).put("hasMore",hasMore).put("nextOffset",if(hasMore)start+page.size else JSONObject.NULL)

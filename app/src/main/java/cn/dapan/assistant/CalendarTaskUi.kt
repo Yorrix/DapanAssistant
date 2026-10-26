@@ -83,8 +83,8 @@ private data class CalendarTaskSection(val label: String, val entries: List<Cale
     val now by rememberDashboardTime(active = !todo)
     val all = s.calendarEntries.filter { it.kind == if (todo) EventKind.TODO else EventKind.DEADLINE }
     val pending = all.filterNot { it.completed }.sortedWith(compareBy<CalendarEntry> { it.start }.thenBy { it.id })
-    val labels = if (todo) listOf("紧急", "一般") else listOf("已逾期", "今天", "七天内", "更晚")
-    val grouped = pending.groupBy { if (todo) (if (it.urgent) "紧急" else "一般") else Rules.deadlineBucket(it.start, now) }
+    val labels = if (todo) listOf("紧急", "一般", "搁置") else listOf("已逾期", "今天", "七天内", "更晚")
+    val grouped = pending.groupBy { if (todo) it.todoPriority else Rules.deadlineBucket(it.start, now) }
     val sections = labels.mapNotNull { label -> grouped[label]?.let { CalendarTaskSection(label, it) } }
     val doneIds = all.filter { it.completed }.map { it.id }
     // Keep newly completed records at the end, including changes made by the AI.

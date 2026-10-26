@@ -36,7 +36,7 @@ object AssistantPlanner {
   put("分类",e.category.ifBlank{"无分类"})
   if(e.kind==EventKind.TIMED)put("路程","${e.travelMinutes} 分钟")
   if(e.kind!=EventKind.TODO)put("提醒",when(e.reminderMode){ReminderMode.OFF->"不提醒";ReminderMode.DEPARTURE->"出发时 · ${e.reminderTime()}";ReminderMode.BEFORE->"提前 ${e.beforeMinutes} 分钟 · ${e.reminderTime()}";ReminderMode.ABSOLUTE->"指定 · ${e.absoluteReminder}"}.replace('T',' '))
-  if(e.kind==EventKind.TODO)put("优先级",if(e.urgent)"紧急"else"一般")
+  if(e.kind==EventKind.TODO)put("优先级",e.todoPriority)
   put("地点",e.location.ifBlank{"无"});put("备注",e.notes.ifBlank{"无"})
   if(e.kind in listOf(EventKind.TODO,EventKind.DEADLINE))put("状态",if(e.completed)"已完成"else"未完成")
  }
@@ -57,7 +57,7 @@ object AssistantPlanner {
    val e=value.copy(category=value.category.trim().takeUnless{it=="无分类"}.orEmpty()).normalized();require(e.error()==null){e.error()!!}
    validateReminderChange(original.calendar.find{it.id==e.id},e,now)
    state=state.copy(entries=state.entries.filterNot{it.id==e.id}+e,
-    notes=state.notes.map{if(it.module=="待办"&&it.id==e.id)it.copy(title=e.title,detail=e.notes,group=if(e.urgent)"紧急"else"一般",done=e.completed)else it},
+    notes=state.notes.map{if(it.module=="待办"&&it.id==e.id)it.copy(title=e.title,detail=e.notes,group=e.todoPriority,done=e.completed)else it},
     categories=(state.categories+listOf(e.category)).filter{it.isNotBlank()}.distinct())
   }
   fun matchEvent(a:AssistantAction.Change):CalendarEntry{
@@ -110,6 +110,32 @@ object AssistantPlanner {
       matches.forEach{old->reserve(old.id);saveEvent(old.copy(title=to))}
       val dates=matches.map{it.start.toLocalDate()}.sorted()
       rows+=OperationPreview("修改",from,mapOf("名称" to from),mapOf("名称" to to),"${matches.size} 条日程 · ${dates.first()} ～ ${dates.last()} · 时间、地点和提醒保持不变",matches.size)
+     }
+    }
+   }
+   is AssistantAction.CalendarBulk->{
+    a.titles.forEach{title->
+     val matches=original.calendar.filter{it.kind==EventKind.TIMED&&it.title==title&&
+      (a.from==null||it.start.toLocalDate()>=a.from)&&(a.through==null||it.start.toLocalDate()<=a.through)&&
+      (a.weekdays.isEmpty()||it.start.dayOfWeek.value in a.weekdays)}
+     if(matches.isEmpty())unmatched+=title
+     val changed=mutableListOf<Pair<CalendarEntry,CalendarEntry?>>()
+     matches.forEach{old->
+      reserve(old.id)
+      if(a.operation=="delete"){
+       state=state.copy(entries=state.entries.filterNot{it.id==old.id});changed+=old to null
+      }else{
+       var next=AssistantActions.patchEvent(old,a.patch)
+       if(a.shiftMinutes!=0)next=next.copy(start=next.start.plusMinutes(a.shiftMinutes.toLong()),end=next.end.plusMinutes(a.shiftMinutes.toLong()),absoluteReminder=next.absoluteReminder?.plusMinutes(a.shiftMinutes.toLong()))
+       require(next.start.toLocalDate()==old.start.toLocalDate()){"调整会让“$title”移到另一天，请明确日期"}
+       if(next==old)unchanged++ else{saveEvent(next);changed+=old to next}
+      }
+     }
+     if(changed.isNotEmpty()){
+      val fields=changed.map{preview("修改",title,eventFields(it.first),it.second?.let(::eventFields).orEmpty())}
+      fun aggregate(before:Boolean):Map<String,String>{val maps=fields.map{if(before)it.before else it.after};return maps.flatMap{it.keys}.distinct().associateWith{key->maps.mapNotNull{it[key]}.distinct().let{if(it.size==1)it.single()else "${it.size} 种原值（详见操作记录）"}}}
+      val dates=changed.map{it.first.start.toLocalDate()}.sorted()
+      rows+=OperationPreview(if(a.operation=="delete")"删除"else"修改",title,aggregate(true),aggregate(false),"${changed.size} 条日程 · ${dates.first()} ～ ${dates.last()}"+(if(a.shiftMinutes!=0)" · 整体${if(a.shiftMinutes<0)"提前"else"推迟"}${kotlin.math.abs(a.shiftMinutes)}分钟"else""),changed.size)
      }
     }
    }

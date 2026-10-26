@@ -3,7 +3,7 @@ from pathlib import Path
 import json,re,sys
 root=Path(__file__).resolve().parents[1]
 source=root/'app/src/main/java/cn/dapan/assistant'
-modules={"今天":["TodayDashboard.kt"],"日历":["CalendarUi.kt"],"账单":["BillingUi.kt"],"信息查询":["InformationScreen.kt"],"晨签":["MorningUi.kt"],"天气":["WeatherUi.kt"],"手持弹幕":["MarqueeUi.kt"],"工具":["ToolboxUi.kt"],"专注":["FocusUi.kt"],"抽签":["WheelUi.kt"],"官网通知":["NoticeScreen.kt"],"实时翻译":["TranslationUi.kt"],"课堂生词":["VocabularyUi.kt"],"地图":["CampusMapHub.kt","CampusMapUi.kt"],"会议纪要":["MeetingScreens.kt"],"二手信息":["MarketScreen.kt"],"资料库":["LibraryUi.kt"]}
+modules={"课堂助手":["ClassroomUi.kt"],"tibo雷达":["ResetRadarUi.kt"],"今天":["TodayDashboard.kt"],"日历":["CalendarUi.kt"],"账单":["BillingUi.kt"],"信息查询":["InformationScreen.kt"],"晨签":["MorningUi.kt"],"天气":["WeatherUi.kt"],"手持弹幕":["MarqueeUi.kt"],"工具":["ToolboxUi.kt"],"专注":["FocusUi.kt"],"抽签":["WheelUi.kt"],"官网通知":["NoticeScreen.kt"],"实时翻译":["TranslationUi.kt"],"课堂生词":["VocabularyUi.kt"],"地图":["CampusMapHub.kt","CampusMapUi.kt"],"会议纪要":["MeetingScreens.kt"],"二手信息":["MarketScreen.kt"],"资料库":["LibraryUi.kt"]}
 pattern=re.compile(r'surfaceTool\("([^"\n]+)","([^"\n]+)","([^"\n]*)"(?:,(false|true))?\)')
 result={}
 for module,files in modules.items():

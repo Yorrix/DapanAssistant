@@ -30,7 +30,7 @@ class ToolFavorites(context:Context){
 object TodayAgenda {
  // One upcoming appointment, then deadlines ranked by proximity interleaved with urgent tasks.
  fun choose(entries:List<CalendarEntry>,now:LocalDateTime,options:AgendaOptions=AgendaOptions()):List<CalendarEntry>{
-  val active=entries.filterNot{it.completed}
+  val active=entries.filterNot{it.completed||(it.kind==EventKind.TODO&&it.deferred)}
   val today=now.toLocalDate()
   val timed=active.filter{it.kind==EventKind.TIMED&&it.start.toLocalDate()>=today&&it.start.toLocalDate()<today.plusDays(options.timedDays.toLong())&&
    (!it.start.isBefore(now)||(options.ongoing&&it.end>now))}.sortedBy{it.start}.take(options.timedLimit)
@@ -55,7 +55,7 @@ object TodayAgenda {
   return when(e.kind){
    EventKind.TIMED->"$time–${e.end.format(DateTimeFormatter.ofPattern("HH:mm"))}"+(if(e.travelMinutes>0)" · 路程 ${e.travelMinutes} 分钟"else"")+(if(e.location.isNotBlank())" · ${e.location}"else"")
    EventKind.DEADLINE->if(e.start<now)"已逾期 · ${e.start.monthValue}/${e.start.dayOfMonth} $time"else"${relativeDay(e.start.toLocalDate(),now.toLocalDate())} $time 截止"
-   EventKind.TODO->(if(e.urgent)"紧急待办"else"一般待办")+e.location.takeIf{it.isNotBlank()}.orEmpty().let{if(it.isEmpty())""else" · $it"}
+   EventKind.TODO->(e.todoPriority+"待办")+e.location.takeIf{it.isNotBlank()}.orEmpty().let{if(it.isEmpty())""else" · $it"}
    EventKind.ALL_DAY->"全天"
   }
  }

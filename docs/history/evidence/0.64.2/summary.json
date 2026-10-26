@@ -1,0 +1,53 @@
+{
+  "baseline": {
+    "turns": 3,
+    "passed": 0,
+    "failed": 3,
+    "modelRequests": 3
+  },
+  "spoken-fixed-1": {
+    "turns": 17,
+    "passed": 13,
+    "failed": 4,
+    "modelRequests": 21
+  },
+  "spoken-fixed-2": {
+    "turns": 17,
+    "passed": 17,
+    "failed": 0,
+    "modelRequests": 20
+  },
+  "holdout-1": {
+    "turns": 11,
+    "passed": 8,
+    "failed": 3,
+    "modelRequests": 14
+  },
+  "holdout-fixed": {
+    "turns": 11,
+    "passed": 11,
+    "failed": 0,
+    "modelRequests": 12
+  },
+  "final-spoken": {
+    "turns": 28,
+    "passed": 28,
+    "failed": 0,
+    "modelRequests": 31
+  },
+  "finalRequestDistribution": {
+    "1": 25,
+    "2": 3
+  },
+  "unit": {
+    "tests": 1246,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 1
+  },
+  "usage": 0.24201328,
+  "version": "0.64.2",
+  "versionCode": 99,
+  "apkSha256": "0f486f5206662b869f26fe31c0c5fe1d5c6786ec3c274f84efe2aa8a5119d4de",
+  "apkBytes": 27238451
+}

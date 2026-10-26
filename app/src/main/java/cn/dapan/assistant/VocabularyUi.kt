@@ -60,7 +60,7 @@ import java.util.Locale
   VocabularyDictionary.requireInstalled(c)
   check(dictionary.installed){dictionary.error?:VocabularyDictionary.MISSING}
   check(!AudioState.running){"麦克风正在使用，请先结束其他录音"}
-  check(Secrets(c).get("aliyun").isNotBlank()){"请先在今天页设置中填写阿里云百炼 API Key"}
+  check(SharedSpeech.canUse(c)){SharedSpeech.unavailableMessage(c)}
   check(c.checkSelfPermission(Manifest.permission.RECORD_AUDIO)==PackageManager.PERMISSION_GRANTED){"请先允许麦克风权限"}
   ContextCompat.startForegroundService(c,Intent(c,VocabularyService::class.java))
  }
@@ -73,7 +73,7 @@ import java.util.Locale
  }
  AssistantSurface("课堂生词",JSONObject().put("ready",ready).put("dictionaryInstalled",dictionary.installed).put("dictionaryDownloading",dictionary.active).put("level",level.label).put("listening",VocabularyState.running).put("query",query).put("words",JSONArray(rows.take(30).map{it.json()})),listOf(
   surfaceTool("configure","已掌握词库level=基础/高中/四级/六级，逐级累计过滤；asrContext为课程术语最多400字，下次开始生效","level,asrContext"){a->val next=if(a.has("level"))VocabularyLevel.parse(a.getString("level"))else level;prepared("调整课堂生词过滤",a){prefs.level=next;level=next;hint=a.optString("asrContext",hint).take(400);prefs.context=hint;"已掌握词库设为${next.label}；识别提示词下次开始生效"}},
-  surfaceTool("start","持续收听课堂，只保留超出已掌握词库的英语生词。使用阿里云语音识别计费，需要麦克风权限","",true){a->VocabularyDictionary.requireInstalled(c);require(dictionary.installed){dictionary.error?:VocabularyDictionary.MISSING};require(!AudioState.running){"麦克风正在使用"};require(Secrets(c).get("aliyun").isNotBlank()){"请先配置阿里云百炼密钥"};prepared("开始课堂生词收听",a){if(c.checkSelfPermission(Manifest.permission.RECORD_AUDIO)!=PackageManager.PERMISSION_GRANTED){permission.launch(Manifest.permission.RECORD_AUDIO);"已请求麦克风权限，授权后开始收听"}else{launchListening();"已提交启动请求，连接状态显示在课堂生词页"}}},
+  surfaceTool("start","持续收听课堂，只保留超出已掌握词库的英语生词。使用阿里云语音识别计费，需要麦克风权限","",true){a->VocabularyDictionary.requireInstalled(c);require(dictionary.installed){dictionary.error?:VocabularyDictionary.MISSING};require(!AudioState.running){"麦克风正在使用"};require(SharedSpeech.canUse(c)){SharedSpeech.unavailableMessage(c)};prepared("开始课堂生词收听",a){if(c.checkSelfPermission(Manifest.permission.RECORD_AUDIO)!=PackageManager.PERMISSION_GRANTED){permission.launch(Manifest.permission.RECORD_AUDIO);"已请求麦克风权限，授权后开始收听"}else{launchListening();"已提交启动请求，连接状态显示在课堂生词页"}}},
   surfaceTool("stop","暂停课堂生词收听，保留生词记录","",true){a->require(VocabularyState.running){"课堂生词未在收听"};prepared("暂停课堂生词",a){stop();"正在停止麦克风并保存最后一批生词"}},
   surfaceTool("known","把word标为已掌握或恢复，known=true/false；只接受真实词库单词，默认true","word,known"){a->val word=a.text("word",80).lowercase(Locale.ROOT);prepared("调整已掌握单词",a){val entry=withContext(Dispatchers.IO){VocabularyDictionary.open(c).lookup(word)}?:error("词库未收录这个单词，请检查拼写");val value=a.optBoolean("known",true);mark(entry.word,value);if(value)"${entry.word} 已设为掌握，以后过滤"else"${entry.word} 已恢复，仍按所选词库过滤"}},
   surfaceTool("search","搜索已记录生词的英文或中文释义","query",false){a->prepared("查找课堂生词",a){query=a.optString("query").take(100);searching=query.isNotBlank();"已筛选课堂生词"}},

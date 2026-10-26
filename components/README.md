@@ -1,13 +1,9 @@
-# Optional components
+# 按需组件
 
-The main APK contains scanner code and native runtime, but neither its model nor the ECDICT database. Both data resources download inside the app without installing another APK.
+扫描模型和离线词典是 App 内直接下载的数据，主 APK 不内置这两份数据。catalogue.json 记录文件大小及校验值，scripts/component-catalogue.py 可重新生成应用内的数据清单。当前两份数据放在 payloads/。
 
-- **Dictionary**: `payloads/ecdict-v1.db.gz`, downloaded with a base-APK-pinned SHA-256 over HTTPS. Its decompressed size, SHA-256 and SQLite structure are verified before atomic installation. Existing dictionaries, personal known words and vocabulary history are preserved.
-- **Scanner model**: content-addressed `docquadnet256-<hash>.ort`, 13,404,960 bytes. SHA and size are checked before atomic storage in `noBackupFilesDir/scanner-models/docquadnet256.ort`. The detector checks both again before inference. First download proceeds directly to the camera; later launches work offline. Deleting the model preserves all scanned documents. CameraX, OpenCV and ONNX Runtime remain in the signed main app; no executable code is downloaded.
-- **Timetable**: uses Android's system WebView. No browser runtime is downloaded or included.
+课表默认使用系统 WebView。加载失败时，用户可选择下载并安装独立兼容浏览器组件；主 APK 不捆绑 GeckoView 内核。组件源码在 timetable-component/，构建需要 Android SDK 37.2 与 Mozilla Maven 依赖。安装组件需要系统确认，与主应用通过签名权限交互。
 
-Run `build-local.ps1` to generate data hashes, then build and test the app. The processing module is compiled from source and excludes only `docquad/*.ort` from assets, retaining all licenses and model metadata. Keep the original model source for reproducible builds. Content-addressed URLs must remain immutable; legacy APK payloads on the server may remain for earlier builds, but current apps never download or launch them. Current artifacts use the existing development signing identity.
+提交包只提供一个主应用 APK。兼容浏览器成品按应用内固定地址下载；若自行更换签名或服务器，需要重新签署两个应用，并更新 TimetableComponentCatalog.kt 的下载地址、大小、SHA-256 与证书摘要。不能用自行签名的主应用搭配开发者签名的组件。
 
-`catalogue.json` is the build manifest. `scripts/component-catalogue.py` generates `ComponentCatalog.kt`. Keep payloads outside `app/src/main/assets`; otherwise AAPT may expand `.gz` assets into the base APK again.
-
-Downloads are opt-in and cancellable. Keep ECDICT and scanner license/attribution files distributed with their respective packages. Deleting a component never deletes the user's exported documents or word history.
+第三方许可证随源码及应用保留。新组件未完成华为实机验收，不能据此声称所有机型均兼容。

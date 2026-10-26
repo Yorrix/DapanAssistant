@@ -53,10 +53,33 @@ class TimetableImportTest {
   val m=TimetableImport.merge(list,edited);assertEquals(0,m.fresh.size);assertEquals(3,m.changed.size)
   assertEquals(3,TimetableImport.merge(list,list.map{it.copy(reminderMode=ReminderMode.OFF)}).unchanged)
  }
- @Test fun unknownFormatsOrSemesterMismatchBlockTheWholeImport(){
-  assertThrows(IllegalStateException::class.java){TimetableImport.read(term(),payload("1周 周一 第一节~第二节 盘锦校区 A1 甲","待安排"))}
+ @Test fun missingScheduleIsExplicitlySkippableButSemesterMismatchStillBlocks(){
+  val result=TimetableImport.read(term(),payload("1周 周一 第一节~第二节 盘锦校区 A1 甲","待安排","","不排课"))
+  assertEquals(1,result.entries.size);assertEquals(listOf(1,2,3),result.issues.map{it.index})
+  assertTrue(result.issues.all{it.reason.isNotBlank()})
   assertThrows(IllegalArgumentException::class.java){TimetableImport.read(term(id="444"),payload("不排课"))}
-  assertThrows(IllegalArgumentException::class.java){TimetableImport.read(term(),payload("1周 周一 第一节~第二节 盘锦校区 A1 甲;1周 周一 第一节~第二节 盘锦校区 B1 乙"))}
+ }
+ @Test fun oneBadMeetingNeverCreatesAHalfImportedCourse(){
+  val result=TimetableImport.read(term(),payload("1周 周一 第一节~第二节 盘锦校区 A1 甲;未排课","1周 周二 第一节~第二节 盘锦校区 A2 乙"))
+  assertEquals(1,result.issues.size);assertEquals(1,result.entries.size);assertEquals("样例课程1",result.entries.single().title)
+  val conflicts=TimetableImport.read(term(),payload("1周 周一 第一节~第二节 盘锦校区 A1 甲;1周 周一 第一节~第二节 盘锦校区 B1 乙"))
+  assertTrue(conflicts.entries.isEmpty());assertEquals(1,conflicts.issues.size)
+ }
+ @Test fun malformedRowsAreListedAndAllUnscheduledCannotCreateEvents(){
+  val data=payload("1周 周一 第一节~第二节 盘锦校区 A1 甲")
+  data.getJSONArray("courses").put(JSONObject().put("title","未安排课程")).put("invalid-row")
+  val result=TimetableImport.read(term(),data)
+  assertEquals(1,result.entries.size);assertEquals(2,result.issues.size)
+  val empty=TimetableImport.read(term(),payload("不排课","待安排",""))
+  assertTrue(empty.entries.isEmpty());assertEquals(3,empty.issues.size)
+  assertThrows(IllegalStateException::class.java){TimetableImport.read(term(),JSONObject().put("kind","courses").put("semester","443"))}
+  assertThrows(IllegalArgumentException::class.java){TimetableImport.read(term(),payload())}
+ }
+ @Test fun missingOrInvalidTermTimesAreNotGuessed(){
+  val grid=JSONObject().put("kind","grid").put("semester","443").put("semesterName","测试学期").put("startDate","2026-08-31").put("slots",JSONArray())
+  assertThrows(IllegalArgumentException::class.java){TimetableImport.term(grid)}
+  grid.put("slots",JSONArray().put(JSONObject().put("start","800").put("end","")))
+  assertThrows(IllegalArgumentException::class.java){TimetableImport.term(grid)}
  }
  @Test fun loginOnlyAllowsExactOfficialOrigins(){
   assertTrue(TimetableImport.allowedUrl(TimetableImport.ENTRY));assertTrue(TimetableImport.allowedUrl("https://sso.dlut.edu.cn/cas/login"))

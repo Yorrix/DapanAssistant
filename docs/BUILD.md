@@ -2,7 +2,7 @@
 
 ## Android
 
-本快照使用 Gradle Wrapper 9.6.0、Android Gradle Plugin 9.4.1、compileSdk/targetSdk 37。最低 Android 8.0（API 26）；提供 arm64-v8a，模拟器可切换 x86_64。
+本快照使用 Gradle Wrapper 9.6.0、Android Gradle Plugin 9.4.1、主模块 compileSdk/targetSdk 37；兼容浏览器模块 compileSdk 37.2。最低 Android 8.0（API 26）；提供 arm64-v8a，模拟器可切换 x86_64。
 
 验证环境是 Windows、Android Studio 自带 JBR 25.0.3、Android SDK 37、Python 3.14.7。不要照搬原开发者的磁盘路径。
 
@@ -52,13 +52,13 @@ $env:DAPAN_MODE = 'demo'
 
 ## 服务器部署
 
-部署前修改 `backend/deploy/` 示例中的主机、证书与目录；创建专用服务用户。API 只监听本机 `127.0.0.1:8765`，由 HTTPS 反向代理对外服务。SSE 关闭代理缓冲，短语音 WebSocket 配置 Upgrade。
+部署前修改 `backend/deploy/` 示例中的主机、证书与目录；创建专用服务用户。API 只监听本机 `127.0.0.1:8765`，由 HTTPS 反向代理对外服务。SSE 关闭代理缓冲，语音 WebSocket 配置 Upgrade。
 
 - 主服务：`backend/dapan-api.service`；环境配置置于服务器私有文件，限制访问权限。
 - 官网通知：`backend/dapan-notices.service`、`.timer`；通知摘要密钥与限额在独立环境文件中配置。
 - 数据组件：发布 `components/catalogue.json` 所指向的两个数据文件，保持地址与哈希一致。默认地址固定于 `ComponentCatalog.kt` 的生成脚本；更换服务器需同步更新并重新打包 App。
 - 当前客户端默认服务器及证书固定配置见 `CommunityClient.kt` 及网络安全配置等实际代码。更换服务器时搜索原地址并更新相关配置，不能仅替换 Nginx 地址。
-- `backend/deploy/deploy_shared_ai.py` 等历史升级脚本需要显式设置 `DAPAN_SSH_HOST`、`DAPAN_SSH_KEY`。这类脚本只适用于符合其检查条件的服务器，不是通用的一键初装器。
+- 本包仅保留通用部署文件，未复制针对开发者在线服务的一次性升级脚本。额度管理工具须由有服务器权限的维护者设置 `DAPAN_SSH_HOST`、`DAPAN_SSH_KEY` 后运行。
 
 ## 数据再生成与 AI 评估
 
@@ -78,3 +78,13 @@ python scripts/ai-live-eval.py --round manual --budget 1
 
 评估脚本不再读取原开发服务器的密钥。预算按本地累计账本控制，不应删除账本来绕过预算。不要将真实同学的隐私资料作为测试数据。
 
+
+## 课表兼容浏览器
+
+默认导入使用系统 WebView。独立兼容组件源码见 `timetable-component/`，构建命令为 `./gradlew.bat :timetable-component:assembleRelease`，需要 Android SDK 37.2。主应用与组件须使用同一签名，下载校验由 `TimetableComponentCatalog.kt` 固定；更换签名、文件或服务器后必须同步更新。当前主 APK 不捆绑浏览器内核。
+
+## 应用内更新服务
+
+`AppUpdateRules.kt` 固定版本接口、允许的下载地址；`backend/deploy/nginx-https.conf` 提供静态文件路由。`scripts/publish-update.py` 在显式设置维护者的 `DAPAN_SSH_HOST` 与 `DAPAN_SSH_KEY` 后发布不可变版本文件及原子更新清单。新版主 APK 必须与旧版使用相同签名，versionCode 必须递增，先校验并测试再发布。更换服务域名时须同时修改客户端允许地址与发布脚本。
+
+包内不含原签名私钥。自行构建的 APK 可用于独立测试，但不能覆盖签名不同的已有安装；发布者须保管自己的签名密钥。

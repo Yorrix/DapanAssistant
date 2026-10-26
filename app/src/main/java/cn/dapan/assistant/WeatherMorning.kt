@@ -42,6 +42,7 @@ object WeatherMorning {
   nm.notify(notice.notificationId,NotificationCompat.Builder(c,notice.preference).setSmallIcon(android.R.drawable.ic_menu_compass).setContentTitle("盘锦校区 · ${notice.dayLabel}天气").setContentText(body).setStyle(NotificationCompat.BigTextStyle().bigText(body)).setContentIntent(open).setOnlyAlertOnce(true).setAutoCancel(true).build())
  }
  internal fun refresh(c:Context,deliveries:List<WeatherDelivery>){
+  if(!AppConsent.accepted(c))return
   // A single network request also handles morning/evening configured at the same time.
   val fresh=runCatching{WeatherData.fetch(c)}.getOrNull()
   deliveries.forEach{delivery->runCatching{
