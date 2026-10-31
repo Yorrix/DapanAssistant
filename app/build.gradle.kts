@@ -5,7 +5,7 @@ require(dapanAbi in setOf("arm64-v8a", "x86_64")) { "dapanAbi must be arm64-v8a 
 android {
  namespace = "cn.dapan.assistant"
  compileSdk { version = release(37) }
- defaultConfig { applicationId = "cn.dapan.assistant"; minSdk = 26; targetSdk = 37; versionCode = 100; versionName = "1.0.0"; ndk { abiFilters += dapanAbi } }
+ defaultConfig { applicationId = "cn.dapan.assistant"; minSdk = 26; targetSdk = 37; versionCode = 103; versionName = "1.0.3"; ndk { abiFilters += dapanAbi } }
  compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
  buildFeatures { compose = true; buildConfig = true }
  packaging { jniLibs { useLegacyPackaging = true } }

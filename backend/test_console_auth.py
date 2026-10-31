@@ -74,6 +74,8 @@ def test_http_requires_login_preserves_csrf_and_secure_cookie(http_console):
     assert status==200 and "mode='setup'" in html
     assert 'synthetic-token-never-on-web' not in html and '全站用量' not in html
     assert call('GET','/admin/ai/config')[0]==401
+    assert call('GET','/admin/feedback')[0]==401
+    assert "location.replace('/feedback')" in call('GET','/feedback')[2]
     auth_headers={'Origin':console.ORIGIN,'X-Local-CSRF':server.csrf,'Content-Type':'application/json'}
     body={'username':'owner','password':PASSWORD,'confirmPassword':PASSWORD}
     assert call('POST','/auth/setup',body,{**auth_headers,'Origin':'https://evil.invalid'})[0]==403
@@ -86,9 +88,19 @@ def test_http_requires_login_preserves_csrf_and_secure_cookie(http_console):
     assert status==200 and '全站用量' in html and 'synthetic-token-never-on-web' not in html
     csrf=re.search(r"const csrf='([^']+)'",html).group(1)
     assert csrf!=server.csrf
+    status,_,feedback=call('GET','/feedback',headers=cookie_header)
+    assert status==200 and '对话反馈' in feedback and 'synthetic-token-never-on-web' not in feedback
+    assert call('PUT','/admin/feedback/00000000-0000-4000-8000-000000000001',{}, {**cookie_header,**auth_headers})[0]==403
     assert call('PUT','/admin/ai/config',{}, {**cookie_header,**auth_headers})[0]==403
     assert call('POST','/auth/setup',body,auth_headers)[0]==409
     logout_headers={**cookie_header,'Origin':console.ORIGIN,'X-Local-CSRF':csrf}
     assert call('POST','/auth/logout',{},logout_headers)[0]==200
     assert call('GET','/admin/ai/config',headers=cookie_header)[0]==401
     assert "mode='login'" in call('GET','/')[2]
+
+
+def test_feedback_proxy_path_allowlist():
+    assert console.allowed_path('/admin/feedback?status=new')
+    assert console.allowed_path('/admin/feedback/00000000-0000-4000-8000-000000000001')
+    for path in ['/admin/feedback/../../env','/admin/feedback/%2e%2e','https://evil.invalid/admin/feedback','//evil.invalid/admin/feedback','/admin/feedback/export/all']:
+        assert not console.allowed_path(path)

@@ -1,0 +1,43 @@
+{
+  "version": "1.0.3",
+  "versionCode": 103,
+  "publishedOn": "2026-10-31",
+  "calendarTests102": {
+    "tests": 54,
+    "failures": 0
+  },
+  "calendarTests103": {
+    "tests": 7,
+    "failures": 0
+  },
+  "releaseBuild": "passed",
+  "releaseVitalLint": "passed",
+  "fullLint102": {
+    "errors": 0,
+    "warnings": 341
+  },
+  "emulatorCalendarChecks": [
+    "continuous scrolling",
+    "pinch zoom",
+    "date picker centering",
+    "today centering",
+    "seven-day arrows",
+    "retained time and zoom"
+  ],
+  "phone103": {
+    "installed": true,
+    "versionVerified": true,
+    "shortDateVisuallyChecked": true
+  },
+  "server": {
+    "version": "1.0.3",
+    "apkUrl": "https://39.105.161.86/updates/dapan-103.apk",
+    "bytes": 27250739,
+    "sha256": "36bae881c183664e1dcd1fae81b9120899e8372e10e46d46a9044e2084e7e002",
+    "publicDownloadVerified": true,
+    "notes": "日历支持连续左右滑动，跨周、跨月不再受限；点击今天或选择日期后居中显示，左右箭头仍跳七天并保留视图位置。左上角日期改为 MM.dd~MM.dd，去掉年份，字号根据空间自动调整，修复日期显示不全。",
+    "/health": 200,
+    "/manage/feedback": 200
+  },
+  "historicalFullSuiteNotRerun": true
+}

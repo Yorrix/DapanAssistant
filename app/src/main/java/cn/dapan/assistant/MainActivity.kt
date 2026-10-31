@@ -370,7 +370,7 @@ class MainActivity: ComponentActivity() {
  if(showComposer)Column(Modifier.align(Alignment.BottomCenter).fillMaxWidth().imePadding()){
  Column(Modifier.fillMaxWidth().onSizeChanged{floatingHeight=with(density){it.height.toDp()}},horizontalAlignment=Alignment.CenterHorizontally){
   if(!chatHidden&&(showChat||reply!=null||busy||chat.lines.isNotEmpty()))ConversationPanel(chat.lines,reply,busy,showChat,retryRequest!=null,
-   onRetry={retryRequest?.let{ask(it.first,it.second)}},onExpand={showChat=!showChat},onClose={showChat=false;reply=null;chatHidden=true},onClear={abandonPending();chat.clear();reply=null;retryRequest=null},liveReply=modelProgress.reply,busyStatus=modelProgress.status,onApprove={approveOperation(it)},onReject={id->if(!busy&&pendingLineId==id){abandonPending();reply=chat.lines.find{it.id==id}?.text}},onUndo={undoOperation(it)})
+   onRetry={retryRequest?.let{ask(it.first,it.second)}},onExpand={showChat=!showChat},onClose={showChat=false;reply=null;chatHidden=true},onClear={abandonPending();chat.clear();reply=null;retryRequest=null},liveReply=modelProgress.reply,busyStatus=modelProgress.status,onApprove={approveOperation(it)},onReject={id->if(!busy&&pendingLineId==id){abandonPending();reply=chat.lines.find{it.id==id}?.text}},onUndo={undoOperation(it)},screen=screen)
   if(petMode){
    CompanionVoiceFeedback(voice)
    if(petComposerOpen)CompanionComposer(input,{input=it},{inputFocused=it},files,readingFiles,busy,voice.active,

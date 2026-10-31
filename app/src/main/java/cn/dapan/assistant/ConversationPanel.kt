@@ -19,9 +19,13 @@ import androidx.compose.ui.unit.*
 
 /** Non-modal conversation above the existing composer; the originating tool remains mounted. */
 @Composable fun ConversationPanel(lines:List<ChatLine>,notice:String?,busy:Boolean,expanded:Boolean,
- canRetry:Boolean,onRetry:()->Unit,onExpand:()->Unit,onClose:()->Unit,onClear:()->Unit,liveReply:String="",busyStatus:String="正在处理…",onApprove:(String)->Unit={},onReject:(String)->Unit={},onUndo:(String)->Unit={}){
+ canRetry:Boolean,onRetry:()->Unit,onExpand:()->Unit,onClose:()->Unit,onClear:()->Unit,liveReply:String="",busyStatus:String="正在处理…",onApprove:(String)->Unit={},onReject:(String)->Unit={},onUndo:(String)->Unit={},screen:String=""){
  val scroll=rememberScrollState()
  val context=LocalContext.current
+ var feedback by remember{mutableStateOf(false)}
+ var confirmClear by remember{mutableStateOf(false)}
+ if(feedback)ConversationFeedbackDialog(lines,screen,{feedback=false})
+ if(confirmClear)AlertDialog(onDismissRequest={confirmClear=false},title={Text("清空历史对话？")},text={Text("清空本机聊天记录和对话中的撤销入口；已经保存的日程等数据不受影响。已提交的反馈也会保留。")},confirmButton={TextButton(onClick={confirmClear=false;onClear()},enabled=!busy){Text("清空")}},dismissButton={TextButton(onClick={confirmClear=false}){Text("取消")}},containerColor=CardSurface)
  val density=LocalDensity.current
  val keyboard=with(density){WindowInsets.ime.getBottom(this).toDp()}
  val room=(LocalConfiguration.current.screenHeightDp.dp-keyboard-180.dp).coerceAtLeast(64.dp)
@@ -30,9 +34,10 @@ import androidx.compose.ui.unit.*
  LaunchedEffect(liveReply){if(liveReply.isNotEmpty()&&scroll.maxValue-scroll.value<with(density){48.dp.roundToPx()}){withFrameNanos{};scroll.scrollTo(scroll.maxValue)}}
  Surface(Modifier.padding(horizontal=12.dp,vertical=4.dp),color=CardSurface,shape=AppShape(16.dp),shadowElevation=3.dp,border=BorderStroke(.5.dp,Hairline)){Column(Modifier.fillMaxWidth().padding(horizontal=12.dp)){
   Row(Modifier.fillMaxWidth().height(40.dp),verticalAlignment=Alignment.CenterVertically){
-   Text("与大盘对话",fontSize=13.sp,lineHeight=18.sp,fontWeight=FontWeight.SemiBold,modifier=Modifier.weight(1f))
-   if(expanded)TextButton(onClick=onClear,enabled=!busy,contentPadding=PaddingValues(horizontal=6.dp)){Text("清空",fontSize=11.sp)}
-   TextButton(onClick=onExpand,contentPadding=PaddingValues(horizontal=6.dp)){Text(if(expanded)"收起"else"历史",fontSize=11.sp)}
+   Text("与大盘对话",fontSize=13.sp,lineHeight=18.sp,fontWeight=FontWeight.SemiBold,modifier=Modifier.weight(1f),maxLines=1,overflow=TextOverflow.Ellipsis)
+   QuietIconButton("反馈对话问题",AppGlyph.Issue,{feedback=true},enabled=!busy&&lines.isNotEmpty(),color=Muted)
+   QuietIconButton("清空历史对话",AppGlyph.Trash,{confirmClear=true},enabled=!busy&&lines.isNotEmpty(),color=Muted)
+   QuietIconButton(if(expanded)"收起对话"else"展开历史",if(expanded)AppGlyph.Collapse else AppGlyph.Expand,onExpand,color=Muted)
    QuietIconButton("关闭对话",AppGlyph.Close,onClose)
   }
   HorizontalDivider(color=Hairline,thickness=.5.dp)

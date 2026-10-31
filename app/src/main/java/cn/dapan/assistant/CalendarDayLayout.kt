@@ -4,24 +4,35 @@ import java.time.LocalDate
 
 data class CalendarDayItem(val entry:CalendarEntry,val body:DaySpan?,val travel:List<DaySpan>,val lane:Rules.Lane)
 
-/** Reuse overlap calculations when returning from a tool. Data identity invalidates the cache. */
+/** Index records once, then reuse per-day layouts as a continuous viewport moves. */
 internal class CalendarRenderCache {
  private var records:List<CalendarEntry>?=null
- private var week:LocalDate?=null
+ private var grouped:Map<LocalDate,List<CalendarEntry>> = emptyMap()
+ private var window:Pair<LocalDate,Int>?=null
+ private val layouts=object:LinkedHashMap<LocalDate,List<CalendarDayItem>>(64,.75f,true){
+  override fun removeEldestEntry(eldest:MutableMap.MutableEntry<LocalDate,List<CalendarDayItem>>?)=size>64
+ }
  private var days:Map<LocalDate,List<CalendarDayItem>> = emptyMap()
  private var overlaps:Map<LocalDate,List<CalendarOverlapGroup>> = emptyMap()
- fun groups(entries:List<CalendarEntry>,start:LocalDate):Map<LocalDate,List<CalendarOverlapGroup>>{week(entries,start);return overlaps}
- fun week(entries:List<CalendarEntry>,start:LocalDate):Map<LocalDate,List<CalendarDayItem>> {
-  if(records!==entries||week!=start){
-   val grouped=entries.filter{!it.crossesDay&&it.kind==EventKind.TIMED}.groupBy{it.start.toLocalDate()}
-   days=(0 until 7).associate{
+ fun groups(entries:List<CalendarEntry>,start:LocalDate,count:Int=7):Map<LocalDate,List<CalendarOverlapGroup>>{range(entries,start,count);return overlaps}
+ fun week(entries:List<CalendarEntry>,start:LocalDate)=range(entries,start,7)
+ fun range(entries:List<CalendarEntry>,start:LocalDate,count:Int):Map<LocalDate,List<CalendarDayItem>> {
+  require(count in 1..32)
+  if(records!==entries){
+   grouped=entries.filter{!it.crossesDay&&it.kind==EventKind.TIMED}.groupBy{it.start.toLocalDate()}
+   records=entries;window=null;layouts.clear()
+  }
+  if(window!=(start to count)){
+   days=(0 until count).associate{
     val date=start.plusDays(it.toLong())
     // A same-day event may still require travel starting on the previous evening.
-    val candidates=grouped[date].orEmpty()+grouped[date.plusDays(1)].orEmpty().filter{it.travelMinutes>0}
-    date to CalendarDayLayout.build(candidates,date)
+    date to layouts.getOrPut(date){
+     val candidates=grouped[date].orEmpty()+grouped[date.plusDays(1)].orEmpty().filter{it.travelMinutes>0}
+     CalendarDayLayout.build(candidates,date)
+    }
    }
    overlaps=days.mapValues{CalendarOverlap.groups(it.value)}
-   records=entries;week=start
+   window=start to count
   }
   return days
  }

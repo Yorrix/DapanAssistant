@@ -4,6 +4,18 @@ import org.junit.Test
 import java.time.LocalDate
 
 class CalendarRenderCacheTest {
+ @Test fun continuousPanningReusesSharedDaysButInvalidatesEditedEvents(){
+  val day=LocalDate.of(2026,10,30)
+  val rows=(0..40).map{CalendarEntry(title="活动$it",start=day.plusDays(it.toLong()).atTime(8,0),end=day.plusDays(it.toLong()).atTime(9,0))}
+  val cache=CalendarRenderCache()
+  val first=cache.range(rows,day,12)
+  val next=cache.range(rows,day.plusDays(1),12)
+  assertSame(first[day.plusDays(5)],next[day.plusDays(5)])
+  assertSame(next,cache.range(rows,day.plusDays(1),12))
+  next.forEach{(date,items)->assertEquals(CalendarDayLayout.build(rows,date),items)}
+  val changed=cache.range(rows.map{it.copy(location="A01")},day.plusDays(1),12)
+  assertEquals("A01",changed[day.plusDays(5)]!!.single().entry.location)
+ }
  @Test fun overlapGroupsReuseButUpdateAfterEditingRecords(){
   val day=LocalDate.of(2026,10,19)
   val rows=listOf(CalendarEntry(title="课",start=day.atTime(8,0),end=day.atTime(10,0)),CalendarEntry(title="活动",start=day.atTime(9,0),end=day.atTime(11,0)))

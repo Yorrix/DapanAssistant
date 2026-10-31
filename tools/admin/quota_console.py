@@ -10,6 +10,7 @@ import hmac
 import http.client
 import json
 import os
+import re
 from pathlib import Path
 import secrets
 import socket
@@ -52,7 +53,8 @@ def allowed_path(path):
     parsed = urllib.parse.urlsplit(path)
     if parsed.scheme or parsed.netloc or parsed.fragment:
         return False
-    return parsed.path in {'/admin/ai/config', '/admin/ai/users', '/admin/ai/user'} and len(path) < 2048
+    return (parsed.path in {'/admin/ai/config', '/admin/ai/users', '/admin/ai/user', '/admin/feedback'}
+            or re.fullmatch(r'/admin/feedback/[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}', parsed.path) is not None) and len(path) < 2048
 
 
 class Console(ThreadingHTTPServer):
@@ -89,13 +91,14 @@ class Handler(BaseHTTPRequestHandler):
         if self.headers.get('Host') != urllib.parse.urlsplit(ORIGIN).netloc or self.headers.get('Origin', ORIGIN) != ORIGIN:
             return self.reply(403, {'detail': '只允许本机访问'})
         if self.path == '/health':
-            return self.reply(200, {'application': 'dapan-quota-console', 'version': 2})
-        if self.path == '/':
+            return self.reply(200, {'application': 'dapan-quota-console', 'version': 3})
+        if self.path in {'/', '/feedback'}:
             session = self.server.auth.session(self.cookie_token())
-            file = 'quota_console.html' if session else 'quota_login.html'
+            file = ('feedback_console.html' if self.path == '/feedback' else 'quota_console.html') if session else 'quota_login.html'
             csrf = session['csrf'] if session else self.server.csrf
-            html = (HERE/file).read_text(encoding='utf-8').replace('__CSRF__', csrf).replace('__NONCE__', self.server.nonce)
+            html = (HERE/file).read_text(encoding='utf-8').replace('__CSRF__', csrf).replace('__NONCE__', self.server.nonce).replace('__BASE__', '')
             html = html.replace('__MODE__', 'login' if self.server.auth.configured else 'setup')
+            html = html.replace('__DESTINATION__', self.path)
             return self.reply(200, html.encode(), 'text/html; charset=utf-8')
         self.proxy()
 
@@ -160,7 +163,7 @@ class Handler(BaseHTTPRequestHandler):
             return self.reply(503, {'detail': '服务器连接已断开，请关闭管理页并重新打开本机入口'})
         try:
             size = int(self.headers.get('Content-Length', '0'))
-            if not 0 <= size <= 8192 or self.headers.get('Transfer-Encoding'):
+            if not 0 <= size <= 20_000 or self.headers.get('Transfer-Encoding'):
                 return self.reply(413, {'detail': '请求过大'})
             body = self.rfile.read(size) if size else None
             with contextlib.closing(http.client.HTTPConnection('127.0.0.1', TUNNEL_PORT, timeout=20)) as connection:
@@ -184,12 +187,13 @@ def existing():
         return False
 
 
-def start(open_browser=True):
+def start(open_browser=True, feedback=False):
     if not REMOTE:
         raise RuntimeError("请先设置 DAPAN_SSH_HOST 和 DAPAN_SSH_KEY，连接你有权管理的服务器")
+    address = ORIGIN+('/feedback' if feedback else '/')
     if existing():
         if open_browser:
-            webbrowser.open(ORIGIN)
+            webbrowser.open(address)
         return
     # Read only the admin token; capture it in memory and never interpolate it in a command.
     remote_script = "import pathlib; from shlex import split; rows=pathlib.Path('/etc/dapan.env').read_text().splitlines(); vals=[split(x.split('=',1)[1])[0] for x in rows if x.startswith('ADMIN_TOKEN=')]; print(vals[-1] if vals else '')"
@@ -217,7 +221,7 @@ def start(open_browser=True):
         else:
             raise RuntimeError('连接服务器超时')
         if open_browser:
-            webbrowser.open(ORIGIN)
+            webbrowser.open(address)
         server.serve_forever()
     finally:
         server.server_close()
@@ -228,9 +232,10 @@ def start(open_browser=True):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--no-browser', action='store_true')
+    parser.add_argument('--feedback', action='store_true')
     args = parser.parse_args()
     try:
-        start(not args.no_browser)
+        start(not args.no_browser, args.feedback)
     except Exception as exc:
         # Only our static messages are shown; never print captured SSH stdout/stderr.
         message = str(exc) if isinstance(exc, RuntimeError) else '额度管理启动失败，请检查网络和本机 SSH 配置'

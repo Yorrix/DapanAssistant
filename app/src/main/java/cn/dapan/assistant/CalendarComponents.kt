@@ -49,7 +49,7 @@ import kotlin.math.roundToInt
   }
  }
 }
-/** Measure the full week independently of the viewport, then translate all three strips equally. */
+/** Measure the buffered dates, then translate all three strips by the same local offset. */
 @Composable internal fun CalendarHorizontalStrip(
  dayWidth:Dp,count:Int,offsetPx:()->Float,modifier:Modifier=Modifier,
  preview:()->Pair<Float,Float> = {1f to offsetPx()},

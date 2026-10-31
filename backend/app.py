@@ -165,11 +165,13 @@ def create_app(data_dir=None,mode=None,sender=None):
  install_shared_ai(app,service)
  from shared_speech import install_shared_speech
  install_shared_speech(app)
+ from conversation_feedback import install_conversation_feedback
+ install_conversation_feedback(app,service)
  @app.middleware('http')
  async def cap_body(request,call_next):
   # Bound the actual streamed body, not just a client supplied Content-Length.
   if request.method in {'POST','PUT','PATCH'}:
-   limit=(32 if request.url.path=='/ai/chat/completions' else 3)*1024*1024
+   limit=1_000_000 if request.url.path=='/feedback/conversations' else (32 if request.url.path=='/ai/chat/completions' else 3)*1024*1024
    body=bytearray()
    async for chunk in request.stream():
     body.extend(chunk)

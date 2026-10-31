@@ -38,7 +38,7 @@ val Pine get()=DutBlue
 val Muted get()=UiPalette.muted
 val Hairline get()=UiPalette.line
 
-enum class AppGlyph { Add,Mic,Send,Stop,Today,Calendar,Tools,Settings,Back,Close,File,Next,Refresh,Chat,Search,Pin,Clock,Check,Done,Wallet,Trash,Edit,Walk,Gazette,Wheel,Marquee }
+enum class AppGlyph { Add,Mic,Send,Stop,Today,Calendar,Tools,Settings,Back,Close,File,Next,Refresh,Chat,Search,Pin,Clock,Check,Done,Wallet,Trash,Edit,Walk,Gazette,Wheel,Marquee,Issue,Collapse,Expand }
 @Composable fun LineIcon(glyph:AppGlyph,modifier:Modifier=Modifier,color:Color=Ink){
  Canvas(modifier.size(23.dp)){
   scale(size.width/24f,size.height/24f,pivot=Offset.Zero){
@@ -46,6 +46,9 @@ enum class AppGlyph { Add,Mic,Send,Stop,Today,Calendar,Tools,Settings,Back,Close
    fun line(x:Float,y:Float,a:Float,b:Float)=drawLine(color,Offset(x,y),Offset(a,b),1.65f,StrokeCap.Round)
    fun path(vararg points:Float){val p=Path();p.moveTo(points[0],points[1]);for(i in 2 until points.size step 2)p.lineTo(points[i],points[i+1]);drawPath(p,color,style=stroke)}
    when(glyph){
+    AppGlyph.Issue->{drawCircle(color,9f,Offset(12f,12f),style=stroke);line(12f,7f,12f,12f);drawCircle(color,1f,Offset(12f,16f))}
+    AppGlyph.Collapse->{path(6f,9f,12f,15f,18f,9f);line(6f,20f,18f,20f)}
+    AppGlyph.Expand->{path(6f,15f,12f,9f,18f,15f);line(6f,4f,18f,4f)}
     AppGlyph.Wheel->{drawCircle(color,8.5f,Offset(12f,13f),style=stroke);line(12f,13f,5f,8f);line(12f,13f,4f,16f);line(12f,13f,12f,21.5f);line(12f,13f,20f,16f);line(12f,13f,19f,8f);drawPath(Path().apply{moveTo(9.5f,2f);lineTo(14.5f,2f);lineTo(12f,7f);close()},color);drawCircle(color,1.5f,Offset(12f,13f))}
     AppGlyph.Marquee->{drawRoundRect(color,Offset(2f,5f),Size(20f,14f),CornerRadius(2.5f),style=stroke);path(6f,14.5f,8.5f,9.5f,11f,14.5f);line(7f,12.5f,10f,12.5f);line(14f,10f,18f,10f);line(14f,14f,18f,14f)}
     AppGlyph.Gazette->{path(3f,3f,19f,3f,19f,20f,4f,20f,3f,19f,3f,3f);path(19f,7f,22f,7f,22f,18f,21f,20f,19f,20f);line(6f,7f,16f,7f);line(6f,11f,9f,11f);line(6f,14f,9f,14f);line(6f,17f,9f,17f);line(12f,11f,16f,11f);line(12f,14f,16f,14f);line(12f,17f,16f,17f)}

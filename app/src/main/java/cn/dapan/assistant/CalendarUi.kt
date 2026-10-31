@@ -5,6 +5,7 @@ import org.json.*
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -52,47 +53,56 @@ private fun EventKind.label()=when(this){EventKind.TIMED->"日程";EventKind.DEA
  val timeAxis=remember(showBeforeSix){CalendarTimeAxis.fromShowBeforeSix(showBeforeSix)}
  var overlapIds by remember{mutableStateOf<List<String>?>(null)}
  fun setOverlap(mode:CalendarOverlapMode){check(presentation.edit().putString("overlap",mode.name).commit()){"显示方式保存失败"};overlapMode=mode}
- var weekText by rememberSaveable{mutableStateOf(LocalDate.now().toString())}
+ var centerDay by rememberSaveable{mutableDoubleStateOf(ContinuousCalendarViewport.center(LocalDate.now()))}
+ val visible by remember{derivedStateOf{ContinuousCalendarViewport.date(centerDay)}}
+ var dateJump by remember{mutableStateOf<Pair<Int,Double>?>(null)}
  var list by rememberSaveable{mutableStateOf("")}
  var allDayList by remember{mutableStateOf<LocalDate?>(null)}
  var todayJump by remember{mutableIntStateOf(0)}
- var dateFocusRequest by rememberSaveable{mutableIntStateOf(0)}
- var appliedDateFocus by rememberSaveable{mutableIntStateOf(0)}
  var weekScale by rememberSaveable{mutableFloatStateOf(7f/3f)}
  var hourHeight by rememberSaveable{mutableFloatStateOf(48f)}
  // Gesture samples only update render layers; text is laid out once when fingers lift.
  var zooming by remember{mutableStateOf(false)}
  var previewHeight by remember{mutableFloatStateOf(48f)}
  var previewScale by remember{mutableFloatStateOf(7f/3f)}
- var previewX by remember{mutableFloatStateOf(0f)}
+ var previewCenter by remember{mutableDoubleStateOf(centerDay)}
  var previewY by remember{mutableFloatStateOf(0f)}
- val visible=LocalDate.parse(weekText)
- val start=CalendarViewport.monday(visible)
- val dates=remember(start){(0 until 7).map{start.plusDays(it.toLong())}}
  val invalidEvents=remember(s.entries){s.entries.filter{it.crossesDay}}
  var showInvalid by remember{mutableStateOf(false)}
  val renderCache=rememberPageSnapshot("calendar-render-cache"){CalendarRenderCache()}.value
- val fullDayItems=remember(s.entries,start){renderCache.week(s.entries,start)}
- val dayItems=remember(fullDayItems,timeAxis){if(timeAxis.startHour==0)fullDayItems else fullDayItems.mapValues{CalendarDayLayout.visible(it.value,timeAxis)}}
- val overlapGroups=remember(dayItems){if(timeAxis.startHour==0)renderCache.groups(s.entries,start)else dayItems.mapValues{CalendarOverlap.groups(it.value)}}
- val allDays=remember(s.entries,dates){s.entries.filter{it.kind==EventKind.ALL_DAY}.groupBy{it.start.toLocalDate()}}
- val deadlines=remember(s.entries,dates){s.entries.filter{it.kind==EventKind.DEADLINE&&!it.completed}.groupBy{it.start.toLocalDate()}.mapValues{it.value.groupBy{e->e.start}}}
- fun selectDate(date:LocalDate,focus:Boolean=false){weekText=date.toString();if(focus)dateFocusRequest++}
+ val allDays=remember(s.entries){s.entries.filter{it.kind==EventKind.ALL_DAY}.groupBy{it.start.toLocalDate()}}
+ val deadlines=remember(s.entries){s.entries.filter{it.kind==EventKind.DEADLINE&&!it.completed}.groupBy{it.start.toLocalDate()}.mapValues{it.value.groupBy{e->e.start}}}
+ fun jumpTo(center:Double){dateJump=(dateJump?.first?:0)+1 to center}
+ fun selectDate(date:LocalDate){jumpTo(ContinuousCalendarViewport.center(date))}
  // Keep registration outside the subcomposed layout: hidden retained pages are
  // not measured, but their AI binding must still be removed immediately.
- AssistantSurface("日历",JSONObject().put("selectedDate",weekText).put("mode","周").put("overlap",overlapMode.label).put("list",list).put("showBeforeSix",showBeforeSix),listOf(surfaceTool("view","周历查看：date=YYYY-MM-DD，list=DDL/TDL/空；overlap=并排/叠放/智能折叠","date,list,overlap",false){a->val date=a.optString("date",weekText);LocalDate.parse(date);val kind=a.optString("list","");require(kind in listOf("","DDL","TDL"));val display=a.optString("overlap",overlapMode.label);val chosen=CalendarOverlapMode.entries.singleOrNull{it.label==display}?:error("请选择并排、叠放或智能折叠");prepared("查看周历",a){if(chosen!=overlapMode)setOverlap(chosen);selectDate(LocalDate.parse(date),focus=true);list=kind;"已定位 $date 所在周 $kind"}}),enabled=active)
+ AssistantSurface("日历",JSONObject().put("selectedDate",visible.toString()).put("mode","周").put("overlap",overlapMode.label).put("list",list).put("showBeforeSix",showBeforeSix),listOf(surfaceTool("view","日历查看：date=YYYY-MM-DD，选中日期居中显示；list=DDL/TDL/空；overlap=并排/叠放/智能折叠","date,list,overlap",false){a->val date=a.optString("date",visible.toString());LocalDate.parse(date);val kind=a.optString("list","");require(kind in listOf("","DDL","TDL"));val display=a.optString("overlap",overlapMode.label);val chosen=CalendarOverlapMode.entries.singleOrNull{it.label==display}?:error("请选择并排、叠放或智能折叠");prepared("查看日历",a){if(chosen!=overlapMode)setOverlap(chosen);selectDate(LocalDate.parse(date));list=kind;"已居中显示 $date $kind"}}),enabled=active)
  // Calendar owns its grid; decorative theme paper must never show through it.
  BoxWithConstraints(Modifier.fillMaxSize().background(Paper)) {
  val density=LocalDensity.current.density
  val availableWidth=(maxWidth-38.dp).coerceAtLeast(1.dp)
  val initialViewportHeight=(maxHeight.value-135f).coerceAtLeast(1f)
- val dayWidth=availableWidth*weekScale/7
- var horizontalOffset by rememberSaveable{mutableFloatStateOf(
-  ((visible.dayOfWeek.value-1)*dayWidth.value*density-(availableWidth.value-dayWidth.value)*density/2)
-   .coerceIn(0f,(availableWidth.value*density*(weekScale-1)).coerceAtLeast(0f))
- )}
+ val widthPx=availableWidth.value*density
+ // The focus is the screen midline, accounting for the time gutter on the left.
+ val focusPx=(maxWidth.value/2-38).coerceAtLeast(0f)*density
+ fun dayPixels(scale:Float)=(widthPx*scale/7).roundToInt().coerceAtLeast(1).toFloat()
+ val dayWidthPx=dayPixels(weekScale)
+ val dayWidth=(dayWidthPx/density).dp
+ val bufferedDays by remember(widthPx,focusPx,weekScale){derivedStateOf{
+  ContinuousCalendarViewport.buffered(if(zooming)previewCenter else centerDay,widthPx,dayPixels(if(zooming)previewScale else weekScale),focusPx)
+ }}
+ val visibleDays by remember(widthPx,focusPx,weekScale){derivedStateOf{
+  ContinuousCalendarViewport.visible(if(zooming)previewCenter else centerDay,widthPx,dayPixels(if(zooming)previewScale else weekScale),focusPx)
+ }}
+ val dates=remember(bufferedDays){bufferedDays.map(LocalDate::ofEpochDay)}
+ val start=dates.first()
+ val fullDayItems=remember(s.entries,bufferedDays){renderCache.range(s.entries,start,dates.size)}
+ val dayItems=remember(fullDayItems,timeAxis){if(timeAxis.startHour==0)fullDayItems else fullDayItems.mapValues{CalendarDayLayout.visible(it.value,timeAxis)}}
+ val overlapGroups=remember(dayItems){if(timeAxis.startHour==0)renderCache.groups(s.entries,start,dates.size)else dayItems.mapValues{CalendarOverlap.groups(it.value)}}
+ fun horizontalOffset()=ContinuousCalendarViewport.offset(start,centerDay,dayWidthPx,focusPx)
  val horizontalPreview:()->Pair<Float,Float> = {
-  if(zooming)previewScale/weekScale to previewX else 1f to horizontalOffset
+  if(zooming)dayPixels(previewScale)/dayWidthPx to ContinuousCalendarViewport.offset(start,previewCenter,dayPixels(previewScale),focusPx)
+  else 1f to horizontalOffset()
  }
  val lead=44f
  // Preserve the old saved format (pixels from 00:00). Folding hours changes only display coordinates.
@@ -108,20 +118,19 @@ private fun EventKind.label()=when(this){EventKind.TIMED->"日程";EventKind.DEA
    showBeforeSix=value
   }
  }
- fun limitX(value:Float,scale:Float=weekScale)=value.coerceIn(0f,(availableWidth.value*density*(scale-1)).coerceAtLeast(0f))
- val horizontalScroll=rememberScrollableState{delta->val old=horizontalOffset;horizontalOffset=limitX(old-delta);old-horizontalOffset}
- // Changing the week must not overwrite a manually panned viewport.
- // Only initial entry or an explicit date lookup recenters a day.
- LaunchedEffect(dateFocusRequest){if(appliedDateFocus!=dateFocusRequest){horizontalOffset=limitX((visible.dayOfWeek.value-1)*dayWidth.value*density-(availableWidth.value-dayWidth.value)*density/2);appliedDateFocus=dateFocusRequest}}
+ val horizontalScroll=rememberScrollableState{delta->centerDay=ContinuousCalendarViewport.pan(centerDay,delta,dayWidthPx);delta}
+ // Cancel a running fling before explicit navigation; seven-day jumps retain the fractional position.
+ LaunchedEffect(dateJump){dateJump?.let{target->horizontalScroll.scroll(MutatePriority.PreventUserInput){centerDay=target.second}}}
  Column(Modifier.fillMaxSize()) {
 
   Row(Modifier.fillMaxWidth().height(44.dp).padding(horizontal=12.dp),verticalAlignment=Alignment.CenterVertically) {
-   Text(CalendarViewport.range(visible),
-    modifier=Modifier.weight(1f).clickable{android.app.DatePickerDialog(context,platformDialogTheme,{_,y,m,d->selectDate(LocalDate.of(y,m+1,d),focus=true)},visible.year,visible.monthValue-1,visible.dayOfMonth).show()}.padding(vertical=8.dp),
-    fontSize=18.sp,fontWeight=FontWeight.SemiBold,maxLines=1,overflow=TextOverflow.Ellipsis)
-   CalendarAction("今天",{selectDate(calendarNow.toLocalDate(),focus=true);todayJump++})
-   Box(Modifier.size(30.dp).clickable{selectDate(visible.minusDays(7))}.semantics{contentDescription="上一周"},contentAlignment=Alignment.Center){LineIcon(AppGlyph.Back,Modifier.size(16.dp),Muted)}
-   Box(Modifier.size(30.dp).clickable{selectDate(visible.plusDays(7))}.semantics{contentDescription="下一周"},contentAlignment=Alignment.Center){LineIcon(AppGlyph.Next,Modifier.size(16.dp),Muted)}
+   Text(CalendarViewport.range(LocalDate.ofEpochDay(visibleDays.first),LocalDate.ofEpochDay(visibleDays.last)),
+    modifier=Modifier.weight(1f).clickable{android.app.DatePickerDialog(context,platformDialogTheme,{_,y,m,d->selectDate(LocalDate.of(y,m+1,d))},visible.year,visible.monthValue-1,visible.dayOfMonth).show()}.semantics{contentDescription="选择日期，居中显示"}.padding(end=4.dp,top=4.dp,bottom=4.dp),
+    autoSize=TextAutoSize.StepBased(minFontSize=8.sp,maxFontSize=18.sp,stepSize=.5.sp),
+    fontWeight=FontWeight.SemiBold,lineHeight=1.2.em,maxLines=1,softWrap=false)
+   CalendarAction("今天",{selectDate(calendarNow.toLocalDate());todayJump++})
+   Box(Modifier.size(30.dp).clickable{jumpTo(centerDay-7)}.semantics{contentDescription="上一周"},contentAlignment=Alignment.Center){LineIcon(AppGlyph.Back,Modifier.size(16.dp),Muted)}
+   Box(Modifier.size(30.dp).clickable{jumpTo(centerDay+7)}.semantics{contentDescription="下一周"},contentAlignment=Alignment.Center){LineIcon(AppGlyph.Next,Modifier.size(16.dp),Muted)}
    CalendarOverlapChooser(overlapMode,showBeforeSix,{value->runCatching{setShowBeforeSix(value)}.onFailure{android.widget.Toast.makeText(context,it.message,android.widget.Toast.LENGTH_SHORT).show()}}){mode->runCatching{setOverlap(mode)}.onFailure{android.widget.Toast.makeText(context,it.message,android.widget.Toast.LENGTH_SHORT).show()}}
    Box(Modifier.size(32.dp).clip(CircleShape).background(AccentSurface).clickable{edit(newEntry(visible))}.semantics{contentDescription="新增事项";role=Role.Button},contentAlignment=Alignment.Center){LineIcon(AppGlyph.Add,Modifier.size(18.dp),DutBlue)}
   }
@@ -134,30 +143,30 @@ private fun EventKind.label()=when(this){EventKind.TIMED->"日程";EventKind.DEA
   }
   // A shared horizontal offset keeps dates, all-day strips and timed columns aligned.
   Row(Modifier.fillMaxWidth().height(31.dp).padding(start=38.dp,bottom=3.dp),verticalAlignment=Alignment.CenterVertically) {
-   CalendarHorizontalStrip(dayWidth,dates.size,{horizontalOffset},Modifier.fillMaxSize().scrollable(horizontalScroll,Orientation.Horizontal),horizontalPreview){
-    dates.forEach{date->Row(Modifier.width(dayWidth).fillMaxHeight().clickable{selectDate(date)},horizontalArrangement=Arrangement.Center,verticalAlignment=Alignment.CenterVertically){
+   CalendarHorizontalStrip(dayWidth,dates.size,::horizontalOffset,Modifier.fillMaxSize().scrollable(horizontalScroll,Orientation.Horizontal),horizontalPreview){
+    dates.forEach{date->key(date){Row(Modifier.width(dayWidth).fillMaxHeight().clickable{selectDate(date)}.semantics{contentDescription="${date}，居中显示"},horizontalArrangement=Arrangement.Center,verticalAlignment=Alignment.CenterVertically){
      Text("周${"一二三四五六日"[date.dayOfWeek.value-1]}",fontSize=10.sp,color=Muted)
      Box(Modifier.padding(start=3.dp).size(21.dp).background(if(date==calendarNow.toLocalDate())DutBlue else Color.Transparent,CircleShape),contentAlignment=Alignment.Center){Text("${date.dayOfMonth}",fontSize=12.sp,fontWeight=FontWeight.Medium,color=if(date==calendarNow.toLocalDate())OnAccent else Ink)}
-    }}
+    }}}
    }
   }
   Row(Modifier.fillMaxWidth().height(24.dp),verticalAlignment=Alignment.CenterVertically) {
    Text("全天",fontSize=9.sp,color=Muted,modifier=Modifier.width(38.dp).padding(start=3.dp))
-   CalendarHorizontalStrip(dayWidth,dates.size,{horizontalOffset},Modifier.weight(1f).fillMaxHeight().scrollable(horizontalScroll,Orientation.Horizontal),horizontalPreview){
-    dates.forEach{date->
+   CalendarHorizontalStrip(dayWidth,dates.size,::horizontalOffset,Modifier.weight(1f).fillMaxHeight().scrollable(horizontalScroll,Orientation.Horizontal),horizontalPreview){
+    dates.forEach{date->key(date){
      val items=allDays[date].orEmpty()
      CalendarAllDayStrip(items,dayWidth,{edit(CalendarEntry(title="",kind=EventKind.ALL_DAY,start=date.atStartOfDay()).normalized())},edit,{allDayList=date})
-    }
+    }}
    }
   }
   var pinching by remember{mutableStateOf(false)}
-  val renderWindow by remember(density,availableWidth,initialViewportHeight,weekScale,hourHeight,timeAxis){derivedStateOf{
+  val renderWindow by remember(density,availableWidth,initialViewportHeight,weekScale,hourHeight,timeAxis,bufferedDays,focusPx){derivedStateOf{
    val scale=if(zooming)previewScale else weekScale
    CalendarRenderWindow.calculate(
-    (if(zooming)previewX else horizontalOffset)/density,
+    ContinuousCalendarViewport.offset(start,if(zooming)previewCenter else centerDay,dayPixels(scale),focusPx)/density,
     timeAxis.relativeOffset(if(zooming)previewY else offset,if(zooming)previewHeight else hourHeight,density)/density,
     availableWidth.value,if(viewportHeight>0)viewportHeight/density else initialViewportHeight,
-    availableWidth.value*scale/7,if(zooming)previewHeight else hourHeight,lead,timeAxis.firstMinute)
+    dayPixels(scale)/density,if(zooming)previewHeight else hourHeight,lead,timeAxis.firstMinute,dates.size)
   }}
   LaunchedEffect(todayJump){if(todayJump>0)offset=limitOffset(timeAxis.absoluteOffset(timeAxis.position((calendarNow.toLocalTime().toSecondOfDay()/60f-60).coerceAtLeast(timeAxis.firstMinute),hourHeight,lead)*density,hourHeight,density))}
   val scrolling=rememberScrollableState{delta->val old=offset;offset=limitOffset(offset-delta);old-offset}
@@ -165,20 +174,20 @@ private fun EventKind.label()=when(this){EventKind.TIMED->"日程";EventKind.DEA
    awaitEachGesture {
     awaitFirstDown(requireUnconsumed=false,pass=PointerEventPass.Initial)
     var pairIds:List<PointerId> = emptyList();var initialSpan=0f;var initialX=0f;var initialY=0f;var initialHeight=hourHeight;var initialScale=weekScale
-    var anchorMinute=0f;var anchorDay=0f;var scaleX=false;var scaleY=true;var claimed=false
+    var anchorMinute=0f;var anchorDay=0.0;var scaleX=false;var scaleY=true;var claimed=false
     try{
      do{
       val event=awaitPointerEvent(PointerEventPass.Initial)
       val fingers=event.changes.filter{it.pressed}.take(2)
       if(fingers.size==2){
-       if(!zooming){previewHeight=hourHeight;previewScale=weekScale;previewX=horizontalOffset;previewY=offset;zooming=true}
+       if(!zooming){previewHeight=hourHeight;previewScale=weekScale;previewCenter=centerDay;previewY=offset;zooming=true}
        pinching=true;claimed=true
        val ids=fingers.map{it.id};val delta=fingers[0].position-fingers[1].position;val span=delta.getDistance()
        val center=(fingers[0].position+fingers[1].position)/2f
        if(ids!=pairIds){
         pairIds=ids;initialSpan=span;initialX=abs(delta.x);initialY=abs(delta.y);initialHeight=previewHeight;initialScale=previewScale
         anchorMinute=timeAxis.minuteAt((timeAxis.relativeOffset(previewY,previewHeight,density)+center.y)/density,previewHeight,lead)
-        anchorDay=(previewX+center.x-38*density)/(availableWidth.value*density*previewScale/7)
+        anchorDay=previewCenter+(center.x-38*density-focusPx)/dayPixels(previewScale)
         scaleX=initialX>viewConfiguration.touchSlop*2&&initialX>=initialY*.7f
         scaleY=(initialY>viewConfiguration.touchSlop*2&&initialY>=initialX*.7f)
        }else if(initialSpan>viewConfiguration.touchSlop*2){
@@ -186,7 +195,7 @@ private fun EventKind.label()=when(this){EventKind.TIMED->"日程";EventKind.DEA
         val scale=if(scaleX)(initialScale*(abs(delta.x)/initialX).pow(.85f)).coerceIn(1f,7f)else previewScale
         androidx.compose.runtime.snapshots.Snapshot.withMutableSnapshot{
          previewHeight=height;previewY=limitOffset(timeAxis.absoluteOffset(timeAxis.position(anchorMinute,height,lead)*density-center.y,height,density),height)
-         previewScale=scale;previewX=limitX(anchorDay*availableWidth.value*density*scale/7-(center.x-38*density),scale)
+         previewScale=scale;previewCenter=anchorDay-(center.x-38*density-focusPx)/dayPixels(scale)
         }
        }
       }else pairIds=emptyList()
@@ -194,7 +203,7 @@ private fun EventKind.label()=when(this){EventKind.TIMED->"日程";EventKind.DEA
      }while(event.changes.any{it.pressed})
     }finally{
      androidx.compose.runtime.snapshots.Snapshot.withMutableSnapshot{
-      if(zooming){hourHeight=previewHeight;weekScale=previewScale;offset=previewY;horizontalOffset=previewX}
+      if(zooming){hourHeight=previewHeight;weekScale=previewScale;offset=previewY;centerDay=previewCenter}
       zooming=false;pinching=false
      }
     }
@@ -214,7 +223,7 @@ private fun EventKind.label()=when(this){EventKind.TIMED->"日程";EventKind.DEA
      val paint=timePaint
      (timeAxis.startHour..23).forEach{hour->val y=timeAxis.position(hour*60f,hourHeight,lead).dp.toPx();drawContext.canvas.nativeCanvas.drawText(hourLabels[hour],3.dp.toPx(),y-(paint.ascent()+paint.descent())/2,paint)}
     }
-    CalendarHorizontalStrip(dayWidth,dates.size,{horizontalOffset},Modifier.weight(1f).height(timeAxis.height(hourHeight,lead).dp),horizontalPreview){
+    CalendarHorizontalStrip(dayWidth,dates.size,::horizontalOffset,Modifier.weight(1f).height(timeAxis.height(hourHeight,lead).dp),horizontalPreview){
     dates.forEachIndexed{dayIndex,date->key(date){Box(Modifier.width(dayWidth).height(timeAxis.height(hourHeight,lead).dp).background(if(date==calendarNow.toLocalDate())DutBlue.copy(alpha=.018f)else Color.Transparent)) {
      val columnWidth=dayWidth;val lineColor=Hairline
      Canvas(Modifier.fillMaxSize().pointerInput(date,hourHeight,timeAxis){detectTapGestures{position->
