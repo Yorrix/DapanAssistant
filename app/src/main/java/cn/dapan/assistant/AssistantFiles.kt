@@ -39,25 +39,27 @@ object AssistantFiles {
   return AssistantFile(id,name,mime,file.length(),file.absolutePath,hint)
  }
  fun remove(file:AssistantFile){File(file.path).delete()}
- fun prune(c:Context){File(c.cacheDir,"assistant-files").listFiles()?.filter{System.currentTimeMillis()-it.lastModified()>86400000}?.forEach{it.delete()}}
+ fun prune(c:Context,retained:Set<String> = emptySet()){File(c.cacheDir,"assistant-files").listFiles()?.filter{it.name !in retained && System.currentTimeMillis()-it.lastModified()>86400000}?.forEach{it.delete()}}
  private fun image(bitmap:Bitmap):String {val out=ByteArrayOutputStream();bitmap.compress(Bitmap.CompressFormat.JPEG,82,out);return "data:image/jpeg;base64,"+Base64.encodeToString(out.toByteArray(),Base64.NO_WRAP)}
  fun prepare(c:Context,files:List<AssistantFile>):FileContext {
   val content=StringBuilder();val images=mutableListOf<String>()
+  val visualCount=files.count{it.mime.startsWith("image/") || it.mime=="application/pdf" || ext(it.name)=="pdf"}.coerceAtLeast(1)
+  val textLimit=60000/files.size.coerceAtLeast(1)
   for(file in files){
    val path=File(file.path);require(path.exists()){ "附件 ${file.name} 已失效，请重新选择" }
    content.append("\n附件：${file.name}；类型：${file.mime}；大小：${file.bytes}字节\n")
    when{
     file.mime.startsWith("image/")->{require(images.size<12){"本次图片和PDF页面合计超过12张，请分次发送"};val bitmap=ImageFiles.load(c,Uri.fromFile(path),1600);try{images+=image(bitmap)}finally{bitmap.recycle()};content.append("图片内容附在本次消息中。\n")}
     ext(file.name)=="pdf"||file.mime=="application/pdf"->{ParcelFileDescriptor.open(path,ParcelFileDescriptor.MODE_READ_ONLY).use{descriptor->PdfRenderer(descriptor).use{pdf->
-     val count=minOf(pdf.pageCount,6);require(images.size+count<=12){"本次图片和PDF页面合计超过12张，请分次发送"};content.append("PDF共${pdf.pageCount}页，仅提供前${count}页图像；不可推测未提供页面。\n")
+     val count=minOf(pdf.pageCount,6,12/visualCount);require(images.size+count<=12){"本次图片和PDF页面合计超过12张，请分次发送"};content.append("PDF共${pdf.pageCount}页，仅提供前${count}页图像；不可推测未提供页面。\n")
      for(i in 0 until count)pdf.openPage(i).use{page->val scale=1400f/maxOf(page.width,page.height);val bitmap=Bitmap.createBitmap((page.width*scale).toInt().coerceAtLeast(1),(page.height*scale).toInt().coerceAtLeast(1),Bitmap.Config.ARGB_8888);try{bitmap.eraseColor(Color.WHITE);page.render(bitmap,null,null,PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);images+=image(bitmap)}finally{bitmap.recycle()}}
     }}}
-    ext(file.name) in setOf("docx","pptx","xlsx")->content.append(office(path,ext(file.name)))
+    ext(file.name) in setOf("docx","pptx","xlsx")->content.append(office(path,ext(file.name),textLimit))
     readableText(file.name,file.mime)->{
      val bytes=path.inputStream().use{limited(it,262144)}
      val decoded=runCatching{Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString()}.getOrElse{String(bytes,charset("GB18030"))}
      require(!decoded.contains('\u0000')){"${file.name} 看起来是二进制文件，无法作为文本读取"}
-     content.append(decoded.take(50000));if(path.length()>bytes.size||decoded.length>50000)content.append("\n[文件过长，仅提供开头部分]")
+     content.append(decoded.take(textLimit));if(path.length()>bytes.size||decoded.length>textLimit)content.append("\n[文件过长，仅提供开头部分]")
     }
     else->content.append("仅有上述文件信息；此格式正文未被读取或传给模型。不得声称已读懂该文件，请告知用户改用可读格式。")
    }
@@ -107,4 +109,13 @@ object AssistantFiles {
   require(out.isNotBlank()){ "未从文档中提取到文字，请改用PDF或图片" }
   "[文档文字；未包含图片、样式和嵌入对象]\n"+out.take(maxCharacters)+(if(out.length>maxCharacters)"\n[仅提供开头${maxCharacters}字符]"else "")
  }
+}
+
+internal fun followsAttachment(text:String,history:List<String>):Boolean {
+    val marker=history.indexOfLast{it.contains("[附件：")}
+    if(marker<0) return false
+    val reference=Regex("这张图|那张图|上一张|附件里|图里|图中|按图|上一条消息不都读到|全部导入|全都导入|划掉导入")
+    if(reference.containsMatchIn(text)) return true
+    val continuation=Regex("^(?:对|是的|可以|确认|继续|下一条|再试一下|现在再试一下)[啊呢吧。！!，, ]*$")
+    return continuation.matches(text.trim()) && history.takeLast(2).any{Regex("图片|附件|导入|TTB").containsMatchIn(it)}
 }

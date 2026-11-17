@@ -31,10 +31,10 @@ import androidx.compose.ui.unit.*
   SettingsDivider()
   WeatherNotice.entries.forEachIndexed{index,notice->if(index>0)SettingsDivider();SettingsRow("${notice.label}天气",channelState(notice.preference),AppGlyph.Clock){channel(notice.preference)}}
  }
+ Text("定时提醒使用高优先级精确调度，系统可能显示下次闹钟标识；不会修改时钟应用中的闹钟。",fontSize=12.sp,lineHeight=17.sp,color=Muted)
  SettingsSection("每日提醒"){
   Column(Modifier.padding(12.dp),verticalArrangement=Arrangement.spacedBy(4.dp)){
    Text("晨签 · $morningInfo",fontSize=12.sp,lineHeight=17.sp)
-   Text("晨签最后一分钟 · "+when{!store.morningLastCall->"未开启";store.morningStart==null->"未设置统计起点";MorningLastCall.issue(c)!=null->MorningLastCall.issue(c);MorningLastCall.scheduledAt(c)<=0->"统计范围内暂无待提醒日期";else->java.time.format.DateTimeFormatter.ofPattern("MM-dd HH:mm").withZone(MorningCalendar.zone).format(java.time.Instant.ofEpochMilli(MorningLastCall.scheduledAt(c)))+" · 精确提醒"},fontSize=12.sp,lineHeight=17.sp)
    WeatherNotice.entries.forEach{notice->Text("${notice.label}天气 · ${if(WeatherMorning.enabled(c,notice))"每天 ${WeatherMorning.time(c,notice)}"else"未开启"}",fontSize=12.sp,lineHeight=17.sp)}
   }
  }

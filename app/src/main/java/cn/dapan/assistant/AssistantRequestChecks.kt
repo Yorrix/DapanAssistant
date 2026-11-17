@@ -50,7 +50,7 @@ internal object AssistantRequestChecks {
    if(a is AssistantAction.RenameEvents)validateCalendarScope(a.from,a.through,scopeRequest,today)
    if(a is AssistantAction.Reply&&access!="只读"&&request.contains("晨签")&&Regex("统计|结算|时间").containsMatchIn(request)&&Regex("改|设").containsMatchIn(request)&&clock.containsMatchIn(request)&&!Regex("起止|起点|终点|日期|哪天|多久|怎么").containsMatchIn(request))
     require(!Regex("需要|请告知|请提供").containsMatchIn(a.text)||!Regex("起止|开始日期|结束日期").containsMatchIn(a.text)){
-     "只改晨签时间无需起止日期。请用晨签configure仅传time=HH:mm；start/end/notify/lastCall省略后保留原设置，不能追问未要求修改的日期。"
+     "只改晨签时间无需起止日期。请用晨签configure仅传time=HH:mm；start/end/notify省略后保留原设置，不能追问未要求修改的日期。"
     }
    if(a is AssistantAction.Tool&&AssistantSurfaces.canonical(a.module)=="官网通知"&&a.operation=="filter"&&request.contains("来源")&&!Regex("(?:不|别).{0,3}(?:折叠|收起|展开)").containsMatchIn(request)){
     val expanded=when{Regex("折叠|收起").containsMatchIn(request)->false;request.contains("展开")->true;else->null}

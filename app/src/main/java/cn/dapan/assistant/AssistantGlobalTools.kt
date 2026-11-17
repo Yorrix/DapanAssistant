@@ -8,6 +8,8 @@ import java.time.*
 
 object AssistantGlobalTools{
  fun tools(c:Context,s:AppStore,attachments:List<AssistantFile>,favorites:ToolFavorites):Map<String,List<SurfaceTool>> = mapOf(
+  "TTB" to plannerTools(c,"TTB"),
+  "大纲" to plannerTools(c,"大纲"),
   "资料库" to listOf(
    surfaceTool("save_attachments","将AI栏明确指定的附件永久存入资料库；ids为附件ID数组，保存后返回不同的资料库ID","ids"){a->
     val ids=a.getJSONArray("ids").objectsAsText();require(ids.isNotEmpty()&&ids.size==ids.distinct().size){"附件列表为空或重复"}
@@ -23,12 +25,12 @@ object AssistantGlobalTools{
    surfaceTool("open","使用手机已安装的应用打开文件","id",false){a->val id=a.text("id");val d=LibraryStore(c).use{it.find(id)}?:error("文件不存在");prepared("打开 ${d.name}",a){LibraryStore(c).use{it.open(id)};"已请求打开 ${d.name}"}},
    surfaceTool("reindex","重建文件文字索引；图片使用当前公用或自备模式。公用图片须用户在资料库逐张确认发送至开发者服务器和DeepSeek；未确认只标记待识别，不会上传。仅在用户要求重试或重建时调用","id"){a->val id=a.text("id");val d=LibraryStore(c).use{it.find(id)}?:error("文件不存在");prepared("重建 ${d.name} 的文字索引",a){val state=withContext(Dispatchers.IO){LibraryStore(c).use{it.index(id,force=true);it.find(id)?.state.orEmpty()}};LibraryChanges.revision++;if(state==LibraryIndexState.PUBLIC_CONSENT)"尚未上传识别。请在资料库打开这张图片的文字索引，确认使用公用识别。"else if(d.kind==LibraryKind.IMAGE)"文字识别状态：$state"else"索引处理结果：$state"}}
   ),
-  "晨签" to listOf(surfaceTool("configure","修改晨签设置，所有字段均可省略并保留原值，只传要改的字段。例如只改7:40就仅传time=07:40，不需要用户提供起止日期。start/end=YYYY-MM-DD或空；notify为统计时询问；lastCall为统计时间前固定1分钟的精确提醒，布尔，默认关闭，使用系统闹钟精度且可能显示闹钟图标。不得单改lastCall时间","start,end,time,notify,lastCall"){a->
+  "晨签" to listOf(surfaceTool("configure","修改晨签设置，所有字段均可省略并保留原值，只传要改的字段。例如只改7:40就仅传time=07:40，不需要用户提供起止日期。start/end=YYYY-MM-DD或空；notify为统计时询问","start,end,time,notify"){a->
    val start=if(a.has("start"))a.optString("start").takeIf{it.isNotBlank()}?.let(LocalDate::parse)else s.morningStart
    val end=if(a.has("end"))a.optString("end").takeIf{it.isNotBlank()}?.let(LocalDate::parse)else s.morningEnd
-   val time=LocalTime.parse(a.optString("time",s.morningTime.toString()));val notify=a.optBoolean("notify",s.morningNotify);val lastCall=a.optBoolean("lastCall",s.morningLastCall)
+   val time=LocalTime.parse(a.optString("time",s.morningTime.toString()));val notify=a.optBoolean("notify",s.morningNotify)
    require(start==null||end==null||end>=start)
-   prepared("调整晨签统计",a){s.configureMorning(start,end,time,notify,lastCall);"晨签设置已保存"+if(lastCall)when{start==null->"；请先设置统计起点";MorningLastCall.issue(c)!=null->"；${MorningLastCall.issue(c)}";else->"；最后一分钟提醒为 ${time.minusMinutes(1)}，跟随统计时间"}else""}
+   prepared("调整晨签统计",a){s.configureMorning(start,end,time,notify);"晨签设置已保存"}
   }),
   "设置" to listOf(surfaceTool("theme","外观独立设置：mode=system/light/dark；shape=${UiShape.entries.joinToString("/"){it.label}}；palette=${UiColorPalette.entries.joinToString("/"){it.label}}。单改配色不变形状，单改形状不变配色。style仅兼容旧风格，会同时设置两者；不得修改助手权限或密钥","mode,shape,palette,style"){a->
    require(listOf("mode","shape","palette","style").any{a.has(it)}){"请指定形状、配色或明暗模式"}

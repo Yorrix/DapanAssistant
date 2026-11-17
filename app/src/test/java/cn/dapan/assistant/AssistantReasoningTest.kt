@@ -7,6 +7,24 @@ import org.junit.Test
 import java.time.LocalDateTime
 
 class AssistantReasoningTest {
+ @Test fun knownLookupRunsBeforeFirstModelCall()=runBlocking{
+  var reads=0;var calls=0
+  val result=AssistantReasoning.resolve(request={feedback->
+   calls++;assertEquals(1,reads);assertTrue(feedback.contains("items"))
+   JSONObject("""{"action":"chat","reply":"没有待办记录。"}""")
+  },lookup={reads++;"""{"items":[]}"""},validate={},groundingRequest="TTB有哪些")
+  assertEquals(1,calls);assertTrue(result is AssistantAction.Reply)
+ }
+ @Test fun alternatingLookupsHaveOneBoundedBudget()=runBlocking{
+  var calls=0
+  AssistantReasoning.resolve(request={calls++;JSONObject("""{"action":"lookup","module":"日历","query":"课程$calls"}""")},lookup={"""{"items":[]}"""},validate={})
+  assertEquals(4,calls)
+ }
+ @Test fun malformedOutputHasOnlyOneRepair()=runBlocking{
+  var calls=0
+  try{AssistantReasoning.resolve(request={calls++;throw ModelReplyFormatException("invalid_json")},lookup={""},validate={});fail()}
+  catch(_:ModelReplyFormatException){assertEquals(2,calls)}
+ }
  @Test fun invalidOperationIsRepairedBeforeReturningAnyAction()=runBlocking{
   var attempts=0;var validations=0
   val action=AssistantReasoning.resolve(request={feedback->

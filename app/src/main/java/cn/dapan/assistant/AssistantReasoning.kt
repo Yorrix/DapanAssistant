@@ -30,8 +30,29 @@ internal object AssistantReasoning {
   var repeatedLookups=0
   val rejected=mutableSetOf<String>()
   val promises=mutableSetOf<String>()
-  repeat(8){
-   val raw=request(JSONArray(observations).toString())
+  // Deterministic read-only grounding avoids spending a model turn asking for known data.
+  AssistantGrounding.lookupFor(groundingRequest)?.let{query->
+   progress("正在查找${query.module}资料…")
+   val observation=JSONObject().put("kind","lookup").put("module",query.module).put("query",query.query)
+    .put("id",query.id).put("offset",query.offset).put("limit",query.limit)
+   try{
+    val result=JSONObject(lookup(query))
+    if(result.has("error"))observation.put("error",result.get("error"))else{
+     observation.put("result",result)
+     lookups.add("${query.module}\u0000${query.query}\u0000${query.id}\u0000${query.offset}\u0000${query.limit}")
+    }
+   }catch(e:CancellationException){throw e}catch(e:Exception){observation.put("error",e.message?:"查询失败")}
+   observations+=observation
+   onEvidence(AssistantEvidence.retain(observations))
+  }
+  var formatRepairs=0
+  repeat(4){
+   val raw=try{request(JSONArray(observations).toString())}catch(e:ModelReplyFormatException){
+    if(formatRepairs++>=1||repairs+promiseRepairs>0)throw e
+    observations+=JSONObject().put("kind","format_error").put("executed",false)
+     .put("instruction","上一次格式不完整，尚未执行。请返回一个完整的 JSON 操作或简短澄清，不要重复解释。")
+    return@repeat
+   }
    var action=try{
     var decoded=AssistantSpokenIntent.clarify(AssistantActions.decode(raw),groundingRequest)
     decoded=normalize(decoded)
@@ -45,7 +66,7 @@ internal object AssistantReasoning {
    }catch(e:Exception){
     if(e is CancellationException)throw e
     if(e !is IllegalArgumentException&&e !is IllegalStateException&&e !is org.json.JSONException&&e !is java.time.DateTimeException)throw e
-    if(!rejected.add(canonical(raw).toString())||repairs++>=2)throw AssistantValidationFailure(e.message.orEmpty(),e)
+    if(!rejected.add(canonical(raw).toString())||repairs++ + promiseRepairs + formatRepairs>=1)throw AssistantValidationFailure(e.message.orEmpty(),e)
     progress("正在核对操作信息…")
     observations+=JSONObject().put("kind","validation_error").put("executed",false).put("proposal",raw)
      .put("reason",e.message).put("instruction","沿用当前任务的完整澄清链，用户对最近方案的确认有效。只修复参数或查找真实对象，不改变范围和数量，不为绕过校验偷偷挪时间。确实缺信息只问缺失项，不能再次询问已获确认的内容，不向用户转述内部校验指令。")
@@ -59,9 +80,13 @@ internal object AssistantReasoning {
     observations+=JSONObject().put("kind","answer_required").put("executed",false).put("instruction","用户要你读取资料并回答问题，不是只打开文件。请用lookup读取真实正文，随后用chat给出答案及引用；如果已有足够原文就直接回答，不要无故询问是否继续读。")
    }
    if(requiredLookup!=null&&observations.none{it.optString("kind")=="lookup"&&AssistantSurfaces.canonical(it.optString("module"))==requiredLookup.module})action=requiredLookup
+   else if(action is AssistantAction.Search&&requiredLookup!=null){
+    observations+=JSONObject().put("kind","answer_required").put("instruction","所需本机查询已经完成。根据已有结果返回操作或回答，不再返回search。")
+    return@repeat
+   }
    else if(libraryQuestion){progress("正在根据原文整理回答…");return@repeat}
    if(action is AssistantAction.Reply&&AssistantReplyGuard.promisesAction(action.text)){
-    if(!promises.add(canonical(raw).toString())||promiseRepairs++>=2)return AssistantAction.Reply("操作指令未能生成，尚未修改任何数据。你刚才的要求已保留，可以重试。")
+    if(!promises.add(canonical(raw).toString())||promiseRepairs++ + repairs + formatRepairs>=1)return AssistantAction.Reply("操作指令未能生成，尚未修改任何数据。你刚才的要求已保留，可以重试。")
     progress("正在生成可执行操作…")
     observations+=JSONObject().put("kind","action_missing").put("executed",false).put("proposal",raw)
      .put("instruction","这段回答承诺执行修改，但没有提交操作。按用户原要求及最新纠正返回真实结构化操作，沿用原范围和数量；不要再次要求已经给过的批准。确实缺少必填信息时只问缺失项。禁止把承诺当成执行结果。")
@@ -105,6 +130,9 @@ internal object AssistantGrounding {
   }
  }
  fun lookupFor(text:String):AssistantAction.Lookup?=when{
+  Regex("TTB|time\\s*table|大纲",RegexOption.IGNORE_CASE).containsMatchIn(text) &&
+   Regex("有哪些|有啥|列出|查一下|找一下|还有什么|还有哪些").containsMatchIn(text) &&
+   !Regex("不要查|不用查|别查").containsMatchIn(text)->AssistantAction.Lookup(if(text.contains("大纲")) "大纲" else "TTB","")
   Regex("提醒|叫我|通知我").containsMatchIn(text)&&AssistantConversationContext.referenceTitle(text)!=null->AssistantAction.Lookup("日历",AssistantConversationContext.referenceTitle(text)!!)
   Regex("刚才.{0,8}(?:操作|改了什么|做了什么|干了什么)|上一(?:次|步).{0,3}(?:操作|修改)").containsMatchIn(text)->AssistantAction.Lookup("操作记录","")
   needsLibrary(text)->AssistantAction.Lookup("资料库","")

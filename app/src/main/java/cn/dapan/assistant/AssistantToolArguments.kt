@@ -11,6 +11,8 @@ import java.time.YearMonth
  * current selection, permissions and runtime availability stay with the handlers. */
 internal object AssistantToolArguments {
  private val required=mapOf(
+  "TTB/add" to "title,day","TTB/edit" to "id","TTB/delete" to "id",
+  "大纲/add" to "title","大纲/edit" to "id","大纲/delete" to "id",
   "课堂助手/add" to "text", "tibo雷达/notification" to "enabled",
   "资料库/save_attachments" to "ids", "资料库/edit" to "id", "资料库/delete" to "id", "资料库/open" to "id", "资料库/reindex" to "id", "资料库/select" to "id",
   "抽签/select" to "id", "抽签/delete" to "id",
@@ -23,7 +25,7 @@ internal object AssistantToolArguments {
   "会议纪要/restore_text" to "clipId", "会议纪要/export" to "format", "会议纪要/delete_folder" to "folderId", "会议纪要/delete_clip" to "clipId",
   "二手信息/detail" to "id", "二手信息/status" to "id,status", "二手信息/delete" to "id", "二手信息/compose" to "kind,title"
  )
- private val booleanKeys=setOf("enabled","automatic","notify","lastCall","pointer","spinAfter","expanded","summary","original","known","all","mine","publish","consent","notifications","calls","landscape","moving","blink","bold","autoHide")
+ private val booleanKeys=setOf("enabled","automatic","notify","pointer","spinAfter","expanded","summary","original","known","all","mine","publish","consent","notifications","calls","landscape","moving","blink","bold","autoHide","important","crossed","folded")
  private val numberKeys=setOf("minutes","size","speed","shake","zoom","index","customMs","startMs","atMs")
  private val arrayKeys=setOf("ids","clipIds","sources","order","options")
 
@@ -37,6 +39,7 @@ internal object AssistantToolArguments {
    val value=args.get(key)
    require(value!==JSONObject.NULL){"$tool 的 $key 不能为 null；沿用当前值时请省略字段。"}
    when{
+    module=="TTB"&&op=="import_rows"&&key=="rows"->require(value is JSONArray){"rows 必须是数组"}
     key in arrayKeys||module=="今天"&&key=="enabled"->require(value is JSONArray){"$key 必须是数组"}
     key=="contacts"->require(value is JSONObject){"contacts 必须是联系方式对象"}
     key in booleanKeys->require(value is Boolean){"$key 必须是 true 或 false"}

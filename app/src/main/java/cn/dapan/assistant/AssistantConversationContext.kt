@@ -11,8 +11,11 @@ internal object AssistantConversationContext {
  private val follow=Regex("^(?:对|好|可以|行|没问题|确认|就|按|选|用|不是|不对|改成|是的|一[。！.!]?\\s*$|二[。！.!]?\\s*$|三[。！.!]?\\s*$|[123][。！.!]?\\s*$)")
  private val abandoned=Regex("(?:不用|不要|别|先不|先别|不再)(?:再)?管.{0,12}(?:了|那个|这个)|(?:先)?(?:取消|放弃)(?:刚才|之前|上面|那个|这个|这次)|(?:别|不|不要)说这个了|(?:先不|不再)(?:做|安排|处理|继续)(?:这个|那个|刚才|之前)")
  private fun startsNewTask(text:String)=abandoned.containsMatchIn(text)||(fresh.containsMatchIn(text)&&!follow.containsMatchIn(text))
+ private fun recoverable(line:ChatLine?)=line?.operation==null&&line?.text?.let{
+  it.startsWith("这次操作仍有信息冲突")||it.startsWith("AI 返回内容不完整")||it.startsWith("操作指令未能生成")
+ }==true
  private fun question(line:ChatLine?)=line?.operation==null&&line?.text?.let{
-  it.contains('？')||it.contains('?')||Regex("请(?:告诉|提供|补充|选择)|几点|在哪(?:里|儿)?|哪个|哪一种|哪种|是否|可以吗|好吗").containsMatchIn(it)
+  recoverable(line)||it.contains('？')||it.contains('?')||Regex("请(?:告诉|提供|补充|选择)|几点|在哪(?:里|儿)?|哪个|哪一种|哪种|是否|可以吗|好吗").containsMatchIn(it)
  }==true
  private fun threadStart(text:String,history:List<ChatLine>):Int {
   val latest=history.lastOrNull{it.role=="assistant"&&it.includeInModel}

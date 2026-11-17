@@ -11,10 +11,27 @@ class ChatStore(c:Context){
  private fun persist(){prefs.edit().putString("lines",JSONArray(lines.map{JSONObject().put("id",it.id).put("role",it.role).put("text",it.text).put("includeInModel",it.includeInModel).put("operation",it.operation?.json()).put("evidence",it.evidence).put("updatedAt",it.updatedAt)}).toString()).apply()}
  fun add(role:String,text:String,includeInModel:Boolean=true):String{val line=ChatLine(role,text,includeInModel);lines=(lines+line).takeLast(100);persist();return line.id}
  fun attachEvidence(id:String,evidence:String){if(evidence.isBlank())return;lines=lines.map{if(it.id==id)it.copy(evidence=evidence)else it};persist()}
+ fun rememberAttachments(lineId:String,files:List<AssistantFile>){
+  if(files.isEmpty())return
+  val groups=JSONObject(prefs.getString("attachmentGroups","{}")!!)
+  val retained=lines.map{it.id}.toSet()
+  groups.keys().asSequence().toList().filterNot{it in retained}.forEach(groups::remove)
+  groups.put(lineId,JSONArray(files.map{JSONObject().put("id",it.id).put("name",it.name).put("mime",it.mime).put("bytes",it.bytes).put("hint",it.hint)}))
+  prefs.edit().putString("attachmentGroups",groups.toString()).apply()
+ }
+ fun attachmentsFor(lineId:String,context:Context):List<AssistantFile>{
+  val group=JSONObject(prefs.getString("attachmentGroups","{}")!!).optJSONArray(lineId)?:return emptyList()
+  return group.objects().mapNotNull{
+   val id=it.optString("id")
+   if(runCatching{java.util.UUID.fromString(id)}.isFailure)return@mapNotNull null
+   val path=java.io.File(java.io.File(context.cacheDir,"assistant-files"),id)
+   AssistantFile(id,it.getString("name"),it.getString("mime"),it.getLong("bytes"),path.absolutePath,it.getString("hint"))
+  }
+ }
  fun accept(id:String){lines=lines.map{if(it.id==id)it.copy(includeInModel=true)else it};persist()}
  fun operation(value:AssistantOperation,text:String):String{val line=ChatLine("assistant",text,operation=value);lines=(lines+line).takeLast(100);trimUndo();persist();return line.id}
  fun updateOperation(id:String,value:AssistantOperation,text:String){lines=lines.map{if(it.id==id)it.copy(text=text,operation=value,updatedAt=System.currentTimeMillis())else it};trimUndo();persist()}
  private fun trimUndo(){val retained=lines.filter{it.operation?.undo!=null}.takeLast(10).map{it.id}.toSet();lines=lines.map{if(it.operation?.undo!=null&&it.id !in retained)it.copy(operation=it.operation.copy(memory=it.operation.memory.ifBlank{it.operation.undo?.let{u->AssistantOperationMemory.capture(u.before,u.after)}.orEmpty()},undo=null,detail=it.operation.detail+"\n撤销仅保留最近10次操作。"))else it}}
  fun invalidateOperations(){lines=lines.map{line->line.operation?.let{line.copy(operation=it.copy(status=if(it.status==OperationStatus.PENDING)OperationStatus.CANCELLED else it.status,undo=null,detail="数据已清理，旧操作不可继续执行或撤销。"))}?:line};persist()}
- fun clear(){lines=emptyList();prefs.edit().remove("lines").apply()}
+ fun clear(){lines=emptyList();prefs.edit().remove("lines").remove("attachmentGroups").apply()}
 }

@@ -31,7 +31,7 @@ import java.time.*
  DisposableEffect(lifecycle){val observer=androidx.lifecycle.LifecycleEventObserver{_,event->if(event==androidx.lifecycle.Lifecycle.Event.ON_RESUME)permissionOk=Build.VERSION.SDK_INT<33||context.checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)==PackageManager.PERMISSION_GRANTED};lifecycle.addObserver(observer);onDispose{lifecycle.removeObserver(observer)}}
  val requestPermission=rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()){permissionOk=it}
  fun configure(notice:WeatherNotice,value:Boolean,hour:LocalTime=noticeTimes.getValue(notice)){runCatching{WeatherMorning.configure(context,value,hour,notice);noticeEnabled[notice]=value;noticeTimes[notice]=hour}.onFailure{error="通知设置未完成：${it.message}"}}
- fun refresh(){if(loading)return;loading=true;scope.launch{try{result=withContext(Dispatchers.IO){WeatherData.fetch(context)};error=""}catch(e:CancellationException){throw e}catch(e:Exception){error="更新失败，请检查网络；已有预报会保留。"}finally{loading=false}}}
+ fun refresh(){if(loading)return;loading=true;scope.launch{try{result=withContext(Dispatchers.IO){WeatherData.fetch(context)};error=""}catch(e:CancellationException){throw e}catch(e:Exception){android.util.Log.w("DapanWeather","weather refresh failed",e);error=WeatherData.failureMessage(e)}finally{loading=false}}}
  LaunchedEffect(Unit){if(result==null)result=withContext(Dispatchers.IO){WeatherData.cached(context)};refresh()}
  AssistantSurface("天气",JSONObject().put("notifications",JSONArray(WeatherNotice.entries.map{JSONObject().put("period",it.label).put("enabled",noticeEnabled[it]).put("time",noticeTimes[it].toString()).put("forecast",it.dayLabel)})).put("current",result?.optJSONObject("current")),listOf(
   surfaceTool("refresh","刷新真实天气数据","",false){a->prepared("刷新天气",a){result=withContext(Dispatchers.IO){WeatherData.fetch(context)};"天气已更新"}},
@@ -114,7 +114,7 @@ import java.time.*
     }
    }
    if(noticeEnabled.values.any{it}&&!permissionOk)TextButton(onClick={if(Build.VERSION.SDK_INT>=33)requestPermission.launch(Manifest.permission.POST_NOTIFICATIONS)}){Text("需要允许通知权限",fontSize=12.sp)}
-   if(noticeEnabled.values.any{it}&&!Reminders.precise(context))Text("系统未允许准时提醒，通知可能延后；可在设置中开启。",fontSize=11.sp,color=Muted)
+   if(noticeEnabled.values.any{it}&&!Reminders.precise(context))Text("请在设置中允许准时提醒，授权后会自动安排天气通知。",fontSize=11.sp,color=Muted)
   }
   Text("Open-Meteo · CC BY 4.0 · 红/黄为出行提示，非官方预警",fontSize=9.sp,color=Muted)
   Spacer(Modifier.height(6.dp))

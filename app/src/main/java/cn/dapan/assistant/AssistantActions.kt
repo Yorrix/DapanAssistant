@@ -22,7 +22,7 @@ sealed interface AssistantAction {
 }
 
 object AssistantActions {
- val destinations=setOf("课堂助手","tibo雷达","tibo重置雷达","官网通知","二手信息","今天","日历","待办","晨签","信息查询","录音","校园热力图","热力图","导航","实时翻译","课堂生词","会议纪要","账单","快递","取件码","扫描文件","资料库","天气","抽签","手持弹幕","专注","地图","设置","工具","录音摘要","会议摘要")
+ val destinations=setOf("课堂助手","tibo雷达","tibo重置雷达","官网通知","二手信息","今天","日历","待办","晨签","信息查询","录音","校园热力图","热力图","导航","实时翻译","课堂生词","会议纪要","账单","快递","取件码","扫描文件","资料库","天气","抽签","手持弹幕","TTB","大纲","专注","地图","设置","工具","录音摘要","会议摘要")
  private val eventStrings=setOf("id","title","kind","start","end","reminder","absolute","category","location","notes")
  private val eventIntegers=setOf("travel","before")
  private val eventBooleans=setOf("completed","urgent","deferred")

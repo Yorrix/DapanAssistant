@@ -26,7 +26,7 @@ class AppStore private constructor(val context: Context) {
  var morningEnd by mutableStateOf<LocalDate?>(null)
  var morningTime by mutableStateOf(MorningCalendar.defaultTime)
  var morningNotify by mutableStateOf(false)
- var morningLastCall by mutableStateOf(false)
+
  var loadError by mutableStateOf<String?>(null)
  var focusEnd by mutableLongStateOf(0L)
  private var installedCampusServices=emptySet<String>()
@@ -45,7 +45,7 @@ class AppStore private constructor(val context: Context) {
    morningStart = o.optString("morningStart").takeIf { it.isNotBlank() }?.let(LocalDate::parse)
    morningEnd = o.optString("morningEnd").takeIf { it.isNotBlank() }?.let(LocalDate::parse)
    morningTime = o.optString("morningTime").takeIf { it.isNotBlank() }?.let(LocalTime::parse) ?: MorningCalendar.defaultTime
-   morningNotify = o.optBoolean("morningNotify"); morningLastCall = o.optBoolean("morningLastCall",false); focusEnd = o.optLong("focusEnd")
+   morningNotify = o.optBoolean("morningNotify"); focusEnd = o.optLong("focusEnd")
    o.optJSONArray("categories")?.let { categories = (0 until it.length()).map(it::getString).filter{it.isNotBlank()&&it!="无分类"}.distinct() }
    categories=(listOf("课程")+categories).distinct()
    o.optJSONArray("groups")?.let { groups = (0 until it.length()).map(it::getString) }
@@ -58,15 +58,15 @@ class AppStore private constructor(val context: Context) {
    .put("installedCampusServices",JSONArray(installedCampusServices.toList()))
    .put("notes",JSONArray(notes.map { JSONObject().put("id",it.id).put("module",it.module).put("title",it.title).put("detail",it.detail).put("group",it.group).put("done",it.done).put("created",it.created).put("attachments",JSONArray(it.attachments)) }))
    .put("checks",JSONArray(checks.map { JSONObject().put("date",it.date.toString()).put("required",it.required).put("passed",it.passed) }))
-   .put("morningStart",morningStart?.toString() ?: "").put("morningEnd",morningEnd?.toString() ?: "").put("morningTime",morningTime.toString()).put("morningNotify",morningNotify).put("morningLastCall",morningLastCall).put("focusEnd",focusEnd)
+   .put("morningStart",morningStart?.toString() ?: "").put("morningEnd",morningEnd?.toString() ?: "").put("morningTime",morningTime.toString()).put("morningNotify",morningNotify).put("focusEnd",focusEnd)
    .put("categories",JSONArray(categories)).put("groups",JSONArray(groups))
   val out = file.startWrite(); try { out.write(o.toString().toByteArray()); file.finishWrite(out) } catch(e: Exception) { file.failWrite(out); throw e }
  }
  private fun update(change:()->Unit) {
   check(loadError==null){"原数据读取失败，禁止覆盖"}
-  val oldEntries=entries;val oldNotes=notes;val oldChecks=checks;val oldCategories=categories;val oldGroups=groups;val oldFocus=focusEnd;val oldMorningStart=morningStart;val oldMorningEnd=morningEnd;val oldMorningTime=morningTime;val oldMorningNotify=morningNotify;val oldMorningLastCall=morningLastCall
+  val oldEntries=entries;val oldNotes=notes;val oldChecks=checks;val oldCategories=categories;val oldGroups=groups;val oldFocus=focusEnd;val oldMorningStart=morningStart;val oldMorningEnd=morningEnd;val oldMorningTime=morningTime;val oldMorningNotify=morningNotify
   val oldInstalled=installedCampusServices
-  try {change();save()}catch(e:Exception){installedCampusServices=oldInstalled;entries=oldEntries;notes=oldNotes;checks=oldChecks;categories=oldCategories;groups=oldGroups;focusEnd=oldFocus;morningStart=oldMorningStart;morningEnd=oldMorningEnd;morningTime=oldMorningTime;morningNotify=oldMorningNotify;morningLastCall=oldMorningLastCall;throw e}
+  try {change();save()}catch(e:Exception){installedCampusServices=oldInstalled;entries=oldEntries;notes=oldNotes;checks=oldChecks;categories=oldCategories;groups=oldGroups;focusEnd=oldFocus;morningStart=oldMorningStart;morningEnd=oldMorningEnd;morningTime=oldMorningTime;morningNotify=oldMorningNotify;throw e}
  }
  private fun installCampusServices(){
   val merged=CampusServices.merge(notes,installedCampusServices)
@@ -97,12 +97,12 @@ class AppStore private constructor(val context: Context) {
  fun remove(n: NoteItem) { update{notes = notes.filterNot { it.id == n.id }} }
  fun removeParcelCodes(ids:Set<String>) { update{notes=notes.filterNot{it.module=="快递"&&it.id in ids}} }
  fun updateFocusEnd(end:Long){update{focusEnd=end}}
- fun check(day: CheckDay) { require(MorningCalendar.canMark(day.date,MorningCalendar.now().toLocalDate())){"未来日期不能记录晨签"};update{checks = checks.filterNot { it.date == day.date } + day};if(day.date==MorningCalendar.now().toLocalDate()){context.getSystemService(android.app.NotificationManager::class.java).cancel(730);MorningLastCall.cancelNotification(context)};Reminders.reschedule(context) }
- fun configureMorning(start:LocalDate?,end:LocalDate?,time:LocalTime=morningTime,notify:Boolean=morningNotify,lastCall:Boolean=morningLastCall) {
+ fun check(day: CheckDay) { require(MorningCalendar.canMark(day.date,MorningCalendar.now().toLocalDate())){"未来日期不能记录晨签"};update{checks = checks.filterNot { it.date == day.date } + day};if(day.date==MorningCalendar.now().toLocalDate()){context.getSystemService(android.app.NotificationManager::class.java).cancel(730)};Reminders.reschedule(context) }
+ fun configureMorning(start:LocalDate?,end:LocalDate?,time:LocalTime=morningTime,notify:Boolean=morningNotify) {
   require(start==null||end==null||end>=start){"统计终点不能早于起点"}
-  update{morningStart=start;morningEnd=end;morningTime=time;morningNotify=notify;morningLastCall=lastCall}
+  update{morningStart=start;morningEnd=end;morningTime=time;morningNotify=notify}
   context.getSystemService(android.app.NotificationManager::class.java).cancel(730)
-  MorningLastCall.cancelNotification(context)
+
   Reminders.morning(context,notify)
  }
  fun addCategory(s: String) { if (s.isNotBlank() && s.trim()!="无分类" && s.trim() !in categories) update{categories = categories + s.trim()} }
@@ -124,7 +124,7 @@ class AppStore private constructor(val context: Context) {
   update{
    entries=entries.filterNot{ClearDataRules.entry(it,selected)}
    notes=notes.filterNot{ClearDataRules.note(it,selected)}
-   if(ClearDataKind.MORNING in selected){checks=emptyList();morningStart=null;morningEnd=null;morningTime=MorningCalendar.defaultTime;morningNotify=false;morningLastCall=false}
+   if(ClearDataKind.MORNING in selected){checks=emptyList();morningStart=null;morningEnd=null;morningTime=MorningCalendar.defaultTime;morningNotify=false}
   }
   // Recovery copies may contain records the user just chose to erase.
   listOf("before-course-import.json","before-last-import.json").forEach{name->
@@ -134,7 +134,7 @@ class AppStore private constructor(val context: Context) {
   val notifications=context.getSystemService(android.app.NotificationManager::class.java)
   Reminders.cancelMany(context,removed.map{it.id})
   removed.forEach{notifications.cancel(it.id.hashCode())}
-  if(ClearDataKind.MORNING in selected){MorningLastCall.clear(context);Reminders.morning(context,false);notifications.cancel(730)}
+  if(ClearDataKind.MORNING in selected){Reminders.morning(context,false);notifications.cancel(730)}
  }
  fun importTeaching(values:List<CalendarEntry>):String {
   require(values.size<=5000&&values.all{it.id.startsWith(TimetableImport.PREFIX)&&it.error()==null})
@@ -166,7 +166,7 @@ class AppStore private constructor(val context: Context) {
    morningStart=plan.after.morningStart;morningEnd=plan.after.morningEnd
    focusEnd=plan.focusMinutes?.let{System.currentTimeMillis()+it*60000L}?:plan.after.focusEnd
   }
-  if(plan.after.checks.any{it.date==MorningCalendar.now().toLocalDate()&&it !in plan.before.checks}){context.getSystemService(android.app.NotificationManager::class.java).cancel(730);MorningLastCall.cancelNotification(context)}
+  if(plan.after.checks.any{it.date==MorningCalendar.now().toLocalDate()&&it !in plan.before.checks}){context.getSystemService(android.app.NotificationManager::class.java).cancel(730)}
   var reminderFailed=false
   val old=plan.before.calendar.associateBy{it.id};val current=calendarEntries.associateBy{it.id}
   runCatching{Reminders.cancelMany(context,(old.keys-current.keys).toList())}.onFailure{reminderFailed=true}

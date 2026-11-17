@@ -17,9 +17,10 @@ object AssistantKnowledge{
   }
   fun match(text:String)=query.isBlank()||text.contains(query,true)
   val rows:List<JSONObject> = when(name){
+   "TTB","大纲"->return plannerLookup(PlannerStorage(c,name).read(),name,query,id,offset,root).toString()
    "日历","待办"->store.calendarEntries.filter{(name!="待办"||it.kind==EventKind.TODO)&&(id.isBlank()||it.id==id)&&AssistantRecordSearch.matches(it.title+it.notes+it.location+it.start.toLocalDate(),query)}.map(::entryToJson)
    "信息查询","账单","快递"->store.notes.filter{it.module==name&&(id.isBlank()||it.id==id)&&match(it.title+it.detail+it.group)}.map{JSONObject().put("id",it.id).put("title",it.title).put("detail",it.detail).put("group",it.group).put("created",it.created)}
-   "晨签"->{root.put("start",store.morningStart).put("end",store.morningEnd).put("time",store.morningTime.toString()).put("notify",store.morningNotify).put("lastCall",store.morningLastCall).put("lastCallTime",store.morningTime.minusMinutes(1).toString()).put("lastCallIssue",MorningLastCall.issue(c));store.checks.map{JSONObject().put("date",it.date.toString()).put("required",it.required).put("passed",it.passed)}}
+   "晨签"->{root.put("start",store.morningStart).put("end",store.morningEnd).put("time",store.morningTime.toString()).put("notify",store.morningNotify);store.checks.map{JSONObject().put("date",it.date.toString()).put("required",it.required).put("passed",it.passed)}}
    "会议纪要","录音"->{
     val lib=MeetingLibrary(c);val clips=Recordings.clips(c)
     lib.folders(clips).filter{f->

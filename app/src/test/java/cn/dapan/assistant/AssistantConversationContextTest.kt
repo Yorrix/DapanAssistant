@@ -11,6 +11,23 @@ class AssistantConversationContextTest {
  private fun snapshot(events:List<CalendarEntry>)=AssistantSnapshot(events,emptyList(),emptyList(),emptyList(),emptyList(),0)
  private fun validate(e:CalendarEntry,text:String,history:List<ChatLine> = emptyList(),records:List<CalendarEntry> = emptyList())=
   AssistantRequestChecks.validate(AssistantAction.Event(e),text,history,JSONObject(),"完全控制",day,snapshot(records))
+ @Test fun dateReplySurvivesRepeatedValidationFailures(){
+  val history=listOf(
+   ChatLine("user","11.10号大学生活与规划指导以后每周都有，到学期结束，时间沿用心理课"),
+   ChatLine("assistant","时间用18:00到19:35，地点仍是E201吗？"),
+   ChatLine("user","只是时间沿用之前心理课大多数那个，地点不变"),
+   ChatLine("assistant","截止日期是12月18日吗？"),
+   ChatLine("user","12.18"),
+   ChatLine("assistant","这次操作仍有信息冲突，尚未执行。你的要求已保留，可以重试。"),
+   ChatLine("user","12.18"),
+   ChatLine("assistant","这次操作仍有信息冲突，尚未执行。你的要求已保留，可以重试。"))
+  val request=AssistantConversationContext.userRequest("12.18",history)
+  assertTrue(request.contains("大学生活与规划指导"));assertTrue(request.contains("地点不变"))
+ }
+ @Test fun shortTypeAnswerRetainsTaskTitle(){
+  val history=listOf(ChatLine("user","加一个题表，英语考试信息表。"),ChatLine("assistant","要加一个待办吗？"))
+  assertTrue(AssistantConversationContext.userRequest("tdl",history).contains("英语考试信息表"))
+ }
  @Test fun relativeEndUsesExactlyOneRealRecord(){
   val source=entry(15).copy(title="跟辅导员谈话",end=day.atTime(15,30))
   validate(entry(15,30),"等会儿跟辅导员谈话结束后提醒我交材料",records=listOf(source))

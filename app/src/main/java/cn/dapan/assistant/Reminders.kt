@@ -26,8 +26,8 @@ object Reminders {
  fun precise(c: Context) = Build.VERSION.SDK_INT < 31 || c.getSystemService(AlarmManager::class.java).canScheduleExactAlarms()
  internal fun alarm(c:Context,millis:Long,p:PendingIntent):Boolean {
   val a=c.getSystemService(AlarmManager::class.java)
-  if(precise(c))try{a.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,millis,p);return true}catch(_:SecurityException){ReminderTrace.log(c,"精确提醒权限变更，改用系统普通提醒")}
-  a.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,millis,p)
+  if(precise(c))try{val show=PendingIntent.getActivity(c,0,Intent(c,MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP),PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+   a.setAlarmClock(AlarmManager.AlarmClockInfo(millis,show),p);return true}catch(_:SecurityException){ /* permission changed */ }
   return false
  }
  fun schedule(c: Context,e: CalendarEntry) {
@@ -37,6 +37,7 @@ object Reminders {
  fun morning(c:Context,enabled:Boolean){if(!enabled)ReminderTrace.forget(c,"morning");reschedule(c)}
  fun focus(c:Context,end:Long){if(end<=0)ReminderTrace.forget(c,"focus");reschedule(c)}
  fun diagnostic(c:Context,seconds:Int=60){
+  check(precise(c)){"请先允许准时提醒"}
   val delay=seconds.coerceIn(10,600)
   val due=System.currentTimeMillis()+delay*1000L
   prefs(c).edit().putLong("diagnostic",due).putLong("testDue",due).remove("testHandled").remove("testPosted").commit()
@@ -69,7 +70,7 @@ object Reminders {
  @Synchronized fun reschedule(c:Context){
   if(dispatching)return
   val app=c.applicationContext;val s=AppStore.get(app);val p=prefs(app);val a=app.getSystemService(AlarmManager::class.java)
-  runCatching{MorningLastCall.schedule(app,s)}.onFailure{ReminderTrace.log(app,"晨签最后一分钟未能安排：${it.javaClass.simpleName}")}
+  if(!p.getBoolean("legacyMorningRemoved",false)){MorningLastCall.clear(app);p.edit().putBoolean("legacyMorningRemoved",true).apply()}
   if(p.getInt("version",0)<2){
    s.entries.forEach{a.cancel(intent(app,it.id))}
    listOf("morning","focus","diagnostic").forEach{a.cancel(intent(app,it,it))}
@@ -82,6 +83,7 @@ object Reminders {
   val next=ReminderQueue.nextWake(items)
   if(next==null){a.cancel(tick(app));p.edit().remove("next").remove("exact").apply();return}
   val exact=alarm(app,next,tick(app)) // Same PendingIntent replaces atomically; no cancel-before-set gap.
+  if(!exact){a.cancel(tick(app));p.edit().remove("next").putBoolean("exact",false).apply();ReminderTrace.log(app,"需要系统精确提醒权限，授权后将重新安排");return}
   items.forEach{ReminderTrace.plan(app,it.ticket.key,it.ticket.due)}
   if(p.getLong("next",0)!=next||p.getBoolean("exact",false)!=exact)
    ReminderTrace.log(app,"已申请 ${if(exact)"精确"else"普通"}调度 · ${java.time.format.DateTimeFormatter.ofPattern("MM-dd HH:mm:ss").withZone(ZoneId.systemDefault()).format(Instant.ofEpochMilli(next))}")
@@ -135,8 +137,7 @@ object Reminders {
 }
 class ReminderReceiver: BroadcastReceiver() {
  override fun onReceive(context: Context,intent: Intent) {
-  if(intent.action==MorningLastCall.ACTION){MorningLastCall.receive(context.applicationContext,intent);return}
-  if(intent.action==MorningLastCall.PASS_ACTION){MorningLastCall.markPassed(context.applicationContext,intent);return}
+  if(intent.action in setOf(MorningLastCall.ACTION,MorningLastCall.PASS_ACTION)){MorningLastCall.clear(context);return}
   if(intent.action in setOf("check-pass","check-fail")){
     val store=AppStore.get(context);if(store.loadError!=null)return
     val date=runCatching{LocalDate.parse(intent.getStringExtra("id"))}.getOrNull()?:return

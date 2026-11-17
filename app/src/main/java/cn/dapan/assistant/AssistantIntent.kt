@@ -51,7 +51,7 @@ internal object AssistantIntent {
  private fun explicitDuration(action:AssistantAction,request:String):AssistantAction {
   val actions=if(action is AssistantAction.Batch)action.actions else listOf(action)
   val timed=actions.filterIsInstance<AssistantAction.Event>().singleOrNull()?.takeIf{it.value.kind==EventKind.TIMED}?:return action
-  val amounts=Regex("(?:时长(?:为|是)?|持续|占用|用时|设为|设成|设)\\s*([0-9零〇一二两三四五六七八九十]+)\\s*(分钟|小时)").findAll(request).filter{m->
+  val amounts=Regex("(?:时长(?:为|是)?|持续|占用|用时|设为|设成|(?:创建|新建|设)(?:一(?:个|条)|个|条)?)\\s*([0-9零〇一二两三四五六七八九十]+)\\s*(分钟|小时)").findAll(request).filter{m->
    val prefix=request.substring(0,m.range.first).substringAfterLast('，').substringAfterLast('。')
    !Regex("不要|不用|别|提醒|提前|路程|通知|备注|标题|名称|录音|视频|[“\"]").containsMatchIn(prefix)
   }.toList()

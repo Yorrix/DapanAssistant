@@ -42,7 +42,7 @@ private fun toolGlyph(name:String)=when(name){
  else->AppGlyph.Tools
 }
 val toolGroups=listOf(
-  "常用工具" to listOf("晨签","扫描文件","专注","抽签","手持弹幕"),
+  "常用工具" to listOf("晨签","TTB","大纲","扫描文件","专注","抽签","手持弹幕"),
   "地图" to listOf("导航","热力图"),
   "生活" to listOf("二手信息","账单","取件码","天气"),
   "信息查询" to listOf("官网通知","信息查询","资料库","tibo雷达"),

@@ -9,10 +9,10 @@ class AssistantEvidenceTest {
  @Test fun documentQuestionReadsLibraryBeforeClaimingItIsMissing()=runBlocking{
   var calls=0;var reads=0
   val action=AssistantReasoning.resolve(request={feedback->
-   if(calls++==0)JSONObject("""{"action":"chat","reply":"这份只是临时附件，无法读取命名要求。请重新上传。"}""")
-   else{assertTrue(feedback.contains("library-real"));JSONObject("""{"action":"chat","reply":"报告按学号_姓名.pdf命名。"}""")}
+   calls++;assertEquals(1,reads);assertTrue(feedback.contains("library-real"))
+   JSONObject("""{"action":"chat","reply":"报告按学号_姓名.pdf命名。"}""")
   },lookup={reads++;assertEquals("资料库",it.module);"""{"items":[{"id":"library-real","name":"说明.txt","text":"学号_姓名.pdf"}]}"""},validate={},groundingRequest="那份报告说明的文件命名要求告诉我，引用原文")
-  assertEquals(1,reads);assertEquals(2,calls);assertTrue((action as AssistantAction.Reply).text.contains("学号_姓名.pdf"))
+  assertEquals(1,reads);assertEquals(1,calls);assertTrue((action as AssistantAction.Reply).text.contains("学号_姓名.pdf"))
  }
  @Test fun libraryUsageAdviceDoesNotTriggerContentReads(){
   listOf("教我怎么查资料库原文","不要查资料，先解释引用是什么","怎么保存文件到资料库").forEach{assertFalse(it,AssistantGrounding.needsLibrary(it))}

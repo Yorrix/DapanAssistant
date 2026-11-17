@@ -63,6 +63,7 @@ internal object AssistantRequestGuard {
    "晨签"->op=="configure"||(op=="month"&&hasText("month"))
    "天气"->op in setOf("refresh","notification")
    "日历"->op=="import_courses"||op=="view"||(op in setOf("category_add","category_delete")&&hasText("name"))
+   "TTB","大纲"->op in setOf("add","import_rows") || hasText("id")
    "账单"->op=="month"&&hasText("month")
    "信息查询"->op=="view"
    "资料库"->when(op){

@@ -85,7 +85,7 @@ import kotlinx.coroutines.*
       SettingsDivider()
       SettingsRow("准时提醒",if(exact)"已允许"else"未允许",AppGlyph.Clock){if(android.os.Build.VERSION.SDK_INT>=31)runCatching{context.startActivity(Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM,Uri.parse("package:${context.packageName}")))}.onFailure{error="请在系统设置中允许闹钟和提醒"}}
      }
-     Text(if(exact)"日程使用系统定时提醒，不会向手机闹钟 App 添加闹钟。"else"通知权限与准时提醒权限不同；未允许准时提醒时，系统可能延后通知。",fontSize=12.sp,lineHeight=17.sp,color=Muted)
+     Text(if(exact)"日程、晨签询问、天气和专注结束均使用系统精确提醒。"else"请允许准时提醒，授权后会自动安排待提醒事项。",fontSize=12.sp,lineHeight=17.sp,color=Muted)
      ReminderHealth(store,revision){error=it}
     }
     "备份与清理"->{

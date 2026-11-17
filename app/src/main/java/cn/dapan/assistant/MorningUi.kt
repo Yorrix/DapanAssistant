@@ -24,10 +24,10 @@ import java.time.format.DateTimeFormatter
 
 @Composable fun MorningScreen(s:AppStore) {
  val context=LocalContext.current
- var permissionRevision by remember{mutableIntStateOf(0)}
- val notifyPermission=androidx.activity.compose.rememberLauncherForActivityResult(androidx.activity.result.contract.ActivityResultContracts.RequestPermission()){granted->if(!granted)android.widget.Toast.makeText(context,"通知未获允许，可在设置中开启",android.widget.Toast.LENGTH_SHORT).show();Reminders.reschedule(context);permissionRevision++}
+
+ val notifyPermission=androidx.activity.compose.rememberLauncherForActivityResult(androidx.activity.result.contract.ActivityResultContracts.RequestPermission()){granted->if(!granted)android.widget.Toast.makeText(context,"通知未获允许，可在设置中开启",android.widget.Toast.LENGTH_SHORT).show();Reminders.reschedule(context)}
  val lifecycle=(context as androidx.activity.ComponentActivity).lifecycle
- DisposableEffect(lifecycle){val observer=androidx.lifecycle.LifecycleEventObserver{_,event->if(event==androidx.lifecycle.Lifecycle.Event.ON_RESUME){Reminders.reschedule(context);permissionRevision++}};lifecycle.addObserver(observer);onDispose{lifecycle.removeObserver(observer)}}
+ DisposableEffect(lifecycle){val observer=androidx.lifecycle.LifecycleEventObserver{_,event->if(event==androidx.lifecycle.Lifecycle.Event.ON_RESUME){Reminders.reschedule(context)}};lifecycle.addObserver(observer);onDispose{lifecycle.removeObserver(observer)}}
  val tick by rememberDashboardTime()
  val now=tick.atZone(ZoneId.systemDefault()).withZoneSameInstant(MorningCalendar.zone).toLocalDateTime()
  val today=now.toLocalDate()
@@ -47,7 +47,7 @@ import java.time.format.DateTimeFormatter
  fun label(status:MorningStatus)=when(status){MorningStatus.EXCLUDED->"不计入";MorningStatus.FAILED->"不合格";MorningStatus.PASSED->"合格"}
  fun record(day:CheckDay){runCatching{s.check(day);error=""}.onFailure{error=it.message?:"未能保存，请重试"}}
  fun chooseDate(value:LocalDate,onChoose:(LocalDate)->Unit){DatePickerDialog(context,platformDialogTheme,{_,y,m,d->onChoose(LocalDate.of(y,m+1,d))},value.year,value.monthValue-1,value.dayOfMonth).show()}
- AssistantSurface("晨签",JSONObject().put("month",monthText).put("start",s.morningStart).put("end",s.morningEnd).put("time",s.morningTime.toString()).put("notify",s.morningNotify).put("lastCall",s.morningLastCall),listOf(surfaceTool("month","切换晨签月历 month=YYYY-MM","month",false){a->val m=YearMonth.parse(a.text("month")).toString();prepared("查看晨签月历",a){monthText=m;"已显示 $m 晨签记录"}}))
+ AssistantSurface("晨签",JSONObject().put("month",monthText).put("start",s.morningStart).put("end",s.morningEnd).put("time",s.morningTime.toString()).put("notify",s.morningNotify),listOf(surfaceTool("month","切换晨签月历 month=YYYY-MM","month",false){a->val m=YearMonth.parse(a.text("month")).toString();prepared("查看晨签月历",a){monthText=m;"已显示 $m 晨签记录"}}))
  Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal=12.dp).padding(bottom=LocalFloatingAiHeight.current+10.dp),verticalArrangement=Arrangement.spacedBy(6.dp)){
   Panel{
    Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(6.dp)){
@@ -124,24 +124,8 @@ import java.time.format.DateTimeFormatter
     Text("通知询问",Modifier.weight(1f),fontSize=12.sp)
     Switch(s.morningNotify,{enabled->if(enabled&&android.os.Build.VERSION.SDK_INT>=33&&context.checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)!=android.content.pm.PackageManager.PERMISSION_GRANTED)notifyPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS);runCatching{s.configureMorning(s.morningStart,s.morningEnd,notify=enabled)}.onFailure{error=it.message?:"保存失败"}})
    }
-   Row(Modifier.fillMaxWidth().heightIn(min=42.dp),verticalAlignment=Alignment.CenterVertically){
-    Column(Modifier.weight(1f)){
-     Text("结束前 1 分钟提醒",fontSize=12.sp)
-     Text("${if(s.morningTime<LocalTime.of(0,1))"前一天 "else""}${s.morningTime.minusMinutes(1).format(DateTimeFormatter.ofPattern("HH:mm"))} · 跟随统计时间，精确提醒",fontSize=10.sp,color=Muted)
-    }
-    Switch(s.morningLastCall,{enabled->
-     runCatching{s.configureMorning(s.morningStart,s.morningEnd,lastCall=enabled);permissionRevision++}.onFailure{error=it.message?:"保存失败"}
-     if(enabled&&android.os.Build.VERSION.SDK_INT>=33&&context.checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)!=android.content.pm.PackageManager.PERMISSION_GRANTED)notifyPermission.launch(android.Manifest.permission.POST_NOTIFICATIONS)
-    })
-   }
-   if(s.morningLastCall){
-    Text("仅在需要晨签且尚未记录时提醒；系统可能显示下次闹钟图标。",fontSize=10.sp,lineHeight=14.sp,color=Muted)
-    val issue=remember(permissionRevision,s.morningLastCall,s.morningTime,s.morningStart,s.morningEnd){MorningLastCall.issue(context)}
-    issue?.let{Text(it,fontSize=11.sp,color=MaterialTheme.colorScheme.error)}
-    if(!Reminders.precise(context))TextButton(onClick={runCatching{context.startActivity(android.content.Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM,android.net.Uri.parse("package:${context.packageName}")))}.onFailure{error="请在系统设置中允许大盘助手使用闹钟和提醒"}},contentPadding=PaddingValues(0.dp)){Text("允许精确计时",fontSize=12.sp)}
-   }
   }
-  if((s.morningNotify||s.morningLastCall)&&s.morningStart==null)Text("设置统计起点后才会安排晨签通知。",fontSize=12.sp,color=Muted)
+  if(s.morningNotify&&s.morningStart==null)Text("设置统计起点后才会安排晨签通知。",fontSize=12.sp,color=Muted)
   Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically){
    Column(Modifier.weight(1f)){
     Text("统计范围",fontSize=11.sp,color=Muted)

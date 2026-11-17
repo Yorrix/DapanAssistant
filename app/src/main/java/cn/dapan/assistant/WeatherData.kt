@@ -16,10 +16,36 @@ object WeatherData {
  fun snapshot():JSONObject?=memory
  private val client=OkHttpClient.Builder().callTimeout(7,TimeUnit.SECONDS).build()
  fun cached(c:Context):JSONObject?=memory?:runCatching{JSONObject(c.getSharedPreferences("weather-cache",0).getString("data",null)!!)}.getOrNull()?.also{memory=it}
- fun fetch(c:Context):JSONObject=client.newCall(Request.Builder().url(URL).build()).execute().use{r->
-  check(r.isSuccessful){"天气服务暂不可用"};val raw=r.body?.string()?:error("天气数据为空");val data=JSONObject(raw)
-  data.getJSONObject("current");data.getJSONObject("hourly");data.getJSONObject("daily")
-  c.getSharedPreferences("weather-cache",0).edit().putString("data",raw).putLong("fetched",System.currentTimeMillis()).apply();memory=data;data
+ const val FALLBACK_URL="https://39.105.161.86/weather/campus"
+ private val fallbackClient=client.newBuilder().callTimeout(20,TimeUnit.SECONDS).build()
+ internal fun loadForecast(load:(String)->String):JSONObject {
+  var first:Exception?=null
+  for(url in listOf(URL,FALLBACK_URL))try{
+   val data=JSONObject(load(url))
+   data.getJSONObject("current");data.getJSONObject("hourly");data.getJSONObject("daily")
+   return data
+  }catch(e:Exception){
+   if(e is kotlinx.coroutines.CancellationException)throw e
+   if(Thread.currentThread().isInterrupted)throw e
+   if(first==null)first=e else {e.addSuppressed(first);throw e}
+  }
+  error("天气更新失败")
+ }
+ fun fetch(c:Context):JSONObject {
+  val data=loadForecast{url->
+   (if(url==FALLBACK_URL)fallbackClient else client).newCall(Request.Builder().url(url).build()).execute().use{r->
+    check(r.isSuccessful){"天气服务返回 HTTP ${r.code}"}
+    r.body?.string()?:error("天气数据为空")
+   }
+  }
+  c.getSharedPreferences("weather-cache",0).edit().putString("data",data.toString()).putLong("fetched",System.currentTimeMillis()).apply()
+  memory=data;return data
+ }
+ fun failureMessage(e:Exception):String=when(e){
+  is javax.net.ssl.SSLException->"天气连接安全握手失败，请稍后重试；已有预报会保留。"
+  is java.net.UnknownHostException->"无法解析天气服务地址；已有预报会保留。"
+  is java.io.InterruptedIOException->"天气服务连接超时；已有预报会保留。"
+  else->if(e.message?.startsWith("天气服务返回 HTTP ")==true)"${e.message}；已有预报会保留。" else "天气更新失败；已有预报会保留。"
  }
  fun value(o:JSONObject,key:String,i:Int?=null):Double? {
   val raw=if(i==null)o.opt(key)else o.optJSONArray(key)?.opt(i)

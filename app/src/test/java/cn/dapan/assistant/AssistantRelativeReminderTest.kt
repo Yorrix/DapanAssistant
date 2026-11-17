@@ -24,6 +24,13 @@ class AssistantRelativeReminderTest {
   assertEquals(course.end,added.start);assertEquals(course.end.plusMinutes(1),added.end)
   assertEquals(course.end,added.reminderTime());assertEquals("",added.location);assertEquals("",added.notes)
  }
+ @Test fun spokenCreateOneMinuteKeepsCourseEnd(){
+  val text="明天的习概课下课的时候，创建一个 1 分钟的时间。提醒我在路上想作文"
+  val proposed=AssistantAction.Event(reminder.copy(end=course.end.plusHours(1)))
+  val action=AssistantIntent.referenceReminder(AssistantIntent.normalize(proposed,text),text,listOf(course),today) as AssistantAction.Event
+  assertEquals(course.end.plusMinutes(1),action.value.end)
+  assertEquals(course.end,action.value.reminderTime())
+ }
  @Test fun conversationalPrefixesAndWordOrderResolveSameSource(){
   listOf(request,"在明天的习概下课时提醒我", "等明天习概结束之后提醒我", "明天上完习概后提醒我", "明日习概下课就提醒", "周二习概下课后提醒", "10月27日习概结束后提醒", "2026-10-27习概下课时提醒").forEach{
    assertTrue(it,AssistantConversationContext.anchoredTime(it,course.end,listOf(course),today))
@@ -60,7 +67,7 @@ class AssistantRelativeReminderTest {
  @Test fun changedInvalidProposalsStillHaveBoundedRecovery()=runBlocking{
   var calls=0
   try{AssistantReasoning.resolve(request={JSONObject().put("action","focus").put("minutes",900+(calls++))},lookup={error("unused")},validate={});fail("reject")}
-  catch(_:AssistantValidationFailure){assertEquals(3,calls)}
+  catch(_:AssistantValidationFailure){assertEquals(2,calls)}
  }
  @Test fun sameInvalidProposalWithReorderedKeysStopsEarly()=runBlocking{
   var calls=0
